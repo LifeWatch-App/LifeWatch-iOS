@@ -76,20 +76,41 @@ class NotificationsManager: ObservableObject {
         
     }
     
-    // Get the client's notification settings.
+    /// Call this function to notify debug `user's notification settings`.
+    ///
+    /// ```
+    /// NotificationsManager.getNotifySettings()
+    /// ```
+    /// - Parameters:
+    ///     - None
+    /// - Returns: The `debug print` for the notification settings of the user, what is on and what is disabled by them. This can be used for alerts.
     func getNotifySettings() {
         self.notificationsCenter.getNotificationSettings { settings in
             debugPrint("Notification settings: \(settings)")
         }
     }
     
-    //Reset All Delivered and Pending Notifications.
+    /// Call this function to notify debug `user's notification settings`.
+    ///
+    /// ```
+    /// NotificationsManager.resetAllNotifications()
+    /// ```
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Void, it resets all the notificationsCenter settings.
     func resetAllNotifications(){
         self.notificationsCenter.removeAllDeliveredNotifications()
         self.notificationsCenter.removeAllPendingNotificationRequests()
     }
     
-    // Subscribe to Senior Alerts
+    /// Call this function so users can `subscribe to a CloudKit record`.
+    /// This function enables detection if `any alert is added (as a row) to the CloudKit record`
+    /// ```
+    /// NotificationsManager.subscribeToSeniorAlerts()
+    /// ```
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Void, it sets up user's notifications.
     func subscribeToSeniorAlerts() {
         let predicate = NSPredicate(value: true)
         let subscription = CKQuerySubscription(recordType: "SeniorAlert", predicate: predicate, subscriptionID: "senior_alert", options: .firesOnRecordCreation)
@@ -106,6 +127,26 @@ class NotificationsManager: ObservableObject {
                 print(error)
             } else {
                 print("Successfully subscribed to senior alerts.")
+            }
+        }
+    }
+    
+    /// Call this function so users to `test the subscription to Senior Alerts`.
+    ///
+    /// ```
+    /// NotificationsManager.testSeniorAlerts()
+    /// ```
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Void, it sets up the test for the subscription of user's notifications..
+    func testSeniorAlerts() {
+        let record = CKRecord(recordType: "SeniorAlert")
+        record["id"] = UUID().uuidString
+        CKContainer.default().publicCloudDatabase.save(record) { (returnedRecord, error) in
+            if (error == nil){
+                debugPrint("Added Row to Senior Alert")
+            } else if let error {
+                debugPrint(error)
             }
         }
     }

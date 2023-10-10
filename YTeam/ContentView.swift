@@ -23,15 +23,7 @@ struct ContentView: View {
                 notifications.subscribeToSeniorAlerts()
             }
             Button("Add to record") {
-                let record = CKRecord(recordType: "SeniorAlert")
-                record["id"] = UUID().uuidString
-                CKContainer.default().publicCloudDatabase.save(record) { (returnedRecord, error) in
-                    if (error == nil){
-                        debugPrint("Added Row to Senior Alert")
-                    } else if let error {
-                        debugPrint(error)
-                    }
-                }
+                notifications.testSeniorAlerts()
             }
         }
         .padding()
