@@ -17,9 +17,18 @@ class NotificationsManager: ObservableObject {
     // Checks if we have notifications center on, if not do throw error and close the application.
     init() {
         self.notificationsCenter
-            .requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (granted, error) in
+            .requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (success, error) in
             if let error: Error {
-                print(error)
+                debugPrint(error)
+            } else if success {
+                debugPrint("Notifications permissions success.")
+                
+                // Allow APNs
+                DispatchQueue.main.async{
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            } else {
+                debugPrint("Notifications permissions failure.")
             }
         })
     }
