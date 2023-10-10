@@ -11,7 +11,7 @@ import SwiftUI
 struct YTeamApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginRegisterView()
+            ContentView()
         }
     }
 }

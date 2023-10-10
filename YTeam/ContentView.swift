@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CloudKit
 
 struct ContentView: View {
     
@@ -18,6 +19,20 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, World!")
+            Button("Subscribe to notifications") {
+                notifications.subscribeToSeniorAlerts()
+            }
+            Button("Add to record") {
+                let record = CKRecord(recordType: "SeniorAlert")
+                record["id"] = UUID().uuidString
+                CKContainer.default().publicCloudDatabase.save(record) { (returnedRecord, error) in
+                    if (error == nil){
+                        debugPrint("Added Row to Senior Alert")
+                    } else if let error {
+                        debugPrint(error)
+                    }
+                }
+            }
         }
         .padding()
     }

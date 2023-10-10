@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import CloudKit
 
 class NotificationsManager: ObservableObject {
     
@@ -87,5 +87,26 @@ class NotificationsManager: ObservableObject {
     func resetAllNotifications(){
         self.notificationsCenter.removeAllDeliveredNotifications()
         self.notificationsCenter.removeAllPendingNotificationRequests()
+    }
+    
+    // Subscribe to Senior Alerts
+    func subscribeToSeniorAlerts() {
+        let predicate = NSPredicate(value: true)
+        let subscription = CKQuerySubscription(recordType: "SeniorAlert", predicate: predicate, subscriptionID: "senior_alert", options: .firesOnRecordCreation)
+        
+        let notification = CKSubscription.NotificationInfo()
+        notification.title = "Your Senior is in Danger"
+        notification.alertBody = "Check out on your senior!"
+        notification.soundName = "default"
+        
+        subscription.notificationInfo = notification
+        
+        CKContainer.default().publicCloudDatabase.save(subscription) { returnedSubscription, returnedError in
+            if let error = returnedError{
+                print(error)
+            } else {
+                print("Successfully subscribed to senior alerts.")
+            }
+        }
     }
 }
