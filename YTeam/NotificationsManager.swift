@@ -28,7 +28,7 @@ class NotificationsManager: ObservableObject {
     /// Call this function to notify the user when app is `closed`.
     ///
     /// ```
-    /// NotificationsManager.notify(triggerInSeconds: <Double>, notificationId: <String>, notificationTitle: <String>, notificationSubtitle: <String>, notificationBody: <String>)
+    /// NotificationsManager.notifyLocally(triggerInSeconds: <Double>, notificationId: <String>, notificationTitle: <String>, notificationSubtitle: <String>, notificationBody: <String>)
     /// ```
     ///
     ///
@@ -40,8 +40,8 @@ class NotificationsManager: ObservableObject {
     ///     - notificationBody: Add wht you want to show in the body.
     /// - Returns: A notificaiton scheduled in `triggerinSeconds` seconds,  .with a `notificationId`, with a title of `notificationTitle, with a
     ///   subtitle of `notificationSubtitle`, and a body of `notificationBody`.
-    ///   
-    func notify(triggerInSeconds: Double, notificationId: String, notificationTitle: String, notificationSubtitle: String, notificationBody: String) {
+    ///
+    func notifyLocally(triggerInSeconds: Double, notificationId: String, notificationTitle: String, notificationSubtitle: String, notificationBody: String) {
         
         // Sets the trigger settings, default: triggerInSeconds second of trigger and does not repeat.
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: triggerInSeconds, repeats: false)
