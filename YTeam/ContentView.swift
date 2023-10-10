@@ -22,8 +22,8 @@ struct ContentView: View {
                 self.count += 1
             }
         }
-        .onChange(of: count){
-            notifications.notify(notificationId: "test", notificationTitle: "Test", notificationSubtitle: "Test")
+        .onAppear{
+            notifications.notify(triggerInSeconds: 30.0, repeatNotification: false, notificationId: "test", notificationTitle: "Test", notificationSubtitle: "Test", notificationBody: "Test")
         }
         .padding()
     }

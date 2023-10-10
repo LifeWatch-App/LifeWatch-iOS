@@ -14,10 +14,6 @@ class NotificationsManager: ObservableObject {
     // Sets the current phone's notification center.
     private let notificationsCenter = UNUserNotificationCenter.current()
     
-    // Sets the trigger settings, default: 1 second of trigger and does not repeat.
-    private let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60.0, repeats: false)
-    
-    
     // Checks if we have notifications center on, if not do throw error and close the application.
     init() {
         self.notificationsCenter
@@ -29,8 +25,11 @@ class NotificationsManager: ObservableObject {
     }
     
     // Call this function to notify the user.
-    func notify(notificationId: String, notificationTitle: String, notificationSubtitle: String, notificationBody: String) {
-    
+    func notify(triggerInSeconds: Double, repeatNotification: Bool, notificationId: String, notificationTitle: String, notificationSubtitle: String, notificationBody: String) {
+        
+        // Sets the trigger settings, default: triggerInSeconds second of trigger and does not repeat.
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: triggerInSeconds, repeats: repeatNotification)
+        
         let content = UNMutableNotificationContent()
         
         content.title = notificationTitle
@@ -47,7 +46,6 @@ class NotificationsManager: ObservableObject {
                 debugPrint("Error: \(error.localizedDescription)")
             } else {
                 debugPrint("Scheduled Notification Successfully")
-                self.notificationsCenter.removePendingNotificationRequests(withIdentifiers: [notificationId])
             }
         }
         
