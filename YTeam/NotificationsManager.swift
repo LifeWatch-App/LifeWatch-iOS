@@ -24,11 +24,27 @@ class NotificationsManager: ObservableObject {
         })
     }
     
-    // Call this function to notify the user.
-    func notify(triggerInSeconds: Double, repeatNotification: Bool, notificationId: String, notificationTitle: String, notificationSubtitle: String, notificationBody: String) {
+
+    /// Call this function to notify the user when app is `closed`.
+    ///
+    /// ```
+    /// NotificationsManager.notify(triggerInSeconds: <Double>, notificationId: <String>, notificationTitle: <String>, notificationSubtitle: <String>, notificationBody: <String>)
+    /// ```
+    ///
+    ///
+    /// - Parameters:
+    ///     - triggerInSeconds: How many seconds after the instantiation should the notification be triggered.
+    ///     - notificationId: Add a custom notificationID key. It could be anything.
+    ///     - notificationTitle: Add what you want to show in the title.
+    ///     - notificationSubtitle: Add what you want to show in the subtitle.
+    ///     - notificationBody: Add wht you want to show in the body.
+    /// - Returns: A notificaiton scheduled in `triggerinSeconds` seconds,  .with a `notificationId`, with a title of `notificationTitle, with a
+    ///   subtitle of `notificationSubtitle`, and a body of `notificationBody`.
+    ///   
+    func notify(triggerInSeconds: Double, notificationId: String, notificationTitle: String, notificationSubtitle: String, notificationBody: String) {
         
         // Sets the trigger settings, default: triggerInSeconds second of trigger and does not repeat.
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: triggerInSeconds, repeats: repeatNotification)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: triggerInSeconds, repeats: false)
         
         let content = UNMutableNotificationContent()
         
