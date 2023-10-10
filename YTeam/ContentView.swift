@@ -8,12 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var notifications: NotificationsManager = NotificationsManager()
+    
+    @State var count: Int = 0
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("\(count)")
+            Button("Add Count"){
+                self.count += 1
+            }
+        }
+        .onAppear{
+            notifications.notify(notificationId: "test", notificationTitle: "Test", notificationSubtitle: "Test")
         }
         .padding()
     }
