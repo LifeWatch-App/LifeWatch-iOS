@@ -17,13 +17,7 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("\(count)")
-            Button("Add Count"){
-                self.count += 1
-            }
-        }
-        .onAppear{
-            notifications.notify(triggerInSeconds: 30.0, repeatNotification: false, notificationId: "test", notificationTitle: "Test", notificationSubtitle: "Test", notificationBody: "Test")
+            Text("Hello, World!")
         }
         .padding()
     }

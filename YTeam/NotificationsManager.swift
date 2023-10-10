@@ -41,7 +41,7 @@ class NotificationsManager: ObservableObject {
     /// - Returns: A notificaiton scheduled in `triggerinSeconds` seconds,  .with a `notificationId`, with a title of `notificationTitle, with a
     ///   subtitle of `notificationSubtitle`, and a body of `notificationBody`.
     ///
-    func notifyLocally(triggerInSeconds: Double, notificationId: String, notificationTitle: String, notificationSubtitle: String, notificationBody: String) {
+    func notify(triggerInSeconds: Double, notificationId: String, notificationTitle: String, notificationSubtitle: String, notificationBody: String) {
         
         // Sets the trigger settings, default: triggerInSeconds second of trigger and does not repeat.
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: triggerInSeconds, repeats: false)
