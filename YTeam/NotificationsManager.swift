@@ -33,8 +33,8 @@ class NotificationsManager: ObservableObject {
     
         let content = UNMutableNotificationContent()
         
-        content.title = "Drink some milk!"
-        content.subtitle = "you have 10 sec"
+        content.title = notificationTitle
+        content.subtitle = notificationSubtitle
         content.sound = .default
         
         let request = UNNotificationRequest(identifier: notificationId, content: content, trigger: trigger)
