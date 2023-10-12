@@ -118,22 +118,22 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		4C6049C32AD7948700E9F0BF /* ViewModel */ = {
+		4C6049C32AD7948700E9F0BF /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				4C6049C42AD7948F00E9F0BF /* AuthViewModel.swift */,
 				4C6049D82AD8361D00E9F0BF /* ExampleViewModel.swift */,
 			);
-			path = ViewModel;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		4C6049CC2AD7AEC800E9F0BF /* Model */ = {
+		4C6049CC2AD7AEC800E9F0BF /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				4C6049CD2AD7AF4000E9F0BF /* UserData.swift */,
 				4C6049D12AD7FD4A00E9F0BF /* Invite.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		4CB0154D2AD4DBBC0023C71E = {
@@ -157,11 +157,11 @@
 		4CB015582AD4DBBC0023C71E /* YTeam */ = {
 			isa = PBXGroup;
 			children = (
-				4C6049CC2AD7AEC800E9F0BF /* Model */,
-				4C6049C32AD7948700E9F0BF /* ViewModel */,
+				4C6049CC2AD7AEC800E9F0BF /* Models */,
+				4C6049C32AD7948700E9F0BF /* ViewModels */,
 				4C6049A12AD78DE800E9F0BF /* GoogleService-Info.plist */,
 				4CB015802AD4E6E00023C71E /* YTeam.entitlements */,
-				4CB0157D2AD4E5A20023C71E /* View */,
+				4CB0157D2AD4E5A20023C71E /* Views */,
 				4CB015592AD4DBBC0023C71E /* YTeamApp.swift */,
 				4CB0155B2AD4DBBC0023C71E /* ContentView.swift */,
 				4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */,
@@ -199,14 +199,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		4CB0157D2AD4E5A20023C71E /* View */ = {
+		4CB0157D2AD4E5A20023C71E /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				4CB0157E2AD4E5F60023C71E /* LoginView.swift */,
 				4C6049C62AD7968700E9F0BF /* MainView.swift */,
 				4C6049C82AD799F200E9F0BF /* SignUpView.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

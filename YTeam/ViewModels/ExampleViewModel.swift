@@ -12,12 +12,6 @@ import FirebaseFirestoreSwift
 
 class ExampleViewModel: ObservableObject {
     let db = Firestore.firestore()
-    var invitesListener: ListenerRegistration?
-    var user: User? {
-        didSet {
-            objectWillChange.send()
-        }
-    }
     
     func addFallHistory() {
         var ref: DocumentReference? = nil
