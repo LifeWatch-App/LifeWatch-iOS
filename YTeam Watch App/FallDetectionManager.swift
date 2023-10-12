@@ -15,8 +15,18 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     
     override init() {
         super.init()
+        self.assignDelegate()
+        self.checkForAuthorizationStatus()
+    }
+    
+    func assignDelegate() {
         self.fallDetector.delegate = self
-        if self.fallDetector.authorizationStatus == .notDetermined{
+    }
+    
+    func checkForAuthorizationStatus() {
+        if self.fallDetector.authorizationStatus == .authorized {
+            self.authorized = true
+        } else {
             self.fallDetector.requestAuthorization { currentStatus in
                 switch currentStatus {
                 case .authorized:
@@ -34,4 +44,11 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
         didDetect event: CMFallDetectionEvent) async {
         print("Fall Detected!", event.date, event.resolution.rawValue)
     }
+    
+    func fallDetectionManagerDidChangeAuthorization(
+        _ fallDetectionManager: CMFallDetectionManager
+    )  {
+        print("Authorization for fall detection is changed.")
+    }
+    
 }

@@ -14,6 +14,7 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
+            fallDetectionManager.authorized ? Text("Fall Detection Authorized, Try Falling!") : Text("Authorize First")
         }
         .padding()
     }
