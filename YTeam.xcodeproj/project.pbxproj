@@ -16,6 +16,7 @@
 		4CB0156E2AD4DBBF0023C71E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0156D2AD4DBBF0023C71E /* ContentView.swift */; };
 		4CB015702AD4DBC00023C71E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB0156F2AD4DBC00023C71E /* Assets.xcassets */; };
 		4CB015732AD4DBC00023C71E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB015722AD4DBC00023C71E /* Preview Assets.xcassets */; };
+		7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7202AD8ECD500923AFB /* Screen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		4CB0156D2AD4DBBF0023C71E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4CB0156F2AD4DBC00023C71E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CB015722AD4DBC00023C71E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7D02E7202AD8ECD500923AFB /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		4CB015582AD4DBBC0023C71E /* YTeam */ = {
 			isa = PBXGroup;
 			children = (
+				7D02E71F2AD8ECA300923AFB /* Utilities */,
 				4CB015592AD4DBBC0023C71E /* YTeamApp.swift */,
 				4CB0155B2AD4DBBC0023C71E /* ContentView.swift */,
 				4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */,
@@ -127,6 +130,14 @@
 				4CB015722AD4DBC00023C71E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		7D02E71F2AD8ECA300923AFB /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7D02E7202AD8ECD500923AFB /* Screen.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +244,7 @@
 			files = (
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
 				4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */,
+				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
