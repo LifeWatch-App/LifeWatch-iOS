@@ -11,7 +11,7 @@ import AuthenticationServices
 import FirebaseAuth
 
 struct SignUpView: View {
-    @EnvironmentObject private var authViewModel: AuthViewModel
+    @ObservedObject private var signUpViewModel = SignUpViewModel()
     @State var email = ""
     @State var password = ""
     
@@ -27,7 +27,7 @@ struct SignUpView: View {
     }
     
     func signUp() {
-        authViewModel.signUp(email: email, password: password)
+        signUpViewModel.signUp(email: email, password: password)
     }
 }
 

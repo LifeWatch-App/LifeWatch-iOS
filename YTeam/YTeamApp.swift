@@ -23,7 +23,7 @@ struct YTeamApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                ContentView().environmentObject(AuthViewModel())
+                ContentView()
             }
         }
     }

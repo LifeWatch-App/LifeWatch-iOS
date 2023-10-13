@@ -1,25 +1,20 @@
 //
-//  AuthRepository.swift
+//  AuthService.swift
 //  YTeam
 //
-//  Created by Yap Justin on 12/10/23.
+//  Created by Yap Justin on 13/10/23.
 //
 
-import Foundation
-import FirebaseAuth
-import FirebaseFirestore
+import Firebase
 import FirebaseFirestoreSwift
 
-class AuthViewModel: ObservableObject {
+class AuthService {
     let db = Firestore.firestore()
-    var invitesListener: ListenerRegistration?
-    var user: User? {
-        didSet {
-            objectWillChange.send()
-        }
-    }
+    static let shared = AuthService()
+    @Published var user: User?
     @Published var userData: UserData?
     @Published var invites: [Invite] = []
+    var invitesListener: ListenerRegistration?
     
     func listenToAuthState() {
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
@@ -30,8 +25,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func login(email: String,
-               password: String) {
+    func login(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "")
@@ -41,10 +35,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func signUp(
-        email: String,
-        password: String
-    ) {
+    func signUp(email: String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error != nil {
                 print(error?.localizedDescription ?? "")
@@ -53,9 +44,9 @@ class AuthViewModel: ObservableObject {
                 
                 self.db
                     .collection("users")
-                    .document(self.user!.uid)
+                    .document(AuthService.shared.user!.uid)
                     .setData([
-                        "email": self.user!.email!,
+                        "email": AuthService.shared.user!.email!,
                         "role": NSNull()
                     ]) { [weak self] err in
                         guard self != nil else { return }
@@ -73,23 +64,22 @@ class AuthViewModel: ObservableObject {
     func signOut() {
         do {
             try Auth.auth().signOut()
-            invitesListener?.remove()
-            userData = nil
+            AuthService.shared.userData = nil
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
     }
     
     func getUserData() {
-        db.collection("users").document(user!.uid).getDocument { (querySnapshot, err) in
+        db.collection("users").document(AuthService.shared.user!.uid).getDocument { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 print(querySnapshot!.data() ?? "nil")
-                self.userData = try? querySnapshot!.data(as: UserData.self)
+                AuthService.shared.userData = try? querySnapshot!.data(as: UserData.self)
                 
-                if self.userData != nil {
-                    self.invitesListener = self.db.collection("invites").whereField(self.userData!.role == "senior" ? "seniorEmail" : "caregiverEmail", isEqualTo: self.user!.email!)
+                if AuthService.shared.userData != nil {
+                    self.invitesListener = self.db.collection("invites").whereField(AuthService.shared.userData!.role == "senior" ? "seniorEmail" : "caregiverEmail", isEqualTo: AuthService.shared.user!.email!)
                         .addSnapshotListener { querySnapshot, error in
                             guard let documents = querySnapshot?.documents else {
                                 print("No documents in invites")
@@ -115,14 +105,14 @@ class AuthViewModel: ObservableObject {
     }
     
     func setRole(role: String) {
-        db.collection("users").document(user!.uid).updateData([
+        db.collection("users").document(AuthService.shared.user!.uid).updateData([
             "role": role
         ]) { err in
             if let err = err {
                 print("Error updating document: \(err)")
             } else {
                 print("Document successfully updated")
-                self.userData?.role = role
+                AuthService.shared.userData?.role = role
             }
         }
     }
@@ -131,7 +121,7 @@ class AuthViewModel: ObservableObject {
         var ref: DocumentReference? = nil
         ref = db.collection("invites").addDocument(data: [
             "seniorEmail": email,
-            "caregiverEmail": user!.email!,
+            "caregiverEmail": AuthService.shared.user!.email!,
             "accepted": false
         ]) { err in
             if let err = err {

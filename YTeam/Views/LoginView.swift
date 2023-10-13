@@ -11,7 +11,7 @@ import AuthenticationServices
 import FirebaseAuth
 
 struct LoginView: View {
-    @EnvironmentObject private var authViewModel: AuthViewModel
+    @ObservedObject private var loginViewModel = LoginViewModel()
     @State var isSigningUp = false
     @State var email = ""
     @State var password = ""
@@ -22,7 +22,7 @@ struct LoginView: View {
                 TextField("Email", text: $email)
                 SecureField("Password", text: $password)
                 Button {
-                    authViewModel.login(email: email, password: password)
+                    loginViewModel.login(email: email, password: password)
                 } label: {
                     Text("Sign in")
                 }

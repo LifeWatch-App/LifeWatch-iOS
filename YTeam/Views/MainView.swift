@@ -8,18 +8,17 @@
 import SwiftUI
 
 struct MainView: View {
-    
-    @EnvironmentObject private var authViewModel: AuthViewModel
+    @ObservedObject private var mainViewModel = MainViewModel()
     @State var email = ""
     
     var body: some View {
-        if (authViewModel.userData?.role != nil) {
+        if (mainViewModel.userData?.role != nil) {
             VStack {
                 Text("Welcome!")
-                Text("\(authViewModel.user?.email ?? "")")
-                if authViewModel.userData?.role == "senior" {
+                Text("\(mainViewModel.user?.email ?? "")")
+                if mainViewModel.userData?.role == "senior" {
                     Text("Give your email to your caregivers")
-                    ForEach(authViewModel.invites, id: \.self) { invite in
+                    ForEach(mainViewModel.invites, id: \.self) { invite in
                         HStack {
                             Text(invite.seniorEmail!)
                             Text(invite.caregiverEmail!)
@@ -29,11 +28,11 @@ struct MainView: View {
                     Text("Enter your senior's email")
                     TextField("Email", text: $email)
                     Button {
-                        authViewModel.sendRequestToSenior(email: email)
+                        mainViewModel.sendRequestToSenior(email: email)
                     } label: {
                         Text("Request access")
                     }
-                    ForEach(authViewModel.invites, id: \.self) { invite in
+                    ForEach(mainViewModel.invites, id: \.self) { invite in
                         HStack {
                             Text(invite.seniorEmail!)
                             Text(invite.caregiverEmail!)
@@ -45,7 +44,7 @@ struct MainView: View {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     Button(
                         action: {
-                            authViewModel.signOut()
+                            mainViewModel.signOut()
                         },
                         label: {
                             Text("Sign Out")
@@ -56,15 +55,15 @@ struct MainView: View {
             }
         } else {
             VStack {
-                Text("\(authViewModel.user?.email ?? "")")
+                Text("\(mainViewModel.user?.email ?? "")")
                 Text("Choose Role")
                 Button {
-                    authViewModel.setRole(role: "senior")
+                    mainViewModel.setRole(role: "senior")
                 } label: {
                     Text("As a senior")
                 }
                 Button {
-                    authViewModel.setRole(role: "caregiver")
+                    mainViewModel.setRole(role: "caregiver")
                 } label: {
                     Text("As a caregiver")
                 }
@@ -73,7 +72,7 @@ struct MainView: View {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     Button(
                         action: {
-                            authViewModel.signOut()
+                            mainViewModel.signOut()
                         },
                         label: {
                             Text("Sign Out")
@@ -83,9 +82,7 @@ struct MainView: View {
                 }
             }
             .onAppear {
-                authViewModel.getUserData()
-                let vm = ExampleViewModel()
-                vm.addFallHistory()
+                mainViewModel.getUserData()
             }
         }
     }
