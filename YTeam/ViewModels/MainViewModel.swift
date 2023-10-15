@@ -51,4 +51,8 @@ class MainViewModel: ObservableObject {
     func sendRequestToSenior(email: String) {
         AuthService.shared.sendRequestToSenior(email: email)
     }
+    
+    func acceptInvite(id: String) {
+        AuthService.shared.acceptInvite(id: id)
+    }
 }

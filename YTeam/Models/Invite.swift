@@ -12,5 +12,5 @@ struct Invite: Identifiable, Codable, Hashable {
     @DocumentID var id: String?
     var seniorEmail: String?
     var caregiverEmail: String?
-    var isAccepted: Bool?
+    var accepted: Bool?
 }

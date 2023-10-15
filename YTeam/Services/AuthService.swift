@@ -96,8 +96,6 @@ class AuthService {
                                     return nil
                                 }
                             }
-                            
-                            print(self.invites)
                         }
                 }
             }
@@ -118,16 +116,42 @@ class AuthService {
     }
     
     func sendRequestToSenior(email: String) {
-        var ref: DocumentReference? = nil
-        ref = db.collection("invites").addDocument(data: [
-            "seniorEmail": email,
-            "caregiverEmail": AuthService.shared.user!.email!,
-            "accepted": false
+        db.collection("invites")
+            .whereField("seniorEmail", isEqualTo: email)
+            .whereField("caregiverEmail", isEqualTo: AuthService.shared.user!.email!)
+            .getDocuments(completion: { snapshot, error in
+                if let err = error {
+                    print("Error getting document: \(err)")
+                    return
+                }
+                
+                guard let docs = snapshot?.documents else { return }
+                
+                if docs.isEmpty {
+                    var ref: DocumentReference? = nil
+                    ref = self.db.collection("invites").addDocument(data: [
+                        "seniorEmail": email,
+                        "caregiverEmail": AuthService.shared.user!.email!,
+                        "accepted": false
+                    ]) { err in
+                        if let err = err {
+                            print("Error adding document: \(err)")
+                        } else {
+                            print("Invite added with ID: \(ref!.documentID)")
+                        }
+                    }
+                }
+            })
+    }
+    
+    func acceptInvite(id: String) {
+        db.collection("invites").document(id).updateData([
+            "accepted": true
         ]) { err in
             if let err = err {
-                print("Error adding document: \(err)")
+                print("Error updating document: \(err)")
             } else {
-                print("Invite added with ID: \(ref!.documentID)")
+                print("Document successfully updated")
             }
         }
     }

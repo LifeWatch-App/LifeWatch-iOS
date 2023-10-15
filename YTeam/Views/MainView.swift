@@ -22,6 +22,12 @@ struct MainView: View {
                         HStack {
                             Text(invite.seniorEmail!)
                             Text(invite.caregiverEmail!)
+                            Text(String(invite.accepted!))
+                            Button {
+                                mainViewModel.acceptInvite(id: invite.id!)
+                            } label: {
+                                Text("Accept")
+                            }
                         }
                     }
                 } else {
@@ -36,6 +42,7 @@ struct MainView: View {
                         HStack {
                             Text(invite.seniorEmail!)
                             Text(invite.caregiverEmail!)
+                            Text(String(invite.accepted!))
                         }
                     }
                     
