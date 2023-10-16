@@ -45,12 +45,18 @@ class AuthService {
             } else {
                 print("success")
                 
+                // Get the FCM token form user defaults
+                guard let fcmToken = UserDefaults.standard.value(forKey: "fcmToken") else{
+                    return
+                }
+                
                 self.db
                     .collection("users")
                     .document(AuthService.shared.user!.uid)
                     .setData([
                         "email": AuthService.shared.user!.email!,
-                        "role": NSNull()
+                        "role": NSNull(),
+                        "fcmToken": fcmToken
                     ]) { [weak self] err in
                         guard self != nil else { return }
                         if let err = err {
@@ -68,6 +74,7 @@ class AuthService {
         do {
             try Auth.auth().signOut()
             AuthService.shared.userData = nil
+            AuthService.shared.invites = []
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
@@ -82,21 +89,34 @@ class AuthService {
                 AuthService.shared.userData = try? querySnapshot!.data(as: UserData.self)
                 
                 if AuthService.shared.userData != nil {
-                    self.invitesListener = self.db.collection("invites").whereField(AuthService.shared.userData!.role == "senior" ? "seniorEmail" : "caregiverEmail", isEqualTo: AuthService.shared.user!.email!)
+                    self.invitesListener = self.db.collection("invites").whereField(AuthService.shared.userData!.role == "senior" ? "seniorId" : "caregiverId", isEqualTo: AuthService.shared.user!.uid)
                         .addSnapshotListener { querySnapshot, error in
                             guard let documents = querySnapshot?.documents else {
                                 print("No documents in invites")
                                 return
                             }
-                            self.invites = documents.compactMap { queryDocumentSnapshot in
-                                let result = Result { try queryDocumentSnapshot.data(as: Invite.self) }
+                            
+                            self.invites = []
+                            
+                            for document in documents {
+                                var invite = try? document.data(as: Invite.self)
                                 
-                                switch result {
-                                case .success(let invite):
-                                    return invite
-                                case .failure(let error):
-                                    print("Error decoding document: \(error.localizedDescription)")
-                                    return nil
+                                self.db.collection("users").document(invite!.seniorId!).getDocument { (querySnapshot, err) in
+                                    if let err = err {
+                                        print("Error getting documents: \(err)")
+                                    } else {
+                                        invite?.seniorData = try? querySnapshot?.data(as: UserData.self)
+                                        
+                                        self.db.collection("users").document(invite!.caregiverId!).getDocument { (querySnapshot, err) in
+                                            if let err = err {
+                                                print("Error getting documents: \(err)")
+                                            } else {
+                                                invite?.caregiverData = try? querySnapshot?.data(as: UserData.self)
+                                                self.invites.append(invite!)
+                                                print("aaa")
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -119,32 +139,44 @@ class AuthService {
     }
     
     func sendRequestToSenior(email: String) {
-        db.collection("invites")
-            .whereField("seniorEmail", isEqualTo: email)
-            .whereField("caregiverEmail", isEqualTo: AuthService.shared.user!.email!)
-            .getDocuments(completion: { snapshot, error in
-                if let err = error {
-                    print("Error getting document: \(err)")
-                    return
-                }
-                
-                guard let docs = snapshot?.documents else { return }
-                
-                if docs.isEmpty {
-                    var ref: DocumentReference? = nil
-                    ref = self.db.collection("invites").addDocument(data: [
-                        "seniorEmail": email,
-                        "caregiverEmail": AuthService.shared.user!.email!,
-                        "accepted": false
-                    ]) { err in
-                        if let err = err {
-                            print("Error adding document: \(err)")
-                        } else {
-                            print("Invite added with ID: \(ref!.documentID)")
-                        }
+        db.collection("users")
+            .whereField("email", isEqualTo: email)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        let userData = try? document.data(as: UserData.self)
+                        
+                        self.db.collection("invites")
+                            .whereField("seniorId", isEqualTo: userData!.id!)
+                            .whereField("caregiverId", isEqualTo: AuthService.shared.user!.uid)
+                            .getDocuments(completion: { snapshot, error in
+                                if let err = error {
+                                    print("Error getting document: \(err)")
+                                    return
+                                }
+                                
+                                guard let docs = snapshot?.documents else { return }
+                                
+                                if docs.isEmpty {
+                                    var ref: DocumentReference? = nil
+                                    ref = self.db.collection("invites").addDocument(data: [
+                                        "seniorId": userData!.id!,
+                                        "caregiverId": AuthService.shared.user!.uid,
+                                        "accepted": false
+                                    ]) { err in
+                                        if let err = err {
+                                            print("Error adding document: \(err)")
+                                        } else {
+                                            print("Invite added with ID: \(ref!.documentID)")
+                                        }
+                                    }
+                                }
+                            })
                     }
                 }
-            })
+            }
     }
     
     func acceptInvite(id: String) {

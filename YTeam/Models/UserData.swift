@@ -12,4 +12,5 @@ struct UserData: Identifiable, Codable {
     @DocumentID var id: String?
     var email: String?
     var role: String?
+    var fcmToken: String?
 }
