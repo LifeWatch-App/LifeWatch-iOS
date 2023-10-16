@@ -50,6 +50,9 @@
 		7D02E7742ADD029900923AFB /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049D12AD7FD4A00E9F0BF /* Invite.swift */; };
 		7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E75F2ADD023E00923AFB /* ChargingRange.swift */; };
 		7D02E7792ADD038700923AFB /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7562ADD023E00923AFB /* DateExt.swift */; };
+		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
+		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
+		8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */; };
 		9318D3892ADCD18600245AFF /* ChargingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3882ADCD18600245AFF /* ChargingViewModel.swift */; };
 		9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38A2ADCD1AC00245AFF /* ChartData.swift */; };
 		9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38C2ADCD1C800245AFF /* TestChargingView.swift */; };
@@ -121,6 +124,9 @@
 		7D02E7602ADD023E00923AFB /* FallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallHistory.swift; sourceTree = "<group>"; };
 		7D02E7612ADD023E00923AFB /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		7D02E7712ADD024A00923AFB /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
+		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
+		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRoleView.swift; sourceTree = "<group>"; };
 		9318D3882ADCD18600245AFF /* ChargingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingViewModel.swift; sourceTree = "<group>"; };
 		9318D38A2ADCD1AC00245AFF /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		9318D38C2ADCD1C800245AFF /* TestChargingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChargingView.swift; sourceTree = "<group>"; };
@@ -165,6 +171,7 @@
 				4C47302B2AD9760C0025F089 /* LoginViewModel.swift */,
 				4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */,
 				9318D3882ADCD18600245AFF /* ChargingViewModel.swift */,
+				8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -175,6 +182,7 @@
 				4C6049CD2AD7AF4000E9F0BF /* UserData.swift */,
 				4C6049D12AD7FD4A00E9F0BF /* Invite.swift */,
 				9318D38A2ADCD1AC00245AFF /* ChartData.swift */,
+				8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -210,7 +218,6 @@
 				4CB015592AD4DBBC0023C71E /* YTeamApp.swift */,
 				4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */,
 				4CB0155F2AD4DBBF0023C71E /* Preview Content */,
-				7D02E7242ADCC97200923AFB /* HistoryView.swift */,
 			);
 			path = YTeam;
 			sourceTree = "<group>";
@@ -262,6 +269,8 @@
 				4C6049C62AD7968700E9F0BF /* MainView.swift */,
 				4C6049C82AD799F200E9F0BF /* SignUpView.swift */,
 				9318D38C2ADCD1C800245AFF /* TestChargingView.swift */,
+				7D02E7242ADCC97200923AFB /* HistoryView.swift */,
+				8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -477,14 +486,17 @@
 				4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */,
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
 				4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */,
+				8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */,
 				9318D3892ADCD18600245AFF /* ChargingViewModel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
 				4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */,
 				4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */,
+				8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */,
 				9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */,
 				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,
 				4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */,
 				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
+				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
