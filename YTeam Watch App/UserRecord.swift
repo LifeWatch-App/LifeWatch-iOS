@@ -10,14 +10,14 @@ import Firebase
 
 
 struct UserRecord: Codable, Hashable {
-    var user: User?
-    var userData: UserData?
-    var invites: [Invite] = []
-    var isLoggedIn: Bool
-
-    var tokenID: String {
-        user?.getIDToken(completion: { string, error in
-            return string
-        })
-    }
+//    var user: User?
+//    var userData: UserData?
+//    var invites: [Invite] = []
+//    var isLoggedIn: Bool
+//
+//    var tokenID: String {
+//        user?.getIDToken(completion: { string, error in
+//            return string
+//        })
+//    }
 }
