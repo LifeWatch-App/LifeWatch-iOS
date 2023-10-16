@@ -49,6 +49,10 @@
 		9318D3942ADCD29900245AFF /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3902ADCD23F00245AFF /* ChargingRange.swift */; };
 		9318D3962ADCD31700245AFF /* TestChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3952ADCD31700245AFF /* TestChargingView.swift */; };
 		9318D3982ADCD35D00245AFF /* WatchConnectorManageWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3972ADCD35D00245AFF /* WatchConnectorManageWatch.swift */; };
+		9318D39A2ADCD6DA00245AFF /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3992ADCD6DA00245AFF /* UserRecord.swift */; };
+		9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D39B2ADCD92B00245AFF /* FirebaseAuth */; };
+		9318D39D2ADCD96100245AFF /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049D12AD7FD4A00E9F0BF /* Invite.swift */; };
+		9318D39E2ADCD96600245AFF /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049CD2AD7AF4000E9F0BF /* UserData.swift */; };
 		93CC91472AD7EC3000D1AC86 /* LocationVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91462AD7EC3000D1AC86 /* LocationVIewModel.swift */; };
 		93CC91532AD8E1B200D1AC86 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91522AD8E1B200D1AC86 /* DataService.swift */; };
 		93CC91552AD8E28900D1AC86 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91542AD8E28900D1AC86 /* UserProfile.swift */; };
@@ -117,6 +121,7 @@
 		9318D3902ADCD23F00245AFF /* ChargingRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingRange.swift; sourceTree = "<group>"; };
 		9318D3952ADCD31700245AFF /* TestChargingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChargingView.swift; sourceTree = "<group>"; };
 		9318D3972ADCD35D00245AFF /* WatchConnectorManageWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectorManageWatch.swift; sourceTree = "<group>"; };
+		9318D3992ADCD6DA00245AFF /* UserRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
 		93CC91462AD7EC3000D1AC86 /* LocationVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVIewModel.swift; sourceTree = "<group>"; };
 		93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "YTeam-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		93CC91522AD8E1B200D1AC86 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
@@ -139,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +262,7 @@
 				9318D38E2ADCD22C00245AFF /* CalendarExt.swift */,
 				9318D3902ADCD23F00245AFF /* ChargingRange.swift */,
 				9318D3972ADCD35D00245AFF /* WatchConnectorManageWatch.swift */,
+				9318D3992ADCD6DA00245AFF /* UserRecord.swift */,
 				7DEB28F92AD78781002A658D /* FallDetectionManager.swift */,
 			);
 			path = "YTeam Watch App";
@@ -339,6 +346,7 @@
 			);
 			name = "YTeam Watch App";
 			packageProductDependencies = (
+				9318D39B2ADCD92B00245AFF /* FirebaseAuth */,
 			);
 			productName = "YTeam Watch App";
 			productReference = 4CB015662AD4DBBF0023C71E /* YTeam Watch App.app */;
@@ -437,6 +445,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9318D39E2ADCD96600245AFF /* UserData.swift in Sources */,
+				9318D39D2ADCD96100245AFF /* Invite.swift in Sources */,
 				93CC91532AD8E1B200D1AC86 /* DataService.swift in Sources */,
 				9318D3962ADCD31700245AFF /* TestChargingView.swift in Sources */,
 				9318D2FC2AD945D000245AFF /* APIEnums.swift in Sources */,
@@ -446,6 +456,7 @@
 				93CC91552AD8E28900D1AC86 /* UserProfile.swift in Sources */,
 				9318D3982ADCD35D00245AFF /* WatchConnectorManageWatch.swift in Sources */,
 				9318D3842ADCC92000245AFF /* APIConstants.swift in Sources */,
+				9318D39A2ADCD6DA00245AFF /* UserRecord.swift in Sources */,
 				4CB0156E2AD4DBBF0023C71E /* ContentView.swift in Sources */,
 				7DEB28FA2AD78781002A658D /* FallDetectionManager.swift in Sources */,
 				4CB0156C2AD4DBBF0023C71E /* YTeamApp.swift in Sources */,
@@ -784,6 +795,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		9318D39B2ADCD92B00245AFF /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

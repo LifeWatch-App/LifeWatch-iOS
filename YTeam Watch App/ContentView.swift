@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var locationViewModel = LocationViewModel()
-
+    
     var body: some View {
         switch locationViewModel.authorizationStatus {
         case .notDetermined:
@@ -30,7 +30,7 @@ struct ContentView: View {
 
 struct RequestLocationView: View {
     @EnvironmentObject var locationViewModel: LocationViewModel
-
+    
     var body: some View {
         VStack {
             Button(action: {
@@ -51,7 +51,7 @@ struct RequestLocationView: View {
 
 struct ErrorView: View {
     var errorText: String
-
+    
     var body: some View {
         VStack {
             Image(systemName: "xmark.octagon")
@@ -69,7 +69,7 @@ struct ErrorView: View {
 struct TrackingView: View {
     @EnvironmentObject var locationViewModel: LocationViewModel
     @State var showAlert: Bool = false
-
+    
     var body: some View {
         VStack {
             VStack(spacing: 15) {
@@ -83,7 +83,7 @@ struct TrackingView: View {
                         rightText: String(locationViewModel.lastSeenLocation?.coordinate.latitude ?? 0)
                     )
                 }
-
+                
                 if locationViewModel.isSet && locationViewModel.lastSeenLocation != nil {
                     if let within = locationViewModel.isWithinRegion {
                         if within {
@@ -138,7 +138,7 @@ struct TrackingView: View {
 struct PairView: View {
     let leftText: String
     let rightText: String
-
+    
     var body: some View {
         HStack {
             Text(leftText)
