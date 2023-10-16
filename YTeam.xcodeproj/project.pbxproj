@@ -10,7 +10,6 @@
 		4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4730292AD8DC750025F089 /* AuthService.swift */; };
 		4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47302B2AD9760C0025F089 /* LoginViewModel.swift */; };
 		4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */; };
-		4C6049A22AD78DE800E9F0BF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C6049A12AD78DE800E9F0BF /* GoogleService-Info.plist */; };
 		4C6049A52AD78F4D00E9F0BF /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049A42AD78F4D00E9F0BF /* FirebaseAnalytics */; };
 		4C6049A72AD7917A00E9F0BF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049A62AD7917A00E9F0BF /* FirebaseAuth */; };
 		4C6049AC2AD7934400E9F0BF /* IdleDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049AB2AD7934400E9F0BF /* IdleDetectionView.swift */; };
@@ -22,6 +21,7 @@
 		4C6049CE2AD7AF4000E9F0BF /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049CD2AD7AF4000E9F0BF /* UserData.swift */; };
 		4C6049D02AD7C6E000E9F0BF /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */; };
 		4C6049D22AD7FD4A00E9F0BF /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049D12AD7FD4A00E9F0BF /* Invite.swift */; };
+		4CA2328C2ADCE1A0003874D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CA2328B2ADCE1A0003874D2 /* GoogleService-Info.plist */; };
 		4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB015592AD4DBBC0023C71E /* YTeamApp.swift */; };
 		4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0155B2AD4DBBC0023C71E /* ContentView.swift */; };
 		4CB0155E2AD4DBBF0023C71E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */; };
@@ -32,6 +32,9 @@
 		4CB015702AD4DBC00023C71E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB0156F2AD4DBC00023C71E /* Assets.xcassets */; };
 		4CB015732AD4DBC00023C71E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB015722AD4DBC00023C71E /* Preview Assets.xcassets */; };
 		4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0157E2AD4E5F60023C71E /* LoginView.swift */; };
+		7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7202AD8ECD500923AFB /* Screen.swift */; };
+		7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7242ADCC97200923AFB /* HistoryView.swift */; };
+		7DEB28FA2AD78781002A658D /* FallDetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB28F92AD78781002A658D /* FallDetectionManager.swift */; };
 		9318D2FA2AD9058C00245AFF /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D2F92AD9058C00245AFF /* DateExt.swift */; };
 		9318D2FC2AD945D000245AFF /* APIEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D2FB2AD945D000245AFF /* APIEnums.swift */; };
 		9318D3842ADCC92000245AFF /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3832ADCC92000245AFF /* APIConstants.swift */; };
@@ -49,9 +52,6 @@
 		93CC91472AD7EC3000D1AC86 /* LocationVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91462AD7EC3000D1AC86 /* LocationVIewModel.swift */; };
 		93CC91532AD8E1B200D1AC86 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91522AD8E1B200D1AC86 /* DataService.swift */; };
 		93CC91552AD8E28900D1AC86 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91542AD8E28900D1AC86 /* UserProfile.swift */; };
-		7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7202AD8ECD500923AFB /* Screen.swift */; };
-		7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7242ADCC97200923AFB /* HistoryView.swift */; };
-		7DEB28FA2AD78781002A658D /* FallDetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB28F92AD78781002A658D /* FallDetectionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,7 +82,6 @@
 		4C4730292AD8DC750025F089 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		4C47302B2AD9760C0025F089 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
-		4C6049A12AD78DE800E9F0BF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4C6049AB2AD7934400E9F0BF /* IdleDetectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdleDetectionView.swift; sourceTree = "<group>"; };
 		4C6049C02AD7938500E9F0BF /* IdleDetectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdleDetectionViewModel.swift; sourceTree = "<group>"; };
 		4C6049C42AD7948F00E9F0BF /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -90,6 +89,7 @@
 		4C6049C82AD799F200E9F0BF /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4C6049CD2AD7AF4000E9F0BF /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		4C6049D12AD7FD4A00E9F0BF /* Invite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
+		4CA2328B2ADCE1A0003874D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CB015562AD4DBBC0023C71E /* YTeam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YTeam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB015592AD4DBBC0023C71E /* YTeamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTeamApp.swift; sourceTree = "<group>"; };
 		4CB0155B2AD4DBBC0023C71E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -102,6 +102,10 @@
 		4CB015722AD4DBC00023C71E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4CB0157E2AD4E5F60023C71E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4CB015802AD4E6E00023C71E /* YTeam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YTeam.entitlements; sourceTree = "<group>"; };
+		7D02E7042AD78AD300923AFB /* YTeam Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "YTeam Watch App.entitlements"; sourceTree = "<group>"; };
+		7D02E7202AD8ECD500923AFB /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
+		7D02E7242ADCC97200923AFB /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		7DEB28F92AD78781002A658D /* FallDetectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallDetectionManager.swift; sourceTree = "<group>"; };
 		9318D2F92AD9058C00245AFF /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
 		9318D2FB2AD945D000245AFF /* APIEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnums.swift; sourceTree = "<group>"; };
 		9318D3832ADCC92000245AFF /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
@@ -117,10 +121,6 @@
 		93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "YTeam-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		93CC91522AD8E1B200D1AC86 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		93CC91542AD8E28900D1AC86 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
-		7D02E7202AD8ECD500923AFB /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
-		7D02E7242ADCC97200923AFB /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
-		7D02E7042AD78AD300923AFB /* YTeam Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "YTeam Watch App.entitlements"; sourceTree = "<group>"; };
-		7DEB28F92AD78781002A658D /* FallDetectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallDetectionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,10 +213,10 @@
 		4CB015582AD4DBBC0023C71E /* YTeam */ = {
 			isa = PBXGroup;
 			children = (
+				4CA2328B2ADCE1A0003874D2 /* GoogleService-Info.plist */,
 				4C4730282AD8D2520025F089 /* Services */,
 				4C6049CC2AD7AEC800E9F0BF /* Models */,
 				4C6049C32AD7948700E9F0BF /* ViewModels */,
-				4C6049A12AD78DE800E9F0BF /* GoogleService-Info.plist */,
 				4CB015802AD4E6E00023C71E /* YTeam.entitlements */,
 				4CB0157D2AD4E5A20023C71E /* Views */,
 				7D02E71F2AD8ECA300923AFB /* Utilities */,
@@ -282,12 +282,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		93CC91592AD8E6B800D1AC86 /* Enums */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Enums;
-		};
 		7D02E71F2AD8ECA300923AFB /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +289,13 @@
 			);
 			path = Utilities;
 			sourceTree = "<group>";
+		};
+		93CC91592AD8E6B800D1AC86 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Enums;
+			sourceTree = "<unknown>";
 		};
 /* End PBXGroup section */
 
@@ -390,7 +391,7 @@
 			files = (
 				4CB015612AD4DBBF0023C71E /* Preview Assets.xcassets in Resources */,
 				4CB0155E2AD4DBBF0023C71E /* Assets.xcassets in Resources */,
-				4C6049A22AD78DE800E9F0BF /* GoogleService-Info.plist in Resources */,
+				4CA2328C2ADCE1A0003874D2 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,9 +595,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = YTeam;
+				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
-				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.YTeam;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -629,9 +630,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = YTeam;
+				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
-				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.YTeam;
 				LD_RUNPATH_SEARCH_PATHS = (
