@@ -17,6 +17,12 @@
 		4CB015702AD4DBC00023C71E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB0156F2AD4DBC00023C71E /* Assets.xcassets */; };
 		4CB015732AD4DBC00023C71E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB015722AD4DBC00023C71E /* Preview Assets.xcassets */; };
 		4CB0157F2AD4E5F60023C71E /* LoginRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0157E2AD4E5F60023C71E /* LoginRegisterView.swift */; };
+		9318D2FA2AD9058C00245AFF /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D2F92AD9058C00245AFF /* DateExt.swift */; };
+		9318D2FC2AD945D000245AFF /* APIEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D2FB2AD945D000245AFF /* APIEnums.swift */; };
+		9318D3842ADCC92000245AFF /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3832ADCC92000245AFF /* APIConstants.swift */; };
+		93CC91472AD7EC3000D1AC86 /* LocationVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91462AD7EC3000D1AC86 /* LocationVIewModel.swift */; };
+		93CC91532AD8E1B200D1AC86 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91522AD8E1B200D1AC86 /* DataService.swift */; };
+		93CC91552AD8E28900D1AC86 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91542AD8E28900D1AC86 /* UserProfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +62,13 @@
 		4CB015722AD4DBC00023C71E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4CB0157E2AD4E5F60023C71E /* LoginRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterView.swift; sourceTree = "<group>"; };
 		4CB015802AD4E6E00023C71E /* YTeam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YTeam.entitlements; sourceTree = "<group>"; };
+		9318D2F92AD9058C00245AFF /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
+		9318D2FB2AD945D000245AFF /* APIEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnums.swift; sourceTree = "<group>"; };
+		9318D3832ADCC92000245AFF /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		93CC91462AD7EC3000D1AC86 /* LocationVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVIewModel.swift; sourceTree = "<group>"; };
+		93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "YTeam-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		93CC91522AD8E1B200D1AC86 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		93CC91542AD8E28900D1AC86 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,10 +131,17 @@
 		4CB0156A2AD4DBBF0023C71E /* YTeam Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */,
 				4CB0156B2AD4DBBF0023C71E /* YTeamApp.swift */,
 				4CB0156D2AD4DBBF0023C71E /* ContentView.swift */,
 				4CB0156F2AD4DBC00023C71E /* Assets.xcassets */,
 				4CB015712AD4DBC00023C71E /* Preview Content */,
+				93CC91462AD7EC3000D1AC86 /* LocationVIewModel.swift */,
+				93CC91522AD8E1B200D1AC86 /* DataService.swift */,
+				93CC91542AD8E28900D1AC86 /* UserProfile.swift */,
+				9318D2F92AD9058C00245AFF /* DateExt.swift */,
+				9318D2FB2AD945D000245AFF /* APIEnums.swift */,
+				9318D3832ADCC92000245AFF /* APIConstants.swift */,
 			);
 			path = "YTeam Watch App";
 			sourceTree = "<group>";
@@ -129,6 +149,7 @@
 		4CB015712AD4DBC00023C71E /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				93CC91592AD8E6B800D1AC86 /* Enums */,
 				4CB015722AD4DBC00023C71E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -140,6 +161,13 @@
 				4CB0157E2AD4E5F60023C71E /* LoginRegisterView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		93CC91592AD8E6B800D1AC86 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +205,8 @@
 			dependencies = (
 			);
 			name = "YTeam Watch App";
+			packageProductDependencies = (
+			);
 			productName = "YTeam Watch App";
 			productReference = 4CB015662AD4DBBF0023C71E /* YTeam Watch App.app */;
 			productType = "com.apple.product-type.application";
@@ -208,6 +238,8 @@
 				Base,
 			);
 			mainGroup = 4CB0154D2AD4DBBC0023C71E;
+			packageReferences = (
+			);
 			productRefGroup = 4CB015572AD4DBBC0023C71E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -254,8 +286,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93CC91532AD8E1B200D1AC86 /* DataService.swift in Sources */,
+				9318D2FC2AD945D000245AFF /* APIEnums.swift in Sources */,
+				93CC91472AD7EC3000D1AC86 /* LocationVIewModel.swift in Sources */,
+				93CC91552AD8E28900D1AC86 /* UserProfile.swift in Sources */,
+				9318D3842ADCC92000245AFF /* APIConstants.swift in Sources */,
 				4CB0156E2AD4DBBF0023C71E /* ContentView.swift in Sources */,
 				4CB0156C2AD4DBBF0023C71E /* YTeamApp.swift in Sources */,
+				9318D2FA2AD9058C00245AFF /* DateExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,10 +430,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = DQPBPU9766;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = YTeam;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ada.YTeam;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -410,7 +451,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 9.6;
 			};
 			name = Debug;
 		};
@@ -422,10 +463,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = DQPBPU9766;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = YTeam;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ada.YTeam;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -441,7 +485,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 9.6;
 			};
 			name = Release;
 		};
