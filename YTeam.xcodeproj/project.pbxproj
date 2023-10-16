@@ -51,6 +51,7 @@
 		93CC91552AD8E28900D1AC86 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91542AD8E28900D1AC86 /* UserProfile.swift */; };
 		7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7202AD8ECD500923AFB /* Screen.swift */; };
 		7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7242ADCC97200923AFB /* HistoryView.swift */; };
+		7DEB28FA2AD78781002A658D /* FallDetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB28F92AD78781002A658D /* FallDetectionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,8 @@
 		93CC91542AD8E28900D1AC86 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		7D02E7202AD8ECD500923AFB /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		7D02E7242ADCC97200923AFB /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		7D02E7042AD78AD300923AFB /* YTeam Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "YTeam Watch App.entitlements"; sourceTree = "<group>"; };
+		7DEB28F92AD78781002A658D /* FallDetectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallDetectionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +242,7 @@
 				93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */,
 				4C6049BF2AD7938500E9F0BF /* ViewModel */,
 				4C6049AA2AD7934400E9F0BF /* View */,
+				7D02E7042AD78AD300923AFB /* YTeam Watch App.entitlements */,
 				4CB0156B2AD4DBBF0023C71E /* YTeamApp.swift */,
 				4CB0156D2AD4DBBF0023C71E /* ContentView.swift */,
 				4CB0156F2AD4DBC00023C71E /* Assets.xcassets */,
@@ -252,6 +256,7 @@
 				9318D38E2ADCD22C00245AFF /* CalendarExt.swift */,
 				9318D3902ADCD23F00245AFF /* ChargingRange.swift */,
 				9318D3972ADCD35D00245AFF /* WatchConnectorManageWatch.swift */,
+				7DEB28F92AD78781002A658D /* FallDetectionManager.swift */,
 			);
 			path = "YTeam Watch App";
 			sourceTree = "<group>";
@@ -441,6 +446,7 @@
 				9318D3982ADCD35D00245AFF /* WatchConnectorManageWatch.swift in Sources */,
 				9318D3842ADCC92000245AFF /* APIConstants.swift in Sources */,
 				4CB0156E2AD4DBBF0023C71E /* ContentView.swift in Sources */,
+				7DEB28FA2AD78781002A658D /* FallDetectionManager.swift in Sources */,
 				4CB0156C2AD4DBBF0023C71E /* YTeamApp.swift in Sources */,
 				9318D2FA2AD9058C00245AFF /* DateExt.swift in Sources */,
 				4C6049C12AD7938500E9F0BF /* IdleDetectionViewModel.swift in Sources */,
@@ -579,6 +585,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "YTeam Watch App/YTeam Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
@@ -589,14 +596,15 @@
 				INFOPLIST_KEY_CFBundleDisplayName = YTeam;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ada.YTeam;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.YTeam;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ada.YTeam.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.YTeam.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -612,6 +620,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "YTeam Watch App/YTeam Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
@@ -622,14 +631,15 @@
 				INFOPLIST_KEY_CFBundleDisplayName = YTeam;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ada.YTeam;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.YTeam;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ada.YTeam.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.YTeam.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -651,7 +661,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = YTeam;
@@ -666,7 +676,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ada.YTeam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.YTeam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -685,7 +695,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = YTeam;
@@ -700,7 +710,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ada.YTeam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.YTeam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
