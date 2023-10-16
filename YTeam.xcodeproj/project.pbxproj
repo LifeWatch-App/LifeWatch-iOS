@@ -49,6 +49,8 @@
 		93CC91472AD7EC3000D1AC86 /* LocationVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91462AD7EC3000D1AC86 /* LocationVIewModel.swift */; };
 		93CC91532AD8E1B200D1AC86 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91522AD8E1B200D1AC86 /* DataService.swift */; };
 		93CC91552AD8E28900D1AC86 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91542AD8E28900D1AC86 /* UserProfile.swift */; };
+		7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7202AD8ECD500923AFB /* Screen.swift */; };
+		7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7242ADCC97200923AFB /* HistoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +116,8 @@
 		93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "YTeam-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		93CC91522AD8E1B200D1AC86 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		93CC91542AD8E28900D1AC86 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		7D02E7202AD8ECD500923AFB /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
+		7D02E7242ADCC97200923AFB /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,9 +216,11 @@
 				4C6049A12AD78DE800E9F0BF /* GoogleService-Info.plist */,
 				4CB015802AD4E6E00023C71E /* YTeam.entitlements */,
 				4CB0157D2AD4E5A20023C71E /* Views */,
+				7D02E71F2AD8ECA300923AFB /* Utilities */,
 				4CB015592AD4DBBC0023C71E /* YTeamApp.swift */,
 				4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */,
 				4CB0155F2AD4DBBF0023C71E /* Preview Content */,
+				7D02E7242ADCC97200923AFB /* HistoryView.swift */,
 			);
 			path = YTeam;
 			sourceTree = "<group>";
@@ -276,6 +282,13 @@
 			children = (
 			);
 			path = Enums;
+		};
+		7D02E71F2AD8ECA300923AFB /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7D02E7202AD8ECD500923AFB /* Screen.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,12 +416,14 @@
 				4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */,
 				9318D3892ADCD18600245AFF /* ChargingViewModel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
-				4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */,
 				4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */,
 				4C6049D22AD7FD4A00E9F0BF /* Invite.swift in Sources */,
 				4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */,
 				4C6049CE2AD7AF4000E9F0BF /* UserData.swift in Sources */,
 				9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */,
+				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,
+				4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */,
+				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
