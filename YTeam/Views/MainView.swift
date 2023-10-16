@@ -18,10 +18,10 @@ struct MainView: View {
                 Text("\(mainViewModel.user?.email ?? "")")
                 if mainViewModel.userData?.role == "senior" {
                     Text("Give your email to your caregivers")
-                    ForEach(mainViewModel.invites, id: \.self) { invite in
+                    ForEach(mainViewModel.invites, id: \.id) { invite in
                         HStack {
-                            Text(invite.seniorEmail!)
-                            Text(invite.caregiverEmail!)
+                            Text(invite.seniorData!.email!)
+                            Text(invite.caregiverData!.email!)
                             Text(String(invite.accepted!))
                             Button {
                                 mainViewModel.acceptInvite(id: invite.id!)
@@ -38,10 +38,10 @@ struct MainView: View {
                     } label: {
                         Text("Request access")
                     }
-                    ForEach(mainViewModel.invites, id: \.self) { invite in
+                    ForEach(mainViewModel.invites, id: \.id) { invite in
                         HStack {
-                            Text(invite.seniorEmail!)
-                            Text(invite.caregiverEmail!)
+                            Text(invite.seniorData?.email ?? "")
+                            Text(invite.caregiverData?.email ?? "")
                             Text(String(invite.accepted!))
                         }
                     }
