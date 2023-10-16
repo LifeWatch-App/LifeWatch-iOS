@@ -34,6 +34,7 @@
 		4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0157E2AD4E5F60023C71E /* LoginView.swift */; };
 		7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7202AD8ECD500923AFB /* Screen.swift */; };
 		7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7242ADCC97200923AFB /* HistoryView.swift */; };
+		7D02E7272ADCE0FD00923AFB /* FallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7262ADCE0FD00923AFB /* FallHistory.swift */; };
 		7DEB28FA2AD78781002A658D /* FallDetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEB28F92AD78781002A658D /* FallDetectionManager.swift */; };
 		9318D2FA2AD9058C00245AFF /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D2F92AD9058C00245AFF /* DateExt.swift */; };
 		9318D2FC2AD945D000245AFF /* APIEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D2FB2AD945D000245AFF /* APIEnums.swift */; };
@@ -46,7 +47,6 @@
 		9318D3912ADCD24000245AFF /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3902ADCD23F00245AFF /* ChargingRange.swift */; };
 		9318D3922ADCD27600245AFF /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D2F92AD9058C00245AFF /* DateExt.swift */; };
 		9318D3932ADCD27A00245AFF /* CalendarExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38E2ADCD22C00245AFF /* CalendarExt.swift */; };
-		9318D3942ADCD29900245AFF /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3902ADCD23F00245AFF /* ChargingRange.swift */; };
 		9318D3962ADCD31700245AFF /* TestChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3952ADCD31700245AFF /* TestChargingView.swift */; };
 		9318D3982ADCD35D00245AFF /* WatchConnectorManageWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3972ADCD35D00245AFF /* WatchConnectorManageWatch.swift */; };
 		9318D39A2ADCD6DA00245AFF /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3992ADCD6DA00245AFF /* UserRecord.swift */; };
@@ -109,6 +109,7 @@
 		7D02E7042AD78AD300923AFB /* YTeam Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "YTeam Watch App.entitlements"; sourceTree = "<group>"; };
 		7D02E7202AD8ECD500923AFB /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		7D02E7242ADCC97200923AFB /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		7D02E7262ADCE0FD00923AFB /* FallHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallHistory.swift; sourceTree = "<group>"; };
 		7DEB28F92AD78781002A658D /* FallDetectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallDetectionManager.swift; sourceTree = "<group>"; };
 		9318D2F92AD9058C00245AFF /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
 		9318D2FB2AD945D000245AFF /* APIEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnums.swift; sourceTree = "<group>"; };
@@ -172,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				4C6049C02AD7938500E9F0BF /* IdleDetectionViewModel.swift */,
+				93CC91462AD7EC3000D1AC86 /* LocationVIewModel.swift */,
 				9318D3852ADCD13600245AFF /* ChargingViewModel.swift */,
 			);
 			path = ViewModel;
@@ -245,6 +247,12 @@
 		4CB0156A2AD4DBBF0023C71E /* YTeam Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				7D02E72D2ADCE59300923AFB /* Utilities */,
+				7D02E72C2ADCE57C00923AFB /* Constants */,
+				7D02E72B2ADCE56100923AFB /* Enums */,
+				7D02E72A2ADCE54C00923AFB /* Extension */,
+				7D02E7292ADCE53400923AFB /* Models */,
+				7D02E7282ADCE52400923AFB /* Services */,
 				93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */,
 				4C6049BF2AD7938500E9F0BF /* ViewModel */,
 				4C6049AA2AD7934400E9F0BF /* View */,
@@ -293,6 +301,58 @@
 			isa = PBXGroup;
 			children = (
 				7D02E7202AD8ECD500923AFB /* Screen.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		7D02E7282ADCE52400923AFB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				93CC91522AD8E1B200D1AC86 /* DataService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		7D02E7292ADCE53400923AFB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9318D3902ADCD23F00245AFF /* ChargingRange.swift */,
+				93CC91542AD8E28900D1AC86 /* UserProfile.swift */,
+				7D02E7262ADCE0FD00923AFB /* FallHistory.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7D02E72A2ADCE54C00923AFB /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				9318D38E2ADCD22C00245AFF /* CalendarExt.swift */,
+				9318D2F92AD9058C00245AFF /* DateExt.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		7D02E72B2ADCE56100923AFB /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				9318D2FB2AD945D000245AFF /* APIEnums.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		7D02E72C2ADCE57C00923AFB /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				9318D3832ADCC92000245AFF /* APIConstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		7D02E72D2ADCE59300923AFB /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				9318D3972ADCD35D00245AFF /* WatchConnectorManageWatch.swift */,
+				7DEB28F92AD78781002A658D /* FallDetectionManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -419,7 +479,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9318D3942ADCD29900245AFF /* ChargingRange.swift in Sources */,
 				9318D3932ADCD27A00245AFF /* CalendarExt.swift in Sources */,
 				9318D3922ADCD27600245AFF /* DateExt.swift in Sources */,
 				4C6049C52AD7948F00E9F0BF /* MainViewModel.swift in Sources */,
@@ -461,6 +520,7 @@
 				7DEB28FA2AD78781002A658D /* FallDetectionManager.swift in Sources */,
 				4CB0156C2AD4DBBF0023C71E /* YTeamApp.swift in Sources */,
 				9318D2FA2AD9058C00245AFF /* DateExt.swift in Sources */,
+				7D02E7272ADCE0FD00923AFB /* FallHistory.swift in Sources */,
 				4C6049C12AD7938500E9F0BF /* IdleDetectionViewModel.swift in Sources */,
 				9318D3862ADCD13600245AFF /* ChargingViewModel.swift in Sources */,
 				4C6049AC2AD7934400E9F0BF /* IdleDetectionView.swift in Sources */,

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var locationViewModel = LocationViewModel()
-    
+    @ObservedObject var fallDetector: FallDetectionManager = FallDetectionManager()
     var body: some View {
         switch locationViewModel.authorizationStatus {
         case .notDetermined:

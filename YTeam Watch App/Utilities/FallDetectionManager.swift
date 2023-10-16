@@ -10,8 +10,10 @@ import CoreMotion
 
 class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject {
     
-    let fallDetector = CMFallDetectionManager()
     @Published var authorized: Bool = false
+    
+    let fallDetector = CMFallDetectionManager()
+    private let service = DataService.shared
     
     override init() {
         super.init()
@@ -66,11 +68,16 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     ///
     /// - Parameters:
     ///     - None
-    /// - Returns: None.
+    /// - Returns: Void. Throws FallHistory Firebase Object to fallHistory document
     func fallDetectionManager(
         _ fallDetectionManager: CMFallDetectionManager,
         didDetect event: CMFallDetectionEvent) async {
-        print("Fall Detected!", event.date, event.resolution.rawValue)
+            
+        let timeDescription = "\(event.date.description) \(event.resolution.rawValue)"
+        let time = FallHistory(time: Description(stringValue: timeDescription))
+        Task { try? await service.set(endPoint: MultipleEndPoints.fallhistory, fields: time) }
+        debugPrint("Successfully inputed \(timeDescription) to Firebase")
+            
     }
     
     /// `Unchangable conforming function to automatically check for change in authorization`.
