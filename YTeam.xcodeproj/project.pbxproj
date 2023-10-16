@@ -17,6 +17,7 @@
 		4CB015702AD4DBC00023C71E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB0156F2AD4DBC00023C71E /* Assets.xcassets */; };
 		4CB015732AD4DBC00023C71E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB015722AD4DBC00023C71E /* Preview Assets.xcassets */; };
 		7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7202AD8ECD500923AFB /* Screen.swift */; };
+		7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7242ADCC97200923AFB /* HistoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		4CB0156F2AD4DBC00023C71E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CB015722AD4DBC00023C71E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7D02E7202AD8ECD500923AFB /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
+		7D02E7242ADCC97200923AFB /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				4CB0155B2AD4DBBC0023C71E /* ContentView.swift */,
 				4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */,
 				4CB0155F2AD4DBBF0023C71E /* Preview Content */,
+				7D02E7242ADCC97200923AFB /* HistoryView.swift */,
 			);
 			path = YTeam;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
+				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,
 				4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */,
 				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
 			);
