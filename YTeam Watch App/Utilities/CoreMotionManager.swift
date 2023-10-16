@@ -11,7 +11,7 @@ import CoreMotion
 class CoreMotionManager: ObservableObject {
     
     private let motionManager: CMMotionManager = CMMotionManager()
-    private let accelerometerInterval: Double = 2.0
+    private let accelerometerInterval: Double = 2
     
     @Published var fall: Bool = false
     @Published var accelerometerAvailable: Bool = false
@@ -108,7 +108,14 @@ class CoreMotionManager: ObservableObject {
                     self.accZ = accelerationData.acceleration.z
                 }
                 
-                debugPrint("X Accelerometer: \(self.accX), Y Accelerometer: \(self.accY), Z Accelerometer: \(self.accZ)");
+                let accelerometerPrediction = -0.085405 * self.accX + 0.033008 * self.accY + -0.197427 * self.accZ
+                                                
+                if (accelerometerPrediction >= 0.6){
+                    self.fall = true
+                    debugPrint("Fell")
+                }
+                
+                debugPrint("X Accelerometer: \(self.accX), Y Accelerometer: \(self.accY), Z Accelerometer: \(self.accZ), AP: \(accelerometerPrediction)");
             }
         }
     }
