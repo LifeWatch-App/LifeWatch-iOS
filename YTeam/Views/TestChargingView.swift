@@ -19,7 +19,7 @@ import Charts
 
 struct TestChargingView: View {
     @StateObject private var vm = WatchConnectorManager()
-
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -35,19 +35,19 @@ struct TestChargingView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: 300)
                 .padding(20)
-
+                
                 HStack {
                     DatePicker("Start", selection: $vm.startDate, in: vm.startingDate...(vm.dateNowStart ?? .now), displayedComponents: [.date])
                     DatePicker("End", selection: $vm.endDate, in: vm.startingDate...vm.dateNowEnd, displayedComponents: [.date])
                 }
                 .padding(10)
-
+                
                 ForEach(vm.chargingRange, id: \.self) { range in
                     VStack {
                         Text(range.getFormattedStartEndTime(chargingRange: range))
                     }
                 }
-
+                
                 Spacer()
             }
             .onChange(of: vm.endDate) { newValue in

@@ -26,6 +26,7 @@ class AuthService {
     }
     
     func login(email: String, password: String) {
+        //TODO: Send user record to watch using WatchConnectivity
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "")
@@ -36,6 +37,8 @@ class AuthService {
     }
     
     func signUp(email: String, password: String) {
+        //TODO: Send user record to watch using WatchConnectivity
+        //TODO: When launch app check if user data exists in UserDefault or not, if yes get that user, if not save it in user default the one that is passed from watchconnectivity
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error != nil {
                 print(error?.localizedDescription ?? "")

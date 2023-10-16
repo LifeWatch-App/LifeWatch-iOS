@@ -35,7 +35,7 @@ class MainViewModel: ObservableObject {
         }
         .store(in: &cancellables)
     }
-    
+
     func signOut() {
         AuthService.shared.signOut()
     }
@@ -54,5 +54,9 @@ class MainViewModel: ObservableObject {
     
     func acceptInvite(id: String) {
         AuthService.shared.acceptInvite(id: id)
+    }
+
+    func setupAuthWatch() {
+
     }
 }
