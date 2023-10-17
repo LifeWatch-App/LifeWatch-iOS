@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    @ObservedObject private var fallDetector = FallDetectionManager()
     @StateObject private var vm = TestAuthViewModel()
     var body: some View {
         if vm.userAuth?.userID != nil {
