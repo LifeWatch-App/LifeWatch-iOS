@@ -11,6 +11,7 @@ import WatchConnectivity
 final class WatchConnectorManager: NSObject, WCSessionDelegate {
     var session: WCSession
     @Published var chargingRange: [ChargingRange] = []
+    @Published var userRecord: UserRecord?
 
     init(session: WCSession = .default) {
         self.session = session
@@ -18,7 +19,6 @@ final class WatchConnectorManager: NSObject, WCSessionDelegate {
         self.session.delegate = self
         session.activate()
     }
-
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         //

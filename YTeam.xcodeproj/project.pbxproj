@@ -10,16 +10,12 @@
 		4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4730292AD8DC750025F089 /* AuthService.swift */; };
 		4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47302B2AD9760C0025F089 /* LoginViewModel.swift */; };
 		4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */; };
-		4C6049A52AD78F4D00E9F0BF /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049A42AD78F4D00E9F0BF /* FirebaseAnalytics */; };
-		4C6049A72AD7917A00E9F0BF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049A62AD7917A00E9F0BF /* FirebaseAuth */; };
 		4C6049AC2AD7934400E9F0BF /* IdleDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049AB2AD7934400E9F0BF /* IdleDetectionView.swift */; };
 		4C6049C12AD7938500E9F0BF /* IdleDetectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049C02AD7938500E9F0BF /* IdleDetectionViewModel.swift */; };
 		4C6049C52AD7948F00E9F0BF /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049C42AD7948F00E9F0BF /* MainViewModel.swift */; };
 		4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049C62AD7968700E9F0BF /* MainView.swift */; };
 		4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049C82AD799F200E9F0BF /* SignUpView.swift */; };
-		4C6049CB2AD79DDA00E9F0BF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049CA2AD79DDA00E9F0BF /* FirebaseFirestore */; };
 		4C6049CE2AD7AF4000E9F0BF /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049CD2AD7AF4000E9F0BF /* UserData.swift */; };
-		4C6049D02AD7C6E000E9F0BF /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */; };
 		4C6049D22AD7FD4A00E9F0BF /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049D12AD7FD4A00E9F0BF /* Invite.swift */; };
 		4CA2328C2ADCE1A0003874D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CA2328B2ADCE1A0003874D2 /* GoogleService-Info.plist */; };
 		4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB015592AD4DBBC0023C71E /* YTeamApp.swift */; };
@@ -49,10 +45,22 @@
 		9318D3942ADCD29900245AFF /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3902ADCD23F00245AFF /* ChargingRange.swift */; };
 		9318D3962ADCD31700245AFF /* TestChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3952ADCD31700245AFF /* TestChargingView.swift */; };
 		9318D3982ADCD35D00245AFF /* WatchConnectorManageWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3972ADCD35D00245AFF /* WatchConnectorManageWatch.swift */; };
-		9318D39A2ADCD6DA00245AFF /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3992ADCD6DA00245AFF /* UserRecord.swift */; };
-		9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D39B2ADCD92B00245AFF /* FirebaseAuth */; };
-		9318D39D2ADCD96100245AFF /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049D12AD7FD4A00E9F0BF /* Invite.swift */; };
-		9318D39E2ADCD96600245AFF /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049CD2AD7AF4000E9F0BF /* UserData.swift */; };
+		9318D3A92ADCED6B00245AFF /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3A62ADCED6B00245AFF /* ChartData.swift */; };
+		9318D3B02ADCEE5200245AFF /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D3AF2ADCEE5200245AFF /* FirebaseAnalytics */; };
+		9318D3B22ADCEE5200245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D3B12ADCEE5200245AFF /* FirebaseAuth */; };
+		9318D3B42ADCEE5200245AFF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D3B32ADCEE5200245AFF /* FirebaseFirestore */; };
+		9318D3B62ADCEE5200245AFF /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D3B52ADCEE5200245AFF /* FirebaseFirestoreSwift */; };
+		9318D3BA2ADCEFD100245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D3B92ADCEFD100245AFF /* FirebaseAuth */; };
+		9318D3BB2ADCF01200245AFF /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3A82ADCED6B00245AFF /* UserData.swift */; };
+		9318D3BC2ADCF01C00245AFF /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3A72ADCED6B00245AFF /* Invite.swift */; };
+		9318D3C02ADD32AB00245AFF /* TestAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3BF2ADD32AB00245AFF /* TestAuthView.swift */; };
+		9318D3C22ADD330900245AFF /* TestAuthConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3C12ADD330900245AFF /* TestAuthConnector.swift */; };
+		9318D3C42ADD335600245AFF /* TestAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3C32ADD335600245AFF /* TestAuthViewModel.swift */; };
+		9318D3C62ADD369300245AFF /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3C52ADD369300245AFF /* UserRecord.swift */; };
+		9318D3C82ADD36CC00245AFF /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3C72ADD36CC00245AFF /* UserRecord.swift */; };
+		9318D3CA2ADD36D900245AFF /* DataUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3C92ADD36D900245AFF /* DataUser.swift */; };
+		9318D3CC2ADD378900245AFF /* DataUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3CB2ADD378900245AFF /* DataUser.swift */; };
+		9318D3CE2ADD388F00245AFF /* WatchConnectorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3CD2ADD388F00245AFF /* WatchConnectorService.swift */; };
 		93CC91472AD7EC3000D1AC86 /* LocationVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91462AD7EC3000D1AC86 /* LocationVIewModel.swift */; };
 		93CC91532AD8E1B200D1AC86 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91522AD8E1B200D1AC86 /* DataService.swift */; };
 		93CC91552AD8E28900D1AC86 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC91542AD8E28900D1AC86 /* UserProfile.swift */; };
@@ -121,7 +129,17 @@
 		9318D3902ADCD23F00245AFF /* ChargingRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingRange.swift; sourceTree = "<group>"; };
 		9318D3952ADCD31700245AFF /* TestChargingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChargingView.swift; sourceTree = "<group>"; };
 		9318D3972ADCD35D00245AFF /* WatchConnectorManageWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectorManageWatch.swift; sourceTree = "<group>"; };
-		9318D3992ADCD6DA00245AFF /* UserRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
+		9318D3A62ADCED6B00245AFF /* ChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
+		9318D3A72ADCED6B00245AFF /* Invite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
+		9318D3A82ADCED6B00245AFF /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		9318D3BF2ADD32AB00245AFF /* TestAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAuthView.swift; sourceTree = "<group>"; };
+		9318D3C12ADD330900245AFF /* TestAuthConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAuthConnector.swift; sourceTree = "<group>"; };
+		9318D3C32ADD335600245AFF /* TestAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAuthViewModel.swift; sourceTree = "<group>"; };
+		9318D3C52ADD369300245AFF /* UserRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
+		9318D3C72ADD36CC00245AFF /* UserRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
+		9318D3C92ADD36D900245AFF /* DataUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUser.swift; sourceTree = "<group>"; };
+		9318D3CB2ADD378900245AFF /* DataUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUser.swift; sourceTree = "<group>"; };
+		9318D3CD2ADD388F00245AFF /* WatchConnectorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectorService.swift; sourceTree = "<group>"; };
 		93CC91462AD7EC3000D1AC86 /* LocationVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVIewModel.swift; sourceTree = "<group>"; };
 		93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "YTeam-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		93CC91522AD8E1B200D1AC86 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
@@ -133,10 +151,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C6049A52AD78F4D00E9F0BF /* FirebaseAnalytics in Frameworks */,
-				4C6049A72AD7917A00E9F0BF /* FirebaseAuth in Frameworks */,
-				4C6049CB2AD79DDA00E9F0BF /* FirebaseFirestore in Frameworks */,
-				4C6049D02AD7C6E000E9F0BF /* FirebaseFirestoreSwift in Frameworks */,
+				9318D3B02ADCEE5200245AFF /* FirebaseAnalytics in Frameworks */,
+				9318D3B22ADCEE5200245AFF /* FirebaseAuth in Frameworks */,
+				9318D3B42ADCEE5200245AFF /* FirebaseFirestore in Frameworks */,
+				9318D3B62ADCEE5200245AFF /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */,
+				9318D3BA2ADCEFD100245AFF /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				4C4730292AD8DC750025F089 /* AuthService.swift */,
+				9318D3CD2ADD388F00245AFF /* WatchConnectorService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -164,6 +183,7 @@
 			children = (
 				4C6049AB2AD7934400E9F0BF /* IdleDetectionView.swift */,
 				9318D3952ADCD31700245AFF /* TestChargingView.swift */,
+				9318D3BF2ADD32AB00245AFF /* TestAuthView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -173,6 +193,8 @@
 			children = (
 				4C6049C02AD7938500E9F0BF /* IdleDetectionViewModel.swift */,
 				9318D3852ADCD13600245AFF /* ChargingViewModel.swift */,
+				9318D3C12ADD330900245AFF /* TestAuthConnector.swift */,
+				9318D3C32ADD335600245AFF /* TestAuthViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -194,6 +216,8 @@
 				4C6049CD2AD7AF4000E9F0BF /* UserData.swift */,
 				4C6049D12AD7FD4A00E9F0BF /* Invite.swift */,
 				9318D38A2ADCD1AC00245AFF /* ChartData.swift */,
+				9318D3C52ADD369300245AFF /* UserRecord.swift */,
+				9318D3CB2ADD378900245AFF /* DataUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -219,9 +243,9 @@
 		4CB015582AD4DBBC0023C71E /* YTeam */ = {
 			isa = PBXGroup;
 			children = (
+				4C6049CC2AD7AEC800E9F0BF /* Models */,
 				4CA2328B2ADCE1A0003874D2 /* GoogleService-Info.plist */,
 				4C4730282AD8D2520025F089 /* Services */,
-				4C6049CC2AD7AEC800E9F0BF /* Models */,
 				4C6049C32AD7948700E9F0BF /* ViewModels */,
 				4CB015802AD4E6E00023C71E /* YTeam.entitlements */,
 				4CB0157D2AD4E5A20023C71E /* Views */,
@@ -245,6 +269,7 @@
 		4CB0156A2AD4DBBF0023C71E /* YTeam Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				9318D3A52ADCED6B00245AFF /* Models */,
 				93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */,
 				4C6049BF2AD7938500E9F0BF /* ViewModel */,
 				4C6049AA2AD7934400E9F0BF /* View */,
@@ -262,7 +287,6 @@
 				9318D38E2ADCD22C00245AFF /* CalendarExt.swift */,
 				9318D3902ADCD23F00245AFF /* ChargingRange.swift */,
 				9318D3972ADCD35D00245AFF /* WatchConnectorManageWatch.swift */,
-				9318D3992ADCD6DA00245AFF /* UserRecord.swift */,
 				7DEB28F92AD78781002A658D /* FallDetectionManager.swift */,
 			);
 			path = "YTeam Watch App";
@@ -297,6 +321,18 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		9318D3A52ADCED6B00245AFF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9318D3C72ADD36CC00245AFF /* UserRecord.swift */,
+				9318D3A62ADCED6B00245AFF /* ChartData.swift */,
+				9318D3A72ADCED6B00245AFF /* Invite.swift */,
+				9318D3A82ADCED6B00245AFF /* UserData.swift */,
+				9318D3C92ADD36D900245AFF /* DataUser.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		93CC91592AD8E6B800D1AC86 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,10 +359,10 @@
 			);
 			name = YTeam;
 			packageProductDependencies = (
-				4C6049A42AD78F4D00E9F0BF /* FirebaseAnalytics */,
-				4C6049A62AD7917A00E9F0BF /* FirebaseAuth */,
-				4C6049CA2AD79DDA00E9F0BF /* FirebaseFirestore */,
-				4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */,
+				9318D3AF2ADCEE5200245AFF /* FirebaseAnalytics */,
+				9318D3B12ADCEE5200245AFF /* FirebaseAuth */,
+				9318D3B32ADCEE5200245AFF /* FirebaseFirestore */,
+				9318D3B52ADCEE5200245AFF /* FirebaseFirestoreSwift */,
 			);
 			productName = YTeam;
 			productReference = 4CB015562AD4DBBC0023C71E /* YTeam.app */;
@@ -346,7 +382,7 @@
 			);
 			name = "YTeam Watch App";
 			packageProductDependencies = (
-				9318D39B2ADCD92B00245AFF /* FirebaseAuth */,
+				9318D3B92ADCEFD100245AFF /* FirebaseAuth */,
 			);
 			productName = "YTeam Watch App";
 			productReference = 4CB015662AD4DBBF0023C71E /* YTeam Watch App.app */;
@@ -380,7 +416,7 @@
 			);
 			mainGroup = 4CB0154D2AD4DBBC0023C71E;
 			packageReferences = (
-				4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9318D3AE2ADCEE5200245AFF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 4CB015572AD4DBBC0023C71E /* Products */;
 			projectDirPath = "";
@@ -428,6 +464,7 @@
 				4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */,
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
 				4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */,
+				9318D3C62ADD369300245AFF /* UserRecord.swift in Sources */,
 				9318D3892ADCD18600245AFF /* ChargingViewModel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
 				4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */,
@@ -438,6 +475,8 @@
 				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,
 				4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */,
 				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
+				9318D3CC2ADD378900245AFF /* DataUser.swift in Sources */,
+				9318D3CE2ADD388F00245AFF /* WatchConnectorService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,23 +484,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9318D39E2ADCD96600245AFF /* UserData.swift in Sources */,
-				9318D39D2ADCD96100245AFF /* Invite.swift in Sources */,
+				9318D3BC2ADCF01C00245AFF /* Invite.swift in Sources */,
+				9318D3C82ADD36CC00245AFF /* UserRecord.swift in Sources */,
+				9318D3BB2ADCF01200245AFF /* UserData.swift in Sources */,
 				93CC91532AD8E1B200D1AC86 /* DataService.swift in Sources */,
 				9318D3962ADCD31700245AFF /* TestChargingView.swift in Sources */,
 				9318D2FC2AD945D000245AFF /* APIEnums.swift in Sources */,
 				93CC91472AD7EC3000D1AC86 /* LocationVIewModel.swift in Sources */,
 				9318D38F2ADCD22C00245AFF /* CalendarExt.swift in Sources */,
 				9318D3912ADCD24000245AFF /* ChargingRange.swift in Sources */,
+				9318D3C22ADD330900245AFF /* TestAuthConnector.swift in Sources */,
 				93CC91552AD8E28900D1AC86 /* UserProfile.swift in Sources */,
+				9318D3A92ADCED6B00245AFF /* ChartData.swift in Sources */,
 				9318D3982ADCD35D00245AFF /* WatchConnectorManageWatch.swift in Sources */,
 				9318D3842ADCC92000245AFF /* APIConstants.swift in Sources */,
-				9318D39A2ADCD6DA00245AFF /* UserRecord.swift in Sources */,
+				9318D3C02ADD32AB00245AFF /* TestAuthView.swift in Sources */,
 				4CB0156E2AD4DBBF0023C71E /* ContentView.swift in Sources */,
 				7DEB28FA2AD78781002A658D /* FallDetectionManager.swift in Sources */,
 				4CB0156C2AD4DBBF0023C71E /* YTeamApp.swift in Sources */,
+				9318D3CA2ADD36D900245AFF /* DataUser.swift in Sources */,
 				9318D2FA2AD9058C00245AFF /* DateExt.swift in Sources */,
 				4C6049C12AD7938500E9F0BF /* IdleDetectionViewModel.swift in Sources */,
+				9318D3C42ADD335600245AFF /* TestAuthViewModel.swift in Sources */,
 				9318D3862ADCD13600245AFF /* ChargingViewModel.swift in Sources */,
 				4C6049AC2AD7934400E9F0BF /* IdleDetectionView.swift in Sources */,
 			);
@@ -610,13 +654,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.YTeam;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ada.YTeam;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.YTeam.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ada.YTeam.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -645,13 +689,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.YTeam;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ada.YTeam;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.YTeam.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ada.YTeam.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -673,7 +717,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = DQPBPU9766;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = YTeam;
@@ -688,7 +732,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.YTeam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ada.YTeam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -707,7 +751,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = DQPBPU9766;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = YTeam;
@@ -722,7 +766,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.YTeam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ada.YTeam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -765,7 +809,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		9318D3AE2ADCEE5200245AFF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
@@ -776,29 +820,29 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4C6049A42AD78F4D00E9F0BF /* FirebaseAnalytics */ = {
+		9318D3AF2ADCEE5200245AFF /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 9318D3AE2ADCEE5200245AFF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
 		};
-		4C6049A62AD7917A00E9F0BF /* FirebaseAuth */ = {
+		9318D3B12ADCEE5200245AFF /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 9318D3AE2ADCEE5200245AFF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		4C6049CA2AD79DDA00E9F0BF /* FirebaseFirestore */ = {
+		9318D3B32ADCEE5200245AFF /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 9318D3AE2ADCEE5200245AFF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */ = {
+		9318D3B52ADCEE5200245AFF /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 9318D3AE2ADCEE5200245AFF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
 		};
-		9318D39B2ADCD92B00245AFF /* FirebaseAuth */ = {
+		9318D3B92ADCEFD100245AFF /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 9318D3AE2ADCEE5200245AFF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
