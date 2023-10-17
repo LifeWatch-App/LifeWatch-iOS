@@ -43,7 +43,7 @@ final class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDele
         }
         locationManager.requestAlwaysAuthorization()
     }
-    
+
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         authorizationStatus = manager.authorizationStatus
     }

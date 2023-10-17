@@ -25,7 +25,7 @@ struct Document<T: Codable>: Codable {
     let fields: T?
     let name: String?
     let updateTime: String?
-
+    
     init(name: String? = nil, fields: T, createTime: String? = nil, updateTime: String? = nil) {
         self.name = name
         self.fields = fields
@@ -34,12 +34,11 @@ struct Document<T: Codable>: Codable {
     }
 }
 
-// MARK: - ID
 struct Description: Codable, Hashable {
     let stringValue: String?
     let intValue: Int?
     let timeStampValue: String?
-
+    
     init(stringValue: String? = nil, intValue: Int? = nil, timeStampValue: String? = nil) {
         self.stringValue = stringValue
         self.intValue = intValue

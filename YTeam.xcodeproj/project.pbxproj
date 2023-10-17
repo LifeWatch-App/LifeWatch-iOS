@@ -19,6 +19,17 @@
 		4C6049D02AD7C6E000E9F0BF /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */; };
 		4CA2328C2ADCE1A0003874D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CA2328B2ADCE1A0003874D2 /* GoogleService-Info.plist */; };
 		4CA232902ADD119B003874D2 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CA2328F2ADD119B003874D2 /* FirebaseMessaging */; };
+		4CA232972ADE1EF1003874D2 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232922ADE1EF1003874D2 /* UserRecord.swift */; };
+		4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232932ADE1EF1003874D2 /* ChartData.swift */; };
+		4CA232992ADE1EF1003874D2 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232942ADE1EF1003874D2 /* Invite.swift */; };
+		4CA2329A2ADE1EF1003874D2 /* DataUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232952ADE1EF1003874D2 /* DataUser.swift */; };
+		4CA2329B2ADE1EF1003874D2 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232962ADE1EF1003874D2 /* UserData.swift */; };
+		4CA2329D2ADE1F15003874D2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329C2ADE1F15003874D2 /* MainView.swift */; };
+		4CA232A02ADE1F1D003874D2 /* TestAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */; };
+		4CA232A12ADE1F1D003874D2 /* TestAuthConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329F2ADE1F1D003874D2 /* TestAuthConnector.swift */; };
+		4CA232A42ADE1F4F003874D2 /* DataUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232A22ADE1F4F003874D2 /* DataUser.swift */; };
+		4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232A32ADE1F4F003874D2 /* UserRecord.swift */; };
+		4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */; };
 		4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB015592AD4DBBC0023C71E /* YTeamApp.swift */; };
 		4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0155B2AD4DBBC0023C71E /* ContentView.swift */; };
 		4CB0155E2AD4DBBF0023C71E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */; };
@@ -46,7 +57,6 @@
 		7D02E76E2ADD023E00923AFB /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E75F2ADD023E00923AFB /* ChargingRange.swift */; };
 		7D02E76F2ADD023E00923AFB /* FallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7602ADD023E00923AFB /* FallHistory.swift */; };
 		7D02E7702ADD023E00923AFB /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7612ADD023E00923AFB /* UserProfile.swift */; };
-		7D02E7722ADD024A00923AFB /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7712ADD024A00923AFB /* UserRecord.swift */; };
 		7D02E7732ADD029900923AFB /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049CD2AD7AF4000E9F0BF /* UserData.swift */; };
 		7D02E7742ADD029900923AFB /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049D12AD7FD4A00E9F0BF /* Invite.swift */; };
 		7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E75F2ADD023E00923AFB /* ChargingRange.swift */; };
@@ -59,6 +69,7 @@
 		9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38A2ADCD1AC00245AFF /* ChartData.swift */; };
 		9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38C2ADCD1C800245AFF /* TestChargingView.swift */; };
 		9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D39B2ADCD92B00245AFF /* FirebaseAuth */; };
+		9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7612ADD023E00923AFB /* UserProfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +107,17 @@
 		4C6049D12AD7FD4A00E9F0BF /* Invite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
 		4CA2328B2ADCE1A0003874D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CA232912ADD4517003874D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4CA232922ADE1EF1003874D2 /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
+		4CA232932ADE1EF1003874D2 /* ChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
+		4CA232942ADE1EF1003874D2 /* Invite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
+		4CA232952ADE1EF1003874D2 /* DataUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataUser.swift; sourceTree = "<group>"; };
+		4CA232962ADE1EF1003874D2 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		4CA2329C2ADE1F15003874D2 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAuthViewModel.swift; sourceTree = "<group>"; };
+		4CA2329F2ADE1F1D003874D2 /* TestAuthConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAuthConnector.swift; sourceTree = "<group>"; };
+		4CA232A22ADE1F4F003874D2 /* DataUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataUser.swift; sourceTree = "<group>"; };
+		4CA232A32ADE1F4F003874D2 /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
+		4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchConnectorService.swift; sourceTree = "<group>"; };
 		4CB015562AD4DBBC0023C71E /* YTeam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YTeam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB015592AD4DBBC0023C71E /* YTeamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTeamApp.swift; sourceTree = "<group>"; };
 		4CB0155B2AD4DBBC0023C71E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -164,6 +186,7 @@
 		4C4730282AD8D2520025F089 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */,
 				4C4730292AD8DC750025F089 /* AuthService.swift */,
 			);
 			path = Services;
@@ -184,6 +207,8 @@
 		4C6049CC2AD7AEC800E9F0BF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4CA232A22ADE1F4F003874D2 /* DataUser.swift */,
+				4CA232A32ADE1F4F003874D2 /* UserRecord.swift */,
 				4C6049CD2AD7AF4000E9F0BF /* UserData.swift */,
 				4C6049D12AD7FD4A00E9F0BF /* Invite.swift */,
 				9318D38A2ADCD1AC00245AFF /* ChartData.swift */,
@@ -239,7 +264,6 @@
 		4CB0156A2AD4DBBF0023C71E /* YTeam Watch App */ = {
 			isa = PBXGroup;
 			children = (
-				7D02E7712ADD024A00923AFB /* UserRecord.swift */,
 				7D02E7572ADD023E00923AFB /* Constants */,
 				7D02E7592ADD023E00923AFB /* Enums */,
 				7D02E7542ADD023E00923AFB /* Extension */,
@@ -292,6 +316,7 @@
 		7D02E74B2ADD023E00923AFB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */,
 				7D02E74C2ADD023E00923AFB /* LocationVIewModel.swift */,
 				7D02E74D2ADD023E00923AFB /* IdleDetectionViewModel.swift */,
 				7D02E74E2ADD023E00923AFB /* ChargingViewModel.swift */,
@@ -302,6 +327,7 @@
 		7D02E74F2ADD023E00923AFB /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				4CA2329F2ADE1F1D003874D2 /* TestAuthConnector.swift */,
 				7D02E7502ADD023E00923AFB /* DataService.swift */,
 			);
 			path = Services;
@@ -345,6 +371,7 @@
 		7D02E75B2ADD023E00923AFB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4CA2329C2ADE1F15003874D2 /* MainView.swift */,
 				7D02E75C2ADD023E00923AFB /* TestChargingView.swift */,
 				7D02E75D2ADD023E00923AFB /* IdleDetectionView.swift */,
 			);
@@ -354,6 +381,11 @@
 		7D02E75E2ADD023E00923AFB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4CA232932ADE1EF1003874D2 /* ChartData.swift */,
+				4CA232952ADE1EF1003874D2 /* DataUser.swift */,
+				4CA232942ADE1EF1003874D2 /* Invite.swift */,
+				4CA232962ADE1EF1003874D2 /* UserData.swift */,
+				4CA232922ADE1EF1003874D2 /* UserRecord.swift */,
 				7D02E75F2ADD023E00923AFB /* ChargingRange.swift */,
 				7D02E7602ADD023E00923AFB /* FallHistory.swift */,
 				7D02E7612ADD023E00923AFB /* UserProfile.swift */,
@@ -484,14 +516,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */,
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
 				7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
+				4CA232A42ADE1F4F003874D2 /* DataUser.swift in Sources */,
 				4C6049C52AD7948F00E9F0BF /* MainViewModel.swift in Sources */,
 				9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */,
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
 				4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */,
+				4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */,
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
 				4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */,
 				8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */,
@@ -503,6 +538,7 @@
 				9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */,
 				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,
 				4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */,
+				4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */,
 				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
 				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
 			);
@@ -515,22 +551,29 @@
 				7D02E76E2ADD023E00923AFB /* ChargingRange.swift in Sources */,
 				7D02E76C2ADD023E00923AFB /* TestChargingView.swift in Sources */,
 				7D02E7632ADD023E00923AFB /* IdleDetectionViewModel.swift in Sources */,
+				4CA2329D2ADE1F15003874D2 /* MainView.swift in Sources */,
 				7D02E76B2ADD023E00923AFB /* APIEnums.swift in Sources */,
 				7D02E76A2ADD023E00923AFB /* APIConstants.swift in Sources */,
 				7D02E7672ADD023E00923AFB /* WatchConnectorManageWatch.swift in Sources */,
+				4CA232992ADE1EF1003874D2 /* Invite.swift in Sources */,
 				7D02E7622ADD023E00923AFB /* LocationVIewModel.swift in Sources */,
-				7D02E7722ADD024A00923AFB /* UserRecord.swift in Sources */,
+				4CA232972ADE1EF1003874D2 /* UserRecord.swift in Sources */,
 				4CB0156E2AD4DBBF0023C71E /* ContentView.swift in Sources */,
 				7D02E77B2ADD39D800923AFB /* CoreMotionManager.swift in Sources */,
+				4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */,
 				7D02E7682ADD023E00923AFB /* CalendarExt.swift in Sources */,
 				7D02E76D2ADD023E00923AFB /* IdleDetectionView.swift in Sources */,
 				7D02E7642ADD023E00923AFB /* ChargingViewModel.swift in Sources */,
 				4CB0156C2AD4DBBF0023C71E /* YTeamApp.swift in Sources */,
+				4CA232A02ADE1F1D003874D2 /* TestAuthViewModel.swift in Sources */,
 				7D02E7702ADD023E00923AFB /* UserProfile.swift in Sources */,
+				4CA2329B2ADE1EF1003874D2 /* UserData.swift in Sources */,
 				7D02E7662ADD023E00923AFB /* FallDetectionManager.swift in Sources */,
 				7D02E7652ADD023E00923AFB /* DataService.swift in Sources */,
+				4CA232A12ADE1F1D003874D2 /* TestAuthConnector.swift in Sources */,
 				7D02E7692ADD023E00923AFB /* DateExt.swift in Sources */,
 				7D02E76F2ADD023E00923AFB /* FallHistory.swift in Sources */,
+				4CA2329A2ADE1EF1003874D2 /* DataUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

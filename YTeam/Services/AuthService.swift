@@ -4,9 +4,8 @@
 //
 //  Created by Yap Justin on 13/10/23.
 //
-
 import Firebase
-import FirebaseFirestoreSwift
+import FirebaseAuth
 
 class AuthService {
     let db = Firestore.firestore()
@@ -16,6 +15,7 @@ class AuthService {
     @Published var invites: [Invite] = []
     var invitesListener: ListenerRegistration?
     
+
     func listenToAuthState() {
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
             guard let self = self else {
@@ -24,7 +24,7 @@ class AuthService {
             self.user = user
         }
     }
-    
+
     func login(email: String, password: String) {
         //TODO: Send user record to watch using WatchConnectivity
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
@@ -75,6 +75,7 @@ class AuthService {
             try Auth.auth().signOut()
             AuthService.shared.userData = nil
             AuthService.shared.invites = []
+            AuthService.shared.user = nil
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
