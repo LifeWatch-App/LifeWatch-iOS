@@ -13,8 +13,9 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     @Published var authorized: Bool = false
     
     let fallDetector = CMFallDetectionManager()
-    private let service = DataService.shared
     
+    private let service = DataService.shared
+    private let decoder: JSONDecoder = JSONDecoder()
     override init() {
         super.init()
         self.assignDelegate()
@@ -72,12 +73,15 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     func fallDetectionManager(
         _ fallDetectionManager: CMFallDetectionManager,
         didDetect event: CMFallDetectionEvent) async {
-            
+        
+        guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
+        let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
         let timeDescription = "\(event.date.description) \(event.resolution.rawValue)"
-        let time = Fall(time: Description(stringValue: timeDescription))
-        Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time) }
-        debugPrint("Successfully inputed \(timeDescription) to Firebase")
-            
+        
+        if (userRecord != nil) {
+            let time = Fall(time: Description(stringValue: timeDescription), userId: Description(stringValue: userRecord?.userID))
+            Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time) }
+        }
     }
     
     /// `Unchangable conforming function to automatically check for change in authorization`.
