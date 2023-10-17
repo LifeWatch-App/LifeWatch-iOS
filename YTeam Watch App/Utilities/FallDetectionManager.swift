@@ -76,11 +76,12 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
         
         guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
         let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
-        debugPrint("User Record: \(userRecord?.userID ?? "No User ID is found.")")
-            
         let timeDescription = "\(event.date.description) \(event.resolution.rawValue)"
-        let time = Fall(time: Description(stringValue: timeDescription), userId: Description(stringValue: userRecord?.userID))
-        Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time) }
+        
+        if (userRecord != nil) {
+            let time = Fall(time: Description(stringValue: timeDescription), userId: Description(stringValue: userRecord?.userID))
+            Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time) }
+        }
     }
     
     /// `Unchangable conforming function to automatically check for change in authorization`.
