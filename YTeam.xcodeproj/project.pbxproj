@@ -61,6 +61,7 @@
 		7D02E7742ADD029900923AFB /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049D12AD7FD4A00E9F0BF /* Invite.swift */; };
 		7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E75F2ADD023E00923AFB /* ChargingRange.swift */; };
 		7D02E7792ADD038700923AFB /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7562ADD023E00923AFB /* DateExt.swift */; };
+		7D02E77B2ADD39D800923AFB /* CoreMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
 		8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */; };
@@ -147,6 +148,8 @@
 		7D02E75F2ADD023E00923AFB /* ChargingRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargingRange.swift; sourceTree = "<group>"; };
 		7D02E7602ADD023E00923AFB /* FallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallHistory.swift; sourceTree = "<group>"; };
 		7D02E7612ADD023E00923AFB /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		7D02E7712ADD024A00923AFB /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
+		7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMotionManager.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRoleView.swift; sourceTree = "<group>"; };
@@ -335,6 +338,7 @@
 			children = (
 				7D02E7522ADD023E00923AFB /* FallDetectionManager.swift */,
 				7D02E7532ADD023E00923AFB /* WatchConnectorManageWatch.swift */,
+				7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -555,6 +559,7 @@
 				7D02E7622ADD023E00923AFB /* LocationVIewModel.swift in Sources */,
 				4CA232972ADE1EF1003874D2 /* UserRecord.swift in Sources */,
 				4CB0156E2AD4DBBF0023C71E /* ContentView.swift in Sources */,
+				7D02E77B2ADD39D800923AFB /* CoreMotionManager.swift in Sources */,
 				4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */,
 				7D02E7682ADD023E00923AFB /* CalendarExt.swift in Sources */,
 				7D02E76D2ADD023E00923AFB /* IdleDetectionView.swift in Sources */,
@@ -706,7 +711,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -741,7 +746,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
