@@ -15,6 +15,7 @@ final class CobaTestViewModel: ObservableObject {
     @Published private(set) var batteryCharging: WKInterfaceDeviceBatteryState?
     @Published private(set) var currentRange: ChargingRange?
     @Published private(set) var watchReachable = false
+//    @Published private(set) var userRecord: UserRecord?
     let watchConnectionManager = WatchConnectorManager()
 
     required init() {
@@ -33,6 +34,15 @@ final class CobaTestViewModel: ObservableObject {
             self.watchReachable = false
         }
     }
+
+//    func checkRecord() {
+//        watchConnectionManager.$userRecord
+//            .receive(on: DispatchQueue.main)
+//            .sink { record in
+//                self?.userRecord = record
+//            }
+//            .store(in: &cancellables)
+//    }
 
     func resetRanges() {
         currentRange = nil
