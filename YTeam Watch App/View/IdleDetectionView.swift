@@ -7,17 +7,15 @@
 
 import SwiftUI
 
-let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
 struct IdleDetectionView: View {
-    @StateObject var vm: IdleDetectionViewModel = IdleDetectionViewModel()
+    @StateObject var idleViewModel: IdleDetectionViewModel = IdleDetectionViewModel()
     
     var body: some View {
         VStack {
-            Text("Position: \(vm.position)")
+            Text("Position: \(idleViewModel.position)")
         }
-        .onReceive(timer) { input in
-            vm.checkPosition()
+        .onReceive(idleViewModel.timer) { input in
+            idleViewModel.checkPosition()
         }
     }
 }
