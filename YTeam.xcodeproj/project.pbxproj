@@ -24,7 +24,7 @@
 		4CA232992ADE1EF1003874D2 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232942ADE1EF1003874D2 /* Invite.swift */; };
 		4CA2329A2ADE1EF1003874D2 /* DataUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232952ADE1EF1003874D2 /* DataUser.swift */; };
 		4CA2329B2ADE1EF1003874D2 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232962ADE1EF1003874D2 /* UserData.swift */; };
-		4CA2329D2ADE1F15003874D2 /* TestAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329C2ADE1F15003874D2 /* TestAuthView.swift */; };
+		4CA2329D2ADE1F15003874D2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329C2ADE1F15003874D2 /* MainView.swift */; };
 		4CA232A02ADE1F1D003874D2 /* TestAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */; };
 		4CA232A12ADE1F1D003874D2 /* TestAuthConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329F2ADE1F1D003874D2 /* TestAuthConnector.swift */; };
 		4CA232A42ADE1F4F003874D2 /* DataUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232A22ADE1F4F003874D2 /* DataUser.swift */; };
@@ -68,6 +68,7 @@
 		9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38A2ADCD1AC00245AFF /* ChartData.swift */; };
 		9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38C2ADCD1C800245AFF /* TestChargingView.swift */; };
 		9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D39B2ADCD92B00245AFF /* FirebaseAuth */; };
+		9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7612ADD023E00923AFB /* UserProfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,7 +111,7 @@
 		4CA232942ADE1EF1003874D2 /* Invite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
 		4CA232952ADE1EF1003874D2 /* DataUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataUser.swift; sourceTree = "<group>"; };
 		4CA232962ADE1EF1003874D2 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
-		4CA2329C2ADE1F15003874D2 /* TestAuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAuthView.swift; sourceTree = "<group>"; };
+		4CA2329C2ADE1F15003874D2 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAuthViewModel.swift; sourceTree = "<group>"; };
 		4CA2329F2ADE1F1D003874D2 /* TestAuthConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAuthConnector.swift; sourceTree = "<group>"; };
 		4CA232A22ADE1F4F003874D2 /* DataUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataUser.swift; sourceTree = "<group>"; };
@@ -312,7 +313,6 @@
 		7D02E74B2ADD023E00923AFB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4CA2329F2ADE1F1D003874D2 /* TestAuthConnector.swift */,
 				4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */,
 				7D02E74C2ADD023E00923AFB /* LocationVIewModel.swift */,
 				7D02E74D2ADD023E00923AFB /* IdleDetectionViewModel.swift */,
@@ -324,6 +324,7 @@
 		7D02E74F2ADD023E00923AFB /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				4CA2329F2ADE1F1D003874D2 /* TestAuthConnector.swift */,
 				7D02E7502ADD023E00923AFB /* DataService.swift */,
 			);
 			path = Services;
@@ -366,7 +367,7 @@
 		7D02E75B2ADD023E00923AFB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4CA2329C2ADE1F15003874D2 /* TestAuthView.swift */,
+				4CA2329C2ADE1F15003874D2 /* MainView.swift */,
 				7D02E75C2ADD023E00923AFB /* TestChargingView.swift */,
 				7D02E75D2ADD023E00923AFB /* IdleDetectionView.swift */,
 			);
@@ -511,6 +512,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */,
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
 				7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
@@ -545,7 +547,7 @@
 				7D02E76E2ADD023E00923AFB /* ChargingRange.swift in Sources */,
 				7D02E76C2ADD023E00923AFB /* TestChargingView.swift in Sources */,
 				7D02E7632ADD023E00923AFB /* IdleDetectionViewModel.swift in Sources */,
-				4CA2329D2ADE1F15003874D2 /* TestAuthView.swift in Sources */,
+				4CA2329D2ADE1F15003874D2 /* MainView.swift in Sources */,
 				7D02E76B2ADD023E00923AFB /* APIEnums.swift in Sources */,
 				7D02E76A2ADD023E00923AFB /* APIConstants.swift in Sources */,
 				7D02E7672ADD023E00923AFB /* WatchConnectorManageWatch.swift in Sources */,

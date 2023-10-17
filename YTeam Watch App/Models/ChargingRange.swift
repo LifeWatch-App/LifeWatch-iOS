@@ -8,9 +8,10 @@
 import Foundation
 
 struct ChargingRange: Hashable, Codable {
+    var userID: String?
     var startCharging: Date?
     var endCharging: Date?
-    var taskState: ChargingTask
+    var taskState: String?
 
     func getValidChargingRange(startCharging: Date, endCharging: Date) -> Bool {
         let interval = endCharging.timeIntervalSince(startCharging)
@@ -25,7 +26,14 @@ struct ChargingRange: Hashable, Codable {
     }
 }
 
-enum ChargingTask: Codable {
-    case ongoing, ended
+struct ChargingRangeRecord: Hashable, Codable {
+    var userID: Description?
+    var startCharging: Description?
+    var endCharging: Description?
+    var taskState: Description?
 }
+
+//enum ChargingTask: Codable {
+//    case ongoing, ended
+//}
 

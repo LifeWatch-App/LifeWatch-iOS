@@ -25,13 +25,16 @@ protocol Endpoint {
 enum MultipleEndPoints: Endpoint {
     case userprofile
     case falls
-    
+    case charges
+
     var endPointDescription: String {
         switch self {
         case .userprofile:
             return "/userProfiles/"
         case .falls:
             return "/falls/"
+        case .charges:
+            return "/charges/"
         }
     
     }

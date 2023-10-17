@@ -60,7 +60,9 @@ final class DataService {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let document = Document(fields: fields)
+//        print(document)
         let encodedData = try JSONEncoder().encode(document)
+        print(try JSONSerialization.jsonObject(with: encodedData))
         request.httpBody = encodedData
         
         do {
