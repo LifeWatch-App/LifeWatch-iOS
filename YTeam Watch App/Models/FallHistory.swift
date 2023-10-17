@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FallHistory: Codable, Hashable {
+struct Fall: Codable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

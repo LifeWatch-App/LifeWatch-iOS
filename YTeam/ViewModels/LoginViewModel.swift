@@ -8,7 +8,10 @@
 import Foundation
 
 class LoginViewModel: ObservableObject {
-    func login(email: String, password: String) {
+    @Published var email = ""
+    @Published var password = ""
+    
+    func login() {
         AuthService.shared.login(email: email, password: password)
     }
 }

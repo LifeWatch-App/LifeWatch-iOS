@@ -74,8 +74,8 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
         didDetect event: CMFallDetectionEvent) async {
             
         let timeDescription = "\(event.date.description) \(event.resolution.rawValue)"
-        let time = FallHistory(time: Description(stringValue: timeDescription))
-        Task { try? await service.set(endPoint: MultipleEndPoints.fallhistory, fields: time) }
+        let time = Fall(time: Description(stringValue: timeDescription))
+        Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time) }
         debugPrint("Successfully inputed \(timeDescription) to Firebase")
             
     }
