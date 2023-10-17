@@ -148,7 +148,6 @@
 		7D02E75F2ADD023E00923AFB /* ChargingRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargingRange.swift; sourceTree = "<group>"; };
 		7D02E7602ADD023E00923AFB /* FallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallHistory.swift; sourceTree = "<group>"; };
 		7D02E7612ADD023E00923AFB /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
-		7D02E7712ADD024A00923AFB /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
 		7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMotionManager.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
@@ -275,7 +274,6 @@
 				93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */,
 				7D02E7042AD78AD300923AFB /* YTeam Watch App.entitlements */,
 				4CB0156B2AD4DBBF0023C71E /* YTeamApp.swift */,
-				4CB0156D2AD4DBBF0023C71E /* ContentView.swift */,
 				4CB0156F2AD4DBC00023C71E /* Assets.xcassets */,
 				4CB015712AD4DBC00023C71E /* Preview Content */,
 			);
@@ -371,6 +369,7 @@
 		7D02E75B2ADD023E00923AFB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4CB0156D2AD4DBBF0023C71E /* ContentView.swift */,
 				4CA2329C2ADE1F15003874D2 /* MainView.swift */,
 				7D02E75C2ADD023E00923AFB /* TestChargingView.swift */,
 				7D02E75D2ADD023E00923AFB /* IdleDetectionView.swift */,

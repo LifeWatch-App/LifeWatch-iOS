@@ -27,7 +27,7 @@ struct ChargingRange: Hashable, Codable {
 }
 
 struct ChargingRangeRecord: Hashable, Codable {
-    var userID: Description?
+    var seniorId: Description?
     var startCharging: Description?
     var endCharging: Description?
     var taskState: Description?

@@ -54,7 +54,7 @@ final class CobaTestViewModel: ObservableObject {
         case .charging:
             if self.currentRange == nil {
                 self.currentRange = ChargingRange(startCharging: .now, taskState: "ongoing")
-                let rangeCurrent: ChargingRangeRecord = ChargingRangeRecord(userID: Description(stringValue: userID), startCharging: Description(stringValue: self.currentRange?.startCharging?.description), taskState: Description(stringValue: self.currentRange?.taskState))
+                let rangeCurrent: ChargingRangeRecord = ChargingRangeRecord(seniorId: Description(stringValue: userID), startCharging: Description(stringValue: self.currentRange?.startCharging?.description), taskState: Description(stringValue: self.currentRange?.taskState))
                 Task { try? await service.set(endPoint: MultipleEndPoints.charges, fields: rangeCurrent) }
             }
         default:
