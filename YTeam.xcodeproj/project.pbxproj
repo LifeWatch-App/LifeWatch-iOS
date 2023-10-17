@@ -61,6 +61,7 @@
 		7D02E7742ADD029900923AFB /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049D12AD7FD4A00E9F0BF /* Invite.swift */; };
 		7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E75F2ADD023E00923AFB /* ChargingRange.swift */; };
 		7D02E7792ADD038700923AFB /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7562ADD023E00923AFB /* DateExt.swift */; };
+		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		7D02E77B2ADD39D800923AFB /* CoreMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
@@ -148,6 +149,8 @@
 		7D02E75F2ADD023E00923AFB /* ChargingRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargingRange.swift; sourceTree = "<group>"; };
 		7D02E7602ADD023E00923AFB /* FallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallHistory.swift; sourceTree = "<group>"; };
 		7D02E7612ADD023E00923AFB /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
+		7D02E7712ADD024A00923AFB /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
 		7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMotionManager.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
@@ -388,6 +391,7 @@
 				7D02E75F2ADD023E00923AFB /* ChargingRange.swift */,
 				7D02E7602ADD023E00923AFB /* FallHistory.swift */,
 				7D02E7612ADD023E00923AFB /* UserProfile.swift */,
+				8D7D73052ADE247D00251550 /* Inactivity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -571,6 +575,7 @@
 				7D02E7652ADD023E00923AFB /* DataService.swift in Sources */,
 				4CA232A12ADE1F1D003874D2 /* TestAuthConnector.swift in Sources */,
 				7D02E7692ADD023E00923AFB /* DateExt.swift in Sources */,
+				8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */,
 				7D02E76F2ADD023E00923AFB /* FallHistory.swift in Sources */,
 				4CA2329A2ADE1EF1003874D2 /* DataUser.swift in Sources */,
 			);
