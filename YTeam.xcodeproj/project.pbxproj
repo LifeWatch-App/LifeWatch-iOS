@@ -24,7 +24,7 @@
 		4CA232992ADE1EF1003874D2 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232942ADE1EF1003874D2 /* Invite.swift */; };
 		4CA2329A2ADE1EF1003874D2 /* DataUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232952ADE1EF1003874D2 /* DataUser.swift */; };
 		4CA2329B2ADE1EF1003874D2 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232962ADE1EF1003874D2 /* UserData.swift */; };
-		4CA2329D2ADE1F15003874D2 /* TestAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329C2ADE1F15003874D2 /* TestAuthView.swift */; };
+		4CA2329D2ADE1F15003874D2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329C2ADE1F15003874D2 /* MainView.swift */; };
 		4CA232A02ADE1F1D003874D2 /* TestAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */; };
 		4CA232A12ADE1F1D003874D2 /* TestAuthConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329F2ADE1F1D003874D2 /* TestAuthConnector.swift */; };
 		4CA232A42ADE1F4F003874D2 /* DataUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232A22ADE1F4F003874D2 /* DataUser.swift */; };
@@ -62,6 +62,7 @@
 		7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E75F2ADD023E00923AFB /* ChargingRange.swift */; };
 		7D02E7792ADD038700923AFB /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7562ADD023E00923AFB /* DateExt.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
+		7D02E77B2ADD39D800923AFB /* CoreMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
 		8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */; };
@@ -69,6 +70,7 @@
 		9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38A2ADCD1AC00245AFF /* ChartData.swift */; };
 		9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38C2ADCD1C800245AFF /* TestChargingView.swift */; };
 		9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D39B2ADCD92B00245AFF /* FirebaseAuth */; };
+		9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7612ADD023E00923AFB /* UserProfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,7 +113,7 @@
 		4CA232942ADE1EF1003874D2 /* Invite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
 		4CA232952ADE1EF1003874D2 /* DataUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataUser.swift; sourceTree = "<group>"; };
 		4CA232962ADE1EF1003874D2 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
-		4CA2329C2ADE1F15003874D2 /* TestAuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAuthView.swift; sourceTree = "<group>"; };
+		4CA2329C2ADE1F15003874D2 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAuthViewModel.swift; sourceTree = "<group>"; };
 		4CA2329F2ADE1F1D003874D2 /* TestAuthConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAuthConnector.swift; sourceTree = "<group>"; };
 		4CA232A22ADE1F4F003874D2 /* DataUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataUser.swift; sourceTree = "<group>"; };
@@ -148,6 +150,8 @@
 		7D02E7602ADD023E00923AFB /* FallHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallHistory.swift; sourceTree = "<group>"; };
 		7D02E7612ADD023E00923AFB /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
+		7D02E7712ADD024A00923AFB /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
+		7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMotionManager.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRoleView.swift; sourceTree = "<group>"; };
@@ -314,7 +318,6 @@
 		7D02E74B2ADD023E00923AFB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4CA2329F2ADE1F1D003874D2 /* TestAuthConnector.swift */,
 				4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */,
 				7D02E74C2ADD023E00923AFB /* LocationVIewModel.swift */,
 				7D02E74D2ADD023E00923AFB /* IdleDetectionViewModel.swift */,
@@ -326,6 +329,7 @@
 		7D02E74F2ADD023E00923AFB /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				4CA2329F2ADE1F1D003874D2 /* TestAuthConnector.swift */,
 				7D02E7502ADD023E00923AFB /* DataService.swift */,
 			);
 			path = Services;
@@ -336,6 +340,7 @@
 			children = (
 				7D02E7522ADD023E00923AFB /* FallDetectionManager.swift */,
 				7D02E7532ADD023E00923AFB /* WatchConnectorManageWatch.swift */,
+				7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -368,7 +373,7 @@
 		7D02E75B2ADD023E00923AFB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4CA2329C2ADE1F15003874D2 /* TestAuthView.swift */,
+				4CA2329C2ADE1F15003874D2 /* MainView.swift */,
 				7D02E75C2ADD023E00923AFB /* TestChargingView.swift */,
 				7D02E75D2ADD023E00923AFB /* IdleDetectionView.swift */,
 			);
@@ -514,6 +519,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */,
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
 				7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
@@ -548,7 +554,7 @@
 				7D02E76E2ADD023E00923AFB /* ChargingRange.swift in Sources */,
 				7D02E76C2ADD023E00923AFB /* TestChargingView.swift in Sources */,
 				7D02E7632ADD023E00923AFB /* IdleDetectionViewModel.swift in Sources */,
-				4CA2329D2ADE1F15003874D2 /* TestAuthView.swift in Sources */,
+				4CA2329D2ADE1F15003874D2 /* MainView.swift in Sources */,
 				7D02E76B2ADD023E00923AFB /* APIEnums.swift in Sources */,
 				7D02E76A2ADD023E00923AFB /* APIConstants.swift in Sources */,
 				7D02E7672ADD023E00923AFB /* WatchConnectorManageWatch.swift in Sources */,
@@ -556,6 +562,7 @@
 				7D02E7622ADD023E00923AFB /* LocationVIewModel.swift in Sources */,
 				4CA232972ADE1EF1003874D2 /* UserRecord.swift in Sources */,
 				4CB0156E2AD4DBBF0023C71E /* ContentView.swift in Sources */,
+				7D02E77B2ADD39D800923AFB /* CoreMotionManager.swift in Sources */,
 				4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */,
 				7D02E7682ADD023E00923AFB /* CalendarExt.swift in Sources */,
 				7D02E76D2ADD023E00923AFB /* IdleDetectionView.swift in Sources */,
@@ -708,7 +715,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -743,7 +750,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";

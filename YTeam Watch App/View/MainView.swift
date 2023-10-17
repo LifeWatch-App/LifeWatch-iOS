@@ -7,22 +7,20 @@
 
 import SwiftUI
 
-struct TestAuthView: View {
+struct MainView: View {
     @StateObject private var vm = TestAuthViewModel()
     var body: some View {
         if vm.userAuth?.userID != nil {
             VStack {
-                Text("Authenticated and logged in")
-                Button("Test") {
-                    print(vm.userAuth)
-                }
+                TestChargingView()
+                    .environmentObject(vm)
             }
-        } else {
+        } else if vm.userAuth?.userID == nil {
             Text("Not authenticated and not logged in")
         }
     }
 }
 
 #Preview {
-    TestAuthView()
+    MainView()
 }
