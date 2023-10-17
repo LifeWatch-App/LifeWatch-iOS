@@ -24,14 +24,14 @@ protocol Endpoint {
 
 enum MultipleEndPoints: Endpoint {
     case userprofile
-    case fallhistory
+    case falls
     
     var endPointDescription: String {
         switch self {
         case .userprofile:
             return "/userProfiles/"
-        case .fallhistory:
-            return "/fallHistory/"
+        case .falls:
+            return "/falls/"
         }
     
     }
