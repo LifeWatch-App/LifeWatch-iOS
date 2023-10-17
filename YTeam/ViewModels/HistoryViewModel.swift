@@ -29,10 +29,3 @@ enum HistoryCardOption: String, CaseIterable, Identifiable {
     case fell, pressed, idle, charging
     var id: Self { self }
 }
-
-struct ToyShape: Identifiable {
-    var color: String
-    var type: String
-    var count: Double
-    var id = UUID()
-}
