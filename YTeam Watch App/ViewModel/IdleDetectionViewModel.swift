@@ -59,6 +59,10 @@ class IdleDetectionViewModel: ObservableObject {
                 }
                 
                 if self.latestPosition != self.position {
+                    if self.idle == true && self.idleTime > 1800 {
+                        //send data to firebase
+                        self.sendIdleDataFirebase()
+                    }
                     self.latestPosition = self.position
                     self.time = 0
                     self.idleTime = 0
@@ -74,7 +78,7 @@ class IdleDetectionViewModel: ObservableObject {
         }
     }
     
-    func checkIdle() {
+    func sendIdleDataFirebase() {
 //        let inactivity = Inactivity(startTime: Description(timeStampValue: <#T##String?#>), endTime: Description(timeStampValue: <#T##String?#>))
 //        Task { try? await service.set(endPoint: MultipleEndPoints.inactivity, fields: inactivity) }
     }

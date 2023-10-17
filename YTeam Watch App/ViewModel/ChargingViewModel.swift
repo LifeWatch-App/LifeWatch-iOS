@@ -18,11 +18,11 @@ final class CobaTestViewModel: ObservableObject {
     @Published private(set) var watchReachable = false
     //    @Published private(set) var userRecord: UserRecord?
     let watchConnectionManager = WatchConnectorManager()
-    
+
     required init() {
         initializerFunction()
     }
-    
+
     func initializerFunction() {
         interface.isBatteryMonitoringEnabled = true
         batteryCharging = interface.batteryState
@@ -34,21 +34,19 @@ final class CobaTestViewModel: ObservableObject {
         //            self.watchReachable = false
         //        }
     }
-    
+
     func resetRanges() {
         currentRange = nil
     }
-    
+
     func startCharging() {
         batteryCharging = .charging
     }
-    
+
     func stopCharging() {
         batteryCharging = .unplugged
     }
-    //    let profile = UserProfile(userId: Description(stringValue: "124930"), userName: Description(stringValue: "Hermawan"))
-    //    Task { try? await service.set(endPoint: MultipleEndPoints.userprofile, fields: profile) }
-    
+
     func handleBatteryStateChange(batteryState: WKInterfaceDeviceBatteryState, userID: String) {
         switch batteryState {
         case .charging:
@@ -62,23 +60,23 @@ final class CobaTestViewModel: ObservableObject {
                 self.currentRange?.endCharging = .now
                 self.currentRange?.taskState = "ended"
             }
-            
+
             if self.currentRange?.taskState == "ended" {
                 guard let currentRange = self.currentRange else { return }
-                
+
                 if currentRange.getValidChargingRange(startCharging: currentRange.startCharging ?? .now, endCharging: currentRange.endCharging ?? .now) == true {
                     self.chargingRangesForWatch.append(currentRange)
                     let encoder = JSONEncoder()
                     //UPDATE FIREBASE HERE
-                    
-                    
+
+
                     //                    if let encodedRanges = try? encoder.encode(self.chargingRangesForWatch) {
                     //                        //send to firebase
                     //                        self.watchConnectionManager.session.sendMessage(["charging_history": encodedRanges], replyHandler: nil)
                     //                    }
                 }
             }
-            
+
             resetRanges()
         }
     }

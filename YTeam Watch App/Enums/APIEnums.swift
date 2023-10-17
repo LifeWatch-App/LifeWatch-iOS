@@ -25,7 +25,7 @@ protocol Endpoint {
 enum MultipleEndPoints: Endpoint {
     case userprofile
     case falls
-    case inactivity
+    case idles
     case charges
   
     var endPointDescription: String {
@@ -34,8 +34,8 @@ enum MultipleEndPoints: Endpoint {
             return "/userProfiles/"
         case .falls:
             return "/falls/"
-        case .inactivity:
-            return "/inactivity/"
+        case .idles:
+            return "/idles/"
         case .charges:
             return "/charges/"
         }
