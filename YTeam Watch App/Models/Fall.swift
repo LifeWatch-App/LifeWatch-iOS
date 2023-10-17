@@ -13,5 +13,5 @@ struct Fall: Codable, Hashable {
     }
     var id: Description?
     let time: Description?
-    let userId: Description?
+    let seniorId: Description?
 }
