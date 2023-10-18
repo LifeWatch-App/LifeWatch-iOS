@@ -131,18 +131,41 @@ class AuthService {
                             for document in documents {
                                 var invite = try? document.data(as: Invite.self)
                                 
-                                self.db.collection("users").document(invite!.seniorId!).getDocument { (querySnapshot, err) in
-                                    if let err = err {
-                                        print("Error getting documents: \(err)")
-                                    } else {
-                                        invite?.seniorData = try? querySnapshot?.data(as: UserData.self)
-                                        
-                                        self.db.collection("users").document(invite!.caregiverId!).getDocument { (querySnapshot, err) in
+                                if AuthService.shared.userData!.role == "senior" {
+                                    if invite!.seniorId == AuthService.shared.user!.uid {
+                                        self.db.collection("users").document(invite!.seniorId!).getDocument { (querySnapshot, err) in
                                             if let err = err {
                                                 print("Error getting documents: \(err)")
                                             } else {
-                                                invite?.caregiverData = try? querySnapshot?.data(as: UserData.self)
-                                                self.invites.append(invite!)
+                                                invite?.seniorData = try? querySnapshot?.data(as: UserData.self)
+                                                
+                                                self.db.collection("users").document(invite!.caregiverId!).getDocument { (querySnapshot, err) in
+                                                    if let err = err {
+                                                        print("Error getting documents: \(err)")
+                                                    } else {
+                                                        invite?.caregiverData = try? querySnapshot?.data(as: UserData.self)
+                                                        self.invites.append(invite!)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if invite!.caregiverId == AuthService.shared.user!.uid {
+                                        self.db.collection("users").document(invite!.seniorId!).getDocument { (querySnapshot, err) in
+                                            if let err = err {
+                                                print("Error getting documents: \(err)")
+                                            } else {
+                                                invite?.seniorData = try? querySnapshot?.data(as: UserData.self)
+                                                
+                                                self.db.collection("users").document(invite!.caregiverId!).getDocument { (querySnapshot, err) in
+                                                    if let err = err {
+                                                        print("Error getting documents: \(err)")
+                                                    } else {
+                                                        invite?.caregiverData = try? querySnapshot?.data(as: UserData.self)
+                                                        self.invites.append(invite!)
+                                                    }
+                                                }
                                             }
                                         }
                                     }

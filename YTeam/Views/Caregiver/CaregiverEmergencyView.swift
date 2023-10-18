@@ -22,6 +22,7 @@ struct CaregiverEmergencyView: View {
                         Text("Welcome, \(caregiverEmergencyViewModel.user?.email ?? "")!")
                         Text("Enter your senior's email")
                         TextField("Email", text: $email)
+                            .padding()
                         Button {
                             caregiverEmergencyViewModel.sendRequestToSenior(email: email)
                         } label: {
