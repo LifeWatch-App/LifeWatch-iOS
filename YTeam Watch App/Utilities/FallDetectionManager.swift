@@ -80,7 +80,7 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
         
         if (userRecord != nil) {
             let time = Fall(time: Description(stringValue: timeDescription), userId: Description(stringValue: userRecord?.userID))
-            Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time) }
+            Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time, httpMethod: .post) }
         }
     }
     

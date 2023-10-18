@@ -13,7 +13,7 @@ struct MainView: View {
     var body: some View {
         if vm.userAuth?.userID != nil {
             VStack {
-                IdleDetectionView()
+                TestChargingView()
                     .environmentObject(vm)
             }
         } else if vm.userAuth?.userID == nil {
