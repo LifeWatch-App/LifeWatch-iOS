@@ -36,10 +36,6 @@ final class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDele
     }
     
     func requestPermission() {
-        guard CLLocationManager.locationServicesEnabled() else {
-            print("Location Services not available")
-            return
-        }
         locationManager.requestAlwaysAuthorization()
     }
 

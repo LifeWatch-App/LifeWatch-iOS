@@ -90,7 +90,7 @@ class IdleDetectionViewModel: ObservableObject {
             let userRecord = try JSONDecoder().decode(UserRecord.self, from: userIDData as! Data)
             let idleData = Inactivity(seniorId: Description(stringValue: userRecord.userID), startTime: Description(stringValue: Date.now.description))
             if let currentIdle = self.currentIdle {
-                Task { try? await service.set(endPoint: MultipleEndPoints.idles, fields: currentIdle, httpMethod: .post) }
+                Task { try? await service.set(endPoint: MultipleEndPoints.idles, fields: idleData, httpMethod: .post) }
             } else {
                 self.currentIdle = idleData
             }

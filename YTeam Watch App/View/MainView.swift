@@ -10,14 +10,29 @@ import SwiftUI
 struct MainView: View {
     @ObservedObject private var fallDetector = FallDetectionManager()
     @StateObject private var vm = TestAuthViewModel()
+    @StateObject private var locationVM = LocationViewModel()
     var body: some View {
-        if vm.userAuth?.userID != nil {
-            VStack {
-                IdleDetectionView()
-                    .environmentObject(vm)
+        VStack {
+            if vm.userAuth?.userID != nil {
+                switch locationVM.authorizationStatus {
+                case .notDetermined:
+                    AnyView(RequestLocationView())
+                        .environmentObject(locationVM)
+                case .restricted:
+                    ErrorView(errorText: "Location use is restricted.")
+                case .denied:
+                    ErrorView(errorText: "The app does not have location permissions. Please enable them in settings.")
+                case .authorizedAlways, .authorizedWhenInUse:
+                    IdleDetectionView()
+                default:
+                    Text("Unexpected status")
+                }
+            } else {
+                Text("Not authenticated and not logged in")
             }
-        } else if vm.userAuth?.userID == nil {
-            Text("Not authenticated and not logged in")
+        }
+        .onAppear {
+            locationVM.requestPermission()
         }
     }
 }
@@ -25,3 +40,4 @@ struct MainView: View {
 #Preview {
     MainView()
 }
+

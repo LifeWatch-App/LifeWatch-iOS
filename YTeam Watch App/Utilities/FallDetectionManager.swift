@@ -46,17 +46,19 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     /// - Returns: None, the function asks for authorization status and sets the authorization status to user's input and
     ///  `sets the authorization boolean` in the ObservedObject.
     func checkAndRequestForAuthorizationStatus() {
-        if self.fallDetector.authorizationStatus == .authorized {
-            self.authorized = true
-        } else {
-            self.fallDetector.requestAuthorization { currentStatus in
-                switch currentStatus {
-                case .authorized:
-                    self.authorized = true
-                default:
-                    self.authorized = false
+        DispatchQueue.main.async {
+            if self.fallDetector.authorizationStatus == .authorized {
+                self.authorized = true
+            } else {
+                self.fallDetector.requestAuthorization { currentStatus in
+                    switch currentStatus {
+                    case .authorized:
+                        self.authorized = true
+                    default:
+                        self.authorized = false
+                    }
+                    
                 }
-                
             }
         }
     }
@@ -73,16 +75,16 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     func fallDetectionManager(
         _ fallDetectionManager: CMFallDetectionManager,
         didDetect event: CMFallDetectionEvent) async {
-        
-        guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
-        let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
-        let timeDescription = "\(event.date.description) \(event.resolution.rawValue)"
-        
-        if (userRecord != nil) {
-            let time = Fall(time: Description(stringValue: timeDescription), seniorId: Description(stringValue: userRecord?.userID))
-            Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time, httpMethod: .post) }
+            
+            guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
+            let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
+            let timeDescription = "\(event.date.description) \(event.resolution.rawValue)"
+            
+            if (userRecord != nil) {
+                let time = Fall(time: Description(stringValue: timeDescription), seniorId: Description(stringValue: userRecord?.userID))
+                Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time, httpMethod: .post) }
+            }
         }
-    }
     
     /// `Unchangable conforming function to automatically check for change in authorization`.
     ///
