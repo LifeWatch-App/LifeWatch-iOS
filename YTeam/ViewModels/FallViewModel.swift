@@ -17,15 +17,15 @@ class FallViewModel: ObservableObject {
         Task{try? await self.fetchAllFalls()}
     }
     
-    /// `Calls fetchAllFalls from the FallService`.
+    /// `Checks if there are users logged in, if there are, return falls, if not return nil`.
     ///
     /// ```
-    /// FallViewModel.fetchAllFalls(userId: UserId).
+    /// FallViewModel.fetchAllFalls().
     /// ```
     ///
     /// - Parameters:
     ///     - None
-    /// - Returns: Array of `Falls` is spread on to the published property `falls` in FallViewModel.
+    /// - Returns: If user is logged in, return `falls only if there are the senior's falls`, if not return empty array of falls.
     @MainActor
     func fetchAllFalls() async throws {
         
