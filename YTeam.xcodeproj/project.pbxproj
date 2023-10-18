@@ -73,6 +73,8 @@
 		7D02E7982ADE892500923AFB /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7972ADE892500923AFB /* Fall.swift */; };
 		7D02E79A2ADE89B600923AFB /* FallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7992ADE89B600923AFB /* FallViewModel.swift */; };
 		7D02E79C2ADF797000923AFB /* SeniorEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79B2ADF797000923AFB /* SeniorEmergencyView.swift */; };
+		7D02E79E2ADFB32B00923AFB /* ChargeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79D2ADFB32B00923AFB /* ChargeService.swift */; };
+		7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79F2ADFB35D00923AFB /* Charge.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
@@ -172,6 +174,8 @@
 		7D02E7972ADE892500923AFB /* Fall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
 		7D02E7992ADE89B600923AFB /* FallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallViewModel.swift; sourceTree = "<group>"; };
 		7D02E79B2ADF797000923AFB /* SeniorEmergencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyView.swift; sourceTree = "<group>"; };
+		7D02E79D2ADFB32B00923AFB /* ChargeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeService.swift; sourceTree = "<group>"; };
+		7D02E79F2ADFB35D00923AFB /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
@@ -230,6 +234,7 @@
 				4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */,
 				4C4730292AD8DC750025F089 /* AuthService.swift */,
 				7D02E7952ADE88BF00923AFB /* FallService.swift */,
+				7D02E79D2ADFB32B00923AFB /* ChargeService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 				9318D38A2ADCD1AC00245AFF /* ChartData.swift */,
 				8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */,
 				7D02E7972ADE892500923AFB /* Fall.swift */,
+				7D02E79F2ADFB35D00923AFB /* Charge.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -597,8 +603,10 @@
 				8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */,
 				9318D3892ADCD18600245AFF /* ChargingViewModel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
+				7D02E79E2ADFB32B00923AFB /* ChargeService.swift in Sources */,
 				4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */,
 				4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */,
+				7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */,
 				8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */,
 				9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */,
 				4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */,

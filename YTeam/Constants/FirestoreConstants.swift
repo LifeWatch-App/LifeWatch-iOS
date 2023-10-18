@@ -14,5 +14,6 @@ import Firebase
 /// Returns: Firestore Collection Reference
 struct FirestoreConstants {
     static let fallsCollection = Firestore.firestore().collection("falls")
+    static let chargesCollection = Firestore.firestore().collection("charges")
 }
 
