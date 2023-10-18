@@ -14,44 +14,46 @@ struct SeniorEmergencyView: View {
     @StateObject var seniorEmergencyViewModel = SeniorEmergencyViewModel()
     
     var body: some View {
-        ScrollView {
-            VStack{
-                VStack {
-                    Text("Welcome!")
-                    Text("\(seniorEmergencyViewModel.user?.email ?? "")")
-                    
-                    Text("Give your email to your caregivers")
-                    ForEach(seniorEmergencyViewModel.invites, id: \.id) { invite in
-                        HStack {
-                            Text(invite.seniorData!.email!)
-                            Text(invite.caregiverData!.email!)
-                            Text(String(invite.accepted!))
-                            Button {
-                                seniorEmergencyViewModel.acceptInvite(id: invite.id!)
-                            } label: {
-                                Text("Accept")
+        NavigationStack {
+            ScrollView {
+                VStack{
+                    VStack {
+                        Text("Welcome!")
+                        Text("\(seniorEmergencyViewModel.user?.email ?? "")")
+                        
+                        Text("Give your email to your caregivers")
+                        ForEach(seniorEmergencyViewModel.invites, id: \.id) { invite in
+                            HStack {
+                                Text(invite.seniorData!.email!)
+                                Text(invite.caregiverData!.email!)
+                                Text(String(invite.accepted!))
+                                Button {
+                                    seniorEmergencyViewModel.acceptInvite(id: invite.id!)
+                                } label: {
+                                    Text("Accept")
+                                }
                             }
                         }
                     }
-                }
-                SOSButton()
-                    .padding(.top, 8)
-                ChargingCard(batteryLevel: $batteryLevel)
-                WTLocationCard(walkieTalkieToggle: $walkieTalkieToggle, locationToggle: $locationToggle)
-            }
-        }
-        .background(Color(.systemGroupedBackground))
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    
-                } label: {
-                    Image(systemName: "person.crop.circle")
-                        .font(.title)
+                    SOSButton()
+                        .padding(.top, 8)
+                    ChargingCard(batteryLevel: $batteryLevel)
+                    WTLocationCard(walkieTalkieToggle: $walkieTalkieToggle, locationToggle: $locationToggle)
                 }
             }
+            .background(Color(.systemGroupedBackground))
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "person.crop.circle")
+                            .font(.title)
+                    }
+                }
+            }
+            .navigationTitle("Emergency")
         }
-        .navigationTitle("Emergency")
     }
 }
 
