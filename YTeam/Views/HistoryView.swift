@@ -12,53 +12,51 @@ struct HistoryView: View {
     @StateObject var historyViewModel: HistoryViewModel = HistoryViewModel()
     @ObservedObject var fallViewModel: FallViewModel = FallViewModel()
     var body: some View {
-        NavigationStack {
-            VStack {
-                HistoryPicker(selectedHistoryMenu: $historyViewModel.selectedHistoryMenu)
-                    .padding(.top, 8)
-                
-                HStack {
-                    Button {
-                        historyViewModel.changeWeek(type: .previous)
-                    } label: {
-                        Image(systemName: "arrow.left.circle.fill")
-                            .font(.title)
-                    }
-                    
-                    Spacer()
-                    
-                    Text("\(historyViewModel.extractDate(date: historyViewModel.currentWeek.first ?? Date(), format: "dd MMM yyyy")) - \(historyViewModel.extractDate(date: historyViewModel.currentWeek.last ?? Date(), format: "dd MMM yyyy"))")
-                        .fontWeight(.semibold)
-                        .font(.system(size: 20))
-                        .padding(.horizontal, 2)
-                    
-                    Spacer()
-                    
-                    Button {
-                        historyViewModel.changeWeek(type: .next)
-                    } label: {
-                        Image(systemName: "arrow.right.circle.fill")
-                            .font(.title)
-                    }
-                    .disabled(historyViewModel.isToday(date: Date()))
+        VStack {
+            HistoryPicker(selectedHistoryMenu: $historyViewModel.selectedHistoryMenu)
+                .padding(.top, 8)
+            
+            HStack {
+                Button {
+                    historyViewModel.changeWeek(type: .previous)
+                } label: {
+                    Image(systemName: "arrow.left.circle.fill")
+                        .font(.title)
                 }
-                .padding([.horizontal, .top])
                 
-                ScrollView{
-                    if historyViewModel.selectedHistoryMenu == .emergency {
-                        HistoryEmergency(historyViewModel: historyViewModel)
-                    } else if historyViewModel.selectedHistoryMenu == .inactivity {
-                        HistoryInactivity(historyViewModel: historyViewModel)
-                    }
+                Spacer()
+                
+                Text("\(historyViewModel.extractDate(date: historyViewModel.currentWeek.first ?? Date(), format: "dd MMM yyyy")) - \(historyViewModel.extractDate(date: historyViewModel.currentWeek.last ?? Date(), format: "dd MMM yyyy"))")
+                    .fontWeight(.semibold)
+                    .font(.system(size: 20))
+                    .padding(.horizontal, 2)
+                
+                Spacer()
+                
+                Button {
+                    historyViewModel.changeWeek(type: .next)
+                } label: {
+                    Image(systemName: "arrow.right.circle.fill")
+                        .font(.title)
                 }
-                .refreshable {
-                    Task{ try? await fallViewModel.fetchAllFalls() }
-                    debugPrint("Falls: \(fallViewModel.falls)")
+                .disabled(historyViewModel.isToday(date: Date()))
+            }
+            .padding([.horizontal, .top])
+            
+            ScrollView{
+                if historyViewModel.selectedHistoryMenu == .emergency {
+                    HistoryEmergency(historyViewModel: historyViewModel)
+                } else if historyViewModel.selectedHistoryMenu == .inactivity {
+                    HistoryInactivity(historyViewModel: historyViewModel)
                 }
             }
-            .background(Color(.systemGroupedBackground))
-            .navigationTitle("History")
+            .refreshable {
+                Task{ try? await fallViewModel.fetchAllFalls() }
+                debugPrint("Falls: \(fallViewModel.falls)")
+            }
         }
+        .background(Color(.systemGroupedBackground))
+        .navigationTitle("History")
     }
 }
 

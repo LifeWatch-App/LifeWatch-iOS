@@ -15,12 +15,10 @@ struct LoginView: View {
     @State var isSigningUp = false
     
     var body: some View {
-        NavigationStack {
-            if !isSigningUp {
-                LoginPage(loginViewModel: loginViewModel, isSigningUp: $isSigningUp)
-            } else {
-                SignUpView(isSigningUp: $isSigningUp)
-            }
+        if !isSigningUp {
+            LoginPage(loginViewModel: loginViewModel, isSigningUp: $isSigningUp)
+        } else {
+            SignUpView(isSigningUp: $isSigningUp)
         }
     }
 }
