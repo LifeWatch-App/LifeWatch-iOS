@@ -8,8 +8,8 @@
 import Foundation
 
 struct Charge: Codable, Hashable {
-    let seniorId: Description?
-    var startCharging: Description?
-    var endCharging: Description?
-    var taskState: Description?
+    let seniorId: String
+    let startCharging: String
+    let endCharging: String
+    let taskState: String
 }
