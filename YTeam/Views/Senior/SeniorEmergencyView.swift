@@ -100,6 +100,7 @@ struct WTLocationCard: View {
                         .font(.system(size: 18))
                 })
             }
+            .padding()
             Divider()
                 .background(.primary)
                 .padding(.leading, 48)
@@ -118,8 +119,9 @@ struct WTLocationCard: View {
                         .font(.system(size: 18))
                 })
             }
+            .padding()
         }
-        .padding()
+        
         .background(.white)
         .clipShape(RoundedRectangle(cornerRadius: 8.0))
         .padding(.horizontal)
