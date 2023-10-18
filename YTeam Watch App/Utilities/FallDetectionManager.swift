@@ -79,8 +79,8 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
         let timeDescription = "\(event.date.description) \(event.resolution.rawValue)"
         
         if (userRecord != nil) {
-            let time = Fall(time: Description(stringValue: timeDescription), userId: Description(stringValue: userRecord?.userID))
-            Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time) }
+            let time = Fall(time: Description(stringValue: timeDescription), seniorId: Description(stringValue: userRecord?.userID))
+            Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time, httpMethod: .post) }
         }
     }
     

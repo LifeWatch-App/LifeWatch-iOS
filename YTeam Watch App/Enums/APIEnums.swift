@@ -11,21 +11,21 @@ protocol Endpoint {
     var endPointDescription: String { get }
 }
 
-//enum SingleEndpoints: Endpoint {
-//    case userprofile(userID: String)
-//
-//    var endPointDescription: String {
-//        switch self {
-//        case let .pokemon(pokemonID):
-//            return "/userProfiles/\(pokemonID)"
-//        }
-//    }
-//}
+enum SingleEndpoints: Endpoint {
+    case charges(chargeDocumentID: String)
+
+    var endPointDescription: String {
+        switch self {
+        case let .charges(chargeDocumentID):
+            return "/charges/\(chargeDocumentID)"
+        }
+    }
+}
 
 enum MultipleEndPoints: Endpoint {
     case userprofile
     case falls
-    case inactivity
+    case idles
     case charges
   
     var endPointDescription: String {
@@ -34,8 +34,8 @@ enum MultipleEndPoints: Endpoint {
             return "/userProfiles/"
         case .falls:
             return "/falls/"
-        case .inactivity:
-            return "/inactivity/"
+        case .idles:
+            return "/idles/"
         case .charges:
             return "/charges/"
         }

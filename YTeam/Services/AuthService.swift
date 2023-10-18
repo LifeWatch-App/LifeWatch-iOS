@@ -31,7 +31,7 @@ class AuthService {
             if error != nil {
                 print(error?.localizedDescription ?? "")
             } else {
-                print("success")
+                print("Login Success")
             }
         }
     }
@@ -73,6 +73,18 @@ class AuthService {
     func signOut() {
         do {
             try Auth.auth().signOut()
+            
+            // Remove FCM token from firebase
+            self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
+                "fcmToken": NSNull()
+            ]) { err in
+                if let err = err {
+                    print("Error updating document: \(err)")
+                } else {
+                    print("FCM token successfully updated")
+                }
+            }
+            
             AuthService.shared.userData = nil
             AuthService.shared.invites = []
             AuthService.shared.user = nil
@@ -86,10 +98,27 @@ class AuthService {
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                print(querySnapshot!.data() ?? "nil")
                 AuthService.shared.userData = try? querySnapshot!.data(as: UserData.self)
                 
                 if AuthService.shared.userData != nil {
+                    // Check and update FCM token if needed
+                    // Get the FCM token form user defaults
+                    guard let fcmToken = UserDefaults.standard.value(forKey: "fcmToken") else{
+                        return
+                    }
+                    if (fcmToken as! String != AuthService.shared.userData?.fcmToken ?? "") {
+                        self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
+                            "fcmToken": fcmToken
+                        ]) { err in
+                            if let err = err {
+                                print("Error updating document: \(err)")
+                            } else {
+                                print("FCM token successfully updated")
+                            }
+                        }
+                    }
+                    
+                    // Set invites listener
                     self.invitesListener = self.db.collection("invites").whereField(AuthService.shared.userData!.role == "senior" ? "seniorId" : "caregiverId", isEqualTo: AuthService.shared.user!.uid)
                         .addSnapshotListener { querySnapshot, error in
                             guard let documents = querySnapshot?.documents else {
@@ -114,7 +143,6 @@ class AuthService {
                                             } else {
                                                 invite?.caregiverData = try? querySnapshot?.data(as: UserData.self)
                                                 self.invites.append(invite!)
-                                                print("aaa")
                                             }
                                         }
                                     }

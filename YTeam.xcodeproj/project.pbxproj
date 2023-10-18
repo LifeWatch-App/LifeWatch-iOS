@@ -62,6 +62,10 @@
 		7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E75F2ADD023E00923AFB /* ChargingRange.swift */; };
 		7D02E7792ADD038700923AFB /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7562ADD023E00923AFB /* DateExt.swift */; };
 		7D02E77B2ADD39D800923AFB /* CoreMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */; };
+		7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7932ADE889500923AFB /* FirestoreConstants.swift */; };
+		7D02E7962ADE88BF00923AFB /* FallService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7952ADE88BF00923AFB /* FallService.swift */; };
+		7D02E7982ADE892500923AFB /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7972ADE892500923AFB /* Fall.swift */; };
+		7D02E79A2ADE89B600923AFB /* FallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7992ADE89B600923AFB /* FallViewModel.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
@@ -150,6 +154,10 @@
 		7D02E75F2ADD023E00923AFB /* ChargingRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargingRange.swift; sourceTree = "<group>"; };
 		7D02E7612ADD023E00923AFB /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMotionManager.swift; sourceTree = "<group>"; };
+		7D02E7932ADE889500923AFB /* FirestoreConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreConstants.swift; sourceTree = "<group>"; };
+		7D02E7952ADE88BF00923AFB /* FallService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallService.swift; sourceTree = "<group>"; };
+		7D02E7972ADE892500923AFB /* Fall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
+		7D02E7992ADE89B600923AFB /* FallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallViewModel.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
@@ -189,6 +197,7 @@
 			children = (
 				4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */,
 				4C4730292AD8DC750025F089 /* AuthService.swift */,
+				7D02E7952ADE88BF00923AFB /* FallService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -201,6 +210,7 @@
 				4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */,
 				9318D3882ADCD18600245AFF /* ChargingViewModel.swift */,
 				8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */,
+				7D02E7992ADE89B600923AFB /* FallViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -214,6 +224,7 @@
 				4C6049D12AD7FD4A00E9F0BF /* Invite.swift */,
 				9318D38A2ADCD1AC00245AFF /* ChartData.swift */,
 				8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */,
+				7D02E7972ADE892500923AFB /* Fall.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -239,6 +250,7 @@
 		4CB015582AD4DBBC0023C71E /* YTeam */ = {
 			isa = PBXGroup;
 			children = (
+				7D02E7922ADE888800923AFB /* Constants */,
 				4CA232912ADD4517003874D2 /* Info.plist */,
 				4CA2328B2ADCE1A0003874D2 /* GoogleService-Info.plist */,
 				4C4730282AD8D2520025F089 /* Services */,
@@ -317,8 +329,8 @@
 			isa = PBXGroup;
 			children = (
 				4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */,
-				7D02E74C2ADD023E00923AFB /* LocationVIewModel.swift */,
 				7D02E74D2ADD023E00923AFB /* IdleDetectionViewModel.swift */,
+				7D02E74C2ADD023E00923AFB /* LocationVIewModel.swift */,
 				7D02E74E2ADD023E00923AFB /* ChargingViewModel.swift */,
 			);
 			path = ViewModel;
@@ -393,6 +405,14 @@
 				8D7D73052ADE247D00251550 /* Inactivity.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		7D02E7922ADE888800923AFB /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				7D02E7932ADE889500923AFB /* FirestoreConstants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		93CC91592AD8E6B800D1AC86 /* Enums */ = {
@@ -519,6 +539,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */,
+				7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */,
+				7D02E7962ADE88BF00923AFB /* FallService.swift in Sources */,
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
 				7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
@@ -540,6 +562,8 @@
 				9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */,
 				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,
 				4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */,
+				7D02E7982ADE892500923AFB /* Fall.swift in Sources */,
+				7D02E79A2ADE89B600923AFB /* FallViewModel.swift in Sources */,
 				4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */,
 				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
 				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
@@ -714,7 +738,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 83FZ3J9AN9;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -749,7 +773,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 83FZ3J9AN9;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";

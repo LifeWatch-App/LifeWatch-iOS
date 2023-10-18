@@ -9,7 +9,7 @@ import SwiftUI
 
 struct IdleDetectionView: View {
     @StateObject var idleViewModel: IdleDetectionViewModel = IdleDetectionViewModel()
-    
+
     var body: some View {
         VStack {
             Text("Position: \(idleViewModel.position)")

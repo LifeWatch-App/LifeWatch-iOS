@@ -10,7 +10,7 @@ import Charts
 
 struct HistoryView: View {
     @StateObject var historyViewModel: HistoryViewModel = HistoryViewModel()
-    
+    @ObservedObject var fallViewModel: FallViewModel = FallViewModel()
     var body: some View {
         NavigationStack {
             VStack {
@@ -50,6 +50,10 @@ struct HistoryView: View {
                     } else if historyViewModel.selectedHistoryMenu == .inactivity {
                         HistoryInactivity(historyViewModel: historyViewModel)
                     }
+                }
+                .refreshable {
+                    Task{ try? await fallViewModel.fetchAllFalls() }
+                    debugPrint("Falls: \(fallViewModel.falls)")
                 }
             }
             .background(Color(.systemGroupedBackground))

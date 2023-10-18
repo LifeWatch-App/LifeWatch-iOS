@@ -12,7 +12,6 @@ import CoreLocation
 import CoreMotion
 import Combine
 
-@MainActor
 final class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var authorizationStatus: CLAuthorizationStatus
     @Published var lastSeenLocation: CLLocation?
@@ -51,10 +50,10 @@ final class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDele
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if setHomeLocation == nil && isSet == true {
             setHomeLocation = locations.first
-            guard let latitude = setHomeLocation?.coordinate.latitude.magnitude, let longitude = setHomeLocation?.coordinate.longitude.magnitude else { return }
+//            guard let latitude = setHomeLocation?.coordinate.latitude.magnitude, let longitude = setHomeLocation?.coordinate.longitude.magnitude else { return }
             
             let profile = UserProfile(userId: Description(stringValue: "124930"), userName: Description(stringValue: "Hermawan"))
-            Task { try? await service.set(endPoint: MultipleEndPoints.userprofile, fields: profile) }
+            Task { try? await service.set(endPoint: MultipleEndPoints.userprofile, fields: profile, httpMethod: .post) }
         }
         lastSeenLocation = locations.first
     }
@@ -86,7 +85,7 @@ final class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDele
     }
     
     func getProfiles() async throws {
-        let firebaseRecords: FirebaseRecords<UserProfile> = try await service.fetch(endPoint: MultipleEndPoints.userprofile)
+        let firebaseRecords: FirebaseRecords<UserProfile> = try await service.fetch(endPoint: MultipleEndPoints.userprofile, httpMethod: .get)
         let documents = firebaseRecords.documents
         let userProfiles: [UserProfile] = documents.compactMap { $0.fields }
         self.userProfiles = userProfiles
