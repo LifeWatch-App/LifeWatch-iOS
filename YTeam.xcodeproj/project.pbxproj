@@ -329,8 +329,8 @@
 			isa = PBXGroup;
 			children = (
 				4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */,
-				7D02E74C2ADD023E00923AFB /* LocationVIewModel.swift */,
 				7D02E74D2ADD023E00923AFB /* IdleDetectionViewModel.swift */,
+				7D02E74C2ADD023E00923AFB /* LocationVIewModel.swift */,
 				7D02E74E2ADD023E00923AFB /* ChargingViewModel.swift */,
 			);
 			path = ViewModel;

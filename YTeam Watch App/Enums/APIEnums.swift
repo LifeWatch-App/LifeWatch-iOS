@@ -11,16 +11,16 @@ protocol Endpoint {
     var endPointDescription: String { get }
 }
 
-//enum SingleEndpoints: Endpoint {
-//    case userprofile(userID: String)
-//
-//    var endPointDescription: String {
-//        switch self {
-//        case let .pokemon(pokemonID):
-//            return "/userProfiles/\(pokemonID)"
-//        }
-//    }
-//}
+enum SingleEndpoints: Endpoint {
+    case charges(chargeDocumentID: String)
+
+    var endPointDescription: String {
+        switch self {
+        case let .charges(chargeDocumentID):
+            return "/charges/\(chargeDocumentID)"
+        }
+    }
+}
 
 enum MultipleEndPoints: Endpoint {
     case userprofile

@@ -8,10 +8,7 @@
 import Foundation
 
 struct Inactivity: Codable, Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    var id: Description?
+    var seniorId: Description?
     let startTime: Description?
     let endTime: Description?
 }
