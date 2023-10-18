@@ -9,6 +9,6 @@ import Foundation
 
 struct Inactivity: Codable, Hashable {
     var seniorId: Description?
-    let startTime: Description?
-    let endTime: Description?
+    var startTime: Description?
+    var endTime: Description?
 }
