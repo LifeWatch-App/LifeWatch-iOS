@@ -17,6 +17,7 @@ class IdleDetectionViewModel: ObservableObject {
     @Published var gravityZ : Double = 0
 
     @Published var currentIdle: Inactivity?
+    @Published var isAlreadyIdle: Bool = false
     @Published var position: String = ""
     var latestPosition: String = ""
     var idle: Bool = false
@@ -69,10 +70,12 @@ class IdleDetectionViewModel: ObservableObject {
                     self.idleTime = 0
                     self.idle = false
                     self.currentIdle = nil
+                    self.isAlreadyIdle = false
                 } else {
                     self.time += 1
                     self.idleTime = self.time
-                    if self.idleTime > 30 {
+                    if self.idleTime > 30 && self.isAlreadyIdle == false {
+                        self.isAlreadyIdle = true
                         self.idle = true
                         self.createIdleDataFirebase(startTime: Date.now)
                     }
