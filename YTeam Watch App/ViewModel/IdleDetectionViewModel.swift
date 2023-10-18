@@ -75,7 +75,7 @@ class IdleDetectionViewModel: ObservableObject {
     }
     
     func checkIdle() {
-//        let inactivity = Inactivity(startTime: Description(timeStampValue: <#T##String?#>), endTime: Description(timeStampValue: <#T##String?#>))
+//        let inactivity = Inactivity(startTime: Description(timeStampValue: ), endTime: Description(timeStampValue: ))
 //        Task { try? await service.set(endPoint: MultipleEndPoints.inactivity, fields: inactivity) }
     }
 }

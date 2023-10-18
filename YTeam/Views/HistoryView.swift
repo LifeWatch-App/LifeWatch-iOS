@@ -16,18 +16,43 @@ struct HistoryView: View {
             VStack {
                 HistoryPicker(selectedHistoryMenu: $historyViewModel.selectedHistoryMenu)
                     .padding(.top, 8)
-                HistoryDatePicker(selectedStartDate: $historyViewModel.selectedStartDate, selectedEndDate: $historyViewModel.selectedEndDate)
-                    .padding()
+                
+                HStack {
+                    Button {
+                        historyViewModel.changeWeek(type: .previous)
+                    } label: {
+                        Image(systemName: "arrow.left.circle.fill")
+                            .font(.title)
+                    }
+                    
+                    Spacer()
+                    
+                    Text("\(historyViewModel.extractDate(date: historyViewModel.currentWeek.first ?? Date(), format: "dd MMM yyyy")) - \(historyViewModel.extractDate(date: historyViewModel.currentWeek.last ?? Date(), format: "dd MMM yyyy"))")
+                        .fontWeight(.semibold)
+                        .font(.system(size: 20))
+                        .padding(.horizontal, 2)
+                    
+                    Spacer()
+                    
+                    Button {
+                        historyViewModel.changeWeek(type: .next)
+                    } label: {
+                        Image(systemName: "arrow.right.circle.fill")
+                            .font(.title)
+                    }
+                    .disabled(historyViewModel.isToday(date: Date()))
+                }
+                .padding([.horizontal, .top])
+                
                 ScrollView{
                     if historyViewModel.selectedHistoryMenu == .emergency {
                         HistoryEmergency(historyViewModel: historyViewModel)
                     } else if historyViewModel.selectedHistoryMenu == .inactivity {
-                        HistoryInactivity(vm: historyViewModel)
+                        HistoryInactivity(historyViewModel: historyViewModel)
                     }
                 }
             }
             .background(Color(.systemGroupedBackground))
-            .listStyle(.plain)
             .navigationTitle("History")
         }
     }
@@ -47,8 +72,7 @@ struct HistoryEmergency: View {
             
             HStack{
                 Text("21 Oct 2023")
-                    .bold()
-                    .font(.title3)
+                    .font(.headline)
                 Spacer()
             }
             .padding(.top, 8)
@@ -64,27 +88,112 @@ struct HistoryEmergency: View {
 }
 
 struct HistoryInactivity: View {
-    @ObservedObject var vm: HistoryViewModel
+    @Environment(\.calendar) var calendar
+    @ObservedObject var historyViewModel: HistoryViewModel
+    
+    func endOfDay(for date: Date) -> Date {
+        calendar.date(byAdding: .day, value: 1, to: date)!
+    }
+    
+    @State var rawSelectedDate: Date? = nil
+    var selectedDate: [InactivityChart]? {
+        if let rawSelectedDate {
+            return historyViewModel.inactivityData.filter {
+                let endOfDay = endOfDay(for: $0.day)
+                
+                return ($0.day ... endOfDay).contains(rawSelectedDate)
+            }
+        }
+        
+        return nil
+    }
     
     var body: some View {
         VStack {
             HistoryHeader()
             
-            Chart(inactivityDummyData) {
-                BarMark(x: .value("Date", $0.date), y: .value("Minutes", $0.value)
+            VStack {
+                VStack(alignment: .leading) {
+                    Text("Total Inactivity This Week")
+                        .foregroundStyle(.secondary)
+                    HStack(spacing: 20) {
+                        VStack(alignment: .leading) {
+                            Text("Idle")
+                                .foregroundStyle(.accent)
+                            Text("\(historyViewModel.totalIdleTime)")
+                                .font(.headline)
+                        }
+                        VStack(alignment: .leading) {
+                            Text("Charging")
+                                .foregroundStyle(Color("secondary-orange"))
+                            Text("\(historyViewModel.totalChargingTime)")
+                                .font(.headline)
+                        }
+                        Spacer()
+                    }
+                }
+                .opacity(selectedDate == nil ? 1.0 : 0.0)
+                
+                Chart {
+                    ForEach(historyViewModel.inactivityData) {
+                        BarMark(x: .value("Date", $0.day, unit: .day), y: .value("Minutes", $0.minutes)
+//                        historyViewModel.extractDate(date: $0.day, format: "E")
+                        )
+                        .foregroundStyle(by: .value("Type", $0.type))
+                        .cornerRadius(2)
+                    }
+                    
+                    if let rawSelectedDate {
+                        RuleMark(
+                            x: .value("Selected", rawSelectedDate, unit: .day)
+                        )
+                        .foregroundStyle(Color(.systemGray6))
+                        .offset(yStart: -8, yEnd: -1)
+                        .zIndex(-1)
+                        .annotation(
+                            position: .top, spacing: 0,
+                            overflowResolution: .init(
+                                x: .fit(to: .chart),
+                                y: .disabled
+                            )
+                        ) {
+                            HStack {
+                                ForEach(selectedDate ?? []) { date in
+                                    VStack {
+                                        Text("\(date.type)")
+                                            .foregroundStyle(date.type == "Idle" ? .accent : Color("secondary-orange"))
+                                        Text("\(historyViewModel.convertToHoursMinutes(minutes: date.minutes))")
+                                            .font(.headline)
+                                    }
+                                    .padding(.horizontal, 6)
+                                }
+                            }
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 6)
+                            .background(Color(.systemGray6))
+                            .cornerRadius(8)
+                        }
+                    }
+                }
+                .chartForegroundStyleScale(
+                    ["Idle": .accent, "Charging": Color("secondary-orange")]
                 )
-                .foregroundStyle(by: .value("Type", $0.type))
-                .cornerRadius(2)
+                .chartLegend(.hidden)
+                .chartXSelection(value: $rawSelectedDate)
+                .chartXAxis {
+                    AxisMarks(values: historyViewModel.inactivityData.map { $0.day }) { date in
+                        AxisValueLabel(format: .dateTime.weekday(), horizontalSpacing: 10)
+                    }
+                }
+                .frame(height: 200)
             }
-            .chartForegroundStyleScale(
-                ["Idle": Color("Blue"), "Charging": Color("Orange")]
-            )
-            .frame(height: 240)
+            .padding()
+            .background(Color(.systemBackground))
+            .cornerRadius(16)
             
             HStack{
                 Text("21 Oct 2023")
-                    .bold()
-                    .font(.title3)
+                    .font(.headline)
                 Spacer()
             }
             .padding(.top, 8)
@@ -109,29 +218,6 @@ struct HistoryPicker: View {
         }
         .pickerStyle(.segmented)
         .padding(.horizontal)
-    }
-}
-
-struct HistoryDatePicker: View {
-    @Binding var selectedStartDate: Date
-    @Binding var selectedEndDate: Date
-    
-    var body: some View {
-        HStack{
-            DatePicker(
-                "Start",
-                selection: $selectedStartDate,
-                displayedComponents: [.date]
-            )
-            .font(.system(size: 18))
-            Spacer()
-            DatePicker(
-                "End",
-                selection: $selectedEndDate,
-                displayedComponents: [.date]
-            )
-            .font(.system(size: 18))
-        }
     }
 }
 
@@ -167,7 +253,7 @@ struct DetectedFallCard: View {
         }
         .foregroundStyle(.white)
         .padding()
-        .background(.blue)
+        .background(.accent)
         .cornerRadius(8)
     }
 }
@@ -193,7 +279,7 @@ struct SOSCard: View {
         }
         .foregroundStyle(.white)
         .padding()
-        .background(.orange)
+        .background(Color("secondary-orange"))
         .cornerRadius(8)
     }
 }
@@ -211,7 +297,7 @@ struct HistoryData: View {
                 Image(systemName: "figure.fall")
                     .foregroundStyle(.white)
                     .frame(width: 40, height: 40)
-                    .background(.blue)
+                    .background(.accent)
                     .cornerRadius(8.0)
                 Text("Fell")
                     .padding(.leading, 8.0)
@@ -229,7 +315,7 @@ struct HistoryData: View {
                 Image(systemName: "sos.circle.fill")
                     .foregroundStyle(.white)
                     .frame(width: 40, height: 40)
-                    .background(.orange)
+                    .background(Color("secondary-orange"))
                     .cornerRadius(8.0)
                 Text("Pressed")
                     .padding(.leading, 8.0)
@@ -255,7 +341,7 @@ struct HistoryCard: View {
             Image(systemName: option == .fell ? "figure.fall" : option == .pressed ? "sos.circle.fill" : option == .idle ? "moon.fill" : "bolt.fill")
                 .foregroundStyle(.white)
                 .frame(width: 40, height: 40)
-                .background(option == .fell || option == .idle ? .blue : .orange)
+                .background(option == .fell || option == .idle ? .accent : Color("secondary-orange"))
                 .cornerRadius(8.0)
             Text(option == .fell ? "Fell" : option == .pressed ? "Pressed" : option == .idle ? "Idle" : "Charging")
                 .padding(.leading, 8.0)
@@ -267,7 +353,7 @@ struct HistoryCard: View {
             .foregroundStyle(.secondary)
         }
         .padding()
-        .background(Color(.white))
+        .background(Color(.systemBackground))
         .cornerRadius(8.0)
     }
 }
