@@ -20,7 +20,7 @@ struct ChooseRoleView: View {
                     .frame(height: 140)
                     
                     HStack {
-                        Text("Lorem ipsum dolor sit amet")
+                        Text("As a senior, ...")
                         Spacer()
                     }
                     .padding(.bottom, 8)
@@ -77,7 +77,7 @@ struct ChooseRoleView: View {
                     .frame(height: 140)
                     
                     HStack {
-                        Text("Lorem ipsum dolor sit amet")
+                        Text("As a caregiver, ...")
                         Spacer()
                     }
                     .padding(.bottom, 8)

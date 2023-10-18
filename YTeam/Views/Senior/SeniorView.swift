@@ -22,23 +22,10 @@ struct SeniorView: View {
 //                    Label("Medicine", systemImage: "pill.fill")
 //                }
 //            
-//            EmptyView()
-//                .tabItem {
-//                    Label("History", systemImage: "chart.bar.fill")
-//                }
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .navigationBarLeading) {
-                Button(
-                    action: {
-                        mainViewModel.signOut()
-                    },
-                    label: {
-                        Text("Sign Out")
-                            .bold()
-                    }
-                )
-            }
+            HistoryView()
+                .tabItem {
+                    Label("History", systemImage: "chart.bar.fill")
+                }
         }
     }
 }

@@ -34,4 +34,8 @@ class CaregiverEmergencyViewModel: ObservableObject {
     func sendRequestToSenior(email: String) {
         AuthService.shared.sendRequestToSenior(email: email)
     }
+    
+    func signOut() {
+        AuthService.shared.signOut()
+    }
 }

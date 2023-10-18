@@ -34,4 +34,9 @@ class SeniorEmergencyViewModel: ObservableObject {
     func acceptInvite(id: String) {
         AuthService.shared.acceptInvite(id: id)
     }
+    
+    func signOut() {
+        AuthService.shared.signOut()
+    }
+
 }

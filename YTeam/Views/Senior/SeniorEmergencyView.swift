@@ -18,21 +18,21 @@ struct SeniorEmergencyView: View {
             ScrollView {
                 VStack{
                     VStack {
-                        Text("Welcome!")
-                        Text("\(seniorEmergencyViewModel.user?.email ?? "")")
-                        
+                        Text("Welcome, \(seniorEmergencyViewModel.user?.email ?? "")!")
                         Text("Give your email to your caregivers")
                         ForEach(seniorEmergencyViewModel.invites, id: \.id) { invite in
                             HStack {
-                                Text(invite.seniorData!.email!)
-                                Text(invite.caregiverData!.email!)
-                                Text(String(invite.accepted!))
-                                Button {
-                                    seniorEmergencyViewModel.acceptInvite(id: invite.id!)
-                                } label: {
-                                    Text("Accept")
+                                Text("Invite from: \(invite.caregiverData!.email!)")
+                                Text(invite.accepted! ? "(Accepted)" : "")
+                                if (!invite.accepted!) {
+                                    Button {
+                                        seniorEmergencyViewModel.acceptInvite(id: invite.id!)
+                                    } label: {
+                                        Text("Accept")
+                                    }
                                 }
                             }
+                            .padding(.top, 4)
                         }
                     }
                     SOSButton()
@@ -43,14 +43,24 @@ struct SeniorEmergencyView: View {
             }
             .background(Color(.systemGroupedBackground))
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "person.crop.circle")
-                            .font(.title)
+//                ToolbarItem(placement: .topBarTrailing) {
+//                    Button {
+//                        
+//                    } label: {
+//                        Image(systemName: "person.crop.circle")
+//                            .font(.title)
+//                    }
+//                }
+                
+                Button(
+                    action: {
+                        seniorEmergencyViewModel.signOut()
+                    },
+                    label: {
+                        Text("Sign Out")
+                            .bold()
                     }
-                }
+                )
             }
             .navigationTitle("Emergency")
         }
