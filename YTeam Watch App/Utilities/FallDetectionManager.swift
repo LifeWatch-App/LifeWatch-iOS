@@ -19,7 +19,7 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     override init() {
         super.init()
         self.assignDelegate()
-        self.checkAndRequestForAuthorizationStatus()
+        Task{ await self.checkAndRequestForAuthorizationStatus() }
     }
     
     /// Assign fall detection delegate to `watch for fall detection events`.
@@ -45,6 +45,7 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     ///     - None
     /// - Returns: None, the function asks for authorization status and sets the authorization status to user's input and
     ///  `sets the authorization boolean` in the ObservedObject.
+    @MainActor
     func checkAndRequestForAuthorizationStatus() {
         if self.fallDetector.authorizationStatus == .authorized {
             self.authorized = true
