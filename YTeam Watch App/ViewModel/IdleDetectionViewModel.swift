@@ -69,7 +69,7 @@ class IdleDetectionViewModel: ObservableObject {
                 } else {
                     self.time += 1
                     self.idleTime = self.time
-                    if self.idleTime > 5 {
+                    if self.idleTime > 30 {
                         self.idle = true
                     }
                 }
@@ -78,7 +78,7 @@ class IdleDetectionViewModel: ObservableObject {
     }
 
     func sendIdleDataFirebase(startTime: Date, endTime: Date) {
-        let userIDData = UserDefaults.standard.object(forKey: "user_auth")
+        let userIDData = UserDefaults.standard.object(forKey: "user-auth")
         do {
             let userRecord = try JSONDecoder().decode(UserRecord.self, from: userIDData as! Data)
             let idleData = Inactivity(seniorId: Description(stringValue: userRecord.userID), startTime: Description(stringValue: startTime.description), endTime: Description(stringValue: endTime.description))
