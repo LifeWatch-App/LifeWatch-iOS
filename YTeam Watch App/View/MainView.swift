@@ -16,8 +16,10 @@ struct MainView: View {
             if vm.userAuth?.userID != nil {
                 switch locationVM.authorizationStatus {
                 case .notDetermined:
-                    AnyView(RequestLocationView())
-                        .environmentObject(locationVM)
+//                    AnyView(RequestLocationView())
+//                        .environmentObject(locationVM)
+                    IdleDetectionView()
+                    TestChargingView(authVM: vm)
                 case .restricted:
                     ErrorView(errorText: "Location use is restricted.")
                 case .denied:
