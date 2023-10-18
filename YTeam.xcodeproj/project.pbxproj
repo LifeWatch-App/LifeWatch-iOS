@@ -66,6 +66,7 @@
 		7D02E7962ADE88BF00923AFB /* FallService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7952ADE88BF00923AFB /* FallService.swift */; };
 		7D02E7982ADE892500923AFB /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7972ADE892500923AFB /* Fall.swift */; };
 		7D02E79A2ADE89B600923AFB /* FallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7992ADE89B600923AFB /* FallViewModel.swift */; };
+		7D02E79C2ADF797000923AFB /* SeniorEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79B2ADF797000923AFB /* SeniorEmergencyView.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
@@ -158,6 +159,7 @@
 		7D02E7952ADE88BF00923AFB /* FallService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallService.swift; sourceTree = "<group>"; };
 		7D02E7972ADE892500923AFB /* Fall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
 		7D02E7992ADE89B600923AFB /* FallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallViewModel.swift; sourceTree = "<group>"; };
+		7D02E79B2ADF797000923AFB /* SeniorEmergencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyView.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				9318D38C2ADCD1C800245AFF /* TestChargingView.swift */,
 				7D02E7242ADCC97200923AFB /* HistoryView.swift */,
 				8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */,
+				7D02E79B2ADF797000923AFB /* SeniorEmergencyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */,
 				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,
 				4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */,
+				7D02E79C2ADF797000923AFB /* SeniorEmergencyView.swift in Sources */,
 				7D02E7982ADE892500923AFB /* Fall.swift in Sources */,
 				7D02E79A2ADE89B600923AFB /* FallViewModel.swift in Sources */,
 				4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */,

@@ -46,7 +46,6 @@ class FallViewModel: ObservableObject {
         } else {
             return
         }
-        
     }
     
 }
