@@ -63,14 +63,6 @@ class MainViewModel: ObservableObject {
         AuthService.shared.setRole(role: role)
     }
 
-    func sendRequestToSenior(email: String) {
-        AuthService.shared.sendRequestToSenior(email: email)
-    }
-
-    func acceptInvite(id: String) {
-        AuthService.shared.acceptInvite(id: id)
-    }
-
     func setupAuthWatch() {
 
     }

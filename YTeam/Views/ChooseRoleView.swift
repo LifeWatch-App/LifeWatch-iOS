@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ChooseRoleView: View {
+    @ObservedObject var mainViewModel: MainViewModel
+    
     var body: some View {
         VStack {
             ZStack(alignment: .top) {
@@ -26,7 +28,7 @@ struct ChooseRoleView: View {
                     HStack {
                         Spacer()
                         Button {
-                            
+                            mainViewModel.setRole(role: "senior")
                         } label: {
                             Text("Choose")
                                 .foregroundStyle(.white)
@@ -83,7 +85,7 @@ struct ChooseRoleView: View {
                     HStack {
                         Spacer()
                         Button {
-                            
+                            mainViewModel.setRole(role: "caregiver")
                         } label: {
                             Text("Choose")
                                 .foregroundStyle(.white)
@@ -128,9 +130,12 @@ struct ChooseRoleView: View {
         .padding()
         .background(Color(.systemGroupedBackground))
         .navigationTitle("Choose Role")
+        .onAppear {
+            mainViewModel.getUserData()
+        }
     }
 }
 
 #Preview {
-    ChooseRoleView()
+    ChooseRoleView(mainViewModel: MainViewModel())
 }

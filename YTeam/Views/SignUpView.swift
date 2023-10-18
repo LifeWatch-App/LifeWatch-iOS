@@ -24,16 +24,16 @@ struct SignUpView: View {
                 .padding(.horizontal, 32)
                 .padding(.bottom, 8)
             
-            VStack(alignment: .leading) {
-                Text("Username")
-                TextField("Username", text: $signUpViewModel.username)
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color(.systemGray3), lineWidth: 1)
-                    )
-            }
-            .padding(.vertical, 12)
+//            VStack(alignment: .leading) {
+//                Text("Username")
+//                TextField("Username", text: $signUpViewModel.username)
+//                    .padding()
+//                    .overlay(
+//                        RoundedRectangle(cornerRadius: 8)
+//                            .stroke(Color(.systemGray3), lineWidth: 1)
+//                    )
+//            }
+//            .padding(.vertical, 12)
             
             VStack(alignment: .leading) {
                 Text("Email address")
