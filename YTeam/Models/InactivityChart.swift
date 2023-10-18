@@ -7,30 +7,48 @@
 
 import Foundation
 
-struct InactivityChart: Identifiable {
+struct InactivityChart: Identifiable, Equatable {
     var id = UUID()
-//    var date: Date = Date()
-    var date: String = ""
-    var value: Int = 0
+    var day: Date = Date()
+    var minutes: Int = 0
     var type: String = ""
 }
 
+// Dummy Data
 let inactivityDummyData: [InactivityChart] = [
     // idle
-    InactivityChart(date: "01 Okt", value: 200, type: "Idle"),
-    InactivityChart(date: "02 Okt", value: 300, type: "Idle"),
-    InactivityChart(date: "03 Okt", value: 400, type: "Idle"),
-    InactivityChart(date: "04 Okt", value: 350, type: "Idle"),
-    InactivityChart(date: "05 Okt", value: 200, type: "Idle"),
-    InactivityChart(date: "06 Okt", value: 300, type: "Idle"),
-    InactivityChart(date: "07 Okt", value: 350, type: "Idle"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 8)) ?? Date(), minutes: 270, type: "Idle"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 9)) ?? Date(), minutes: 350, type: "Idle"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 10)) ?? Date(), minutes: 200, type: "Idle"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 11)) ?? Date(), minutes: 150, type: "Idle"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 12)) ?? Date(), minutes: 280, type: "Idle"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 13)) ?? Date(), minutes: 330, type: "Idle"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 14)) ?? Date(), minutes: 340, type: "Idle"),
     
     // charging
-    InactivityChart(date: "01 Okt", value: 200, type: "Charging"),
-    InactivityChart(date: "02 Okt", value: 400, type: "Charging"),
-    InactivityChart(date: "03 Okt", value: 200, type: "Charging"),
-    InactivityChart(date: "04 Okt", value: 350, type: "Charging"),
-    InactivityChart(date: "05 Okt", value: 320, type: "Charging"),
-    InactivityChart(date: "06 Okt", value: 200, type: "Charging"),
-    InactivityChart(date: "07 Okt", value: 100, type: "Charging"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 8)) ?? Date(), minutes: 200, type: "Charging"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 9)) ?? Date(), minutes: 410, type: "Charging"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 10)) ?? Date(), minutes: 300, type: "Charging"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 11)) ?? Date(), minutes: 250, type: "Charging"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 12)) ?? Date(), minutes: 220, type: "Charging"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 13)) ?? Date(), minutes: 100, type: "Charging"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 14)) ?? Date(), minutes: 200, type: "Charging"),
+    
+    // idle
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 15)) ?? Date(), minutes: 200, type: "Idle"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 16)) ?? Date(), minutes: 300, type: "Idle"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 17)) ?? Date(), minutes: 400, type: "Idle"),
+//    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 18)) ?? Date(), minutes: 350, type: "Idle"),
+//    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 19)) ?? Date(), minutes: 200, type: "Idle"),
+//    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 20)) ?? Date(), minutes: 300, type: "Idle"),
+//    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 21)) ?? Date(), minutes: 350, type: "Idle"),
+    
+    // charging
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 15)) ?? Date(), minutes: 200, type: "Charging"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 16)) ?? Date(), minutes: 400, type: "Charging"),
+    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 17)) ?? Date(), minutes: 200, type: "Charging"),
+//    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 18)) ?? Date(), minutes: 350, type: "Charging"),
+//    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 19)) ?? Date(), minutes: 320, type: "Charging"),
+//    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 20)) ?? Date(), minutes: 200, type: "Charging"),
+//    InactivityChart(day: Calendar.current.date(from: DateComponents(year: 2023, month: 10, day: 21)) ?? Date(), minutes: 100, type: "Charging"),
 ]

@@ -33,7 +33,7 @@ struct ChooseRoleView: View {
                                 .fontWeight(.semibold)
                                 .padding(.horizontal)
                                 .padding(.vertical, 8)
-                                .background(Color("Blue"))
+                                .background(.accent)
                                 .cornerRadius(4)
                         }
                     }
@@ -63,7 +63,7 @@ struct ChooseRoleView: View {
                     }
                 }
                 .padding(.trailing)
-                .background(Color("Blue"))
+                .background(.accent)
                 .cornerRadius(16)
             }
             
@@ -90,7 +90,7 @@ struct ChooseRoleView: View {
                                 .fontWeight(.semibold)
                                 .padding(.horizontal)
                                 .padding(.vertical, 8)
-                                .background(Color("Blue"))
+                                .background(.accent)
                                 .cornerRadius(4)
                         }
                     }
@@ -119,7 +119,7 @@ struct ChooseRoleView: View {
                     }
                 }
                 .padding(.trailing)
-                .background(Color("Blue"))
+                .background(.accent)
                 .cornerRadius(16)
             }
             

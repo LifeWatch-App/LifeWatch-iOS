@@ -75,7 +75,7 @@ struct LoginPage: View {
                         .padding()
                     Spacer()
                 }
-                .background(.blue)
+                .background(.accent)
                 .foregroundStyle(.white)
                 .cornerRadius(8)
             }
