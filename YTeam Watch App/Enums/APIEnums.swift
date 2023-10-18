@@ -13,11 +13,15 @@ protocol Endpoint {
 
 enum SingleEndpoints: Endpoint {
     case charges(chargeDocumentID: String)
+    case idles(idleDocumentID: String)
 
     var endPointDescription: String {
         switch self {
         case let .charges(chargeDocumentID):
             return "/charges/\(chargeDocumentID)"
+
+        case let .idles(idleDocumentID):
+            return "/charges/\(idleDocumentID)"
         }
     }
 }

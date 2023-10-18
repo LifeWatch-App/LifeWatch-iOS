@@ -16,6 +16,7 @@ class IdleDetectionViewModel: ObservableObject {
     @Published var gravityY : Double = 0
     @Published var gravityZ : Double = 0
 
+    @Published var currentIdle: Inactivity?
     @Published var position: String = ""
     var latestPosition: String = ""
     var idle: Bool = false
@@ -59,32 +60,76 @@ class IdleDetectionViewModel: ObservableObject {
 
                 if self.latestPosition != self.position {
                     if self.idle == true {
-                        guard let startTime = Calendar.current.date(byAdding: .second, value: self.idleTime, to: .now) else { return }
-                        self.sendIdleDataFirebase(startTime: startTime, endTime: .now)
+                        self.updateIdleDataFirebase(endTime: Date.now)
+                    } else {
+                        self.deleteIdleDataFirebase()
                     }
                     self.latestPosition = self.position
                     self.time = 0
                     self.idleTime = 0
                     self.idle = false
+                    self.currentIdle = nil
                 } else {
                     self.time += 1
                     self.idleTime = self.time
                     if self.idleTime > 30 {
                         self.idle = true
+                        self.createIdleDataFirebase(startTime: Date.now)
                     }
                 }
             }
         }
     }
 
-    func sendIdleDataFirebase(startTime: Date, endTime: Date) {
+    private func createIdleDataFirebase(startTime: Date) {
         let userIDData = UserDefaults.standard.object(forKey: "user-auth")
         do {
             let userRecord = try JSONDecoder().decode(UserRecord.self, from: userIDData as! Data)
-            let idleData = Inactivity(seniorId: Description(stringValue: userRecord.userID), startTime: Description(stringValue: startTime.description), endTime: Description(stringValue: endTime.description))
-            Task { try? await service.set(endPoint: MultipleEndPoints.idles, fields: idleData, httpMethod: .post) }
+            let idleData = Inactivity(seniorId: Description(stringValue: userRecord.userID), startTime: Description(stringValue: Date.now.description))
+            if let currentIdle = self.currentIdle {
+                Task { try? await service.set(endPoint: MultipleEndPoints.idles, fields: currentIdle, httpMethod: .post) }
+            } else {
+                self.currentIdle = idleData
+            }
         } catch {
             print("Failed to decode data: \(error)")
         }
     }
+
+    private func updateIdleDataFirebase(endTime: Date) {
+        let userIDData = UserDefaults.standard.object(forKey: "user-auth")
+        Task {
+            if let idleRecords: FirebaseRecords<Inactivity> = try? await service.fetch(endPoint: MultipleEndPoints.idles, httpMethod: .get), let currentIdle = self.currentIdle {
+
+                guard let userID = try? JSONDecoder().decode(UserRecord.self, from: userIDData as! Data).userID else { return }
+
+                guard let specificIdleRecord = idleRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID && $0.fields?.startTime?.stringValue == currentIdle.startTime?.stringValue }) else { return }
+
+                guard let specificIdleRecordDocumentName = specificIdleRecord.name else { return }
+                let components = specificIdleRecordDocumentName.components(separatedBy: "/")
+                guard let specificIdleRecordDocumentID = components.last else { return }
+
+                let updatedIdleRecord = Inactivity(seniorId: Description(stringValue: specificIdleRecord.fields?.seniorId?.stringValue), startTime: Description(stringValue: specificIdleRecord.fields?.startTime?.stringValue), endTime: Description(stringValue: Date.now.description))
+                try await service.set(endPoint: SingleEndpoints.charges(chargeDocumentID: specificIdleRecordDocumentID), fields: updatedIdleRecord, httpMethod: .patch)
+            }
+        }
+    }
+
+    private func deleteIdleDataFirebase() {
+        let userIDData = UserDefaults.standard.object(forKey: "user-auth")
+        Task {
+            if let idleRecords: FirebaseRecords<Inactivity> = try? await self.service.fetch(endPoint: MultipleEndPoints.idles, httpMethod: .get), let currentIdle = self.currentIdle {
+
+                guard let userID = try? JSONDecoder().decode(UserRecord.self, from: userIDData as! Data).userID else { return }
+
+                guard let specificIdleRecord = idleRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID && $0.fields?.startTime?.stringValue == currentIdle.startTime?.stringValue }) else { return }
+                guard let specificIdleRecordDocumentName = specificIdleRecord.name else { return }
+                let components = specificIdleRecordDocumentName.components(separatedBy: "/")
+                guard let specificIdleRecordDocumentID = components.last else { return }
+
+                try await service.delete(endPoint: SingleEndpoints.idles(idleDocumentID: specificIdleRecordDocumentID), httpMethod: .delete)
+            }
+        }
+    }
 }
+
