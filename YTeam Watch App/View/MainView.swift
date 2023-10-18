@@ -24,6 +24,7 @@ struct MainView: View {
                     ErrorView(errorText: "The app does not have location permissions. Please enable them in settings.")
                 case .authorizedAlways, .authorizedWhenInUse:
                     IdleDetectionView()
+                    TestChargingView(authVM: vm)
                 default:
                     Text("Unexpected status")
                 }
