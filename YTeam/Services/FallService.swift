@@ -10,17 +10,20 @@ import Firebase
 
 class FallService {
     
-    /// `Fetches all fall without filter from FireStore`.
+    /// `Fetches all fall with the filter of the logged in id from FireStore`.
     ///
     /// ```
-    /// FallService.fetchAllFalls().
+    /// FallService.fetchAllFalls(userId: "abcdefghijklnmnop23").
     /// ```
     ///
     /// - Parameters:
-    ///     - None
+    ///     - userId: The logged in user's id (String)
     /// - Returns: Array of `Falls`
-    static func fetchAllFalls() async throws -> [Fall] {
-        let snapshot = try await FirestoreConstants.fallsCollection.getDocuments()
+    static func fetchAllFalls(userId: String) async throws -> [Fall] {
+        let snapshot = try await FirestoreConstants.fallsCollection
+                                    .whereField("seniorId", isEqualTo: userId)
+                                    .getDocuments()
+        
         return snapshot.documents.compactMap({ try? $0.data(as: Fall.self) })
     }
     
