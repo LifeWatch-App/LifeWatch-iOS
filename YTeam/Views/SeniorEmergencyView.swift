@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct SeniorEmergencyView: View {
-    @State var batteryLevel: Double = 76
+    @State var batteryLevel: Double = 86
     @State var walkieTalkieToggle: Bool = false
     @State var locationToggle: Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -23,20 +24,16 @@ struct SeniorEmergencyView: View {
             }
             .background(Color(.systemGroupedBackground))
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Text("Emergency")
-                        .font(.title)
-                        .bold()
-                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         
                     } label: {
                         Image(systemName: "person.crop.circle")
+                            .font(.title)
                     }
                 }
             }
-            .toolbarTitleDisplayMode(.inline)
+            .navigationTitle("Emergency")
         }
     }
 }
@@ -44,8 +41,9 @@ struct SeniorEmergencyView: View {
 struct SOSButton: View {
     var body: some View {
         Text("Press alert button to bell")
+            .font(.system(size: 18))
         Button {
-            //SOS
+            // SOS
         } label: {
             ZStack {
                 Circle()
@@ -66,24 +64,39 @@ struct SOSButton: View {
 struct WTLocationCard: View {
     @Binding var walkieTalkieToggle: Bool
     @Binding var locationToggle: Bool
+    
     var body: some View {
         VStack(spacing: 8) {
             HStack{
-                Image(systemName: "flipphone")
-                    .foregroundStyle(.blue)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 5)
+                        .foregroundStyle(.blue)
+                        .frame(width: 38, height: 38)
+                    Image(systemName: "flipphone")
+                        .font(.system(size: 18))
+                        .foregroundStyle(.white)
+                }
                 Toggle(isOn: $walkieTalkieToggle, label: {
                     Text("Walkie Talkie")
+                        .font(.system(size: 18))
                 })
             }
             Divider()
                 .background(.primary)
-                .padding(.leading, 24)
+                .padding(.leading, 48)
                 
             HStack{
-                Image(systemName: "location.fill")
-                    .foregroundStyle(.blue)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 5)
+                        .foregroundStyle(.blue)
+                        .frame(width: 38, height: 38)
+                    Image(systemName: "location.fill")
+                        .font(.system(size: 18))
+                        .foregroundStyle(.white)
+                }
                 Toggle(isOn: $locationToggle, label: {
                     Text("Location")
+                        .font(.system(size: 18))
                 })
             }
         }
@@ -96,13 +109,22 @@ struct WTLocationCard: View {
 
 struct ChargingCard: View {
     @Binding var batteryLevel: Double
+    
     var body: some View {
         HStack {
-            Image(systemName: "applewatch")
-                .foregroundStyle(.blue)
+            ZStack {
+                RoundedRectangle(cornerRadius: 5)
+                    .foregroundStyle(.blue)
+                    .frame(width: 38, height: 38)
+                Image(systemName: "applewatch")
+                    .font(.system(size: 18))
+                    .foregroundStyle(.white)
+            }
             VStack(alignment: .leading) {
                 Text("Watch Battery")
+                    .font(.system(size: 18))
                 Text("Charging")
+                    .font(.system(size: 14))
                     .foregroundStyle(.secondary)
             }
             Spacer()
@@ -120,6 +142,7 @@ struct ChargingCard: View {
         .padding(.top, 16)
     }
 }
+
 struct CircularProgressView: View {
     let progress: Double
     
@@ -133,16 +156,14 @@ struct CircularProgressView: View {
             Circle()
                 .trim(from: 0, to: progress)
                 .stroke(
-                    Color(progress > 0.25 && progress < 0.85 ? .orange : progress > 0.85 ? .green : .red),
+                    Color(progress > 0.25 && progress < 0.50 ? .orange : progress > 0.50 ? .blue : .red),
                     style: StrokeStyle(
                         lineWidth: 8,
                         lineCap: .round
                     )
                 )
                 .rotationEffect(.degrees(-90))
-                // 1
                 .animation(.easeOut(duration: 0.75), value: progress)
-
         }
     }
 }
