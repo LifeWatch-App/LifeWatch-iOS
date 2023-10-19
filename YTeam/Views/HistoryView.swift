@@ -49,6 +49,10 @@ struct HistoryView: View {
                     HistoryInactivity(historyViewModel: historyViewModel)
                 }
             }
+            .refreshable {
+                Task{try? await historyViewModel.fetchAllFalls()}
+                debugPrint(historyViewModel.falls)
+            }
         }
         .background(Color(.systemGroupedBackground))
         .navigationTitle("History")
