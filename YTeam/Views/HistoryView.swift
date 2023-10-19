@@ -10,7 +10,6 @@ import Charts
 
 struct HistoryView: View {
     @StateObject var historyViewModel: HistoryViewModel = HistoryViewModel()
-    @ObservedObject var fallViewModel: FallViewModel = FallViewModel()
     var body: some View {
         VStack {
             HistoryPicker(selectedHistoryMenu: $historyViewModel.selectedHistoryMenu)
@@ -50,10 +49,6 @@ struct HistoryView: View {
                     HistoryInactivity(historyViewModel: historyViewModel)
                 }
             }
-            .refreshable {
-                Task{ try? await fallViewModel.fetchAllFalls() }
-                debugPrint("Falls: \(fallViewModel.falls)")
-            }
         }
         .background(Color(.systemGroupedBackground))
         .navigationTitle("History")
@@ -62,27 +57,37 @@ struct HistoryView: View {
 
 struct HistoryEmergency: View {
     @ObservedObject var historyViewModel: HistoryViewModel
-    
     var body: some View {
         VStack {
             HistoryHeader()
-            
-            HStack{
-                DetectedFallCard(fallCount: $historyViewModel.fallCount)
-                SOSCard(sosCount: $historyViewModel.sosCount)
+            if (historyViewModel.loading == true) {
+                ProgressView()
+            } else {
+                HStack{
+                    DetectedFallCard(fallCount: $historyViewModel.fallsCount)
+                    SOSCard(sosCount: $historyViewModel.sosCount)
+                }
+                ForEach(historyViewModel.falls, id: \.self) { fall in
+                    
+                    VStack{
+                        HStack{
+                            Text(Date.timeToString(time: fall.time, timeOption: .date))
+                                .font(.headline)
+                            Spacer()
+                        }
+                        .padding(.top, 8)
+                        
+                        HistoryCard(option: .fell, time: .constant(Date.timeToString(time: fall.time, timeOption: .hour)))
+                            .listRowSeparator(.hidden)
+//                        HistoryCard(option: .pressed, time: .constant("00:00"))
+//                            .listRowSeparator(.hidden)
+                    }
+                }
             }
-            
-            HStack{
-                Text("21 Oct 2023")
-                    .font(.headline)
-                Spacer()
-            }
-            .padding(.top, 8)
-            
-            HistoryCard(option: .fell)
-                .listRowSeparator(.hidden)
-            HistoryCard(option: .pressed)
-                .listRowSeparator(.hidden)
+        }
+        .refreshable {
+            Task{ try? await historyViewModel.fetchAllFalls() }
+            debugPrint("Falls: \(historyViewModel.falls)")
         }
         .padding(.top, 8)
         .padding(.horizontal, 16)
@@ -200,9 +205,9 @@ struct HistoryInactivity: View {
             }
             .padding(.top, 8)
             
-            HistoryCard(option: .idle)
+            HistoryCard(option: .idle, time: .constant("00:00"))
                 .listRowSeparator(.hidden)
-            HistoryCard(option: .charging)
+            HistoryCard(option: .charging, time: .constant("00:00"))
                 .listRowSeparator(.hidden)
         }
         .padding(.top, 8)
@@ -337,7 +342,7 @@ struct HistoryData: View {
 
 struct HistoryCard: View {
     var option: HistoryCardOption
-    
+    @Binding var time: String
     var body: some View {
         HStack{
             Image(systemName: option == .fell ? "figure.fall" : option == .pressed ? "sos.circle.fill" : option == .idle ? "moon.fill" : "bolt.fill")
@@ -350,7 +355,7 @@ struct HistoryCard: View {
             Spacer()
             Group{
                 Image(systemName: "clock")
-                Text("13.00")
+                Text(time)
             }
             .foregroundStyle(.secondary)
         }

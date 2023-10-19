@@ -45,4 +45,27 @@ extension Date {
         }
         return dates
     }
+    
+    static func timeToString(time: String, timeOption: TimeOption) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+
+        if let date = dateFormatter.date(from: time) {
+            if (timeOption == .date) {
+                dateFormatter.dateFormat = "d MMMM yyyy"
+            } else if (timeOption == .hour) {
+                dateFormatter.dateFormat = "HH:mm:ss"
+            }
+            let formattedDate = dateFormatter.string(from: date)
+            return formattedDate
+        } else {
+            return "Invalid date string"
+        }
+    }
+    
+}
+
+enum TimeOption: String, CaseIterable, Identifiable {
+    case date, hour
+    var id: Self { self }
 }

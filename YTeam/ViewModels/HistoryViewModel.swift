@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 class HistoryViewModel: ObservableObject {
     @Published var selectedHistoryMenu: HistoryMenu = .inactivity
-    
-    @Published var fallCount: Int = 4
-    @Published var sosCount: Int = 1
+    @Published var falls: [Fall] = []
+    @Published var loading: Bool = true
+    @Published var loggedIn: Bool = false
+    @Published var fallsCount: Int = 0
+    @Published var sosCount: Int = 0
     
     @Published var inactivityData: [InactivityChart] = [InactivityChart]()
     
@@ -22,7 +25,40 @@ class HistoryViewModel: ObservableObject {
     var totalChargingTime: String = ""
     
     init() {
+        Task{try? await self.fetchAllFalls()}
         fetchCurrentWeek()
+    }
+    
+    /// `Checks if there are users logged in, if there are, return falls, if not return nil`.
+    ///
+    /// ```
+    /// FallViewModel.fetchAllFalls().
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: If user is logged in, return `falls only if there are the senior's falls`, if not return empty array of falls.
+    @MainActor
+    func fetchAllFalls() async throws {
+        
+        // Check if there are current users.
+        if ((Auth.auth().currentUser) != nil) {
+            self.loggedIn = true
+        } else {
+            self.loggedIn = false
+        }
+        
+        // Fetching all falls.
+        if (self.loggedIn) {
+            guard let userId = Auth.auth().currentUser?.uid else { return }
+            
+            self.loading = true
+            self.falls = try await FallService.fetchAllFalls(userId: userId)
+            self.fallsCount = self.falls.count
+            self.loading = false
+        } else {
+            return
+        }
     }
     
     func changeWeek(type: ChangeWeek) {
