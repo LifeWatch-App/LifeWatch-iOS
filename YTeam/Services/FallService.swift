@@ -14,15 +14,16 @@ class FallService {
     init() {
         Task{try? await observeAllFalls()}
     }
-    /// `Fetches all fall with the filter of the logged in id from FireStore`.
+    
+    /// Observes all falls by adding a snapshot listener to the firebase and updates the `falls` properties only if user is `logged in`.
     ///
     /// ```
-    /// FallService.fetchAllFalls(userId: "abcdefghijklnmnop23").
+    /// FallService.observeAllFalls().
     /// ```
     ///
     /// - Parameters:
-    ///     - userId: The logged in user's id (String)
-    /// - Returns: Array of `Falls`
+    ///     - None
+    /// - Returns: If user is logged in, add a snapshot listener to the database and filter it based on the UID.
     func observeAllFalls() async throws {
         guard let userId = Auth.auth().currentUser?.uid else { return }
         

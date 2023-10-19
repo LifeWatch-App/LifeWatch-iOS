@@ -33,7 +33,7 @@ class HistoryViewModel: ObservableObject {
         fetchCurrentWeek()
     }
     
-    /// `Subscribes to the FallService to check for changes, and updates the ViewModel properties`.
+    /// Subscribes to the FallService to check for changes, and updates `loading, loggedIn, fallsCount, falls, and groupedFalls`.
     ///
     /// ```
     /// Not to be called.
