@@ -90,10 +90,6 @@ struct HistoryEmergency: View {
                 }
             }
         }
-        .refreshable {
-            Task{ try? await historyViewModel.fetchAllFalls() }
-            debugPrint("Falls: \(historyViewModel.falls)")
-        }
         .padding(.top, 8)
         .padding(.horizontal, 16)
     }

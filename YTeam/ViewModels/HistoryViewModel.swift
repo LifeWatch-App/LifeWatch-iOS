@@ -33,10 +33,20 @@ class HistoryViewModel: ObservableObject {
         fetchCurrentWeek()
     }
     
+    /// `Subscribes to the FallService to check for changes, and updates the ViewModel properties`.
+    ///
+    /// ```
+    /// Not to be called.
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: If user is logged in, return `sorted falls only if there are the senior's falls`.
     func setupFallSubscriber() {
         fallService.$falls
             .receive(on: DispatchQueue.main)
             .sink { [weak self] fall in
+                
                 guard let self else { return }
                 
                 self.falls.append(contentsOf: fall)
@@ -68,7 +78,11 @@ class HistoryViewModel: ObservableObject {
                     let mappedKeys = self.falls.map {$0.time}
                     let sortedUnixKeys = mappedKeys.sorted {$0 > $1}
                     let sortedKeys = sortedUnixKeys.compactMap { unix -> String? in
-                        if uniqueKeys.insert(Date.unixToString(unix: unix, timeOption: .date)).inserted {
+                        if (
+                            (self.currentWeek.first ?? Date() <= Date(timeIntervalSince1970: unix))
+                            && (Date(timeIntervalSince1970: unix) <= self.currentWeek.last ?? Date())
+                            && uniqueKeys.insert(Date.unixToString(unix: unix, timeOption: .date)).inserted
+                        ){
                             return Date.unixToString(unix: unix, timeOption: .date)
                         }
                         return nil
@@ -82,20 +96,6 @@ class HistoryViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
-    }
-    
-    /// `Checks if there are users logged in, if there are, return falls, if not return nil`.
-    ///
-    /// ```
-    /// FallViewModel.fetchAllFalls().
-    /// ```
-    ///
-    /// - Parameters:
-    ///     - None
-    /// - Returns: If user is logged in, return `falls only if there are the senior's falls`, if not return empty array of falls.
-    @MainActor
-    func fetchAllFalls() async throws {
-        
     }
     
     func changeWeek(type: ChangeWeek) {
