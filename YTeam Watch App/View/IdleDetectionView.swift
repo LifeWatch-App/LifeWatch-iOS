@@ -13,6 +13,18 @@ struct IdleDetectionView: View {
     var body: some View {
         VStack {
             Text("Position: \(idleViewModel.position)")
+
+            Button("Create") {
+                idleViewModel.createIdleDataFirebase(startTime: Date.now)
+            }
+
+            Button("Update") {
+                idleViewModel.updateIdleDataFirebase(endTime: Date.now)
+            }
+
+            Button("Delete") {
+                idleViewModel.deleteIdleDataFirebase()
+            }
         }
         .onReceive(idleViewModel.timer) { input in
             idleViewModel.checkPosition()
