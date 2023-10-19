@@ -110,9 +110,9 @@ struct TrackingView: View {
             }
             .padding()
         }
-        .onAppear {
-            Task { try? await locationViewModel.getProfiles() }
-        }
+//        .onAppear {
+//            Task { try? await locationViewModel.getProfiles() }
+//        }
         .onChange(of: locationViewModel.lastSeenLocation) { newValue in
             if let newValue {
                 locationViewModel.observeLocation(coordinate: newValue.coordinate)

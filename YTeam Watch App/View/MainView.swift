@@ -14,29 +14,32 @@ struct MainView: View {
     var body: some View {
         VStack {
             if vm.userAuth?.userID != nil {
-                switch locationVM.authorizationStatus {
-                case .notDetermined:
-//                    AnyView(RequestLocationView())
-//                        .environmentObject(locationVM)
-                    IdleDetectionView()
-                    TestChargingView(authVM: vm)
-                case .restricted:
-                    ErrorView(errorText: "Location use is restricted.")
-                case .denied:
-                    ErrorView(errorText: "The app does not have location permissions. Please enable them in settings.")
-                case .authorizedAlways, .authorizedWhenInUse:
-                    IdleDetectionView()
-                    TestChargingView(authVM: vm)
-                default:
-                    Text("Unexpected status")
-                }
+                IdleDetectionView()
             } else {
                 Text("Not authenticated and not logged in")
             }
+            
+            //            switch locationVM.authorizationStatus {
+            //            case .notDetermined:
+            //                RequestLocationView()
+            //                    .environmentObject(locationVM)
+            //            case .restricted:
+            //                ErrorView(errorText: "Location use is restricted.")
+            //            case .denied:
+            //                ErrorView(errorText: "The app does not have location permissions. Please enable them in settings.")
+            //            case .authorizedAlways, .authorizedWhenInUse:
+            //                if vm.userAuth?.userID != nil {
+            //                    IdleDetectionView()
+            //                } else {
+            //                    Text("Not authenticated and not logged in")
+            //                }
+            //            default:
+            //                Text("Unexpected status")
+            //            }
         }
-        .onAppear {
-            locationVM.requestPermission()
-        }
+        //        .onAppear {
+        //            locationVM.requestPermission()
+        //        }
     }
 }
 

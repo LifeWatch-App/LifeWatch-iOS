@@ -21,7 +21,7 @@ enum SingleEndpoints: Endpoint {
             return "/charges/\(chargeDocumentID)"
 
         case let .idles(idleDocumentID):
-            return "/charges/\(idleDocumentID)"
+            return "/idles/\(idleDocumentID)"
         }
     }
 }

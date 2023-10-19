@@ -11,4 +11,5 @@ struct Inactivity: Codable, Hashable {
     var seniorId: Description?
     var startTime: Description?
     var endTime: Description?
+    var taskState: Description?
 }
