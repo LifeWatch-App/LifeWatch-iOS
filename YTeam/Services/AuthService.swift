@@ -183,6 +183,7 @@ class AuthService {
     }
     
     func sendRequestToSenior(email: String) {
+        let email = email.lowercased()
         db.collection("users")
             .whereField("email", isEqualTo: email)
             .getDocuments() { (querySnapshot, err) in
