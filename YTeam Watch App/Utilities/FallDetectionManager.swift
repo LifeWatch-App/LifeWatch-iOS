@@ -79,10 +79,10 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
             
             guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
             let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
-            let timeDescription: Date = .now
+            let timeDescription: Double = Date.now.timeIntervalSince1970
             
             if (userRecord != nil) {
-                let time = Fall(time: Description(stringValue: timeDescription.description), seniorId: Description(stringValue: userRecord?.userID))
+                let time = Fall(time: Description(doubleValue: timeDescription), seniorId: Description(stringValue: userRecord?.userID))
                 Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time, httpMethod: .post) }
             }
         }

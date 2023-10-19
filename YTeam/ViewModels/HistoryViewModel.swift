@@ -7,26 +7,81 @@
 
 import SwiftUI
 import FirebaseAuth
+import Combine
 
 class HistoryViewModel: ObservableObject {
     @Published var selectedHistoryMenu: HistoryMenu = .inactivity
     @Published var falls: [Fall] = []
+    @Published var groupedFalls: [(String, [Fall])] = []
     @Published var loading: Bool = true
     @Published var loggedIn: Bool = false
     @Published var fallsCount: Int = 0
     @Published var sosCount: Int = 0
-    
     @Published var inactivityData: [InactivityChart] = [InactivityChart]()
     
     var currentWeek: [Date] = []
     var currentDay: Date = Date()
-    
     var totalIdleTime: String = ""
     var totalChargingTime: String = ""
     
+    private let fallService: FallService
+    private var cancellables = Set<AnyCancellable>()
+    
     init() {
-        Task{try? await self.fetchAllFalls()}
+        self.fallService = FallService()
+        setupFallSubscriber()
         fetchCurrentWeek()
+    }
+    
+    func setupFallSubscriber() {
+        fallService.$falls
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] fall in
+                guard let self else { return }
+                
+                self.falls.append(contentsOf: fall)
+                if ((Auth.auth().currentUser) != nil) {
+                    self.loggedIn = true
+                } else {
+                    self.loggedIn = false
+                }
+                
+                
+                if (self.loggedIn == true) {
+                    self.loading = true
+                    self.falls = self.falls.sorted { $0.time > $1.time }
+                    debugPrint("Falls Again: ", self.falls)
+                    var fallDictionary: [String: [Fall]] = [:]
+                    
+                    for fall in self.falls {
+                        let dateString = Date.unixToString(unix: fall.time, timeOption: .date)
+                        if var fallArray = fallDictionary[dateString] {
+                            fallArray.append(fall)
+                            fallDictionary[dateString] = fallArray
+                        } else {
+                            fallDictionary[dateString] = [fall]
+                        }
+                    }
+                    
+                    var uniqueKeys = Set<String>()
+                    
+                    let mappedKeys = self.falls.map {$0.time}
+                    let sortedUnixKeys = mappedKeys.sorted {$0 > $1}
+                    let sortedKeys = sortedUnixKeys.compactMap { unix -> String? in
+                        if uniqueKeys.insert(Date.unixToString(unix: unix, timeOption: .date)).inserted {
+                            return Date.unixToString(unix: unix, timeOption: .date)
+                        }
+                        return nil
+                    }
+                    self.groupedFalls = sortedKeys.map {($0, fallDictionary[$0]!)}
+                    
+                    self.fallsCount = self.falls.count
+                    self.loading = false
+                } else {
+                    return
+                }
+            }
+            .store(in: &cancellables)
     }
     
     /// `Checks if there are users logged in, if there are, return falls, if not return nil`.
@@ -41,24 +96,6 @@ class HistoryViewModel: ObservableObject {
     @MainActor
     func fetchAllFalls() async throws {
         
-        // Check if there are current users.
-        if ((Auth.auth().currentUser) != nil) {
-            self.loggedIn = true
-        } else {
-            self.loggedIn = false
-        }
-        
-        // Fetching all falls.
-        if (self.loggedIn) {
-            guard let userId = Auth.auth().currentUser?.uid else { return }
-            
-            self.loading = true
-            self.falls = try await FallService.fetchAllFalls(userId: userId)
-            self.fallsCount = self.falls.count
-            self.loading = false
-        } else {
-            return
-        }
     }
     
     func changeWeek(type: ChangeWeek) {

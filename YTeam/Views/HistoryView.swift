@@ -49,10 +49,9 @@ struct HistoryView: View {
                     HistoryInactivity(historyViewModel: historyViewModel)
                 }
             }
-            .refreshable {
-                Task{try? await historyViewModel.fetchAllFalls()}
-                debugPrint(historyViewModel.falls)
-            }
+//            .refreshable {
+//                Task{}
+//            }
         }
         .background(Color(.systemGroupedBackground))
         .navigationTitle("History")
@@ -71,20 +70,22 @@ struct HistoryEmergency: View {
                     DetectedFallCard(fallCount: $historyViewModel.fallsCount)
                     SOSCard(sosCount: $historyViewModel.sosCount)
                 }
-                ForEach(historyViewModel.falls, id: \.self) { fall in
-                    
+                
+                ForEach(historyViewModel.groupedFalls, id: \.0) { (time: String, falls: [Fall]) in
                     VStack{
                         HStack{
-                            Text(Date.timeToString(time: fall.time, timeOption: .date))
+                            Text(time)
                                 .font(.headline)
                             Spacer()
                         }
                         .padding(.top, 8)
                         
-                        HistoryCard(option: .fell, time: .constant(Date.timeToString(time: fall.time, timeOption: .hour)))
-                            .listRowSeparator(.hidden)
-//                        HistoryCard(option: .pressed, time: .constant("00:00"))
-//                            .listRowSeparator(.hidden)
+                        ForEach(falls, id: \.self) { fall in
+                            HistoryCard(option: .fell, time: .constant(Date.unixToString(unix: fall.time, timeOption: .hour)))
+                                .listRowSeparator(.hidden)
+                            //                        HistoryCard(option: .pressed, time: .constant("00:00"))
+                            //                            .listRowSeparator(.hidden)
+                        }
                     }
                 }
             }
