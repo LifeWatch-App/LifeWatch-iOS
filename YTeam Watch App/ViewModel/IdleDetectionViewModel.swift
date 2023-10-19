@@ -59,20 +59,17 @@ class IdleDetectionViewModel: ObservableObject {
                     self.position = "Not at right angles"
                 }
 
-
                 if self.latestPosition != self.position {
-
-                    if self.idle == true {
+                    if self.idle == true && self.currentIdle != nil {
+                        self.isAlreadyIdle = false
                         self.updateIdleDataFirebase(endTime: Date.now)
-                    } else {
-                        self.deleteIdleDataFirebase()
+                        self.currentIdle = nil
                     }
 
                     self.latestPosition = self.position
                     self.time = 0
                     self.idleTime = 0
                     self.idle = false
-                    self.currentIdle = nil
                     self.isAlreadyIdle = false
 
                 } else {
@@ -81,10 +78,7 @@ class IdleDetectionViewModel: ObservableObject {
                     if self.idleTime > 30 && self.isAlreadyIdle == false {
                         self.isAlreadyIdle = true
                         self.idle = true
-
-                        if self.currentIdle == nil {
-                            self.createIdleDataFirebase(startTime: Date.now)
-                        }
+                        self.createIdleDataFirebase(startTime: Date.now)
                     }
                 }
             }

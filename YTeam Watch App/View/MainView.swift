@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct MainView: View {
-    @ObservedObject private var fallDetector = FallDetectionManager()
+//    @ObservedObject private var fallDetector = FallDetectionManager()
     @StateObject private var vm = TestAuthViewModel()
-    @StateObject private var locationVM = LocationViewModel()
+//    @StateObject private var locationVM = LocationViewModel()
     var body: some View {
         VStack {
             if vm.userAuth?.userID != nil {
-                IdleDetectionView()
+                TestChargingView()
+                    .environmentObject(vm)
             } else {
                 Text("Not authenticated and not logged in")
             }
