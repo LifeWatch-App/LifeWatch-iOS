@@ -13,6 +13,7 @@ class MainViewModel: ObservableObject {
     @Published var invites: [Invite] = []
     @Published var user: User?
     @Published var userData: UserData?
+    @Published var isLoading: Bool = false
     private let service = AuthService.shared
     private var cancellables = Set<AnyCancellable>()
 
@@ -22,11 +23,12 @@ class MainViewModel: ObservableObject {
 
     private func setupSubscribers() {
         service.$user
-            .combineLatest(service.$userData, service.$invites)
-            .sink { [weak self] user, userData, invites in
+            .combineLatest(service.$userData, service.$invites, service.$isLoading)
+            .sink { [weak self] user, userData, invites, isLoading in
                 self?.user = user
                 self?.userData = userData
                 self?.invites = invites
+                self?.isLoading = isLoading
                 self?.handleAuthWatch(user: user, userData: userData, invites: invites)
             }
             .store(in: &cancellables)

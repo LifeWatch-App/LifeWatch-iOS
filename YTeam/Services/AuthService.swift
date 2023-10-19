@@ -13,6 +13,7 @@ class AuthService {
     @Published var user: User?
     @Published var userData: UserData?
     @Published var invites: [Invite] = []
+    @Published var isLoading = false
     var invitesListener: ListenerRegistration?
     
 
@@ -39,6 +40,8 @@ class AuthService {
     func signUp(email: String, password: String) {
         //TODO: Send user record to watch using WatchConnectivity
         //TODO: When launch app check if user data exists in UserDefault or not, if yes get that user, if not save it in user default the one that is passed from watchconnectivity
+        isLoading = true
+        
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error != nil {
                 print(error?.localizedDescription ?? "")
@@ -65,6 +68,8 @@ class AuthService {
                         else {
                             print("Document added")
                         }
+                        
+                        self!.isLoading = false
                     }
             }
         }
@@ -94,6 +99,8 @@ class AuthService {
     }
     
     func getUserData() {
+        isLoading = true
+        
         db.collection("users").document(AuthService.shared.user!.uid).getDocument { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -126,9 +133,13 @@ class AuthService {
                                 return
                             }
                             
+                            if documents.count == 0 {
+                                self.isLoading = false
+                            }
+                            
                             self.invites = []
                             
-                            for document in documents {
+                            for (index, document) in documents.enumerated() {
                                 var invite = try? document.data(as: Invite.self)
                                 
                                 self.db.collection("users").document(invite!.seniorId!).getDocument { (querySnapshot, err) in
@@ -143,6 +154,10 @@ class AuthService {
                                             } else {
                                                 invite?.caregiverData = try? querySnapshot?.data(as: UserData.self)
                                                 self.invites.append(invite!)
+                                            }
+                                            
+                                            if (index == documents.count - 1) {
+                                                self.isLoading = false
                                             }
                                         }
                                     }

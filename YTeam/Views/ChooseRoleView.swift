@@ -130,9 +130,6 @@ struct ChooseRoleView: View {
         .padding()
         .background(Color(.systemGroupedBackground))
         .navigationTitle("Choose Role")
-        .onAppear {
-            mainViewModel.getUserData()
-        }
     }
 }
 
