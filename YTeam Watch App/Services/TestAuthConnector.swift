@@ -25,9 +25,7 @@ final class TestAuthConnector: NSObject, WCSessionDelegate {
     }
 
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        print("Hi")
         if let userRecordDataEncapsulator = message["user_auth"], let data = userRecordDataEncapsulator as? Data {
-            print(try? JSONSerialization.jsonObject(with: data))
             do {
                 let userRecordData = try JSONDecoder().decode(UserRecord.self, from: data)
                 print(userRecordData)

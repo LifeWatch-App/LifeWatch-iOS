@@ -25,7 +25,6 @@ class MainViewModel: ObservableObject {
             .combineLatest(service.$userData, service.$invites)
             .sink { [weak self] user, userData, invites in
                 self?.user = user
-                print("User", user)
                 self?.userData = userData
                 self?.invites = invites
                 self?.handleAuthWatch(userID: user?.uid, userData: userData, invites: invites)

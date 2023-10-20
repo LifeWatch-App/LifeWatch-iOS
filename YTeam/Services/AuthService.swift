@@ -86,7 +86,7 @@ class AuthService {
             }
 
             self.userData = nil
-            self.invites = []
+//            self.invites = []
             self.user = nil
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)

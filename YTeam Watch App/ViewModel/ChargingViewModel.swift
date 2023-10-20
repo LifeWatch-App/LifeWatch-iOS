@@ -18,7 +18,6 @@ final class CobaTestViewModel: ObservableObject {
     @Published private(set) var currentRange: ChargingRange?
     @Published private(set) var watchReachable = false
     private let encoder = JSONEncoder()
-    let watchConnectionManager = WatchConnectorManager()
     
     required init() {
         initializerFunction()
