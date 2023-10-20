@@ -6,23 +6,96 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import Combine
 
 class HistoryViewModel: ObservableObject {
     @Published var selectedHistoryMenu: HistoryMenu = .inactivity
-    
-    @Published var fallCount: Int = 4
-    @Published var sosCount: Int = 1
-    
+    @Published var falls: [Fall] = []
+    @Published var groupedFalls: [(String, [Fall])] = []
+    @Published var loading: Bool = true
+    @Published var loggedIn: Bool = false
+    @Published var fallsCount: Int = 0
+    @Published var sosCount: Int = 0
     @Published var inactivityData: [InactivityChart] = [InactivityChart]()
     
     var currentWeek: [Date] = []
     var currentDay: Date = Date()
-    
     var totalIdleTime: String = ""
     var totalChargingTime: String = ""
     
+    private let fallService: FallService
+    private var cancellables = Set<AnyCancellable>()
+    
     init() {
+        self.fallService = FallService()
+        setupFallSubscriber()
         fetchCurrentWeek()
+    }
+    
+    /// Subscribes to the FallService to check for changes, and updates `loading, loggedIn, fallsCount, falls, and groupedFalls`.
+    ///
+    /// ```
+    /// Not to be called.
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: If user is logged in, return `sorted falls only if there are the senior's falls`.
+    func setupFallSubscriber() {
+        fallService.$falls
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] fall in
+                
+                guard let self else { return }
+                
+                self.falls.append(contentsOf: fall)
+                if ((Auth.auth().currentUser) != nil) {
+                    self.loggedIn = true
+                } else {
+                    self.loggedIn = false
+                }
+                
+                
+                if (self.loggedIn == true) {
+                    self.loading = true
+                    self.falls = self.falls.sorted { $0.time > $1.time }
+                    debugPrint("Falls Again: ", self.falls)
+                    var fallDictionary: [String: [Fall]] = [:]
+                    
+                    for fall in self.falls {
+                        let dateString = Date.unixToString(unix: fall.time, timeOption: .date)
+                        if var fallArray = fallDictionary[dateString] {
+                            fallArray.append(fall)
+                            fallDictionary[dateString] = fallArray
+                        } else {
+                            fallDictionary[dateString] = [fall]
+                        }
+                    }
+                    
+                    var uniqueKeys = Set<String>()
+                    
+                    let mappedKeys = self.falls.map {$0.time}
+                    let sortedUnixKeys = mappedKeys.sorted {$0 > $1}
+                    let sortedKeys = sortedUnixKeys.compactMap { unix -> String? in
+                        if (
+                            (self.currentWeek.first ?? Date() <= Date(timeIntervalSince1970: unix))
+                            && (Date(timeIntervalSince1970: unix) <= self.currentWeek.last ?? Date())
+                            && uniqueKeys.insert(Date.unixToString(unix: unix, timeOption: .date)).inserted
+                        ){
+                            return Date.unixToString(unix: unix, timeOption: .date)
+                        }
+                        return nil
+                    }
+                    self.groupedFalls = sortedKeys.map {($0, fallDictionary[$0]!)}
+                    
+                    self.fallsCount = self.falls.count
+                    self.loading = false
+                } else {
+                    return
+                }
+            }
+            .store(in: &cancellables)
     }
     
     func changeWeek(type: ChangeWeek) {
