@@ -45,4 +45,25 @@ extension Date {
         }
         return dates
     }
+    
+    static func unixToString(unix: Double, timeOption: TimeOption) -> String {
+        let date = Date(timeIntervalSince1970: unix)
+        let dateFormatter = DateFormatter()
+        
+        if (timeOption == .date) {
+            dateFormatter.dateFormat = "d MMMM yyyy"
+        }
+        
+        if (timeOption == .hour) {
+            dateFormatter.dateFormat = "HH:mm:ss"
+        }
+        let formattedDate = dateFormatter.string(from: date)
+        return formattedDate
+    }
+    
+}
+
+enum TimeOption: String, CaseIterable, Identifiable {
+    case date, hour
+    var id: Self { self }
 }

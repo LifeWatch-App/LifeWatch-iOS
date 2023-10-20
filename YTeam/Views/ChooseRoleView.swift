@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ChooseRoleView: View {
+    @ObservedObject var mainViewModel: MainViewModel
+    
     var body: some View {
         VStack {
             ZStack(alignment: .top) {
@@ -18,7 +20,7 @@ struct ChooseRoleView: View {
                     .frame(height: 140)
                     
                     HStack {
-                        Text("Lorem ipsum dolor sit amet")
+                        Text("As a senior, ...")
                         Spacer()
                     }
                     .padding(.bottom, 8)
@@ -26,14 +28,14 @@ struct ChooseRoleView: View {
                     HStack {
                         Spacer()
                         Button {
-                            
+                            mainViewModel.setRole(role: "senior")
                         } label: {
                             Text("Choose")
                                 .foregroundStyle(.white)
                                 .fontWeight(.semibold)
                                 .padding(.horizontal)
                                 .padding(.vertical, 8)
-                                .background(Color("Blue"))
+                                .background(.accent)
                                 .cornerRadius(4)
                         }
                     }
@@ -63,7 +65,7 @@ struct ChooseRoleView: View {
                     }
                 }
                 .padding(.trailing)
-                .background(Color("Blue"))
+                .background(.accent)
                 .cornerRadius(16)
             }
             
@@ -75,7 +77,7 @@ struct ChooseRoleView: View {
                     .frame(height: 140)
                     
                     HStack {
-                        Text("Lorem ipsum dolor sit amet")
+                        Text("As a caregiver, ...")
                         Spacer()
                     }
                     .padding(.bottom, 8)
@@ -83,14 +85,14 @@ struct ChooseRoleView: View {
                     HStack {
                         Spacer()
                         Button {
-                            
+                            mainViewModel.setRole(role: "caregiver")
                         } label: {
                             Text("Choose")
                                 .foregroundStyle(.white)
                                 .fontWeight(.semibold)
                                 .padding(.horizontal)
                                 .padding(.vertical, 8)
-                                .background(Color("Blue"))
+                                .background(.accent)
                                 .cornerRadius(4)
                         }
                     }
@@ -119,7 +121,7 @@ struct ChooseRoleView: View {
                     }
                 }
                 .padding(.trailing)
-                .background(Color("Blue"))
+                .background(.accent)
                 .cornerRadius(16)
             }
             
@@ -132,5 +134,5 @@ struct ChooseRoleView: View {
 }
 
 #Preview {
-    ChooseRoleView()
+    ChooseRoleView(mainViewModel: MainViewModel())
 }

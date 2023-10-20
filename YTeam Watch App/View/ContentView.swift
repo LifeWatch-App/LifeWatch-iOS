@@ -41,7 +41,7 @@ struct RequestLocationView: View {
             })
             .padding(10)
             .foregroundColor(.white)
-            .background(Color.blue)
+            .background(Color.accentColor)
             .clipShape(RoundedRectangle(cornerRadius: 8))
             Text("We need your permission to track you.")
                 .foregroundColor(.gray)

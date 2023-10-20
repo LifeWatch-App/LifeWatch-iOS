@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C21A3E32ADF7B930044E966 /* CaregiverView.swift */; };
+		4C21A3E62ADF7ECA0044E966 /* SeniorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */; };
 		4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4730292AD8DC750025F089 /* AuthService.swift */; };
 		4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47302B2AD9760C0025F089 /* LoginViewModel.swift */; };
 		4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */; };
@@ -18,7 +20,6 @@
 		4C6049CB2AD79DDA00E9F0BF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049CA2AD79DDA00E9F0BF /* FirebaseFirestore */; };
 		4C6049D02AD7C6E000E9F0BF /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */; };
 		4CA2328C2ADCE1A0003874D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CA2328B2ADCE1A0003874D2 /* GoogleService-Info.plist */; };
-		4CA232902ADD119B003874D2 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CA2328F2ADD119B003874D2 /* FirebaseMessaging */; };
 		4CA232972ADE1EF1003874D2 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232922ADE1EF1003874D2 /* UserRecord.swift */; };
 		4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232932ADE1EF1003874D2 /* ChartData.swift */; };
 		4CA232992ADE1EF1003874D2 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232942ADE1EF1003874D2 /* Invite.swift */; };
@@ -31,6 +32,11 @@
 		4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232A32ADE1F4F003874D2 /* UserRecord.swift */; };
 		4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */; };
 		4CA232B72ADE48F7003874D2 /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232B62ADE48F7003874D2 /* Fall.swift */; };
+		4CA7922A2ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA792292ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift */; };
+		4CA7922C2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922B2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift */; };
+		4CA7922E2ADFB67B003B5EC9 /* SeniorEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */; };
+		4CA792302ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */; };
+		4CA792322ADFFFC2003B5EC9 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CA792312ADFFFC2003B5EC9 /* FirebaseMessaging */; };
 		4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB015592AD4DBBC0023C71E /* YTeamApp.swift */; };
 		4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0155B2AD4DBBC0023C71E /* ContentView.swift */; };
 		4CB0155E2AD4DBBF0023C71E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */; };
@@ -65,7 +71,8 @@
 		7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7932ADE889500923AFB /* FirestoreConstants.swift */; };
 		7D02E7962ADE88BF00923AFB /* FallService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7952ADE88BF00923AFB /* FallService.swift */; };
 		7D02E7982ADE892500923AFB /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7972ADE892500923AFB /* Fall.swift */; };
-		7D02E79A2ADE89B600923AFB /* FallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7992ADE89B600923AFB /* FallViewModel.swift */; };
+		7D02E79E2ADFB32B00923AFB /* ChargeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79D2ADFB32B00923AFB /* ChargeService.swift */; };
+		7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79F2ADFB35D00923AFB /* Charge.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
@@ -102,6 +109,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4C21A3E32ADF7B930044E966 /* CaregiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverView.swift; sourceTree = "<group>"; };
+		4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorView.swift; sourceTree = "<group>"; };
 		4C4730292AD8DC750025F089 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		4C47302B2AD9760C0025F089 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -124,6 +133,10 @@
 		4CA232A32ADE1F4F003874D2 /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
 		4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchConnectorService.swift; sourceTree = "<group>"; };
 		4CA232B62ADE48F7003874D2 /* Fall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
+		4CA792292ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverEmergencyViewModel.swift; sourceTree = "<group>"; };
+		4CA7922B2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyViewModel.swift; sourceTree = "<group>"; };
+		4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyView.swift; sourceTree = "<group>"; };
+		4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverEmergencyView.swift; sourceTree = "<group>"; };
 		4CB015562AD4DBBC0023C71E /* YTeam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YTeam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB015592AD4DBBC0023C71E /* YTeamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTeamApp.swift; sourceTree = "<group>"; };
 		4CB0155B2AD4DBBC0023C71E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -157,7 +170,8 @@
 		7D02E7932ADE889500923AFB /* FirestoreConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreConstants.swift; sourceTree = "<group>"; };
 		7D02E7952ADE88BF00923AFB /* FallService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallService.swift; sourceTree = "<group>"; };
 		7D02E7972ADE892500923AFB /* Fall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
-		7D02E7992ADE89B600923AFB /* FallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallViewModel.swift; sourceTree = "<group>"; };
+		7D02E79D2ADFB32B00923AFB /* ChargeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeService.swift; sourceTree = "<group>"; };
+		7D02E79F2ADFB35D00923AFB /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
@@ -175,7 +189,7 @@
 			files = (
 				4C6049A52AD78F4D00E9F0BF /* FirebaseAnalytics in Frameworks */,
 				4C6049A72AD7917A00E9F0BF /* FirebaseAuth in Frameworks */,
-				4CA232902ADD119B003874D2 /* FirebaseMessaging in Frameworks */,
+				4CA792322ADFFFC2003B5EC9 /* FirebaseMessaging in Frameworks */,
 				4C6049CB2AD79DDA00E9F0BF /* FirebaseFirestore in Frameworks */,
 				4C6049D02AD7C6E000E9F0BF /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -192,12 +206,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C21A3E72ADF7ECF0044E966 /* Senior */ = {
+			isa = PBXGroup;
+			children = (
+				4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */,
+				4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */,
+			);
+			path = Senior;
+			sourceTree = "<group>";
+		};
+		4C21A3E82ADF7ED60044E966 /* Caregiver */ = {
+			isa = PBXGroup;
+			children = (
+				4C21A3E32ADF7B930044E966 /* CaregiverView.swift */,
+				4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */,
+			);
+			path = Caregiver;
+			sourceTree = "<group>";
+		};
 		4C4730282AD8D2520025F089 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */,
 				4C4730292AD8DC750025F089 /* AuthService.swift */,
 				7D02E7952ADE88BF00923AFB /* FallService.swift */,
+				7D02E79D2ADFB32B00923AFB /* ChargeService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -210,7 +243,8 @@
 				4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */,
 				9318D3882ADCD18600245AFF /* ChargingViewModel.swift */,
 				8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */,
-				7D02E7992ADE89B600923AFB /* FallViewModel.swift */,
+				4CA792292ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift */,
+				4CA7922B2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -225,6 +259,7 @@
 				9318D38A2ADCD1AC00245AFF /* ChartData.swift */,
 				8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */,
 				7D02E7972ADE892500923AFB /* Fall.swift */,
+				7D02E79F2ADFB35D00923AFB /* Charge.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -306,6 +341,8 @@
 		4CB0157D2AD4E5A20023C71E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C21A3E82ADF7ED60044E966 /* Caregiver */,
+				4C21A3E72ADF7ECF0044E966 /* Senior */,
 				4CB0155B2AD4DBBC0023C71E /* ContentView.swift */,
 				4CB0157E2AD4E5F60023C71E /* LoginView.swift */,
 				4C6049C62AD7968700E9F0BF /* MainView.swift */,
@@ -445,7 +482,7 @@
 				4C6049A62AD7917A00E9F0BF /* FirebaseAuth */,
 				4C6049CA2AD79DDA00E9F0BF /* FirebaseFirestore */,
 				4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */,
-				4CA2328F2ADD119B003874D2 /* FirebaseMessaging */,
+				4CA792312ADFFFC2003B5EC9 /* FirebaseMessaging */,
 			);
 			productName = YTeam;
 			productReference = 4CB015562AD4DBBC0023C71E /* YTeam.app */;
@@ -544,26 +581,33 @@
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
 				7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
+				4CA7922E2ADFB67B003B5EC9 /* SeniorEmergencyView.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
 				4CA232A42ADE1F4F003874D2 /* DataUser.swift in Sources */,
 				4C6049C52AD7948F00E9F0BF /* MainViewModel.swift in Sources */,
 				9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */,
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
 				4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */,
+				4CA7922A2ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift in Sources */,
 				4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */,
+				4C21A3E62ADF7ECA0044E966 /* SeniorView.swift in Sources */,
+				4CA792302ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift in Sources */,
+				4CA7922C2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift in Sources */,
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
 				4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */,
 				8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */,
 				9318D3892ADCD18600245AFF /* ChargingViewModel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
+				7D02E79E2ADFB32B00923AFB /* ChargeService.swift in Sources */,
 				4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */,
 				4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */,
+				7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */,
 				8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */,
 				9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */,
+				4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */,
 				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,
 				4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */,
 				7D02E7982ADE892500923AFB /* Fall.swift in Sources */,
-				7D02E79A2ADE89B600923AFB /* FallViewModel.swift in Sources */,
 				4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */,
 				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
 				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
@@ -738,7 +782,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -773,7 +817,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -810,7 +854,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -845,7 +889,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -935,7 +979,7 @@
 			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
 		};
-		4CA2328F2ADD119B003874D2 /* FirebaseMessaging */ = {
+		4CA792312ADFFFC2003B5EC9 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;

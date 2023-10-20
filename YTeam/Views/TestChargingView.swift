@@ -50,17 +50,17 @@ struct TestChargingView: View {
                 
                 Spacer()
             }
-            .onChange(of: vm.endDate) { newValue in
+            .onChange(of: vm.endDate) { oldValue, newValue in
                 vm.getStartEndDate(date: newValue, isEnd: true)
                 vm.getChargingRangesCounts()
                 vm.getDaysOfWeek(fromDate: vm.startDate, endDate: newValue)
             }
-            .onChange(of: vm.startDate) { newValue in
+            .onChange(of: vm.startDate) { oldValue, newValue in
                 vm.getStartEndDate(date: newValue, isEnd: false)
                 vm.getChargingRangesCounts()
                 vm.getDaysOfWeek(fromDate: newValue, endDate: vm.endDate)
             }
-            .onChange(of: vm.chargingRange) { _ in
+            .onChange(of: vm.chargingRange) { _, _ in
                 vm.getChargingRangesCounts()
                 vm.getDaysOfWeek(fromDate: vm.startDate, endDate: vm.endDate)
             }

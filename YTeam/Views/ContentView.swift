@@ -8,18 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject private var mainViewModel = MainViewModel()
+    @StateObject private var mainViewModel = MainViewModel()
     
     var body: some View {
         Group {
-            if mainViewModel.user != nil {
-                MainView()
+            if mainViewModel.isLoading {
+                ProgressView()
             } else {
-                LoginView()
+                if mainViewModel.user != nil {
+                    MainView()
+                } else {
+                    LoginView()
+                }
             }
-        }.onAppear {
+        }.task {
             AuthService.shared.listenToAuthState()
+        }.onChange(of: AuthService.shared.user) { oldValue, newValue in
+            if oldValue == nil && newValue != nil {
+                mainViewModel.getUserData()
+            }
         }
+        
     }
 }
 

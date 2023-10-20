@@ -9,5 +9,5 @@ import Foundation
 
 struct Fall: Codable, Hashable {
     let seniorId: String
-    let time: String
+    let time: Double
 }

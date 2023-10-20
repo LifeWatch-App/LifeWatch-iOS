@@ -19,7 +19,7 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     override init() {
         super.init()
         self.assignDelegate()
-        self.checkAndRequestForAuthorizationStatus()
+        Task{ await self.checkAndRequestForAuthorizationStatus() }
     }
     
     /// Assign fall detection delegate to `watch for fall detection events`.
@@ -45,6 +45,7 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     ///     - None
     /// - Returns: None, the function asks for authorization status and sets the authorization status to user's input and
     ///  `sets the authorization boolean` in the ObservedObject.
+    @MainActor
     func checkAndRequestForAuthorizationStatus() {
         DispatchQueue.main.async {
             if self.fallDetector.authorizationStatus == .authorized {
@@ -78,10 +79,10 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
             
             guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
             let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
-            let timeDescription = "\(event.date.description) \(event.resolution.rawValue)"
+            let timeDescription: Double = Date.now.timeIntervalSince1970
             
             if (userRecord != nil) {
-                let time = Fall(time: Description(stringValue: timeDescription), seniorId: Description(stringValue: userRecord?.userID))
+                let time = Fall(time: Description(doubleValue: timeDescription), seniorId: Description(stringValue: userRecord?.userID))
                 Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time, httpMethod: .post) }
             }
         }
