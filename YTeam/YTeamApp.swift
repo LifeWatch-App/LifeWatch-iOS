@@ -48,7 +48,7 @@ struct YTeamApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HistoryView()
+            ContentView()
                 .preferredColorScheme(.light)
         }
     }
