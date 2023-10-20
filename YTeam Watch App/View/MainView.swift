@@ -8,38 +8,17 @@
 import SwiftUI
 
 struct MainView: View {
-    @ObservedObject private var fallDetector = FallDetectionManager()
-    @StateObject private var vm = TestAuthViewModel()
-    @StateObject private var locationVM = LocationViewModel()
+    //    @ObservedObject private var fallDetector = FallDetectionManager()
+    @StateObject private var authVM = TestAuthViewModel()
+    //    @StateObject private var locationVM = LocationViewModel()
     var body: some View {
-        VStack {
-            if vm.userAuth?.userID != nil {
-                IdleDetectionView()
-            } else {
-                Text("Not authenticated and not logged in")
-            }
-            
-            //            switch locationVM.authorizationStatus {
-            //            case .notDetermined:
-            //                RequestLocationView()
-            //                    .environmentObject(locationVM)
-            //            case .restricted:
-            //                ErrorView(errorText: "Location use is restricted.")
-            //            case .denied:
-            //                ErrorView(errorText: "The app does not have location permissions. Please enable them in settings.")
-            //            case .authorizedAlways, .authorizedWhenInUse:
-            //                if vm.userAuth?.userID != nil {
-            //                    IdleDetectionView()
-            //                } else {
-            //                    Text("Not authenticated and not logged in")
-            //                }
-            //            default:
-            //                Text("Unexpected status")
-            //            }
+        if authVM.userAuth?.userID != nil {
+            IdleDetectionView()
+//            TestChargingView()
+//                .environmentObject(authVM)
+        } else if authVM.userAuth?.userID == nil {
+            Text("Not authenticated and not logged in")
         }
-        //        .onAppear {
-        //            locationVM.requestPermission()
-        //        }
     }
 }
 

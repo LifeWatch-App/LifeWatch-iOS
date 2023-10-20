@@ -35,11 +35,11 @@ struct TestChargingView: View {
             //                }
             //            }
         }
-        .onChange(of: vm.batteryCharging ?? .unknown, perform: { newValue in
-            if let userID = authVM.userAuth?.userID {
-                vm.handleBatteryStateChange(batteryState: newValue, userID: userID)
-            }
-        })
+//        .onChange(of: vm.batteryCharging ?? .unknown, perform: { newValue in
+//            if let userID = authVM.userAuth?.userID {
+//                vm.handleBatteryStateChange(batteryState: newValue, userID: userID)
+//            }
+//        })
         .padding()
     }
 }

@@ -28,27 +28,29 @@ class MainViewModel: ObservableObject {
                 self?.user = user
                 self?.userData = userData
                 self?.invites = invites
+                self?.handleAuthWatch(userID: user?.uid, userData: userData, invites: invites)
                 self?.isLoading = isLoading
-                self?.handleAuthWatch(user: user, userData: userData, invites: invites)
             }
             .store(in: &cancellables)
 
-//        AuthService.shared.$userData
-//            .sink { [weak self] userData in
-//                self?.userData = userData
-//            }
-//            .store(in: &cancellables)
-//
-//        AuthService.shared.$invites.sink { [weak self] invites in
-//            self?.invites = invites
-//        }
-//        .store(in: &cancellables)
+        //        AuthService.shared.$userData
+        //            .sink { [weak self] userData in
+        //                self?.userData = userData
+        //            }
+        //            .store(in: &cancellables)
+        //
+        //        AuthService.shared.$invites.sink { [weak self] invites in
+        //            self?.invites = invites
+        //        }
+        //        .store(in: &cancellables)
     }
 
-    func handleAuthWatch(user: User?, userData: UserData?, invites: [Invite]) {
+    func handleAuthWatch(userID: String?, userData: UserData?, invites: [Invite]) {
         let encoder = JSONEncoder()
-        let userRecord = UserRecord(userID: user?.uid, userData: userData, invites: invites)
+        let userRecord = UserRecord(userID: userID, userData: userData, invites: invites)
+        print(userRecord)
         if let encodedData = try? encoder.encode(userRecord) {
+        
             WatchConnectorService.shared.session.sendMessage(["user_auth": encodedData], replyHandler: nil)
         }
     }

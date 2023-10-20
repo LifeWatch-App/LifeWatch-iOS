@@ -28,6 +28,7 @@ final class TestAuthConnector: NSObject, WCSessionDelegate {
         if let userRecordDataEncapsulator = message["user_auth"], let data = userRecordDataEncapsulator as? Data {
             do {
                 let userRecordData = try JSONDecoder().decode(UserRecord.self, from: data)
+                print(userRecordData)
 
                 if let userRecord = UserDefaults.standard.data(forKey: "user-auth") {
                     let decodedUserRecord = try? self.decoder.decode(UserRecord.self, from: userRecord)

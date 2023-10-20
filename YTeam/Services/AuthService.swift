@@ -15,7 +15,7 @@ class AuthService {
     @Published var invites: [Invite] = []
     @Published var isLoading = false
     var invitesListener: ListenerRegistration?
-    
+
 
     func listenToAuthState() {
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
@@ -36,7 +36,7 @@ class AuthService {
             }
         }
     }
-    
+
     func signUp(email: String, password: String) {
         //TODO: Send user record to watch using WatchConnectivity
         //TODO: When launch app check if user data exists in UserDefault or not, if yes get that user, if not save it in user default the one that is passed from watchconnectivity
@@ -47,12 +47,12 @@ class AuthService {
                 print(error?.localizedDescription ?? "")
             } else {
                 print("success")
-                
+
                 // Get the FCM token form user defaults
                 guard let fcmToken = UserDefaults.standard.value(forKey: "fcmToken") else{
                     return
                 }
-                
+
                 self.db
                     .collection("users")
                     .document(AuthService.shared.user!.uid)
@@ -74,11 +74,11 @@ class AuthService {
             }
         }
     }
-    
+
     func signOut() {
         do {
             try Auth.auth().signOut()
-            
+
             // Remove FCM token from firebase
             self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
                 "fcmToken": NSNull()
@@ -89,15 +89,15 @@ class AuthService {
                     print("FCM token successfully updated")
                 }
             }
-            
-            AuthService.shared.userData = nil
-            AuthService.shared.invites = []
-            AuthService.shared.user = nil
+
+            self.userData = nil
+//            self.invites = []
+            self.user = nil
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
     }
-    
+
     func getUserData() {
         isLoading = true
         
@@ -106,7 +106,7 @@ class AuthService {
                 print("Error getting documents: \(err)")
             } else {
                 AuthService.shared.userData = try? querySnapshot!.data(as: UserData.self)
-                
+
                 if AuthService.shared.userData != nil {
                     // Check and update FCM token if needed
                     // Get the FCM token form user defaults
@@ -124,7 +124,7 @@ class AuthService {
                             }
                         }
                     }
-                    
+
                     // Set invites listener
                     self.invitesListener = self.db.collection("invites").whereField(AuthService.shared.userData!.role == "senior" ? "seniorId" : "caregiverId", isEqualTo: AuthService.shared.user!.uid)
                         .addSnapshotListener { querySnapshot, error in
@@ -141,13 +141,13 @@ class AuthService {
                             
                             for (index, document) in documents.enumerated() {
                                 var invite = try? document.data(as: Invite.self)
-                                
+
                                 self.db.collection("users").document(invite!.seniorId!).getDocument { (querySnapshot, err) in
                                     if let err = err {
                                         print("Error getting documents: \(err)")
                                     } else {
                                         invite?.seniorData = try? querySnapshot?.data(as: UserData.self)
-                                        
+
                                         self.db.collection("users").document(invite!.caregiverId!).getDocument { (querySnapshot, err) in
                                             if let err = err {
                                                 print("Error getting documents: \(err)")
@@ -168,7 +168,7 @@ class AuthService {
             }
         }
     }
-    
+
     func setRole(role: String) {
         db.collection("users").document(AuthService.shared.user!.uid).updateData([
             "role": role
@@ -181,7 +181,7 @@ class AuthService {
             }
         }
     }
-    
+
     func sendRequestToSenior(email: String) {
         let email = email.lowercased()
         db.collection("users")
@@ -192,7 +192,7 @@ class AuthService {
                 } else {
                     for document in querySnapshot!.documents {
                         let userData = try? document.data(as: UserData.self)
-                        
+
                         self.db.collection("invites")
                             .whereField("seniorId", isEqualTo: userData!.id!)
                             .whereField("caregiverId", isEqualTo: AuthService.shared.user!.uid)
@@ -201,9 +201,9 @@ class AuthService {
                                     print("Error getting document: \(err)")
                                     return
                                 }
-                                
+
                                 guard let docs = snapshot?.documents else { return }
-                                
+
                                 if docs.isEmpty {
                                     var ref: DocumentReference? = nil
                                     ref = self.db.collection("invites").addDocument(data: [
@@ -223,7 +223,7 @@ class AuthService {
                 }
             }
     }
-    
+
     func acceptInvite(id: String) {
         db.collection("invites").document(id).updateData([
             "accepted": true
