@@ -68,11 +68,13 @@ struct SeniorEmergencyView: View {
 }
 
 struct SOSButton: View {
+    @ObservedObject var seniorEmergencyViewModel: SeniorEmergencyViewModel = SeniorEmergencyViewModel()
     var body: some View {
         Text("Press alert button to bell")
             .font(.system(size: 18))
         Button {
             // SOS
+            seniorEmergencyViewModel.sendSOS()
         } label: {
             ZStack {
                 Circle()

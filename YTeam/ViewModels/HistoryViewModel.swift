@@ -24,11 +24,11 @@ class HistoryViewModel: ObservableObject {
     var totalIdleTime: String = ""
     var totalChargingTime: String = ""
     
-    private let fallService: FallService
+    private let fallService: FallService = FallService.shared
+    private let sosService: SOSService = SOSService.shared
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        self.fallService = FallService()
         setupFallSubscriber()
         fetchCurrentWeek()
     }
@@ -96,6 +96,10 @@ class HistoryViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    func setupSOSSubscriber() {
+        
     }
     
     func changeWeek(type: ChangeWeek) {

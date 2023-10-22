@@ -14,6 +14,7 @@ class SeniorEmergencyViewModel: ObservableObject {
     @Published var user: User?
     @Published var userData: UserData?
     private let service = AuthService.shared
+    private let sosService: SOSService = SOSService.shared
     private var cancellables = Set<AnyCancellable>()
 
     init() {
@@ -29,6 +30,10 @@ class SeniorEmergencyViewModel: ObservableObject {
                 self?.invites = invites
             }
             .store(in: &cancellables)
+    }
+    
+    func sendSOS() {
+        Task {try? await sosService.sendSOS()}
     }
     
     func acceptInvite(id: String) {
