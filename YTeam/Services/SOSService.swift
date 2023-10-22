@@ -12,14 +12,14 @@ class SOSService {
     static let shared: SOSService = SOSService()
     
     @MainActor
-    func sendSOS() async {
+    func sendSOS() async throws {
         guard let userId = Auth.auth().currentUser?.uid else { return }
         
-        let sosRef = FirestoreConstants.sosCollection
+        let sosCollection = FirestoreConstants.sosCollection
         let SOS = SOS(seniorId: userId, time: Date.now.timeIntervalSince1970)
         
         guard let encodedSOSData = try? Firestore.Encoder().encode(SOS) else { return }
         
-        try? await Firestore.firestore().collection("sos").document().setData(encodedSOSData)
+        try? await sosCollection.document().setData(encodedSOSData)
     }
 }

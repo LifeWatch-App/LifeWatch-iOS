@@ -32,8 +32,8 @@ class SeniorEmergencyViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func sendSOS() {
-        Task {try? await sosService.sendSOS()}
+    func sendSOS() throws {
+        Task{ try? await sosService.sendSOS() }
     }
     
     func acceptInvite(id: String) {

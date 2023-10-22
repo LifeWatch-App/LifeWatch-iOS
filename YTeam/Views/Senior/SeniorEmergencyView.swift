@@ -73,8 +73,7 @@ struct SOSButton: View {
         Text("Press alert button to bell")
             .font(.system(size: 18))
         Button {
-            // SOS
-            seniorEmergencyViewModel.sendSOS()
+            Task{ try? seniorEmergencyViewModel.sendSOS()}
         } label: {
             ZStack {
                 Circle()
