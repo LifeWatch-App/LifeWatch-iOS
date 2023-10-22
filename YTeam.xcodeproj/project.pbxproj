@@ -238,6 +238,7 @@
 				4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */,
 				4C4730292AD8DC750025F089 /* AuthService.swift */,
 				7D02E7952ADE88BF00923AFB /* FallService.swift */,
+				7DB24EF72AE51E81009A4A6D /* SOSService.swift */,
 				7D02E79D2ADFB32B00923AFB /* ChargeService.swift */,
 			);
 			path = Services;
@@ -267,7 +268,6 @@
 				7DB24EF52AE51E79009A4A6D /* SOS.swift */,
 				4C6049CD2AD7AF4000E9F0BF /* UserData.swift */,
 				4C6049D12AD7FD4A00E9F0BF /* Invite.swift */,
-				7DB24EF72AE51E81009A4A6D /* SOSService.swift */,
 				9318D38A2ADCD1AC00245AFF /* ChartData.swift */,
 				8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */,
 				7D02E7972ADE892500923AFB /* Fall.swift */,

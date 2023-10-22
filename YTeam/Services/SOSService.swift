@@ -17,6 +17,15 @@ class SOSService {
         Task{try? await observeAllSOS()}
     }
     
+    /// Sends SOS to Firebase.
+    ///
+    /// ```
+    /// SOSService.sendSOS().
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: If user is logged in, add a snapshot listener to the database and filter it based on the UID.
     @MainActor
     func sendSOS() async throws {
         guard let userId = Auth.auth().currentUser?.uid else { return }

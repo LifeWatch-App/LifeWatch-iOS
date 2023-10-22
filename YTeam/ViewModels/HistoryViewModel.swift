@@ -65,6 +65,15 @@ class HistoryViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    /// Updates internal properties such as `loggedIn, falls, sos, fallsCount, sosCount, and groupedEmergencies` and is only called in `setupEmergencySubscriber`.
+    ///
+    /// ```
+    /// Not to be called.
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Updated `loggedIn, falls, sos, fallsCount, sosCount, and groupedEmergencies`.
     func updateGroupedEmergencies() {
         if ((Auth.auth().currentUser) != nil) {
             self.loggedIn = true
