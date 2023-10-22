@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
-struct Fall: Codable, Hashable {
+struct Fall: Codable, Hashable, Emergency {
+    @DocumentID var id: String?
     let seniorId: String
     let time: Double
 }

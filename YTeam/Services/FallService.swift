@@ -35,7 +35,7 @@ class FallService {
     
         query.addSnapshotListener { [weak self] snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
-            var falls = changes.compactMap({ try? $0.document.data(as: Fall.self) })
+            let falls = changes.compactMap({ try? $0.document.data(as: Fall.self) })
             self?.falls = falls
         }
     }

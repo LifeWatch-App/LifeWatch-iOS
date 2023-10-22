@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
-struct SOS: Codable, Hashable {
+struct SOS: Codable, Hashable, Emergency {
+    @DocumentID var id: String?
     let seniorId: String
     let time: Double
 }
