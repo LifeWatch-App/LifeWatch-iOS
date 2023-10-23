@@ -12,7 +12,8 @@ import Combine
 class HistoryViewModel: ObservableObject {
     @Published var selectedHistoryMenu: HistoryMenu = .inactivity
     @Published var falls: [Fall] = []
-    @Published var groupedFalls: [(String, [Fall])] = []
+    @Published var sos: [SOS] = []
+    @Published var groupedEmergencies: [(String, [Emergency])] = []
     @Published var loading: Bool = true
     @Published var loggedIn: Bool = false
     @Published var fallsCount: Int = 0
@@ -24,12 +25,12 @@ class HistoryViewModel: ObservableObject {
     var totalIdleTime: String = ""
     var totalChargingTime: String = ""
     
-    private let fallService: FallService
+    private let fallService: FallService = FallService.shared
+    private let sosService: SOSService = SOSService.shared
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        self.fallService = FallService()
-        setupFallSubscriber()
+        setupEmergencySubscriber()
         fetchCurrentWeek()
     }
     
@@ -42,60 +43,106 @@ class HistoryViewModel: ObservableObject {
     /// - Parameters:
     ///     - None
     /// - Returns: If user is logged in, return `sorted falls only if there are the senior's falls`.
-    func setupFallSubscriber() {
+    func setupEmergencySubscriber() {
         fallService.$falls
             .receive(on: DispatchQueue.main)
             .sink { [weak self] fall in
-                
                 guard let self else { return }
-                
+
                 self.falls.append(contentsOf: fall)
-                if ((Auth.auth().currentUser) != nil) {
-                    self.loggedIn = true
-                } else {
-                    self.loggedIn = false
-                }
-                
-                
-                if (self.loggedIn == true) {
-                    self.loading = true
-                    self.falls = self.falls.sorted { $0.time > $1.time }
-                    debugPrint("Falls Again: ", self.falls)
-                    var fallDictionary: [String: [Fall]] = [:]
-                    
-                    for fall in self.falls {
-                        let dateString = Date.unixToString(unix: fall.time, timeOption: .date)
-                        if var fallArray = fallDictionary[dateString] {
-                            fallArray.append(fall)
-                            fallDictionary[dateString] = fallArray
-                        } else {
-                            fallDictionary[dateString] = [fall]
-                        }
-                    }
-                    
-                    var uniqueKeys = Set<String>()
-                    
-                    let mappedKeys = self.falls.map {$0.time}
-                    let sortedUnixKeys = mappedKeys.sorted {$0 > $1}
-                    let sortedKeys = sortedUnixKeys.compactMap { unix -> String? in
-                        if (
-                            (self.currentWeek.first ?? Date() <= Date(timeIntervalSince1970: unix))
-                            && (Date(timeIntervalSince1970: unix) <= self.currentWeek.last ?? Date())
-                            && uniqueKeys.insert(Date.unixToString(unix: unix, timeOption: .date)).inserted
-                        ){
-                            return Date.unixToString(unix: unix, timeOption: .date)
-                        }
-                        return nil
-                    }
-                    self.groupedFalls = sortedKeys.map {($0, fallDictionary[$0]!)}
-                    
-                    self.fallsCount = self.falls.count
-                    self.loading = false
-                } else {
-                    return
-                }
+                updateGroupedEmergencies()
             }
             .store(in: &cancellables)
+        
+        sosService.$sos
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] sos in
+                guard let self else {return}
+                
+                self.sos.append(contentsOf: sos)
+                updateGroupedEmergencies()
+            }
+            .store(in: &cancellables)
+    }
+    
+    /// Updates internal properties such as `loggedIn, falls, sos, fallsCount, sosCount, and groupedEmergencies` and is only called in `setupEmergencySubscriber`.
+    ///
+    /// ```
+    /// Not to be called.
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Updated `loggedIn, falls, sos, fallsCount, sosCount, and groupedEmergencies`.
+    func updateGroupedEmergencies() {
+        if ((Auth.auth().currentUser) != nil) {
+            self.loggedIn = true
+        } else {
+            self.loggedIn = false
+        }
+        
+        if (self.loggedIn == true) {
+            self.loading = true
+            
+            var emergencies: [Any] = self.falls + self.sos
+            emergencies = emergencies.sorted { a, b in
+                if let a = a as? Fall, let b = b as? SOS {
+                    return a.time > b.time
+                } else if let a = a as? SOS, let b = b as? Fall {
+                    return a.time > b.time
+                } else {
+                    return false
+                }
+            }
+            
+            var emergencyDictionary: [String: [Emergency]] = [:]
+            
+            for emergency in emergencies {
+                if let fall = emergency as? Fall {
+                    let dateString = Date.unixToString(unix: fall.time, timeOption: .date)
+                    if var emergencies = emergencyDictionary[dateString] {
+                        emergencies.append(fall)
+                        emergencyDictionary[dateString] = emergencies
+                    } else {
+                        emergencyDictionary[dateString] = [fall]
+                    }
+                } else if let sos = emergency as? SOS {
+                    let dateString = Date.unixToString(unix: sos.time, timeOption: .date)
+                    if var emergencies = emergencyDictionary[dateString] {
+                        emergencies.append(sos)
+                        emergencyDictionary[dateString] = emergencies
+                    } else {
+                        emergencyDictionary[dateString] = [sos]
+                    }
+                }
+            }
+            
+            var uniqueKeys = Set<String>()
+            
+            let mappedKeys = emergencies.map { a in
+                if let a = a as? Fall{
+                    return a.time
+                } else if let a = a as? SOS{
+                    return a.time
+                } else {
+                    return 0.0
+                }
+            }
+            
+            let sortedUnixKeys = mappedKeys.sorted {$0 > $1}
+            let sortedKeys = sortedUnixKeys.compactMap { unix -> String? in
+                if (uniqueKeys.insert(Date.unixToString(unix: unix, timeOption: .date)).inserted){
+                    return Date.unixToString(unix: unix, timeOption: .date)
+                }
+                return nil
+            }
+            
+            self.groupedEmergencies = sortedKeys.map {($0, emergencyDictionary[$0]!)}
+            debugPrint(groupedEmergencies)
+            self.fallsCount = self.falls.count
+            self.sosCount = self.sos.count
+            self.loading = false
+        }
     }
     
     func changeWeek(type: ChangeWeek) {

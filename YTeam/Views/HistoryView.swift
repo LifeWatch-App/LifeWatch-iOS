@@ -71,7 +71,7 @@ struct HistoryEmergency: View {
                     SOSCard(sosCount: $historyViewModel.sosCount)
                 }
                 
-                ForEach(historyViewModel.groupedFalls, id: \.0) { (time: String, falls: [Fall]) in
+                ForEach(historyViewModel.groupedEmergencies, id: \.0) { (time: String, emergencies: [Emergency]) in
                     VStack{
                         HStack{
                             Text(time)
@@ -79,12 +79,14 @@ struct HistoryEmergency: View {
                             Spacer()
                         }
                         .padding(.top, 8)
-                        
-                        ForEach(falls, id: \.self) { fall in
-                            HistoryCard(option: .fell, time: .constant(Date.unixToString(unix: fall.time, timeOption: .hour)))
-                                .listRowSeparator(.hidden)
-                            //                        HistoryCard(option: .pressed, time: .constant("00:00"))
-                            //                            .listRowSeparator(.hidden)
+                        ForEach(0..<emergencies.count, id: \.self) { index in
+                            if let fall = emergencies[index] as? Fall {
+                                HistoryCard(option: .fell, time: Date.unixToString(unix: fall.time, timeOption: .hour))
+                                    .listRowSeparator(.hidden)
+                            } else if let sos = emergencies[index] as? SOS {
+                                HistoryCard(option: .pressed, time: Date.unixToString(unix: sos.time, timeOption: .hour))
+                                    .listRowSeparator(.hidden)
+                            }
                         }
                     }
                 }
@@ -206,10 +208,10 @@ struct HistoryInactivity: View {
             }
             .padding(.top, 8)
             
-            HistoryCard(option: .idle, time: .constant("00:00"))
-                .listRowSeparator(.hidden)
-            HistoryCard(option: .charging, time: .constant("00:00"))
-                .listRowSeparator(.hidden)
+//            HistoryCard(option: .idle, time: .constant("00:00"))
+//                .listRowSeparator(.hidden)
+//            HistoryCard(option: .charging, time: .constant("00:00"))
+//                .listRowSeparator(.hidden)
         }
         .padding(.top, 8)
         .padding(.horizontal, 16)
@@ -343,7 +345,7 @@ struct HistoryData: View {
 
 struct HistoryCard: View {
     var option: HistoryCardOption
-    @Binding var time: String
+    var time: String
     var body: some View {
         HStack{
             Image(systemName: option == .fell ? "figure.fall" : option == .pressed ? "sos.circle.fill" : option == .idle ? "moon.fill" : "bolt.fill")

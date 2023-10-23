@@ -62,8 +62,3 @@ extension Date {
     }
     
 }
-
-enum TimeOption: String, CaseIterable, Identifiable {
-    case date, hour
-    var id: Self { self }
-}

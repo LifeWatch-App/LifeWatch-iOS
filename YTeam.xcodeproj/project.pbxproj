@@ -73,6 +73,10 @@
 		7D02E7982ADE892500923AFB /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7972ADE892500923AFB /* Fall.swift */; };
 		7D02E79E2ADFB32B00923AFB /* ChargeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79D2ADFB32B00923AFB /* ChargeService.swift */; };
 		7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79F2ADFB35D00923AFB /* Charge.swift */; };
+		7DB24EF62AE51E79009A4A6D /* SOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB24EF52AE51E79009A4A6D /* SOS.swift */; };
+		7DB24EF82AE51E81009A4A6D /* SOSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB24EF72AE51E81009A4A6D /* SOSService.swift */; };
+		7DB24EFA2AE51E9A009A4A6D /* Emergency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB24EF92AE51E9A009A4A6D /* Emergency.swift */; };
+		7DB24EFC2AE51EC0009A4A6D /* TimeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB24EFB2AE51EC0009A4A6D /* TimeOption.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
@@ -172,6 +176,10 @@
 		7D02E7972ADE892500923AFB /* Fall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
 		7D02E79D2ADFB32B00923AFB /* ChargeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeService.swift; sourceTree = "<group>"; };
 		7D02E79F2ADFB35D00923AFB /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
+		7DB24EF52AE51E79009A4A6D /* SOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOS.swift; sourceTree = "<group>"; };
+		7DB24EF72AE51E81009A4A6D /* SOSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SOSService.swift; path = YTeam/Services/SOSService.swift; sourceTree = SOURCE_ROOT; };
+		7DB24EF92AE51E9A009A4A6D /* Emergency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Emergency.swift; path = YTeam/Utilities/Protocols/Emergency.swift; sourceTree = SOURCE_ROOT; };
+		7DB24EFB2AE51EC0009A4A6D /* TimeOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeOption.swift; path = YTeam/Utilities/Enums/TimeOption.swift; sourceTree = SOURCE_ROOT; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
@@ -230,6 +238,7 @@
 				4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */,
 				4C4730292AD8DC750025F089 /* AuthService.swift */,
 				7D02E7952ADE88BF00923AFB /* FallService.swift */,
+				7DB24EF72AE51E81009A4A6D /* SOSService.swift */,
 				7D02E79D2ADFB32B00923AFB /* ChargeService.swift */,
 			);
 			path = Services;
@@ -240,6 +249,7 @@
 			children = (
 				4C6049C42AD7948F00E9F0BF /* MainViewModel.swift */,
 				4C47302B2AD9760C0025F089 /* LoginViewModel.swift */,
+				7DB24EFB2AE51EC0009A4A6D /* TimeOption.swift */,
 				4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */,
 				9318D3882ADCD18600245AFF /* ChargingViewModel.swift */,
 				8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */,
@@ -253,7 +263,9 @@
 			isa = PBXGroup;
 			children = (
 				4CA232A22ADE1F4F003874D2 /* DataUser.swift */,
+				7DB24EF92AE51E9A009A4A6D /* Emergency.swift */,
 				4CA232A32ADE1F4F003874D2 /* UserRecord.swift */,
+				7DB24EF52AE51E79009A4A6D /* SOS.swift */,
 				4C6049CD2AD7AF4000E9F0BF /* UserData.swift */,
 				4C6049D12AD7FD4A00E9F0BF /* Invite.swift */,
 				9318D38A2ADCD1AC00245AFF /* ChartData.swift */,
@@ -584,6 +596,9 @@
 				4CA7922E2ADFB67B003B5EC9 /* SeniorEmergencyView.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
 				4CA232A42ADE1F4F003874D2 /* DataUser.swift in Sources */,
+				7DB24EF82AE51E81009A4A6D /* SOSService.swift in Sources */,
+				7DB24EFA2AE51E9A009A4A6D /* Emergency.swift in Sources */,
+				7DB24EFC2AE51EC0009A4A6D /* TimeOption.swift in Sources */,
 				4C6049C52AD7948F00E9F0BF /* MainViewModel.swift in Sources */,
 				9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */,
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
@@ -596,6 +611,7 @@
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
 				4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */,
 				8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */,
+				7DB24EF62AE51E79009A4A6D /* SOS.swift in Sources */,
 				9318D3892ADCD18600245AFF /* ChargingViewModel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
 				7D02E79E2ADFB32B00923AFB /* ChargeService.swift in Sources */,
