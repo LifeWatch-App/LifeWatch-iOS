@@ -52,6 +52,7 @@ class InactivityService {
         query.addSnapshotListener { [weak self] snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
             let charges = changes.compactMap({ try? $0.document.data(as: Charge.self) })
+            debugPrint("Charges ", charges)
             self?.charges = charges
         }
     }

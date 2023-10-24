@@ -35,6 +35,7 @@ class HistoryViewModel: ObservableObject {
     
     init() {
         setupEmergencySubscriber()
+        fetchCurrentWeek()
     }
     
     /// Subscribes to the FallService to check for changes, and updates `loading, loggedIn, fallsCount, falls, and groupedFalls`.
@@ -53,6 +54,7 @@ class HistoryViewModel: ObservableObject {
                 guard let self else { return }
 
                 self.falls.append(contentsOf: fall)
+                fetchCurrentWeek()
                 updateGroupedEmergencies()
             }
             .store(in: &cancellables)
@@ -63,6 +65,7 @@ class HistoryViewModel: ObservableObject {
                 guard let self else {return}
                 
                 self.sos.append(contentsOf: sos)
+                fetchCurrentWeek()
                 updateGroupedEmergencies()
             }
             .store(in: &cancellables)
@@ -73,6 +76,7 @@ class HistoryViewModel: ObservableObject {
                 guard let self else {return}
                 
                 self.idles.append(contentsOf: idle)
+                fetchCurrentWeek()
                 convertInactivitesToInactivityCharts()
             }
             .store(in: &cancellables)
@@ -83,6 +87,7 @@ class HistoryViewModel: ObservableObject {
                 guard let self else {return}
                 
                 self.charges.append(contentsOf: charge)
+                fetchCurrentWeek()
                 convertInactivitesToInactivityCharts()
             }
             .store(in: &cancellables)
@@ -190,7 +195,6 @@ class HistoryViewModel: ObservableObject {
             currentDay = Calendar.current.date(byAdding: .day, value: -7, to: currentDay) ?? Date()
         }
         
-        self.updateGroupedEmergencies()
         self.fetchCurrentWeek()
     }
     
@@ -214,15 +218,15 @@ class HistoryViewModel: ObservableObject {
         
         withAnimation {
             fetchCurrentWeekData()
+            updateGroupedEmergencies()
         }
 //        print(currentWeek)
     }
     
     func convertInactivitesToInactivityCharts() {
         let inactivities: [Any] = self.idles + self.charges
-
         self.inactivityDataTemp = inactivities.map { inactivity in
-            var calendar = Calendar.current
+            let calendar = Calendar.current
             
             if let fall = inactivity as? Idle{
                 let difference: Int = Int((fall.endTime ?? 0) - (fall.startTime ?? 0))
@@ -253,9 +257,42 @@ class HistoryViewModel: ObservableObject {
         }
         
         self.inactivityDataTemp = self.inactivityDataTemp.filter { $0.minutes > 0}
+        
+        var inactivityDictionary: [Date: [InactivityChart]] = [:]
+
+        for inactivity in self.inactivityDataTemp {
+            let inactivityDate = inactivity.day
+            if var inactivityArray = inactivityDictionary[inactivityDate] {
+                inactivityArray.append(inactivity)
+                inactivityDictionary[inactivityDate] = inactivityArray
+            } else {
+                inactivityDictionary[inactivityDate] = [inactivity]
+            }
+        }
+        
+        var inactivityDataGrouped: [InactivityChart] = []
+        
+        for (inactivityDate, inactivities) in inactivityDictionary {
+            var totalMinutesIdle = 0
+            var totalMinutesCharging = 0
+            
+            for inactivity in inactivities {
+                if (inactivity.type == "Idle") {
+                    totalMinutesIdle += inactivity.minutes
+                } else {
+                    totalMinutesCharging += inactivity.minutes
+                }
+            }
+            
+            inactivityDataGrouped.append(InactivityChart(day: inactivityDate, minutes: totalMinutesIdle, type: "Idle"))
+            inactivityDataGrouped.append(InactivityChart(day: inactivityDate, minutes: totalMinutesCharging, type: "Charging"))
+        }
+        
+        self.inactivityDataTemp = inactivityDataGrouped.filter { $0.minutes > 0}
     }
     
     func fetchCurrentWeekData() {
+        self.loading = true
         self.inactivityData = []
         var tempDate = currentWeek.first ?? Date()
         
@@ -275,7 +312,7 @@ class HistoryViewModel: ObservableObject {
                     }
                 }
             }
-            debugPrint("Inactivity Data Temp: ", self.inactivityDataTemp)
+            
             (0...1).forEach { i in
                 if inactivity[i].minutes == 0 {
                     inactivity[i].day = tempDate
@@ -287,7 +324,7 @@ class HistoryViewModel: ObservableObject {
                 }
                 self.inactivityData.append(inactivity[i])
             }
-            debugPrint("Inactivity Data: ", self.inactivityData)
+            
             tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate) ?? Date()
         }
         countTotalWeekData()
@@ -307,6 +344,7 @@ class HistoryViewModel: ObservableObject {
         
         totalIdleTime = convertToHoursMinutes(minutes: totalIdle)
         totalChargingTime = convertToHoursMinutes(minutes: totalCharging)
+        self.loading = false
     }
     
     func extractDate(date: Date, format: String) -> String {
