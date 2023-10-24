@@ -173,8 +173,22 @@ class HistoryViewModel: ObservableObject {
             }
             
             self.groupedEmergencies = sortedKeys.map {($0, emergencyDictionary[$0]!)}
-            self.fallsCount = self.falls.count
-            self.sosCount = self.sos.count
+            
+            var falls: Int = 0
+            var sos: Int = 0
+            
+            for (_, emergencies) in groupedEmergencies {
+                for emergency in emergencies {
+                    if let _ = emergency as? Fall {
+                        falls += 1
+                    } else if let _ = emergency as? SOS {
+                        sos += 1
+                    }
+                }
+            }
+            
+            self.fallsCount = falls
+            self.sosCount = sos
             self.loading = false
         }
     }
