@@ -73,6 +73,10 @@
 		7D02E7982ADE892500923AFB /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7972ADE892500923AFB /* Fall.swift */; };
 		7D02E79E2ADFB32B00923AFB /* ChargeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79D2ADFB32B00923AFB /* ChargeService.swift */; };
 		7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79F2ADFB35D00923AFB /* Charge.swift */; };
+		7D9D41D62AE6287400818908 /* TimeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB24EFB2AE51EC0009A4A6D /* TimeOption.swift */; };
+		7D9D41D82AE62DB800818908 /* Idle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9D41D72AE62DB800818908 /* Idle.swift */; };
+		7D9D41DA2AE62EA200818908 /* InactivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9D41D92AE62EA200818908 /* InactivityService.swift */; };
+		7D9D41DC2AE7561600818908 /* InactivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9D41DB2AE7561600818908 /* InactivityType.swift */; };
 		7DB24EF62AE51E79009A4A6D /* SOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB24EF52AE51E79009A4A6D /* SOS.swift */; };
 		7DB24EF82AE51E81009A4A6D /* SOSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB24EF72AE51E81009A4A6D /* SOSService.swift */; };
 		7DB24EFA2AE51E9A009A4A6D /* Emergency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB24EF92AE51E9A009A4A6D /* Emergency.swift */; };
@@ -176,10 +180,13 @@
 		7D02E7972ADE892500923AFB /* Fall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
 		7D02E79D2ADFB32B00923AFB /* ChargeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeService.swift; sourceTree = "<group>"; };
 		7D02E79F2ADFB35D00923AFB /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
+		7D9D41D72AE62DB800818908 /* Idle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Idle.swift; sourceTree = "<group>"; };
+		7D9D41D92AE62EA200818908 /* InactivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityService.swift; sourceTree = "<group>"; };
+		7D9D41DB2AE7561600818908 /* InactivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityType.swift; sourceTree = "<group>"; };
 		7DB24EF52AE51E79009A4A6D /* SOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOS.swift; sourceTree = "<group>"; };
 		7DB24EF72AE51E81009A4A6D /* SOSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SOSService.swift; path = YTeam/Services/SOSService.swift; sourceTree = SOURCE_ROOT; };
 		7DB24EF92AE51E9A009A4A6D /* Emergency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Emergency.swift; path = YTeam/Utilities/Protocols/Emergency.swift; sourceTree = SOURCE_ROOT; };
-		7DB24EFB2AE51EC0009A4A6D /* TimeOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeOption.swift; path = YTeam/Utilities/Enums/TimeOption.swift; sourceTree = SOURCE_ROOT; };
+		7DB24EFB2AE51EC0009A4A6D /* TimeOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeOption.swift; path = YTeam/Utilities/TimeOption.swift; sourceTree = SOURCE_ROOT; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
@@ -240,6 +247,7 @@
 				7D02E7952ADE88BF00923AFB /* FallService.swift */,
 				7DB24EF72AE51E81009A4A6D /* SOSService.swift */,
 				7D02E79D2ADFB32B00923AFB /* ChargeService.swift */,
+				7D9D41D92AE62EA200818908 /* InactivityService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -249,7 +257,6 @@
 			children = (
 				4C6049C42AD7948F00E9F0BF /* MainViewModel.swift */,
 				4C47302B2AD9760C0025F089 /* LoginViewModel.swift */,
-				7DB24EFB2AE51EC0009A4A6D /* TimeOption.swift */,
 				4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */,
 				9318D3882ADCD18600245AFF /* ChargingViewModel.swift */,
 				8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */,
@@ -272,6 +279,7 @@
 				8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */,
 				7D02E7972ADE892500923AFB /* Fall.swift */,
 				7D02E79F2ADFB35D00923AFB /* Charge.swift */,
+				7D9D41D72AE62DB800818908 /* Idle.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -369,7 +377,9 @@
 		7D02E71F2AD8ECA300923AFB /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7DB24EFB2AE51EC0009A4A6D /* TimeOption.swift */,
 				7D02E7202AD8ECD500923AFB /* Screen.swift */,
+				7D9D41DB2AE7561600818908 /* InactivityType.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -624,8 +634,11 @@
 				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,
 				4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */,
 				7D02E7982ADE892500923AFB /* Fall.swift in Sources */,
+				7D9D41DA2AE62EA200818908 /* InactivityService.swift in Sources */,
 				4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */,
 				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
+				7D9D41DC2AE7561600818908 /* InactivityType.swift in Sources */,
+				7D9D41D82AE62DB800818908 /* Idle.swift in Sources */,
 				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -634,6 +647,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D9D41D62AE6287400818908 /* TimeOption.swift in Sources */,
 				7D02E76E2ADD023E00923AFB /* ChargingRange.swift in Sources */,
 				7D02E76C2ADD023E00923AFB /* TestChargingView.swift in Sources */,
 				7D02E7632ADD023E00923AFB /* IdleDetectionViewModel.swift in Sources */,

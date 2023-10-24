@@ -91,7 +91,7 @@ class IdleDetectionViewModel: ObservableObject {
         }
         do {
             let userRecord = try JSONDecoder().decode(UserRecord.self, from: userIDData as! Data)
-            let idleData = Inactivity(seniorId: Description(stringValue: userRecord.userID), startTime: Description(stringValue: Date.now.description), taskState: Description(stringValue: "ongoing"))
+            let idleData = Inactivity(seniorId: Description(stringValue: userRecord.userID), startTime: Description(doubleValue: Date.now.timeIntervalSince1970), taskState: Description(stringValue: "ongoing"))
             
             if self.currentIdle == nil {
                 self.currentIdle = idleData
@@ -124,7 +124,7 @@ class IdleDetectionViewModel: ObservableObject {
                 let components = specificIdleRecordDocumentName.components(separatedBy: "/")
                 guard let specificIdleRecordDocumentID = components.last else { return }
                 
-                let updatedIdleRecord = Inactivity(seniorId: Description(stringValue: specificIdleRecord.fields?.seniorId?.stringValue), startTime: Description(stringValue: specificIdleRecord.fields?.startTime?.stringValue), endTime: Description(stringValue: endTime.description), taskState: Description(stringValue: "ended"))
+                let updatedIdleRecord = Inactivity(seniorId: Description(stringValue: specificIdleRecord.fields?.seniorId?.stringValue), startTime: Description(doubleValue: specificIdleRecord.fields?.startTime?.doubleValue), endTime: Description(doubleValue: endTime.timeIntervalSince1970), taskState: Description(stringValue: "ended"))
                 try await service.set(endPoint: SingleEndpoints.idles(idleDocumentID: specificIdleRecordDocumentID), fields: updatedIdleRecord, httpMethod: .patch)
                 
                 self.currentIdle = nil

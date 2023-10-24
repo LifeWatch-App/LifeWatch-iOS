@@ -13,25 +13,28 @@ class HistoryViewModel: ObservableObject {
     @Published var selectedHistoryMenu: HistoryMenu = .inactivity
     @Published var falls: [Fall] = []
     @Published var sos: [SOS] = []
+    @Published var idles: [Idle] = []
+    @Published var charges: [Charge] = []
     @Published var groupedEmergencies: [(String, [Emergency])] = []
     @Published var loading: Bool = true
     @Published var loggedIn: Bool = false
     @Published var fallsCount: Int = 0
     @Published var sosCount: Int = 0
-    @Published var inactivityData: [InactivityChart] = [InactivityChart]()
+    @Published var inactivityData: [InactivityChart] = []
+    @Published var currentWeek: [Date] = []
     
-    var currentWeek: [Date] = []
     var currentDay: Date = Date()
     var totalIdleTime: String = ""
     var totalChargingTime: String = ""
     
+    private var inactivityDataTemp: [InactivityChart] = []
     private let fallService: FallService = FallService.shared
     private let sosService: SOSService = SOSService.shared
+    private let inactivityService: InactivityService = InactivityService.shared
     private var cancellables = Set<AnyCancellable>()
     
     init() {
         setupEmergencySubscriber()
-        fetchCurrentWeek()
     }
     
     /// Subscribes to the FallService to check for changes, and updates `loading, loggedIn, fallsCount, falls, and groupedFalls`.
@@ -61,6 +64,26 @@ class HistoryViewModel: ObservableObject {
                 
                 self.sos.append(contentsOf: sos)
                 updateGroupedEmergencies()
+            }
+            .store(in: &cancellables)
+        
+        inactivityService.$idles
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] idle in
+                guard let self else {return}
+                
+                self.idles.append(contentsOf: idle)
+                convertInactivitesToInactivityCharts()
+            }
+            .store(in: &cancellables)
+        
+        inactivityService.$charges
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] charge in
+                guard let self else {return}
+                
+                self.charges.append(contentsOf: charge)
+                convertInactivitesToInactivityCharts()
             }
             .store(in: &cancellables)
     }
@@ -129,22 +152,37 @@ class HistoryViewModel: ObservableObject {
                 }
             }
             
+            guard let firstDay = self.currentWeek.first else {return}
+            guard let lastDay = self.currentWeek.last else {return}
+            
             let sortedUnixKeys = mappedKeys.sorted {$0 > $1}
             let sortedKeys = sortedUnixKeys.compactMap { unix -> String? in
-                if (uniqueKeys.insert(Date.unixToString(unix: unix, timeOption: .date)).inserted){
+                if (
+                    uniqueKeys.insert(Date.unixToString(unix: unix, timeOption: .date)).inserted &&
+                    Date(timeIntervalSince1970: unix) >= firstDay &&
+                    Date(timeIntervalSince1970: unix) <= lastDay
+                ){
                     return Date.unixToString(unix: unix, timeOption: .date)
                 }
                 return nil
             }
             
             self.groupedEmergencies = sortedKeys.map {($0, emergencyDictionary[$0]!)}
-            debugPrint(groupedEmergencies)
             self.fallsCount = self.falls.count
             self.sosCount = self.sos.count
             self.loading = false
         }
     }
     
+    /// Updates internal properties such as `currentDay` and `currentWeek`.
+    ///
+    /// ```
+    /// HistoryViewModel.changeWeek()
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Updated `currentDay` and `currentWeek` .
     func changeWeek(type: ChangeWeek) {
         if type == .next {
             currentDay = Calendar.current.date(byAdding: .day, value: 7, to: currentDay) ?? Date()
@@ -152,7 +190,8 @@ class HistoryViewModel: ObservableObject {
             currentDay = Calendar.current.date(byAdding: .day, value: -7, to: currentDay) ?? Date()
         }
         
-        fetchCurrentWeek()
+        self.updateGroupedEmergencies()
+        self.fetchCurrentWeek()
     }
     
     func fetchCurrentWeek() {
@@ -179,15 +218,52 @@ class HistoryViewModel: ObservableObject {
 //        print(currentWeek)
     }
     
-    func fetchCurrentWeekData() {
-        inactivityData = []
-        var tempDate = currentWeek.first ?? Date()
+    func convertInactivitesToInactivityCharts() {
+        let inactivities: [Any] = self.idles + self.charges
 
+        self.inactivityDataTemp = inactivities.map { inactivity in
+            var calendar = Calendar.current
+            
+            if let fall = inactivity as? Idle{
+                let difference: Int = Int((fall.endTime ?? 0) - (fall.startTime ?? 0))
+                let minutes: Int = difference / 60
+                
+                var startDate = Date(timeIntervalSince1970: (fall.startTime ?? 0))
+                var dateComponents = calendar.dateComponents([.year, .month, .day], from: startDate)
+                dateComponents.hour = 0
+                dateComponents.minute = 0
+
+                startDate = calendar.date(from: dateComponents) ?? Date()
+                
+                return InactivityChart(day: startDate, minutes: minutes, type: "Idle")
+            } else if let charge = inactivity as? Charge{
+                let difference: Int = Int((charge.endCharging ?? 0) - (charge.startCharging ?? 0))
+                let minutes: Int = difference / 60
+                
+                var startDate = Date(timeIntervalSince1970: (charge.startCharging ?? 0))
+                var dateComponents = calendar.dateComponents([.year, .month, .day], from: startDate)
+                dateComponents.hour = 0
+                dateComponents.minute = 0
+
+                startDate = calendar.date(from: dateComponents) ?? Date()
+                
+                return InactivityChart(day: startDate, minutes: minutes, type: "Charging")
+            }
+            return InactivityChart()
+        }
+        
+        self.inactivityDataTemp = self.inactivityDataTemp.filter { $0.minutes > 0}
+    }
+    
+    func fetchCurrentWeekData() {
+        self.inactivityData = []
+        var tempDate = currentWeek.first ?? Date()
+        
         while tempDate <= currentWeek.last ?? Date() {
             var inactivity = [InactivityChart(), InactivityChart()]
             
-            inactivityDummyData.forEach { data in
-                if data.day == tempDate {
+            self.inactivityDataTemp.forEach { data in
+                if (data.day == tempDate && data.minutes != 0) {
                     if data.type == "Idle" {
                         inactivity[0].day = data.day
                         inactivity[0].minutes = data.minutes
@@ -199,7 +275,7 @@ class HistoryViewModel: ObservableObject {
                     }
                 }
             }
-            
+            debugPrint("Inactivity Data Temp: ", self.inactivityDataTemp)
             (0...1).forEach { i in
                 if inactivity[i].minutes == 0 {
                     inactivity[i].day = tempDate
@@ -209,12 +285,11 @@ class HistoryViewModel: ObservableObject {
                         inactivity[i].type = "Charging"
                     }
                 }
-                inactivityData.append(inactivity[i])
+                self.inactivityData.append(inactivity[i])
             }
-            
+            debugPrint("Inactivity Data: ", self.inactivityData)
             tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate) ?? Date()
         }
-        
         countTotalWeekData()
     }
     
