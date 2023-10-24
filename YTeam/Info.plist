@@ -4,7 +4,7 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>com.ada.YTeam.watchkitapp</string>
+		<string>com.YTeam.LifeWatch.watchkitapp</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
