@@ -76,6 +76,9 @@
 		9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D39B2ADCD92B00245AFF /* FirebaseAuth */; };
 		9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7612ADD023E00923AFB /* UserProfile.swift */; };
 		93B898EE2AE616C3005E1678 /* BatteryLevelRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */; };
+		93B898FA2AE76DB6005E1678 /* BatteryLevelStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898F92AE76DB6005E1678 /* BatteryLevelStateManager.swift */; };
+		93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */; };
+		93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FD2AE76DD0005E1678 /* BatteryChargingService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +170,9 @@
 		9318D38A2ADCD1AC00245AFF /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		9318D38C2ADCD1C800245AFF /* TestChargingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChargingView.swift; sourceTree = "<group>"; };
 		93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryLevelRecord.swift; sourceTree = "<group>"; };
+		93B898F92AE76DB6005E1678 /* BatteryLevelStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryLevelStateManager.swift; sourceTree = "<group>"; };
+		93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryLevel.swift; sourceTree = "<group>"; };
+		93B898FD2AE76DD0005E1678 /* BatteryChargingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryChargingService.swift; sourceTree = "<group>"; };
 		93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "YTeam-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -197,6 +203,7 @@
 		4C4730282AD8D2520025F089 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				93B898FD2AE76DD0005E1678 /* BatteryChargingService.swift */,
 				4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */,
 				4C4730292AD8DC750025F089 /* AuthService.swift */,
 				7D02E7952ADE88BF00923AFB /* FallService.swift */,
@@ -207,6 +214,7 @@
 		4C6049C32AD7948700E9F0BF /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				93B898F92AE76DB6005E1678 /* BatteryLevelStateManager.swift */,
 				4C6049C42AD7948F00E9F0BF /* MainViewModel.swift */,
 				4C47302B2AD9760C0025F089 /* LoginViewModel.swift */,
 				4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */,
@@ -220,6 +228,7 @@
 		4C6049CC2AD7AEC800E9F0BF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */,
 				4CA232A22ADE1F4F003874D2 /* DataUser.swift */,
 				4CA232A32ADE1F4F003874D2 /* UserRecord.swift */,
 				4C6049CD2AD7AF4000E9F0BF /* UserData.swift */,
@@ -543,9 +552,11 @@
 			files = (
 				9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */,
 				7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */,
+				93B898FA2AE76DB6005E1678 /* BatteryLevelStateManager.swift in Sources */,
 				7D02E7962ADE88BF00923AFB /* FallService.swift in Sources */,
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
 				7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */,
+				93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
 				4CA232A42ADE1F4F003874D2 /* DataUser.swift in Sources */,
@@ -558,6 +569,7 @@
 				4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */,
 				8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */,
 				9318D3892ADCD18600245AFF /* ChargingViewModel.swift in Sources */,
+				93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
 				4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */,
 				4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */,
