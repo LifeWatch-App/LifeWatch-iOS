@@ -16,21 +16,21 @@ final class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDele
     @Published var authorizationStatus: CLAuthorizationStatus
     @Published var lastSeenLocation: CLLocation?
     @Published var setHomeLocation: CLLocation?
+    private let locationManager = CLLocationManager()
     @Published var isSet: Bool = false
     @Published var isWithinRegion: Bool?
     @Published var userProfiles: [UserProfile] = []
     private var cancellables = Set<AnyCancellable>()
     private let service = DataService.shared
 
-    private let locationManager: CLLocationManager
 
     override init() {
-        locationManager = CLLocationManager()
         authorizationStatus = locationManager.authorizationStatus
         super.init()
         locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 30
+        locationManager.distanceFilter = 2
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
     }
