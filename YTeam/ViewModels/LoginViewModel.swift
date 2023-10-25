@@ -14,4 +14,8 @@ class LoginViewModel: ObservableObject {
     func login() {
         AuthService.shared.login(email: email, password: password)
     }
+    
+    func startSignInWithAppleFlow() {
+        AuthService.shared.startSignInWithAppleFlow()
+    }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C0F8A3E2AE784CD002E8578 /* SignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */; };
 		4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C21A3E32ADF7B930044E966 /* CaregiverView.swift */; };
 		4C21A3E62ADF7ECA0044E966 /* SeniorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */; };
 		4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4730292AD8DC750025F089 /* AuthService.swift */; };
@@ -19,7 +20,6 @@
 		4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049C82AD799F200E9F0BF /* SignUpView.swift */; };
 		4C6049CB2AD79DDA00E9F0BF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049CA2AD79DDA00E9F0BF /* FirebaseFirestore */; };
 		4C6049D02AD7C6E000E9F0BF /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */; };
-		4CA2328C2ADCE1A0003874D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CA2328B2ADCE1A0003874D2 /* GoogleService-Info.plist */; };
 		4CA232972ADE1EF1003874D2 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232922ADE1EF1003874D2 /* UserRecord.swift */; };
 		4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232932ADE1EF1003874D2 /* ChartData.swift */; };
 		4CA232992ADE1EF1003874D2 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232942ADE1EF1003874D2 /* Invite.swift */; };
@@ -37,6 +37,7 @@
 		4CA7922E2ADFB67B003B5EC9 /* SeniorEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */; };
 		4CA792302ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */; };
 		4CA792322ADFFFC2003B5EC9 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CA792312ADFFFC2003B5EC9 /* FirebaseMessaging */; };
+		4CAD39482AE8B9CB00F84FD6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */; };
 		4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB015592AD4DBBC0023C71E /* YTeamApp.swift */; };
 		4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0155B2AD4DBBC0023C71E /* ContentView.swift */; };
 		4CB0155E2AD4DBBF0023C71E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */; };
@@ -114,6 +115,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButton.swift; sourceTree = "<group>"; };
 		4C21A3E32ADF7B930044E966 /* CaregiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverView.swift; sourceTree = "<group>"; };
 		4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorView.swift; sourceTree = "<group>"; };
 		4C4730292AD8DC750025F089 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -124,7 +126,6 @@
 		4C6049C82AD799F200E9F0BF /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4C6049CD2AD7AF4000E9F0BF /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		4C6049D12AD7FD4A00E9F0BF /* Invite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
-		4CA2328B2ADCE1A0003874D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CA232912ADD4517003874D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4CA232922ADE1EF1003874D2 /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
 		4CA232932ADE1EF1003874D2 /* ChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
@@ -142,6 +143,7 @@
 		4CA7922B2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyViewModel.swift; sourceTree = "<group>"; };
 		4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyView.swift; sourceTree = "<group>"; };
 		4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverEmergencyView.swift; sourceTree = "<group>"; };
+		4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CB015562AD4DBBC0023C71E /* LifeWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB015592AD4DBBC0023C71E /* YTeamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTeamApp.swift; sourceTree = "<group>"; };
 		4CB0155B2AD4DBBC0023C71E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -215,6 +217,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C0F8A3C2AE784AF002E8578 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		4C21A3E72ADF7ECF0044E966 /* Senior */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,7 +310,7 @@
 			children = (
 				7D02E7922ADE888800923AFB /* Constants */,
 				4CA232912ADD4517003874D2 /* Info.plist */,
-				4CA2328B2ADCE1A0003874D2 /* GoogleService-Info.plist */,
+				4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */,
 				4C4730282AD8D2520025F089 /* Services */,
 				4C6049CC2AD7AEC800E9F0BF /* Models */,
 				4C6049C32AD7948700E9F0BF /* ViewModels */,
@@ -354,6 +364,7 @@
 		4CB0157D2AD4E5A20023C71E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C0F8A3C2AE784AF002E8578 /* Components */,
 				4C21A3E82ADF7ED60044E966 /* Caregiver */,
 				4C21A3E72ADF7ECF0044E966 /* Senior */,
 				4CB0155B2AD4DBBC0023C71E /* ContentView.swift */,
@@ -584,7 +595,7 @@
 			files = (
 				4CB015612AD4DBBF0023C71E /* Preview Assets.xcassets in Resources */,
 				4CB0155E2AD4DBBF0023C71E /* Assets.xcassets in Resources */,
-				4CA2328C2ADCE1A0003874D2 /* GoogleService-Info.plist in Resources */,
+				4CAD39482AE8B9CB00F84FD6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,6 +647,7 @@
 				7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */,
 				8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */,
 				9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */,
+				4C0F8A3E2AE784CD002E8578 /* SignInWithAppleButton.swift in Sources */,
 				4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */,
 				4CF1BBE52AE75C1D000E1199 /* TimeOption.swift in Sources */,
 				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,

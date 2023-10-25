@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4CB015652AD4DBBF0023C71E"
-               BuildableName = "YTeam Watch App.app"
+               BuildableName = "LifeWatch Watch App.app"
                BlueprintName = "YTeam Watch App"
                ReferencedContainer = "container:YTeam.xcodeproj">
             </BuildableReference>
@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4CB015552AD4DBBC0023C71E"
-               BuildableName = "YTeam.app"
+               BuildableName = "LifeWatch.app"
                BlueprintName = "YTeam"
                ReferencedContainer = "container:YTeam.xcodeproj">
             </BuildableReference>
@@ -59,7 +59,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4CB015652AD4DBBF0023C71E"
-            BuildableName = "YTeam Watch App.app"
+            BuildableName = "LifeWatch Watch App.app"
             BlueprintName = "YTeam Watch App"
             ReferencedContainer = "container:YTeam.xcodeproj">
          </BuildableReference>
@@ -77,7 +77,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4CB015652AD4DBBF0023C71E"
-            BuildableName = "YTeam Watch App.app"
+            BuildableName = "LifeWatch Watch App.app"
             BlueprintName = "YTeam Watch App"
             ReferencedContainer = "container:YTeam.xcodeproj">
          </BuildableReference>
