@@ -49,9 +49,7 @@ struct HistoryView: View {
                     HistoryInactivity(historyViewModel: historyViewModel)
                 }
             }
-//            .refreshable {
-//                Task{}
-//            }
+
         }
         .background(Color(.systemGroupedBackground))
         .navigationTitle("History")
@@ -121,92 +119,107 @@ struct HistoryInactivity: View {
     var body: some View {
         VStack {
             HistoryHeader()
-            
-            VStack {
-                VStack(alignment: .leading) {
-                    Text("Total Inactivity This Week")
-                        .foregroundStyle(.secondary)
-                    HStack(spacing: 20) {
-                        VStack(alignment: .leading) {
-                            Text("Idle")
-                                .foregroundStyle(.accent)
-                            Text("\(historyViewModel.totalIdleTime)")
-                                .font(.headline)
+            if (historyViewModel.loading == true) {
+                ProgressView()
+            } else {
+                VStack {
+                    VStack(alignment: .leading) {
+                        Text("Total Inactivity This Week")
+                            .foregroundStyle(.secondary)
+                        HStack(spacing: 20) {
+                            VStack(alignment: .leading) {
+                                Text("Idle")
+                                    .foregroundStyle(.accent)
+                                Text("\(historyViewModel.totalIdleTime)")
+                                    .font(.headline)
+                            }
+                            VStack(alignment: .leading) {
+                                Text("Charging")
+                                    .foregroundStyle(Color("secondary-orange"))
+                                Text("\(historyViewModel.totalChargingTime)")
+                                    .font(.headline)
+                            }
+                            Spacer()
                         }
-                        VStack(alignment: .leading) {
-                            Text("Charging")
-                                .foregroundStyle(Color("secondary-orange"))
-                            Text("\(historyViewModel.totalChargingTime)")
-                                .font(.headline)
+                    }
+                    .opacity(selectedDate == nil ? 1.0 : 0.0)
+                    
+                    Chart {
+                        ForEach(historyViewModel.inactivityData) {
+                            BarMark(x: .value("Date", $0.day, unit: .day), y: .value("Minutes", $0.minutes)
+                                    //                        historyViewModel.extractDate(date: $0.day, format: "E")
+                            )
+                            .foregroundStyle(by: .value("Type", $0.type))
+                            .cornerRadius(2)
                         }
+                        
+                        if let rawSelectedDate {
+                            RuleMark(
+                                x: .value("Selected", rawSelectedDate, unit: .day)
+                            )
+                            .foregroundStyle(Color(.systemGray6))
+                            .offset(yStart: -8, yEnd: -1)
+                            .zIndex(-1)
+                            .annotation(
+                                position: .top, spacing: 0,
+                                overflowResolution: .init(
+                                    x: .fit(to: .chart),
+                                    y: .disabled
+                                )
+                            ) {
+                                HStack {
+                                    ForEach(selectedDate ?? []) { date in
+                                        VStack {
+                                            Text("\(date.type)")
+                                                .foregroundStyle(date.type == "Idle" ? .accent : Color("secondary-orange"))
+                                            Text("\(historyViewModel.convertToHoursMinutes(minutes: date.minutes))")
+                                                .font(.headline)
+                                        }
+                                        .padding(.horizontal, 6)
+                                    }
+                                }
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, 6)
+                                .background(Color(.systemGray6))
+                                .cornerRadius(8)
+                            }
+                        }
+                    }
+                    .chartForegroundStyleScale(
+                        ["Idle": .accent, "Charging": Color("secondary-orange")]
+                    )
+                    .chartLegend(.hidden)
+                    .chartXSelection(value: $rawSelectedDate)
+                    .chartXAxis {
+                        AxisMarks(values: historyViewModel.inactivityData.map { $0.day }) { date in
+                            AxisValueLabel(format: .dateTime.weekday(), horizontalSpacing: 10)
+                        }
+                    }
+                    .frame(height: 200)
+                }
+                .padding()
+                .background(Color(.systemBackground))
+                .cornerRadius(16)
+            }
+            ForEach(historyViewModel.groupedInactivities, id: \.0) { (time: String, inactivities: [Any]) in
+                VStack{
+                    HStack{
+                        Text(time)
+                            .font(.headline)
                         Spacer()
                     }
-                }
-                .opacity(selectedDate == nil ? 1.0 : 0.0)
-                
-                Chart {
-                    ForEach(historyViewModel.inactivityData) {
-                        BarMark(x: .value("Date", $0.day, unit: .day), y: .value("Minutes", $0.minutes)
-//                        historyViewModel.extractDate(date: $0.day, format: "E")
-                        )
-                        .foregroundStyle(by: .value("Type", $0.type))
-                        .cornerRadius(2)
-                    }
-                    
-                    if let rawSelectedDate {
-                        RuleMark(
-                            x: .value("Selected", rawSelectedDate, unit: .day)
-                        )
-                        .foregroundStyle(Color(.systemGray6))
-                        .offset(yStart: -8, yEnd: -1)
-                        .zIndex(-1)
-                        .annotation(
-                            position: .top, spacing: 0,
-                            overflowResolution: .init(
-                                x: .fit(to: .chart),
-                                y: .disabled
-                            )
-                        ) {
-                            HStack {
-                                ForEach(selectedDate ?? []) { date in
-                                    VStack {
-                                        Text("\(date.type)")
-                                            .foregroundStyle(date.type == "Idle" ? .accent : Color("secondary-orange"))
-                                        Text("\(historyViewModel.convertToHoursMinutes(minutes: date.minutes))")
-                                            .font(.headline)
-                                    }
-                                    .padding(.horizontal, 6)
-                                }
-                            }
-                            .padding(.vertical, 12)
-                            .padding(.horizontal, 6)
-                            .background(Color(.systemGray6))
-                            .cornerRadius(8)
+                    .padding(.top, 8)
+                    ForEach(0..<inactivities.count, id: \.self) { index in
+                        if let idle = inactivities[index] as? Idle {
+                            HistoryCard(option: .idle, time: Date.unixToString(unix: idle.startTime ?? 0, timeOption: .hour), finishedTime: Date.unixToString(unix: idle.endTime ?? 0, timeOption: .hour))
+                                .listRowSeparator(.hidden)
+                        } else if let charge = inactivities[index] as? Charge {
+                            HistoryCard(option: .charging, time: Date.unixToString(unix: charge.startCharging ?? 0, timeOption: .hour), finishedTime: Date.unixToString(unix: charge.endCharging ?? 0, timeOption: .hour))
+                                .listRowSeparator(.hidden)
                         }
                     }
                 }
-                .chartForegroundStyleScale(
-                    ["Idle": .accent, "Charging": Color("secondary-orange")]
-                )
-                .chartLegend(.hidden)
-                .chartXSelection(value: $rawSelectedDate)
-                .chartXAxis {
-                    AxisMarks(values: historyViewModel.inactivityData.map { $0.day }) { date in
-                        AxisValueLabel(format: .dateTime.weekday(), horizontalSpacing: 10)
-                    }
-                }
-                .frame(height: 200)
             }
-            .padding()
-            .background(Color(.systemBackground))
-            .cornerRadius(16)
-            
-            HStack{
-                Text("21 Oct 2023")
-                    .font(.headline)
-                Spacer()
-            }
-            .padding(.top, 8)
             
 //            HistoryCard(option: .idle, time: .constant("00:00"))
 //                .listRowSeparator(.hidden)
@@ -298,9 +311,9 @@ struct HistoryData: View {
     var body: some View {
         VStack{
             HStack{
-                Text("21 Oct 2023")
-                    .bold()
-                    .font(.title3)
+//                Text("21 Oct 2023")
+//                    .bold()
+//                    .font(.title3)
                 Spacer()
             }
             HStack{
@@ -346,6 +359,8 @@ struct HistoryData: View {
 struct HistoryCard: View {
     var option: HistoryCardOption
     var time: String
+    var finishedTime: String?
+    
     var body: some View {
         HStack{
             Image(systemName: option == .fell ? "figure.fall" : option == .pressed ? "sos.circle.fill" : option == .idle ? "moon.fill" : "bolt.fill")
@@ -358,7 +373,12 @@ struct HistoryCard: View {
             Spacer()
             Group{
                 Image(systemName: "clock")
-                Text(time)
+                
+                if (option == .idle || option == .charging){
+                    Text("\(time) - \(finishedTime ?? "")")
+                } else {
+                    Text(time)
+                }
             }
             .foregroundStyle(.secondary)
         }

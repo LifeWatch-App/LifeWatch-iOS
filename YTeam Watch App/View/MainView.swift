@@ -14,8 +14,8 @@ struct MainView: View {
     var body: some View {
         if authVM.userAuth?.userID != nil {
 //            IdleDetectionView()
-            TestChargingView(authVM: authVM)
-//                .environmentObject(authVM)
+            TestChargingView()
+                .environmentObject(authVM)
         } else if authVM.userAuth?.userID == nil {
             Text("Not authenticated and not logged in")
         }

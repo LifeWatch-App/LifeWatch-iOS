@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 struct Charge: Codable, Hashable {
-    let seniorId: String
-    let startCharging: String
-    let endCharging: String
-    let taskState: String
+    @DocumentID var id: String?
+    let startCharging: Double?
+    let endCharging: Double?
+    let seniorId: String?
+    let taskState: String?
 }
