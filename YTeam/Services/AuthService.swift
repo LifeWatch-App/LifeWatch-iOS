@@ -209,6 +209,10 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         }
     }
     
+    func deleteUserData() {
+        a
+    }
+    
     func sendRequestToSenior(email: String) {
         let email = email.lowercased()
         db.collection("users")
