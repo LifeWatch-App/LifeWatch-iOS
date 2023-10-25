@@ -13,7 +13,8 @@ struct TestChargingView: View {
 
     var body: some View {
         VStack {
-            Text(vm.batteryCharging?.descriptionState ?? "Unknown")
+            Text("\(vm.batteryLevel?.description ?? "Not able to fetch") %")
+            Text(vm.batteryCharging.descriptionState)
 
             Button("Test Auth") {
                 print(authVM.userAuth)
@@ -35,11 +36,11 @@ struct TestChargingView: View {
             //                }
             //            }
         }
-//        .onChange(of: vm.batteryCharging ?? .unknown, perform: { newValue in
-//            if let userID = authVM.userAuth?.userID {
-//                vm.handleBatteryStateChange(batteryState: newValue, userID: userID)
-//            }
-//        })
+        //        .onChange(of: vm.batteryCharging ?? .unknown, perform: { newValue in
+        //            if let userID = authVM.userAuth?.userID {
+        //                vm.handleBatteryStateChange(batteryState: newValue, userID: userID)
+        //            }
+        //        })
         .padding()
     }
 }

@@ -14,14 +14,16 @@ protocol Endpoint {
 enum SingleEndpoints: Endpoint {
     case charges(chargeDocumentID: String)
     case idles(idleDocumentID: String)
+    case batteryLevels(batteryLevelsDocumentID: String)
 
     var endPointDescription: String {
         switch self {
         case let .charges(chargeDocumentID):
             return "/charges/\(chargeDocumentID)"
-
         case let .idles(idleDocumentID):
             return "/idles/\(idleDocumentID)"
+        case let .batteryLevels(batteryLevelsDocumentID):
+            return "/batteryLevels/\(batteryLevelsDocumentID)"
         }
     }
 }
@@ -31,7 +33,8 @@ enum MultipleEndPoints: Endpoint {
     case falls
     case idles
     case charges
-  
+    case batteryLevels
+
     var endPointDescription: String {
         switch self {
         case .userprofile:
@@ -42,6 +45,8 @@ enum MultipleEndPoints: Endpoint {
             return "/idles/"
         case .charges:
             return "/charges/"
+        case .batteryLevels:
+            return "/batteryLevels/"
         }
     }
 }

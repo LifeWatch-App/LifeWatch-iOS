@@ -12,17 +12,17 @@ struct ChargingRange: Hashable, Codable {
     var startCharging: Date?
     var endCharging: Date?
     var taskState: String?
-    
+
     func getValidChargingRange(startCharging: Date, endCharging: Date) -> Bool {
         let interval = endCharging.timeIntervalSince(startCharging)
         let minute = interval.truncatingRemainder(dividingBy: 3600) / 60
-        return Int(minute) >= 0 ? true : false
+        return Int(minute) >= 1 ? true : false
     }
-    
+
     func getFormattedStartEndTime(chargingRange: ChargingRange) -> String {
         guard let startRange = chargingRange.startCharging, let endRange = chargingRange.endCharging else { return "" }
         return "\(Date().dateFormatter.string(from: startRange)) - \(Date().dateFormatter.string(from: endRange))"
-        
+
     }
 }
 
