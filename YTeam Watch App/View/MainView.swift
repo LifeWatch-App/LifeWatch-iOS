@@ -13,9 +13,9 @@ struct MainView: View {
     //    @StateObject private var locationVM = LocationViewModel()
     var body: some View {
         if authVM.userAuth?.userID != nil {
-            IdleDetectionView()
-//            TestChargingView()
-//                .environmentObject(authVM)
+//            IdleDetectionView()
+            TestChargingView()
+                .environmentObject(authVM)
         } else if authVM.userAuth?.userID == nil {
             Text("Not authenticated and not logged in")
         }

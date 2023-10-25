@@ -201,12 +201,25 @@ struct HistoryInactivity: View {
                 .background(Color(.systemBackground))
                 .cornerRadius(16)
             }
-            HStack{
-                Text("21 Oct 2023")
-                    .font(.headline)
-                Spacer()
+            ForEach(historyViewModel.groupedInactivities, id: \.0) { (time: String, inactivities: [Any]) in
+                VStack{
+                    HStack{
+                        Text(time)
+                            .font(.headline)
+                        Spacer()
+                    }
+                    .padding(.top, 8)
+                    ForEach(0..<inactivities.count, id: \.self) { index in
+                        if let idle = inactivities[index] as? Idle {
+                            HistoryCard(option: .idle, time: Date.unixToString(unix: idle.startTime ?? 0, timeOption: .hour), finishedTime: Date.unixToString(unix: idle.endTime ?? 0, timeOption: .hour))
+                                .listRowSeparator(.hidden)
+                        } else if let charge = inactivities[index] as? Charge {
+                            HistoryCard(option: .charging, time: Date.unixToString(unix: charge.startCharging ?? 0, timeOption: .hour), finishedTime: Date.unixToString(unix: charge.endCharging ?? 0, timeOption: .hour))
+                                .listRowSeparator(.hidden)
+                        }
+                    }
+                }
             }
-            .padding(.top, 8)
             
 //            HistoryCard(option: .idle, time: .constant("00:00"))
 //                .listRowSeparator(.hidden)
@@ -346,6 +359,8 @@ struct HistoryData: View {
 struct HistoryCard: View {
     var option: HistoryCardOption
     var time: String
+    var finishedTime: String?
+    
     var body: some View {
         HStack{
             Image(systemName: option == .fell ? "figure.fall" : option == .pressed ? "sos.circle.fill" : option == .idle ? "moon.fill" : "bolt.fill")
@@ -358,7 +373,12 @@ struct HistoryCard: View {
             Spacer()
             Group{
                 Image(systemName: "clock")
-                Text(time)
+                
+                if (option == .idle || option == .charging){
+                    Text("\(time) - \(finishedTime ?? "")")
+                } else {
+                    Text(time)
+                }
             }
             .foregroundStyle(.secondary)
         }

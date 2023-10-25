@@ -16,10 +16,13 @@ class HistoryViewModel: ObservableObject {
     @Published var idles: [Idle] = []
     @Published var charges: [Charge] = []
     @Published var groupedEmergencies: [(String, [Emergency])] = []
+    @Published var groupedInactivities: [(String, [Any])] = []
     @Published var loading: Bool = true
     @Published var loggedIn: Bool = false
     @Published var fallsCount: Int = 0
     @Published var sosCount: Int = 0
+    @Published var idleCount: Int = 0
+    @Published var chargeCount: Int = 0
     @Published var inactivityData: [InactivityChart] = []
     @Published var currentWeek: [Date] = []
     
@@ -54,8 +57,9 @@ class HistoryViewModel: ObservableObject {
                 guard let self else { return }
 
                 self.falls.append(contentsOf: fall)
-                fetchCurrentWeek()
-                updateGroupedEmergencies()
+                self.fetchCurrentWeek()
+                self.updateGroupedEmergencies()
+                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
         
@@ -65,8 +69,9 @@ class HistoryViewModel: ObservableObject {
                 guard let self else {return}
                 
                 self.sos.append(contentsOf: sos)
-                fetchCurrentWeek()
-                updateGroupedEmergencies()
+                self.fetchCurrentWeek()
+                self.updateGroupedEmergencies()
+                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
         
@@ -76,8 +81,9 @@ class HistoryViewModel: ObservableObject {
                 guard let self else {return}
                 
                 self.idles.append(contentsOf: idle)
-                fetchCurrentWeek()
-                convertInactivitesToInactivityCharts()
+                self.fetchCurrentWeek()
+                self.convertInactivitesToInactivityCharts()
+                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
         
@@ -87,8 +93,9 @@ class HistoryViewModel: ObservableObject {
                 guard let self else {return}
                 
                 self.charges.append(contentsOf: charge)
-                fetchCurrentWeek()
-                convertInactivitesToInactivityCharts()
+                self.fetchCurrentWeek()
+                self.convertInactivitesToInactivityCharts()
+                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
     }
@@ -103,11 +110,7 @@ class HistoryViewModel: ObservableObject {
     ///     - None
     /// - Returns: Updated `loggedIn, falls, sos, fallsCount, sosCount, and groupedEmergencies`.
     func updateGroupedEmergencies() {
-        if ((Auth.auth().currentUser) != nil) {
-            self.loggedIn = true
-        } else {
-            self.loggedIn = false
-        }
+        self.checkAuth()
         
         if (self.loggedIn == true) {
             self.loading = true
@@ -193,6 +196,104 @@ class HistoryViewModel: ObservableObject {
         }
     }
     
+    func updateGroupedInactivities() {
+        self.checkAuth()
+        
+        if (self.loggedIn == true) {
+            self.loading = true
+            
+            var filteredIdles: [Idle] = self.idles.filter {$0.taskState == "ended"}
+            var filteredCharges: [Charge] = self.charges.filter {$0.taskState == "ended"}
+            
+            var inactivities: [Any] = filteredIdles + filteredCharges
+            inactivities = inactivities.sorted { a, b in
+                if let a = a as? Idle, let b = b as? Charge {
+                    return a.startTime ?? 0 > b.startCharging ?? 0
+                } else if let a = a as? Charge, let b = b as? Idle {
+                    return a.startCharging ?? 0 > b.startTime ?? 0
+                } else {
+                    return false
+                }
+            }
+            
+            var inactivityDictionary: [String: [Any]] = [:]
+            
+            for inactivity in inactivities {
+                if let idle = inactivity as? Idle {
+                    let dateString = Date.unixToString(unix: idle.startTime ?? 0, timeOption: .date)
+                    if var inactivities = inactivityDictionary[dateString] {
+                        inactivities.append(idle)
+                        inactivityDictionary[dateString] = inactivities
+                    } else {
+                        inactivityDictionary[dateString] = [idle]
+                    }
+                } else if let charging = inactivity as? Charge {
+                    let dateString = Date.unixToString(unix: charging.startCharging ?? 0, timeOption: .date)
+                    if var inactivities = inactivityDictionary[dateString] {
+                        inactivities.append(charging)
+                        inactivityDictionary[dateString] = inactivities
+                    } else {
+                        inactivityDictionary[dateString] = [charging]
+                    }
+                }
+            }
+            
+            var uniqueKeys = Set<String>()
+            
+            let mappedKeys = inactivities.map { a in
+                if let a = a as? Idle{
+                    return a.startTime
+                } else if let a = a as? Charge{
+                    return a.startCharging
+                } else {
+                    return 0.0
+                }
+            }
+            
+            guard let firstDay = self.currentWeek.first else {return}
+            guard let lastDay = self.currentWeek.last else {return}
+            
+            let sortedUnixKeys = mappedKeys.sorted {$0 ?? 0 > $1 ?? 0}
+            let sortedKeys = sortedUnixKeys.compactMap { unix -> String? in
+                if (
+                    uniqueKeys.insert(Date.unixToString(unix: unix ?? 0, timeOption: .date)).inserted &&
+                    Date(timeIntervalSince1970: unix ?? 0) >= firstDay &&
+                    Date(timeIntervalSince1970: unix ?? 0) <= lastDay
+                ){
+                    return Date.unixToString(unix: unix ?? 0, timeOption: .date)
+                }
+                return nil
+            }
+            
+            self.groupedInactivities = sortedKeys.map {($0, inactivityDictionary[$0]!)}
+            
+            var idle: Int = 0
+            var charge: Int = 0
+            
+            for (_, inactivities) in self.groupedInactivities {
+                for inactivity in inactivities {
+                    if let _ = inactivity as? Idle {
+                        idle += 1
+                    } else if let _ = inactivity as? Charge {
+                        charge += 1
+                    }
+                }
+            }
+            
+            self.idleCount = idle
+            self.chargeCount = charge
+            self.loading = false
+        }
+    }
+    
+    func checkAuth() {
+        if ((Auth.auth().currentUser) != nil) {
+            self.loggedIn = true
+        } else {
+            self.loggedIn = false
+        }
+    }
+    
     /// Updates internal properties such as `currentDay` and `currentWeek`.
     ///
     /// ```
@@ -233,6 +334,7 @@ class HistoryViewModel: ObservableObject {
         withAnimation {
             fetchCurrentWeekData()
             updateGroupedEmergencies()
+            updateGroupedInactivities()
         }
 //        print(currentWeek)
     }

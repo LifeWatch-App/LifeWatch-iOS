@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TestChargingView: View {
     @StateObject private var vm = CobaTestViewModel()
-    @ObservedObject var authVM: TestAuthViewModel
+    @EnvironmentObject var authVM: TestAuthViewModel
 
     var body: some View {
         VStack {
@@ -46,7 +46,7 @@ struct TestChargingView: View {
 
 struct TestCharging_Previews: PreviewProvider {
     static var previews: some View {
-        TestChargingView(authVM: TestAuthViewModel())
+        TestChargingView()
     }
 }
 
