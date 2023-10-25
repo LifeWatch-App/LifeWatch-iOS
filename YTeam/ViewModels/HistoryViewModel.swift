@@ -25,10 +25,10 @@ class HistoryViewModel: ObservableObject {
     @Published var chargeCount: Int = 0
     @Published var inactivityData: [InactivityChart] = []
     @Published var currentWeek: [Date] = []
+    @Published var totalIdleTime: String = ""
+    @Published var totalChargingTime: String = ""
     
     var currentDay: Date = Date()
-    var totalIdleTime: String = ""
-    var totalChargingTime: String = ""
     
     private var inactivityDataTemp: [InactivityChart] = []
     private let fallService: FallService = FallService.shared
@@ -37,8 +37,8 @@ class HistoryViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        setupEmergencySubscriber()
         fetchCurrentWeek()
+        setupEmergencySubscriber()
     }
     
     /// Subscribes to the FallService to check for changes, and updates `loading, loggedIn, fallsCount, falls, and groupedFalls`.
@@ -51,11 +51,12 @@ class HistoryViewModel: ObservableObject {
     ///     - None
     /// - Returns: If user is logged in, return `sorted falls only if there are the senior's falls`.
     func setupEmergencySubscriber() {
+        
         fallService.$falls
             .receive(on: DispatchQueue.main)
             .sink { [weak self] fall in
                 guard let self else { return }
-
+                
                 self.falls.append(contentsOf: fall)
                 self.fetchCurrentWeek()
                 self.updateGroupedEmergencies()
@@ -98,6 +99,7 @@ class HistoryViewModel: ObservableObject {
                 self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
+        
     }
     
     /// Updates internal properties such as `loggedIn, falls, sos, fallsCount, sosCount, and groupedEmergencies` and is only called in `setupEmergencySubscriber`.
@@ -113,9 +115,8 @@ class HistoryViewModel: ObservableObject {
         self.checkAuth()
         
         if (self.loggedIn == true) {
-            self.loading = true
-            
             var emergencies: [Any] = self.falls + self.sos
+            
             emergencies = emergencies.sorted { a, b in
                 if let a = a as? Fall, let b = b as? SOS {
                     return a.time > b.time
@@ -200,10 +201,8 @@ class HistoryViewModel: ObservableObject {
         self.checkAuth()
         
         if (self.loggedIn == true) {
-            self.loading = true
-            
-            var filteredIdles: [Idle] = self.idles.filter {$0.taskState == "ended"}
-            var filteredCharges: [Charge] = self.charges.filter {$0.taskState == "ended"}
+            let filteredIdles: [Idle] = self.idles.filter {$0.taskState == "ended"}
+            let filteredCharges: [Charge] = self.charges.filter {$0.taskState == "ended"}
             
             var inactivities: [Any] = filteredIdles + filteredCharges
             inactivities = inactivities.sorted { a, b in
@@ -332,9 +331,9 @@ class HistoryViewModel: ObservableObject {
         }
         
         withAnimation {
-            fetchCurrentWeekData()
             updateGroupedEmergencies()
             updateGroupedInactivities()
+            fetchCurrentWeekData()
         }
 //        print(currentWeek)
     }
@@ -405,10 +404,10 @@ class HistoryViewModel: ObservableObject {
         }
         
         self.inactivityDataTemp = inactivityDataGrouped.filter { $0.minutes > 0}
+        self.fetchCurrentWeekData()
     }
     
     func fetchCurrentWeekData() {
-        self.loading = true
         self.inactivityData = []
         var tempDate = currentWeek.first ?? Date()
         
@@ -434,7 +433,8 @@ class HistoryViewModel: ObservableObject {
                     inactivity[i].day = tempDate
                     if i == 0 {
                         inactivity[i].type = "Idle"
-                    } else {
+                    }
+                    if i == 1 {
                         inactivity[i].type = "Charging"
                     }
                 }
@@ -453,13 +453,14 @@ class HistoryViewModel: ObservableObject {
         inactivityData.forEach { data in
             if data.type == "Idle" {
                 totalIdle += data.minutes
-            } else {
+            } 
+            if data.type == "Charging" {
                 totalCharging += data.minutes
             }
         }
         
-        totalIdleTime = convertToHoursMinutes(minutes: totalIdle)
-        totalChargingTime = convertToHoursMinutes(minutes: totalCharging)
+        self.totalIdleTime = convertToHoursMinutes(minutes: totalIdle)
+        self.totalChargingTime = convertToHoursMinutes(minutes: totalCharging)
         self.loading = false
     }
     
