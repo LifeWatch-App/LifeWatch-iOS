@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: 'feat/delete-user-data'
+          ref: ${{ github.ref_name }}
       - name: Build iOS
         run: |
           xcodebuild clean build -project YTeam.xcodeproj -scheme YTeam -destination "${destination}" -configuration Debug CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
