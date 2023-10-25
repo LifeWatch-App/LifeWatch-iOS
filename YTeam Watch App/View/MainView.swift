@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    //    @ObservedObject private var fallDetector = FallDetectionManager()
+        @ObservedObject private var fallDetector = FallDetectionManager()
     @StateObject private var authVM = TestAuthViewModel()
     //    @StateObject private var locationVM = LocationViewModel()
     var body: some View {

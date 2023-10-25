@@ -23,6 +23,8 @@ struct CaregiverEmergencyView: View {
                         Text("Enter your senior's email")
                         TextField("Email", text: $email)
                             .padding()
+                            .keyboardType(.emailAddress)
+                            .autocapitalization(.none)
                         Button {
                             caregiverEmergencyViewModel.sendRequestToSenior(email: email)
                         } label: {
