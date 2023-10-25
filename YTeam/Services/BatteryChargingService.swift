@@ -20,7 +20,7 @@ final class BatteryChargingService {
     }
 
     func fetchChargingRecord() async throws -> [ChargingRange] {
-        let snapshot = try await FirestoreConstants.chargingCollection.getDocuments()
+        let snapshot = try await FirestoreConstants.chargesCollection.getDocuments()
         var chargingRanges = snapshot.documents.compactMap({ try? $0.data(as: ChargingRange.self)})
         return chargingRanges
     }
