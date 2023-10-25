@@ -210,7 +210,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     }
     
     func deleteUserData() {
-        a
+        
     }
     
     func sendRequestToSenior(email: String) {
