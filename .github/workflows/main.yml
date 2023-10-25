@@ -10,6 +10,8 @@ jobs:
         matrix:
           destination: ['platform=iOS Simulator,OS=17.0,name=iPhone 15 Pro']
     steps:
+      - name: Force xcode
+        run: sudo xcode-select -switch /Applications/Xcode_15.0.app
       - name: Checkout
         uses: actions/checkout@v3
         with:
