@@ -71,7 +71,6 @@
 		7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7932ADE889500923AFB /* FirestoreConstants.swift */; };
 		7D02E7962ADE88BF00923AFB /* FallService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7952ADE88BF00923AFB /* FallService.swift */; };
 		7D02E7982ADE892500923AFB /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7972ADE892500923AFB /* Fall.swift */; };
-		7D02E79E2ADFB32B00923AFB /* ChargeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79D2ADFB32B00923AFB /* ChargeService.swift */; };
 		7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79F2ADFB35D00923AFB /* Charge.swift */; };
 		7D9D41D62AE6287400818908 /* TimeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB24EFB2AE51EC0009A4A6D /* TimeOption.swift */; };
 		7D9D41D82AE62DB800818908 /* Idle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9D41D72AE62DB800818908 /* Idle.swift */; };
@@ -178,7 +177,6 @@
 		7D02E7932ADE889500923AFB /* FirestoreConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreConstants.swift; sourceTree = "<group>"; };
 		7D02E7952ADE88BF00923AFB /* FallService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallService.swift; sourceTree = "<group>"; };
 		7D02E7972ADE892500923AFB /* Fall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
-		7D02E79D2ADFB32B00923AFB /* ChargeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeService.swift; sourceTree = "<group>"; };
 		7D02E79F2ADFB35D00923AFB /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
 		7D9D41D72AE62DB800818908 /* Idle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Idle.swift; sourceTree = "<group>"; };
 		7D9D41D92AE62EA200818908 /* InactivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityService.swift; sourceTree = "<group>"; };
@@ -246,7 +244,6 @@
 				4C4730292AD8DC750025F089 /* AuthService.swift */,
 				7D02E7952ADE88BF00923AFB /* FallService.swift */,
 				7DB24EF72AE51E81009A4A6D /* SOSService.swift */,
-				7D02E79D2ADFB32B00923AFB /* ChargeService.swift */,
 				7D9D41D92AE62EA200818908 /* InactivityService.swift */,
 			);
 			path = Services;
@@ -624,7 +621,6 @@
 				7DB24EF62AE51E79009A4A6D /* SOS.swift in Sources */,
 				9318D3892ADCD18600245AFF /* ChargingViewModel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
-				7D02E79E2ADFB32B00923AFB /* ChargeService.swift in Sources */,
 				4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */,
 				4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */,
 				7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */,
@@ -812,7 +808,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -847,7 +843,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -884,7 +880,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -919,7 +915,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;

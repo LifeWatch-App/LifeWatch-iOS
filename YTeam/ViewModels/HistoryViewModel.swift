@@ -105,12 +105,12 @@ class HistoryViewModel: ObservableObject {
     /// Updates internal properties such as `loggedIn, falls, sos, fallsCount, sosCount, and groupedEmergencies` and is only called in `setupEmergencySubscriber`.
     ///
     /// ```
-    /// Not to be called.
+    /// HistoryViewModel.updateGroupedEmergenices().
     /// ```
     ///
     /// - Parameters:
     ///     - None
-    /// - Returns: Updated `loggedIn, falls, sos, fallsCount, sosCount, and groupedEmergencies`.
+    /// - Returns: Updated `falls, sos, fallsCount, sosCount, and groupedEmergencies`.
     func updateGroupedEmergencies() {
         self.checkAuth()
         
@@ -197,6 +197,15 @@ class HistoryViewModel: ObservableObject {
         }
     }
     
+    /// Updates internal properties such as `idleCount, chargesCount, and groupedInactivities` and is only called in `setupEmergencySubscriber`.
+    ///
+    /// ```
+    /// HistoryViewModel.updateGroupedInactivities().
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Updated `idleCount, chargesCount, and groupedInactivities`.
     func updateGroupedInactivities() {
         self.checkAuth()
         
@@ -285,6 +294,15 @@ class HistoryViewModel: ObservableObject {
         }
     }
     
+    /// Updates internal properties such as `loggedIn`and is called in HistoryViewModel only.
+    ///
+    /// ```
+    /// HistoryViewModel.checkAuth().
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Updated `self.loggedIn`.
     func checkAuth() {
         if ((Auth.auth().currentUser) != nil) {
             self.loggedIn = true
@@ -312,6 +330,15 @@ class HistoryViewModel: ObservableObject {
         self.fetchCurrentWeek()
     }
     
+    /// Updates internal properties such as `currentDay` and `currentWeek`.
+    ///
+    /// ```
+    /// HistoryViewModel.fetchCurrentWeek()
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Updated `currentDay` and `currentWeek` .
     func fetchCurrentWeek() {
         currentWeek = []
         
@@ -338,6 +365,15 @@ class HistoryViewModel: ObservableObject {
 //        print(currentWeek)
     }
     
+    /// Updates internal properties such as `currentDay` and `currentWeek`.
+    ///
+    /// ```
+    /// HistoryViewModel.fetchCurrentWeek()
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Updated `currentDay` and `currentWeek` .
     func convertInactivitesToInactivityCharts() {
         let inactivities: [Any] = self.idles + self.charges
         self.inactivityDataTemp = inactivities.map { inactivity in
@@ -407,6 +443,15 @@ class HistoryViewModel: ObservableObject {
         self.fetchCurrentWeekData()
     }
     
+    /// Updates `inactivityData` from `inactivityDataTemp`.
+    ///
+    /// ```
+    /// HistoryViewModel.fetchCurrentWeekData()
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Updated `inactivityData` .
     func fetchCurrentWeekData() {
         self.inactivityData = []
         var tempDate = currentWeek.first ?? Date()
@@ -446,6 +491,15 @@ class HistoryViewModel: ObservableObject {
         countTotalWeekData()
     }
     
+    /// Updates `totalIdleTime` and `totalChargingTime` from data.
+    ///
+    /// ```
+    /// HistoryViewModel.countTotalWeekData()
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Updated `totalIdleTime` and `totalChargingTime` .
     func countTotalWeekData() {
         var totalIdle = 0
         var totalCharging = 0
@@ -464,6 +518,16 @@ class HistoryViewModel: ObservableObject {
         self.loading = false
     }
     
+    /// Formats Date object into String.
+    ///
+    /// ```
+    /// HistoryViewModel.extractDate(Date.now)
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - date: Date
+    ///     - format: String
+    /// - Returns: String
     func extractDate(date: Date, format: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
@@ -471,21 +535,36 @@ class HistoryViewModel: ObservableObject {
         return formatter.string(from: date)
     }
     
+    /// Checks if date is today.
+    ///
+    /// ```
+    /// HistoryViewModel.isToday(Date.now)
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - date: Date
+    /// - Returns: true, false
     func isToday(date: Date) -> Bool {
         let calendar = Calendar.current
 
         return calendar.isDate(currentDay, inSameDayAs: date)
     }
     
+    /// Returns hours and minutes in `String` from minutes in`Int` .
+    ///
+    /// ```
+    /// HistoryViewModel.convertToHoursMinutes(minutes: 3)
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - minutes: Int
+    /// - Returns: "\(hours)h \(remainingMinutes)m"
     func convertToHoursMinutes(minutes: Int) -> String {
         let hours = minutes / 60
         let remainingMinutes = minutes % 60
         return "\(hours)h \(remainingMinutes)m"
     }
     
-//    func createDate(year: Int, month: Int, day: Int = 1) -> Date {
-//        Calendar.current.date(from: DateComponents(year: year, month: month, day: day)) ?? Date()
-//    }
 }
 
 enum HistoryMenu: String, CaseIterable, Identifiable {
