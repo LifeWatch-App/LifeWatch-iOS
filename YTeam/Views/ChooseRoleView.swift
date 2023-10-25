@@ -11,125 +11,138 @@ struct ChooseRoleView: View {
     @ObservedObject var mainViewModel: MainViewModel
     
     var body: some View {
-        VStack {
-            ZStack(alignment: .top) {
-                VStack {
+        NavigationStack {
+            VStack {
+                ZStack(alignment: .top) {
                     VStack {
-                        EmptyView()
-                    }
-                    .frame(height: 140)
-                    
-                    HStack {
-                        Text("As a senior, ...")
-                        Spacer()
-                    }
-                    .padding(.bottom, 8)
-                    
-                    HStack {
-                        Spacer()
-                        Button {
-                            mainViewModel.setRole(role: "senior")
-                        } label: {
-                            Text("Choose")
-                                .foregroundStyle(.white)
-                                .fontWeight(.semibold)
-                                .padding(.horizontal)
-                                .padding(.vertical, 8)
-                                .background(.accent)
-                                .cornerRadius(4)
+                        VStack {
+                            EmptyView()
+                        }
+                        .frame(height: 140)
+                        
+                        HStack {
+                            Text("As a senior, ...")
+                            Spacer()
+                        }
+                        .padding(.bottom, 8)
+                        
+                        HStack {
+                            Spacer()
+                            Button {
+                                mainViewModel.setRole(role: "senior")
+                            } label: {
+                                Text("Choose")
+                                    .foregroundStyle(.white)
+                                    .fontWeight(.semibold)
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 8)
+                                    .background(.accent)
+                                    .cornerRadius(4)
+                            }
                         }
                     }
-                }
-                .padding()
-                .background(.white)
-                .cornerRadius(16)
-                
-                HStack(spacing: 16) {
-                    VStack {
-                        Spacer()
-                        Image("asset")
-                            .resizable()
-                            .scaledToFit()
-                            .padding(.bottom, -1)
-                    }
-                    .frame(height: 150)
+                    .padding()
+                    .background(.white)
+                    .cornerRadius(16)
                     
-                    HStack {
-                        Spacer()
-                        Text("Senior")
-                            .font(.title)
-                            .bold()
-                            .foregroundStyle(.white)
-                            .padding(.trailing)
-                        Spacer()
-                    }
-                }
-                .padding(.trailing)
-                .background(.accent)
-                .cornerRadius(16)
-            }
-            
-            ZStack(alignment: .top) {
-                VStack {
-                    VStack {
-                        EmptyView()
-                    }
-                    .frame(height: 140)
-                    
-                    HStack {
-                        Text("As a caregiver, ...")
-                        Spacer()
-                    }
-                    .padding(.bottom, 8)
-                    
-                    HStack {
-                        Spacer()
-                        Button {
-                            mainViewModel.setRole(role: "caregiver")
-                        } label: {
-                            Text("Choose")
+                    HStack(spacing: 16) {
+                        VStack {
+                            Spacer()
+                            Image("asset")
+                                .resizable()
+                                .scaledToFit()
+                                .padding(.bottom, -1)
+                        }
+                        .frame(height: 150)
+                        
+                        HStack {
+                            Spacer()
+                            Text("Senior")
+                                .font(.title)
+                                .bold()
                                 .foregroundStyle(.white)
-                                .fontWeight(.semibold)
-                                .padding(.horizontal)
-                                .padding(.vertical, 8)
-                                .background(.accent)
-                                .cornerRadius(4)
+                                .padding(.trailing)
+                            Spacer()
                         }
                     }
+                    .padding(.trailing)
+                    .background(.accent)
+                    .cornerRadius(16)
                 }
-                .padding()
-                .background(.white)
-                .cornerRadius(16)
                 
-                HStack(spacing: 16) {
+                ZStack(alignment: .top) {
                     VStack {
-                        Spacer()
-                        Image("asset")
-                            .resizable()
-                            .scaledToFit()
-                            .padding(.bottom, -1)
+                        VStack {
+                            EmptyView()
+                        }
+                        .frame(height: 140)
+                        
+                        HStack {
+                            Text("As a caregiver, ...")
+                            Spacer()
+                        }
+                        .padding(.bottom, 8)
+                        
+                        HStack {
+                            Spacer()
+                            Button {
+                                mainViewModel.setRole(role: "caregiver")
+                            } label: {
+                                Text("Choose")
+                                    .foregroundStyle(.white)
+                                    .fontWeight(.semibold)
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 8)
+                                    .background(.accent)
+                                    .cornerRadius(4)
+                            }
+                        }
                     }
-                    .frame(height: 150)
+                    .padding()
+                    .background(.white)
+                    .cornerRadius(16)
                     
-                    HStack {
-                        Spacer()
-                        Text("Caretaker")
-                            .font(.title)
-                            .bold()
-                            .foregroundStyle(.white)
-                        Spacer()
+                    HStack(spacing: 16) {
+                        VStack {
+                            Spacer()
+                            Image("asset")
+                                .resizable()
+                                .scaledToFit()
+                                .padding(.bottom, -1)
+                        }
+                        .frame(height: 150)
+                        
+                        HStack {
+                            Spacer()
+                            Text("Caregiver")
+                                .font(.title)
+                                .bold()
+                                .foregroundStyle(.white)
+                            Spacer()
+                        }
                     }
+                    .padding(.trailing)
+                    .background(.accent)
+                    .cornerRadius(16)
                 }
-                .padding(.trailing)
-                .background(.accent)
-                .cornerRadius(16)
+                
+                Spacer()
             }
-            
-            Spacer()
+            .toolbar {
+                Button(
+                    action: {
+                        mainViewModel.signOut()
+                    },
+                    label: {
+                        Text("Sign Out")
+                            .bold()
+                    }
+                )
+            }
+            .padding()
+            .background(Color(.systemGroupedBackground))
+            .navigationTitle("Choose Role")
         }
-        .padding()
-        .background(Color(.systemGroupedBackground))
-        .navigationTitle("Choose Role")
     }
 }
 
