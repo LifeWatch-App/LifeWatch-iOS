@@ -19,11 +19,11 @@ jobs:
           ref: 'dev'
       - name: Build iOS
         run: |
-          xcodebuild clean build -project YTeam.xcodeproj -scheme YTeam -destination "${destination1}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+          xcodebuild clean build -project YTeam.xcodeproj -scheme YTeam -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
         env: 
          destination: ${{ matrix.destination1 }}
       - name: Build WatchOS
         run: |
-           xcodebuild clean build -project YTeam.xcodeproj -scheme "YTeam Watch App" -destination "${destination2}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+           xcodebuild clean build -project YTeam.xcodeproj -scheme "YTeam Watch App" -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
         env: 
          destination: ${{ matrix.destination2 }}
