@@ -9,13 +9,13 @@ import Foundation
 import CoreMotion
 
 class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject {
-    
     @Published var authorized: Bool = false
     
     let fallDetector = CMFallDetectionManager()
     
     private let service = DataService.shared
     private let decoder: JSONDecoder = JSONDecoder()
+    
     override init() {
         super.init()
         self.assignDelegate()
