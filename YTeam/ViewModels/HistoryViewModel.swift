@@ -10,7 +10,7 @@ import FirebaseAuth
 import Combine
 
 class HistoryViewModel: ObservableObject {
-    @Published var selectedHistoryMenu: HistoryMenu = .inactivity
+    @Published var selectedHistoryMenu: HistoryMenu = .heartRate
     @Published var falls: [Fall] = []
     @Published var sos: [SOS] = []
     @Published var idles: [Idle] = []
@@ -24,9 +24,11 @@ class HistoryViewModel: ObservableObject {
     @Published var idleCount: Int = 0
     @Published var chargeCount: Int = 0
     @Published var inactivityData: [InactivityChart] = []
+    @Published var heartRateData: [HeartRateChart] = []
     @Published var currentWeek: [Date] = []
     @Published var totalIdleTime: String = ""
     @Published var totalChargingTime: String = ""
+    @Published var avgHeartRate: Int = 0
     
     var currentDay: Date = Date()
     
@@ -362,7 +364,6 @@ class HistoryViewModel: ObservableObject {
             updateGroupedInactivities()
             fetchCurrentWeekData()
         }
-//        print(currentWeek)
     }
     
     /// Updates internal properties such as `currentDay` and `currentWeek`.
@@ -454,11 +455,11 @@ class HistoryViewModel: ObservableObject {
     /// - Returns: Updated `inactivityData` .
     func fetchCurrentWeekData() {
         self.inactivityData = []
+        self.heartRateData = []
         var tempDate = currentWeek.first ?? Date()
         
         while tempDate <= currentWeek.last ?? Date() {
             var inactivity = [InactivityChart(), InactivityChart()]
-            
             self.inactivityDataTemp.forEach { data in
                 if (data.day == tempDate && data.minutes != 0) {
                     if data.type == "Idle" {
@@ -472,7 +473,6 @@ class HistoryViewModel: ObservableObject {
                     }
                 }
             }
-            
             (0...1).forEach { i in
                 if inactivity[i].minutes == 0 {
                     inactivity[i].day = tempDate
@@ -486,9 +486,20 @@ class HistoryViewModel: ObservableObject {
                 self.inactivityData.append(inactivity[i])
             }
             
+            var heartRate = HeartRateChart()
+            heartRateDummyData.forEach { data in
+                if data.day == tempDate {
+                    heartRate.day = data.day
+                    heartRate.avgHeartRate = data.avgHeartRate
+                }
+            }
+            self.heartRateData.append(heartRate)
+            
             tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate) ?? Date()
         }
+        
         countTotalWeekData()
+        countAvgHeartRate()
     }
     
     /// Updates `totalIdleTime` and `totalChargingTime` from data.
@@ -516,6 +527,16 @@ class HistoryViewModel: ObservableObject {
         self.totalIdleTime = convertToHoursMinutes(minutes: totalIdle)
         self.totalChargingTime = convertToHoursMinutes(minutes: totalCharging)
         self.loading = false
+    }
+    
+    func countAvgHeartRate() {
+        avgHeartRate = 0
+        
+        heartRateData.forEach { data in
+            avgHeartRate += data.avgHeartRate
+        }
+        
+        avgHeartRate = avgHeartRate / 7
     }
     
     /// Formats Date object into String.
@@ -564,16 +585,15 @@ class HistoryViewModel: ObservableObject {
         let remainingMinutes = minutes % 60
         return "\(hours)h \(remainingMinutes)m"
     }
-    
 }
 
 enum HistoryMenu: String, CaseIterable, Identifiable {
-    case emergency, inactivity
+    case emergency, heartRate, inactivity
     var id: Self { self }
 }
 
 enum HistoryCardOption: String, CaseIterable, Identifiable {
-    case fell, pressed, idle, charging
+    case fell, pressed, idle, charging, heartRateDown, heartRatePeak, heartAttack
     var id: Self { self }
 }
 
