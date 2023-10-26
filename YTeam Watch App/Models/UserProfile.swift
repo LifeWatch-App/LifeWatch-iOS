@@ -38,7 +38,6 @@ struct Description: Codable, Hashable {
     let stringValue: String?
     let doubleValue: Double?
     let intValue: Int?
-    let doubleValue: Double?
     let timeStampValue: String?
     
     init(stringValue: String? = nil, doubleValue: Double? = nil, intValue: Int? = nil, timeStampValue: String? = nil) {
