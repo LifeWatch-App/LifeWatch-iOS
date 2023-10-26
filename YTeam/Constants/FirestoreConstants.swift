@@ -20,3 +20,4 @@ struct FirestoreConstants {
     static let batteryLevelCollection = Firestore.firestore().collection("batteryLevels")
 }
 
+

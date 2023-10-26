@@ -36,14 +36,15 @@ struct Document<T: Codable>: Codable {
 
 struct Description: Codable, Hashable {
     let stringValue: String?
+    let doubleValue: Double?
     let intValue: Int?
     let doubleValue: Double?
     let timeStampValue: String?
     
-    init(stringValue: String? = nil, intValue: Int? = nil, doubleValue: Double? = nil, timeStampValue: String? = nil) {
+    init(stringValue: String? = nil, doubleValue: Double? = nil, intValue: Int? = nil, timeStampValue: String? = nil) {
         self.stringValue = stringValue
-        self.intValue = intValue
         self.doubleValue = doubleValue
+        self.intValue = intValue
         self.timeStampValue = timeStampValue
     }
 }

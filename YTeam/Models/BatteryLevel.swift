@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 struct BatteryLevel: Hashable, Codable {
+    @DocumentID var id: String?
     var seniorID: String?
     var watchBatteryLevel: String?
     var iphoneBatteryLevel: String?
