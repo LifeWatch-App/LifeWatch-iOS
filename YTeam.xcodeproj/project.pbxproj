@@ -59,7 +59,6 @@
 		7D02E7702ADD023E00923AFB /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7612ADD023E00923AFB /* UserProfile.swift */; };
 		7D02E7732ADD029900923AFB /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049CD2AD7AF4000E9F0BF /* UserData.swift */; };
 		7D02E7742ADD029900923AFB /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049D12AD7FD4A00E9F0BF /* Invite.swift */; };
-		7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E75F2ADD023E00923AFB /* ChargingRange.swift */; };
 		7D02E7792ADD038700923AFB /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7562ADD023E00923AFB /* DateExt.swift */; };
 		7D02E77B2ADD39D800923AFB /* CoreMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */; };
 		7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7932ADE889500923AFB /* FirestoreConstants.swift */; };
@@ -70,15 +69,15 @@
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
 		8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */; };
-		9318D3892ADCD18600245AFF /* ChargingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D3882ADCD18600245AFF /* ChargingViewModel.swift */; };
 		9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38A2ADCD1AC00245AFF /* ChartData.swift */; };
 		9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38C2ADCD1C800245AFF /* TestChargingView.swift */; };
 		9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D39B2ADCD92B00245AFF /* FirebaseAuth */; };
 		9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7612ADD023E00923AFB /* UserProfile.swift */; };
 		93B898EE2AE616C3005E1678 /* BatteryLevelRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */; };
-		93B898FA2AE76DB6005E1678 /* BatteryLevelStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898F92AE76DB6005E1678 /* BatteryLevelStateManager.swift */; };
+		93B898FA2AE76DB6005E1678 /* BatteryLevelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898F92AE76DB6005E1678 /* BatteryLevelViewModel.swift */; };
 		93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */; };
 		93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FD2AE76DD0005E1678 /* BatteryChargingService.swift */; };
+		93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FF2AE779F7005E1678 /* ChargingRange.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,13 +165,13 @@
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRoleView.swift; sourceTree = "<group>"; };
-		9318D3882ADCD18600245AFF /* ChargingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingViewModel.swift; sourceTree = "<group>"; };
 		9318D38A2ADCD1AC00245AFF /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		9318D38C2ADCD1C800245AFF /* TestChargingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChargingView.swift; sourceTree = "<group>"; };
 		93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryLevelRecord.swift; sourceTree = "<group>"; };
-		93B898F92AE76DB6005E1678 /* BatteryLevelStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryLevelStateManager.swift; sourceTree = "<group>"; };
+		93B898F92AE76DB6005E1678 /* BatteryLevelViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryLevelViewModel.swift; sourceTree = "<group>"; };
 		93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryLevel.swift; sourceTree = "<group>"; };
 		93B898FD2AE76DD0005E1678 /* BatteryChargingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryChargingService.swift; sourceTree = "<group>"; };
+		93B898FF2AE779F7005E1678 /* ChargingRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingRange.swift; sourceTree = "<group>"; };
 		93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "YTeam-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -214,11 +213,10 @@
 		4C6049C32AD7948700E9F0BF /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				93B898F92AE76DB6005E1678 /* BatteryLevelStateManager.swift */,
+				93B898F92AE76DB6005E1678 /* BatteryLevelViewModel.swift */,
 				4C6049C42AD7948F00E9F0BF /* MainViewModel.swift */,
 				4C47302B2AD9760C0025F089 /* LoginViewModel.swift */,
 				4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */,
-				9318D3882ADCD18600245AFF /* ChargingViewModel.swift */,
 				8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */,
 				7D02E7992ADE89B600923AFB /* FallViewModel.swift */,
 			);
@@ -236,6 +234,7 @@
 				9318D38A2ADCD1AC00245AFF /* ChartData.swift */,
 				8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */,
 				7D02E7972ADE892500923AFB /* Fall.swift */,
+				93B898FF2AE779F7005E1678 /* ChargingRange.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -552,10 +551,9 @@
 			files = (
 				9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */,
 				7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */,
-				93B898FA2AE76DB6005E1678 /* BatteryLevelStateManager.swift in Sources */,
+				93B898FA2AE76DB6005E1678 /* BatteryLevelViewModel.swift in Sources */,
 				7D02E7962ADE88BF00923AFB /* FallService.swift in Sources */,
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
-				7D02E7782ADD035D00923AFB /* ChargingRange.swift in Sources */,
 				93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
@@ -568,7 +566,6 @@
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
 				4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */,
 				8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */,
-				9318D3892ADCD18600245AFF /* ChargingViewModel.swift in Sources */,
 				93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
 				4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */,
@@ -581,6 +578,7 @@
 				7D02E79A2ADE89B600923AFB /* FallViewModel.swift in Sources */,
 				4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */,
 				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
+				93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */,
 				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -763,13 +761,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ada.YTeam;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kevin.YTeam;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ada.YTeam.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.YTeam.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -798,13 +796,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.ada.YTeam;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kevin.YTeam;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ada.YTeam.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.YTeam.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -842,7 +840,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ada.YTeam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.YTeam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -877,7 +875,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ada.YTeam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.YTeam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;

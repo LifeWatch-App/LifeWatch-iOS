@@ -11,9 +11,12 @@ struct MainView: View {
     //    @ObservedObject private var fallDetector = FallDetectionManager()
     @StateObject private var authVM = TestAuthViewModel()
     //    @StateObject private var locationViewModel = LocationViewModel()
-    
+
     var body: some View {
         if authVM.userAuth?.userID != nil {
+//            VStack {
+//                Text("Test")
+//            }
             //            IdleDetectionView()
             TestChargingView()
                 .environmentObject(authVM)

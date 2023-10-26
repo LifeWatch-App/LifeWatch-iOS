@@ -14,7 +14,7 @@ struct TestChargingView: View {
     var body: some View {
         VStack {
             Text("\(vm.batteryLevel?.description ?? "Not able to fetch") %")
-            Text(vm.batteryCharging.descriptionState)
+            Text(vm.batteryCharging.description)
 
             Button("Test Auth") {
                 print(authVM.userAuth)

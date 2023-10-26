@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct Invite: Identifiable, Codable { 
+struct Invite: Identifiable, Codable {
     @DocumentID var id: String?
     var seniorId: String?
     var caregiverId: String?

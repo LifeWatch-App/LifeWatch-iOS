@@ -24,10 +24,12 @@ class MainViewModel: ObservableObject {
         service.$user
             .combineLatest(service.$userData, service.$invites)
             .sink { [weak self] user, userData, invites in
-                self?.user = user
-                self?.userData = userData
-                self?.invites = invites
-                self?.handleAuthWatch(userID: user?.uid, userData: userData, invites: invites)
+              
+                    self?.user = user
+                    self?.userData = userData
+                    self?.invites = invites
+                    self?.handleAuthWatch(userID: user?.uid, userData: userData, invites: invites)
+
             }
             .store(in: &cancellables)
 
@@ -46,9 +48,7 @@ class MainViewModel: ObservableObject {
     func handleAuthWatch(userID: String?, userData: UserData?, invites: [Invite]) {
         let encoder = JSONEncoder()
         let userRecord = UserRecord(userID: userID, userData: userData, invites: invites)
-        print(userRecord)
         if let encodedData = try? encoder.encode(userRecord) {
-        
             WatchConnectorService.shared.session.sendMessage(["user_auth": encodedData], replyHandler: nil)
         }
     }

@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             if mainViewModel.user != nil {
-                MainView()
+                TestChargingView()
             } else {
                 LoginView()
             }
