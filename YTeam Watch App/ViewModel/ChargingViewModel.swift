@@ -96,22 +96,22 @@ final class CobaTestViewModel: ObservableObject {
                     Task {
                         if let batteryRecords: FirebaseRecords<BatteryLevelRecord> = try? await self.service.fetch(endPoint: MultipleEndPoints.batteryLevels, httpMethod: .get) {
 
-                            if let specificBatteryRecord = batteryRecords.documents.first(where: { $0.fields?.seniorID?.stringValue == userID }) {
+                            if let specificBatteryRecord = batteryRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID }) {
                                 guard let specificBatteryRecordDocumentName = specificBatteryRecord.name else { return }
                                 let components = specificBatteryRecordDocumentName.components(separatedBy: "/")
                                 guard let specificBatteryRecordDocumentID = components.last else { return }
 
-                                let batteryLevelRecord1: BatteryLevelRecord = BatteryLevelRecord(seniorID: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), iphoneBatteryLevel: specificBatteryRecord.fields?.iphoneBatteryLevel, watchLastUpdatedAt: Description(stringValue: Date.now.description), iphoneLastUpdatedAt: specificBatteryRecord.fields?.iphoneLastUpdatedAt, watchBatteryState: Description(stringValue: self.batteryCharging.description), iphoneBatteryState: specificBatteryRecord.fields?.iphoneBatteryState)
+                                let batteryLevelRecord1: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), iphoneBatteryLevel: specificBatteryRecord.fields?.iphoneBatteryLevel, watchLastUpdatedAt: Description(stringValue: Date.now.description), iphoneLastUpdatedAt: specificBatteryRecord.fields?.iphoneLastUpdatedAt, watchBatteryState: Description(stringValue: self.batteryCharging.description), iphoneBatteryState: specificBatteryRecord.fields?.iphoneBatteryState)
 
                                 try? await self.service.set(endPoint: SingleEndpoints.batteryLevels(batteryLevelsDocumentID: specificBatteryRecordDocumentID), fields: batteryLevelRecord1, httpMethod: .patch)
                             } else {
-                                let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorID: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description), watchBatteryState: Description(stringValue: self.batteryCharging.description))
+                                let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description), watchBatteryState: Description(stringValue: self.batteryCharging.description))
 
                                 try? await self.service.set(endPoint: MultipleEndPoints.batteryLevels, fields: batteryLevelRecord, httpMethod: .post)
                             }
 
                         } else {
-                            let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorID: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description), watchBatteryState: Description(stringValue: self.batteryCharging.description))
+                            let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description), watchBatteryState: Description(stringValue: self.batteryCharging.description))
 
                             try? await self.service.set(endPoint: MultipleEndPoints.batteryLevels, fields: batteryLevelRecord, httpMethod: .post)
                         }
@@ -124,12 +124,12 @@ final class CobaTestViewModel: ObservableObject {
                     Task {
                         if let batteryRecords: FirebaseRecords<BatteryLevelRecord> = try? await self.service.fetch(endPoint: MultipleEndPoints.batteryLevels, httpMethod: .get) {
 
-                            guard let specificBatteryRecord = batteryRecords.documents.first(where: { $0.fields?.seniorID?.stringValue == userID }) else { return }
+                            guard let specificBatteryRecord = batteryRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID }) else { return }
                             guard let specificBatteryRecordDocumentName = specificBatteryRecord.name else { return }
                             let components = specificBatteryRecordDocumentName.components(separatedBy: "/")
                             guard let specificBatteryRecordDocumentID = components.last else { return }
 
-                            let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorID: Description(stringValue: userID), watchBatteryLevel: specificBatteryRecord.fields?.watchBatteryLevel, iphoneBatteryLevel: specificBatteryRecord.fields?.iphoneBatteryLevel, watchLastUpdatedAt: Description(stringValue: Date.now.description), iphoneLastUpdatedAt: specificBatteryRecord.fields?.iphoneLastUpdatedAt, watchBatteryState: Description(stringValue: self.batteryCharging.description), iphoneBatteryState: specificBatteryRecord.fields?.iphoneBatteryState)
+                            let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: specificBatteryRecord.fields?.watchBatteryLevel, iphoneBatteryLevel: specificBatteryRecord.fields?.iphoneBatteryLevel, watchLastUpdatedAt: Description(stringValue: Date.now.description), iphoneLastUpdatedAt: specificBatteryRecord.fields?.iphoneLastUpdatedAt, watchBatteryState: Description(stringValue: self.batteryCharging.description), iphoneBatteryState: specificBatteryRecord.fields?.iphoneBatteryState)
 
                             try? await self.service.set(endPoint: SingleEndpoints.batteryLevels(batteryLevelsDocumentID: specificBatteryRecordDocumentID), fields: batteryLevelRecord, httpMethod: .patch)
                         }

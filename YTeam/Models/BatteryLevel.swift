@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 
 struct BatteryLevel: Hashable, Codable {
     @DocumentID var id: String?
-    var seniorID: String?
+    var seniorId: String?
     var watchBatteryLevel: String?
     var iphoneBatteryLevel: String?
     var watchLastUpdatedAt: String?
