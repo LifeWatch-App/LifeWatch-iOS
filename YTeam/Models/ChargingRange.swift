@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 
 struct ChargingRange: Hashable, Codable {
     @DocumentID var id: String?
-    var seniorID: String?
+    var seniorId: String?
     var startCharging: String?
     var endCharging: String?
     var taskState: String?

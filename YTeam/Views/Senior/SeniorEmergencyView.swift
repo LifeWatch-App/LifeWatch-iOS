@@ -43,7 +43,6 @@ struct SeniorEmergencyView: View {
             }
             .background(Color(.systemGroupedBackground))
             .toolbar {
-            
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
                         ProfileView()
@@ -70,11 +69,14 @@ struct SeniorEmergencyView: View {
 
 struct SOSButton: View {
     @ObservedObject var seniorEmergencyViewModel: SeniorEmergencyViewModel = SeniorEmergencyViewModel()
+    @ObservedObject var audioManager: AudioPlayerManager = AudioPlayerManager()
+    
     var body: some View {
         Text("Press alert button to bell")
             .font(.system(size: 18))
         Button {
             Task{ try? seniorEmergencyViewModel.sendSOS()}
+            audioManager.playAlert()
         } label: {
             ZStack {
                 Circle()
