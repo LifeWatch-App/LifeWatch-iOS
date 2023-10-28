@@ -43,24 +43,25 @@ struct SeniorEmergencyView: View {
             }
             .background(Color(.systemGroupedBackground))
             .toolbar {
-//                ToolbarItem(placement: .topBarTrailing) {
-//                    Button {
-//                        
-//                    } label: {
-//                        Image(systemName: "person.crop.circle")
-//                            .font(.title)
-//                    }
-//                }
-                
-                Button(
-                    action: {
-                        seniorEmergencyViewModel.signOut()
-                    },
-                    label: {
-                        Text("Sign Out")
-                            .bold()
+            
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        ProfileView()
+                    } label: {
+                        Image(systemName: "person.crop.circle")
+                            .font(.title)
                     }
-                )
+                }
+                
+//                Button(
+//                    action: {
+//                        seniorEmergencyViewModel.signOut()
+//                    },
+//                    label: {
+//                        Text("Sign Out")
+//                            .bold()
+//                    }
+//                )
             }
             .navigationTitle("Emergency")
         }
