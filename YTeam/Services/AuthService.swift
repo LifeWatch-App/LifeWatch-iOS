@@ -9,6 +9,7 @@ import FirebaseAuth
 import Foundation
 import AuthenticationServices
 import CryptoKit
+import SwiftUI
 
 class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate  {
     let db = Firestore.firestore()
@@ -116,7 +117,9 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     }
     
     func getUserData() {
-        isLoading = true
+        withAnimation {
+            isLoading = true
+        }
         
         db.collection("users").document(AuthService.shared.user!.uid).getDocument { (querySnapshot, err) in
             if let err = err {
@@ -152,7 +155,9 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                             print("bba")
                             
                             if documents.count == 0 {
-                                self.isLoading = false
+                                withAnimation {
+                                    self.isLoading = false
+                                }
                             }
                             
                             print("invo: ", documents)
@@ -175,7 +180,9 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                             }
                                             
                                             if (index == documents.count - 1) {
-                                                self.isLoading = false
+                                                withAnimation {
+                                                    self.isLoading = false
+                                                }
                                             }
                                         }
                                     }
@@ -209,7 +216,9 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                             else {
                                 print("Document added")
                                 self!.userData = UserData(id: AuthService.shared.user!.uid, email: AuthService.shared.user!.email!, role: nil, fcmToken: fcmToken as! String)
-                                self!.isLoading = false
+                                withAnimation {
+                                    self!.isLoading = false
+                                }
                             }
                             
                             self?.loginProviders = []
@@ -225,6 +234,9 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     }
     
     func setRole(role: String) {
+        withAnimation {
+            self.isLoading = true
+        }
         db.collection("users").document(AuthService.shared.user!.uid).updateData([
             "role": role
         ]) { err in
@@ -233,6 +245,10 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
             } else {
                 print("Document successfully updated")
                 AuthService.shared.userData?.role = role
+            }
+            
+            withAnimation {
+                self.isLoading = false
             }
         }
     }
