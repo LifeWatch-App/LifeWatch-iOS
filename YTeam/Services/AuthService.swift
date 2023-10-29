@@ -50,7 +50,9 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     
     func signUp(email: String, password: String) {
         //TODO: When launch app check if user data exists in UserDefault or not, if yes get that user, if not save it in user default the one that is passed from watchconnectivity
-        isLoading = true
+        withAnimation {
+            isLoading = true
+        }
         
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error != nil {
@@ -74,11 +76,15 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                         guard self != nil else { return }
                         if let err = err {
                             print("Error adding document: \(err)")
-                            self!.isLoading = false
+                            withAnimation {
+                                self!.isLoading = false
+                            }
                         }
                         else {
                             print("Document added")
-                            self!.isLoading = false
+                            withAnimation {
+                                self!.isLoading = false
+                            }
                         }
                         
                         self?.loginProviders = []
@@ -316,7 +322,9 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     }
     
     func deleteUserData() {
-        self.isLoading = true
+        withAnimation {
+            self.isLoading = true
+        }
         if userData?.role == "senior" {
             self.db.collection("users").document(AuthService.shared.user!.uid).delete() { err in
                 if let err = err {
@@ -399,7 +407,9 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                                 print("User account deletion successful")
                                             }
                                             
-                                            self.isLoading = false
+                                            withAnimation {
+                                                self.isLoading = false
+                                            }
                                         }
                                     }
                                 }
