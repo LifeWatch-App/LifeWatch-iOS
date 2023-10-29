@@ -51,16 +51,6 @@ struct SeniorEmergencyView: View {
                             .font(.title)
                     }
                 }
-                
-//                Button(
-//                    action: {
-//                        seniorEmergencyViewModel.signOut()
-//                    },
-//                    label: {
-//                        Text("Sign Out")
-//                            .bold()
-//                    }
-//                )
             }
             .navigationTitle("Emergency")
         }

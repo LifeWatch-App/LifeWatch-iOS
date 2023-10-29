@@ -14,8 +14,14 @@ struct MainView: View {
         if (mainViewModel.userData?.role != nil) {
             if mainViewModel.userData?.role == "senior" {
                 SeniorView(mainViewModel: mainViewModel)
+                    .task {
+                        mainViewModel.addInvitesListener()
+                    }
             } else {
                 CaregiverView(mainViewModel: mainViewModel)
+                    .task {
+                        mainViewModel.addInvitesListener()
+                    }
             }
         } else {
             ChooseRoleView(mainViewModel: mainViewModel)

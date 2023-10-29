@@ -880,7 +880,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -889,13 +889,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.LifeWatch;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.LifeWatch;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.LifeWatch.watchkitapp;
 				PRODUCT_NAME = "LifeWatch Watch App";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -915,7 +915,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -924,13 +924,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.LifeWatch;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.LifeWatch;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.LifeWatch.watchkitapp;
 				PRODUCT_NAME = "LifeWatch Watch App";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -952,7 +952,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -968,7 +968,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.LifeWatch;
 				PRODUCT_NAME = LifeWatch;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -987,7 +987,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -1003,7 +1003,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.LifeWatch;
 				PRODUCT_NAME = LifeWatch;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;

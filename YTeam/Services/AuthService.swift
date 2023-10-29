@@ -22,7 +22,6 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     @Published var isDeleteAppleAccount = false
     var invitesListener: ListenerRegistration?
     
-    
     func listenToAuthState() {
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
             guard let self = self else {
@@ -109,8 +108,8 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
             }
             
             self.userData = nil
-            //            self.invites = []
             self.user = nil
+            invitesListener!.remove()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
@@ -126,7 +125,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                 print("Error getting documents: \(err)")
             } else {
                 AuthService.shared.userData = try? querySnapshot!.data(as: UserData.self)
-                
+         
                 if AuthService.shared.userData != nil {
                     // Check and update FCM token if needed
                     // Get the FCM token form user defaults
@@ -144,57 +143,16 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                             }
                         }
                     }
-                    
-                    // Set invites listener
-                    self.invitesListener = self.db.collection("invites").whereField(AuthService.shared.userData!.role == "senior" ? "seniorId" : "caregiverId", isEqualTo: AuthService.shared.user!.uid)
-                        .addSnapshotListener { querySnapshot, error in
-                            guard let documents = querySnapshot?.documents else {
-                                print("No documents in invites")
-                                return
-                            }
-                            print("bba")
-                            
-                            if documents.count == 0 {
-                                withAnimation {
-                                    self.isLoading = false
-                                }
-                            }
-                            
-                            print("invo: ", documents)
-                            
-                            for (index, document) in documents.enumerated() {
-                                var invite = try? document.data(as: Invite.self)
-                                
-                                self.db.collection("users").document(invite!.seniorId!).getDocument { (querySnapshot, err) in
-                                    if let err = err {
-                                        print("Error getting documents: \(err)")
-                                    } else {
-                                        invite?.seniorData = try? querySnapshot?.data(as: UserData.self)
-                                        
-                                        self.db.collection("users").document(invite!.caregiverId!).getDocument { (querySnapshot, err) in
-                                            if let err = err {
-                                                print("Error getting documents: \(err)")
-                                            } else {
-                                                invite?.caregiverData = try? querySnapshot?.data(as: UserData.self)
-                                                self.invites.append(invite!)
-                                            }
-                                            
-                                            if (index == documents.count - 1) {
-                                                withAnimation {
-                                                    self.isLoading = false
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    
+                   
                     self.loginProviders = []
                     if let providerData = Auth.auth().currentUser?.providerData {
                         for item in providerData {
                             self.loginProviders.append(item.providerID)
                         }
+                    }
+                    
+                    withAnimation {
+                        self.isLoading = false
                     }
                 } else {
                     guard let fcmToken = UserDefaults.standard.value(forKey: "fcmToken") else{
@@ -231,6 +189,52 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                 }
             }
         }
+    }
+    
+    func addInvitesListener() {
+        print("added listeners")
+        self.invitesListener = self.db.collection("invites").whereField(AuthService.shared.userData!.role == "senior" ? "seniorId" : "caregiverId", isEqualTo: AuthService.shared.user!.uid)
+            .addSnapshotListener { querySnapshot, error in
+                guard let documents = querySnapshot?.documents else {
+                    print("No documents in invites")
+                    return
+                }
+                
+                if documents.count == 0 {
+                    withAnimation {
+                        self.isLoading = false
+                    }
+                }
+                
+                self.invites = []
+                
+                for (index, document) in documents.enumerated() {
+                    var invite = try? document.data(as: Invite.self)
+                    
+                    self.db.collection("users").document(invite!.seniorId!).getDocument { (querySnapshot, err) in
+                        if let err = err {
+                            print("Error getting documents: \(err)")
+                        } else {
+                            invite?.seniorData = try? querySnapshot?.data(as: UserData.self)
+                            
+                            self.db.collection("users").document(invite!.caregiverId!).getDocument { (querySnapshot, err) in
+                                if let err = err {
+                                    print("Error getting documents: \(err)")
+                                } else {
+                                    invite?.caregiverData = try? querySnapshot?.data(as: UserData.self)
+                                    self.invites.append(invite!)
+                                }
+                                
+                                if (index == documents.count - 1) {
+                                    withAnimation {
+                                        self.isLoading = false
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
     }
     
     func setRole(role: String) {

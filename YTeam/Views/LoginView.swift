@@ -12,20 +12,14 @@ import FirebaseAuth
 
 struct LoginView: View {
     @ObservedObject var loginViewModel: LoginViewModel = LoginViewModel()
-    @State var isSigningUp = false
     
     var body: some View {
-        if !isSigningUp {
-            LoginPage(loginViewModel: loginViewModel, isSigningUp: $isSigningUp)
-        } else {
-            SignUpView(isSigningUp: $isSigningUp)
-        }
+        LoginPage(loginViewModel: loginViewModel)
     }
 }
 
 struct LoginPage: View {
     @ObservedObject var loginViewModel: LoginViewModel
-    @Binding var isSigningUp: Bool
     
     var body: some View {
         NavigationStack {
@@ -86,40 +80,16 @@ struct LoginPage: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                 
-    //            Button {
-    //
-    //            } label: {
-    //                HStack {
-    //                    Spacer()
-    //                    Image(systemName: "apple.logo")
-    //                        .font(.title3)
-    //                    Text("Continue with Apple")
-    //                        .fontWeight(.semibold)
-    //                        .padding(.vertical)
-    //                    Spacer()
-    //                }
-    //                .foregroundStyle(.black)
-    //                .overlay(
-    //                    RoundedRectangle(cornerRadius: 8)
-    //                        .stroke(.black, lineWidth: 2)
-    //                )
-    //            }
-                
                 SignInWithAppleButton()
                 .frame(height: 50)
                 .onTapGesture {
                     loginViewModel.startSignInWithAppleFlow()
-    //                signInHandler = SignInWithAppleCoordinator(window: self.window)
-    //                    signInHandler?.link { (user) in
-    //                      print("User signed in \(user.uid)")
-    //                      self.presentationMode.wrappedValue.dismiss() // (3)
-    //                    }
                 }
                 
                 HStack {
                     Text("Don't have an account?")
-                    Button {
-                        isSigningUp.toggle()
+                    NavigationLink {
+                        SignUpView()
                     } label: {
                         Text("Sign up")
                     }

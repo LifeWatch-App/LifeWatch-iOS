@@ -12,8 +12,7 @@ import FirebaseAuth
 
 struct SignUpView: View {
     @ObservedObject private var signUpViewModel = SignUpViewModel()
-    @Binding var isSigningUp: Bool
-    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var accepted: Bool = false
     
     var body: some View {
@@ -93,7 +92,7 @@ struct SignUpView: View {
                 HStack {
                     Text("Already have an account?")
                     Button {
-                        isSigningUp.toggle()
+                        self.presentationMode.wrappedValue.dismiss()
                     } label: {
                         Text("Login")
                     }
@@ -107,5 +106,5 @@ struct SignUpView: View {
 }
 
 #Preview {
-    SignUpView(isSigningUp: .constant(true))
+    SignUpView()
 }
