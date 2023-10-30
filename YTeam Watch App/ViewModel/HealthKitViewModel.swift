@@ -8,6 +8,7 @@
 import Foundation
 import HealthKit
 
+@MainActor
 class HealthKitViewModel: ObservableObject {
     @Published var dataAvailable: Bool = false
     @Published var heartRate: Int = 0
@@ -22,48 +23,50 @@ class HealthKitViewModel: ObservableObject {
     private var updateTask: Task<Void, Never>?
     
     init() {
-        if (!HKHealthStore.isHealthDataAvailable()) {
+        if (HKHealthStore.isHealthDataAvailable()) {
             self.dataAvailable = true
         }
         
         self.healthStore.requestAuthorization(toShare: nil, read: self.heartRateQuantitySet) { (success, error) in
-            if success {
-                self.authorized = true
+            if !success {
+                self.dataAvailable = false
             }
         }
         
-        if (self.healthStore.authorizationStatus(for: self.heartRateQuantityType) == .sharingAuthorized) {
-            self.authorized = true
+        if (self.dataAvailable) {
+            self.setHeartRateObserver()
         }
-        
-        self.startHeartbeatUpdate()
     }
     
-    func checkAuthorization() {
-        if (self.healthStore.authorizationStatus(for: self.heartRateQuantityType) != .sharingAuthorized) {
-            self.healthStore.requestAuthorization(toShare: nil, read: self.heartRateQuantitySet) { (success, error) in
-                if success {
-                    self.authorized = true
-                }
+    
+    @MainActor
+    func setHeartRateObserver() {
+        let observerQuery = HKObserverQuery(sampleType: self.heartRateQuantityType, predicate: nil) { query, completionHandler, error in
+            if let error = error {
+                print("Error observing heart rate: \(error.localizedDescription)")
+            } else {
+                self.updateHeartRate()
+            }
+        }
+
+        self.healthStore.execute(observerQuery)
+
+        self.healthStore.enableBackgroundDelivery(for: self.heartRateQuantityType, frequency: .immediate) { (success, error) in
+            if !success {
+                print("Failed to enable background delivery for heart rate updates: \(error?.localizedDescription ?? "Unknown error")")
             }
         }
     }
     
-    func startHeartbeatUpdate() {
-        checkAuthorization()
-        debugPrint(self.healthStore.authorizationStatus(for: self.heartRateQuantityType))
-        guard self.authorized == true else {return}
-        
+    func updateHeartRate() {
         let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
-        let query = HKAnchoredObjectQuery(type: heartRateType, predicate: nil, anchor: nil, limit: HKObjectQueryNoLimit) { query, samples, deletedObjects, anchor, error in
-            if let quantitySamples = samples as? [HKQuantitySample] {
-                if let heartRateValue = quantitySamples.last?.quantity.doubleValue(for: HKUnit(from: "count/min")) {
-                    self.heartRate = Int(heartRateValue)
-                }
+        let query = HKSampleQuery(sampleType: heartRateType, predicate: nil, limit: 1, sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)]) { query, samples, error in
+            if let sample = samples?.first as? HKQuantitySample {
+                let heartRateValue = sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute()))
+                self.heartRate = Int(heartRateValue)
             }
         }
         
-        debugPrint("I reached here!")
         self.healthStore.execute(query)
     }
 }
