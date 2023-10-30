@@ -2,10 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>LifeWatch processes your heartbeat data for your knowledge about your own heart status.</string>
+	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+	<string>You can see your own heartbeat status.</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>com.YTeam.LifeWatch.watchkitapp</string>
-		<string>com.YTeam.LifeWatch</string>
+		<string>com.kenny.LifeWatch.watchkitapp</string>
+		<string>com.kenny.LifeWatch</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

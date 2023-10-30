@@ -76,6 +76,8 @@
 		7D02E7962ADE88BF00923AFB /* FallService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7952ADE88BF00923AFB /* FallService.swift */; };
 		7D02E7982ADE892500923AFB /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7972ADE892500923AFB /* Fall.swift */; };
 		7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79F2ADFB35D00923AFB /* Charge.swift */; };
+		7D04164E2AEFBD5500C4CBA7 /* HealthKitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D04164A2AEF5EBC00C4CBA7 /* HealthKitViewModel.swift */; };
+		7D0416502AEFC11200C4CBA7 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D04164F2AEFC11200C4CBA7 /* HeartRateView.swift */; };
 		7D9D41D82AE62DB800818908 /* Idle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9D41D72AE62DB800818908 /* Idle.swift */; };
 		7D9D41DA2AE62EA200818908 /* InactivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9D41D92AE62EA200818908 /* InactivityService.swift */; };
 		7D9D41DC2AE7561600818908 /* InactivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9D41DB2AE7561600818908 /* InactivityType.swift */; };
@@ -192,6 +194,8 @@
 		7D02E7952ADE88BF00923AFB /* FallService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallService.swift; sourceTree = "<group>"; };
 		7D02E7972ADE892500923AFB /* Fall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
 		7D02E79F2ADFB35D00923AFB /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
+		7D04164A2AEF5EBC00C4CBA7 /* HealthKitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitViewModel.swift; sourceTree = "<group>"; };
+		7D04164F2AEFC11200C4CBA7 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
 		7D9D41D72AE62DB800818908 /* Idle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Idle.swift; sourceTree = "<group>"; };
 		7D9D41D92AE62EA200818908 /* InactivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityService.swift; sourceTree = "<group>"; };
 		7D9D41DB2AE7561600818908 /* InactivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityType.swift; sourceTree = "<group>"; };
@@ -438,6 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */,
+				7D04164A2AEF5EBC00C4CBA7 /* HealthKitViewModel.swift */,
 				7D02E74D2ADD023E00923AFB /* IdleDetectionViewModel.swift */,
 				7D02E74C2ADD023E00923AFB /* LocationVIewModel.swift */,
 				7D02E74E2ADD023E00923AFB /* ChargingViewModel.swift */,
@@ -496,6 +501,7 @@
 				4CA2329C2ADE1F15003874D2 /* MainView.swift */,
 				7D02E75C2ADD023E00923AFB /* TestChargingView.swift */,
 				7D02E75D2ADD023E00923AFB /* IdleDetectionView.swift */,
+				7D04164F2AEFC11200C4CBA7 /* HeartRateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -715,8 +721,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D02E76E2ADD023E00923AFB /* ChargingRange.swift in Sources */,
+				7D0416502AEFC11200C4CBA7 /* HeartRateView.swift in Sources */,
 				7D02E76C2ADD023E00923AFB /* TestChargingView.swift in Sources */,
 				7D02E7632ADD023E00923AFB /* IdleDetectionViewModel.swift in Sources */,
+				7D04164E2AEFBD5500C4CBA7 /* HealthKitViewModel.swift in Sources */,
 				4CA2329D2ADE1F15003874D2 /* MainView.swift in Sources */,
 				7D02E76B2ADD023E00923AFB /* APIEnums.swift in Sources */,
 				7D02E76A2ADD023E00923AFB /* APIConstants.swift in Sources */,
@@ -880,7 +888,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -889,13 +897,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.LifeWatch;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.LifeWatch;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.LifeWatch.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch.watchkitapp;
 				PRODUCT_NAME = "LifeWatch Watch App";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -915,7 +923,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -924,13 +932,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.LifeWatch;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.LifeWatch;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.LifeWatch.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch.watchkitapp;
 				PRODUCT_NAME = "LifeWatch Watch App";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -952,7 +960,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -968,7 +976,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.LifeWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch;
 				PRODUCT_NAME = LifeWatch;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -987,7 +995,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -1003,7 +1011,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.LifeWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch;
 				PRODUCT_NAME = LifeWatch;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
