@@ -20,6 +20,7 @@
 		4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049C82AD799F200E9F0BF /* SignUpView.swift */; };
 		4C6049CB2AD79DDA00E9F0BF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049CA2AD79DDA00E9F0BF /* FirebaseFirestore */; };
 		4C6049D02AD7C6E000E9F0BF /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */; };
+		4C7076332AEF925D00271E9E /* PTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7076322AEF925D00271E9E /* PTT.swift */; };
 		4CA232972ADE1EF1003874D2 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232922ADE1EF1003874D2 /* UserRecord.swift */; };
 		4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232932ADE1EF1003874D2 /* ChartData.swift */; };
 		4CA232992ADE1EF1003874D2 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232942ADE1EF1003874D2 /* Invite.swift */; };
@@ -137,6 +138,7 @@
 		4C6049C82AD799F200E9F0BF /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4C6049CD2AD7AF4000E9F0BF /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		4C6049D12AD7FD4A00E9F0BF /* Invite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
+		4C7076322AEF925D00271E9E /* PTT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTT.swift; sourceTree = "<group>"; };
 		4CA232912ADD4517003874D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4CA232922ADE1EF1003874D2 /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
 		4CA232932ADE1EF1003874D2 /* ChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 				7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */,
 				7D02E7202AD8ECD500923AFB /* Screen.swift */,
 				7D9D41DB2AE7561600818908 /* InactivityType.swift */,
+				4C7076322AEF925D00271E9E /* PTT.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -674,6 +677,7 @@
 				9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */,
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
 				4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */,
+				4C7076332AEF925D00271E9E /* PTT.swift in Sources */,
 				4CA7922A2ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift in Sources */,
 				4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */,
 				4C21A3E62ADF7ECA0044E966 /* SeniorView.swift in Sources */,
@@ -957,6 +961,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LifeWatch;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = PTT;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -992,6 +997,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LifeWatch;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = PTT;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

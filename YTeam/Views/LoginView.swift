@@ -61,7 +61,7 @@ struct LoginPage: View {
                 }
                 
                 Button {
-                    loginViewModel.login()
+                    PTT.shared.requestJoinChannel()
                 } label: {
                     HStack {
                         Spacer()
@@ -83,7 +83,7 @@ struct LoginPage: View {
                 SignInWithAppleButton()
                 .frame(height: 50)
                 .onTapGesture {
-                    loginViewModel.startSignInWithAppleFlow()
+                    PTT.shared.stopReceivingAudio()
                 }
                 
                 HStack {

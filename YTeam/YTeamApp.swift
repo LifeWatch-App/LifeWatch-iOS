@@ -39,6 +39,7 @@ extension AppDelegate: MessagingDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
+        print("APNS Token: ", deviceToken.map { String(format: "%02.2hhx", $0) }.joined())
     }
 }
 
@@ -50,6 +51,9 @@ struct YTeamApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.light)
+                .task {
+                    try? await PTT.shared.setupChannelManager()
+                }
         }
     }
 }
