@@ -336,7 +336,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                     print("User data successfully removed!")
                 }
                 
-                self.db.collection("invites").whereField("caregiverId", isEqualTo: AuthService.shared.user!.uid).getDocuments() { (querySnapshot, err) in
+                self.db.collection("invites").whereField("seniorId", isEqualTo: AuthService.shared.user!.uid).getDocuments() { (querySnapshot, err) in
                     if let err = err {
                         print("Error getting invites documents: \(err)")
                     } else {
