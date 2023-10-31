@@ -46,23 +46,24 @@ class HealthKitViewModel: ObservableObject {
                 print("Error observing heart rate: \(error.localizedDescription)")
             } else {
                 self.updateHeartRate()
+                completionHandler()
             }
         }
-
-        self.healthStore.execute(observerQuery)
 
         self.healthStore.enableBackgroundDelivery(for: self.heartRateQuantityType, frequency: .immediate) { (success, error) in
             if !success {
                 print("Failed to enable background delivery for heart rate updates: \(error?.localizedDescription ?? "Unknown error")")
             }
         }
+        
+        self.healthStore.execute(observerQuery)
     }
     
     func updateHeartRate() {
-        let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
-        let query = HKSampleQuery(sampleType: heartRateType, predicate: nil, limit: 1, sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)]) { query, samples, error in
+        let query = HKSampleQuery(sampleType: self.heartRateQuantityType, predicate: nil, limit: 1, sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)]) { query, samples, error in
             if let sample = samples?.first as? HKQuantitySample {
                 let heartRateValue = sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute()))
+                debugPrint(heartRateValue)
                 self.heartRate = Int(heartRateValue)
             }
         }
