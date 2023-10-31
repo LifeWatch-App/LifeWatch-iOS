@@ -30,7 +30,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
     {
-        completionHandler(.banner)
+        completionHandler([.list, .banner, .badge, .sound])
     }
 }
 
