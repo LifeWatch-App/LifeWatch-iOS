@@ -16,7 +16,7 @@ struct ContentView: View {
                 ProgressView()
             } else {
                 if mainViewModel.user != nil {
-                    MainView()
+                    MapTestView()
                 } else {
                     LoginView()
                 }

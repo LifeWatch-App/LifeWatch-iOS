@@ -50,6 +50,8 @@ struct YTeamApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.light)
+//            MapTestView()
+//                .preferredColorScheme(.light)
         }
     }
 }

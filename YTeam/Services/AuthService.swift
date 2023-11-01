@@ -187,7 +187,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                             }
                             else {
                                 print("Document added")
-                                self!.userData = UserData(id: AuthService.shared.user!.uid, email: AuthService.shared.user!.email!, role: nil, fcmToken: fcmToken as! String)
+                                self!.userData = UserData(id: AuthService.shared.user!.uid, email: AuthService.shared.user!.email!, role: nil, fcmToken: fcmToken as? String)
                                 self!.isLoading = false
                             }
                         }

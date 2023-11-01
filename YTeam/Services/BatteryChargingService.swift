@@ -10,6 +10,7 @@ import Firebase
 
 final class BatteryChargingService {
     static let shared = BatteryChargingService()
+    @Published var documentChanges = [DocumentChange]()
 
     func fetchBatteryLevel() async throws -> [BatteryLevel] {
         let snapshot = try await FirestoreConstants.batteryLevelCollection.getDocuments()
@@ -68,6 +69,19 @@ final class BatteryChargingService {
 
         for document in documents {
             try await document.reference.delete()
+        }
+    }
+
+    func observeBatteryStateLevelSpecific() {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+
+        let query = FirestoreConstants.batteryLevelCollection
+            .whereField("seniorID", isEqualTo: currentUid)
+            .limit(to: 1)
+
+        query.addSnapshotListener { querySnapshot, error in
+            guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
+            self.documentChanges = changes
         }
     }
 }

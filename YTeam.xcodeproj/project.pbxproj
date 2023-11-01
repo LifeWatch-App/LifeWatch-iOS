@@ -37,7 +37,6 @@
 		4CA7922E2ADFB67B003B5EC9 /* SeniorEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */; };
 		4CA792302ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */; };
 		4CA792322ADFFFC2003B5EC9 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CA792312ADFFFC2003B5EC9 /* FirebaseMessaging */; };
-		4CAD39482AE8B9CB00F84FD6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */; };
 		4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB015592AD4DBBC0023C71E /* YTeamApp.swift */; };
 		4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0155B2AD4DBBC0023C71E /* ContentView.swift */; };
 		4CB0155E2AD4DBBF0023C71E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */; };
@@ -84,10 +83,21 @@
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
 		8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */; };
+		931293632AEA08820052F4AF /* LocationRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293622AEA08820052F4AF /* LocationRecord.swift */; };
+		931293652AEA298E0052F4AF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 931293642AEA298E0052F4AF /* GoogleService-Info.plist */; };
+		931293672AED3F070052F4AF /* BatteryMonitorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293662AED3F070052F4AF /* BatteryMonitorViewModel.swift */; };
+		931293692AED53100052F4AF /* TestBatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293682AED53100052F4AF /* TestBatteryView.swift */; };
+		9312936B2AEF4F040052F4AF /* CombinedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9312936A2AEF4F040052F4AF /* CombinedView.swift */; };
 		9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38A2ADCD1AC00245AFF /* ChartData.swift */; };
 		9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38C2ADCD1C800245AFF /* TestChargingView.swift */; };
 		9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D39B2ADCD92B00245AFF /* FirebaseAuth */; };
 		9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7612ADD023E00923AFB /* UserProfile.swift */; };
+		9322F60D2AEFA8340013B0AB /* MapTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9322F60C2AEFA8340013B0AB /* MapTestView.swift */; };
+		9322F6102AEFA8A80013B0AB /* MKMapRep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9322F60F2AEFA8A80013B0AB /* MKMapRep.swift */; };
+		9322F6122AEFA9250013B0AB /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9322F6112AEFA9250013B0AB /* MapViewModel.swift */; };
+		9322F6142AEFB0DE0013B0AB /* MarkerAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9322F6132AEFB0DE0013B0AB /* MarkerAnnotation.swift */; };
+		9322F6162AF002130013B0AB /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9322F6152AF002130013B0AB /* LocationService.swift */; };
+		9322F6182AF1F2C60013B0AB /* CLPlacemarkExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9322F6172AF1F2C60013B0AB /* CLPlacemarkExt.swift */; };
 		93B898EE2AE616C3005E1678 /* BatteryLevelRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */; };
 		93B898FA2AE76DB6005E1678 /* BatteryLevelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898F92AE76DB6005E1678 /* BatteryLevelViewModel.swift */; };
 		93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */; };
@@ -148,7 +158,6 @@
 		4CA7922B2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyViewModel.swift; sourceTree = "<group>"; };
 		4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyView.swift; sourceTree = "<group>"; };
 		4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverEmergencyView.swift; sourceTree = "<group>"; };
-		4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CB015562AD4DBBC0023C71E /* LifeWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB015592AD4DBBC0023C71E /* YTeamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTeamApp.swift; sourceTree = "<group>"; };
 		4CB0155B2AD4DBBC0023C71E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -194,8 +203,19 @@
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRoleView.swift; sourceTree = "<group>"; };
+		931293622AEA08820052F4AF /* LocationRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecord.swift; sourceTree = "<group>"; };
+		931293642AEA298E0052F4AF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		931293662AED3F070052F4AF /* BatteryMonitorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryMonitorViewModel.swift; sourceTree = "<group>"; };
+		931293682AED53100052F4AF /* TestBatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBatteryView.swift; sourceTree = "<group>"; };
+		9312936A2AEF4F040052F4AF /* CombinedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedView.swift; sourceTree = "<group>"; };
 		9318D38A2ADCD1AC00245AFF /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		9318D38C2ADCD1C800245AFF /* TestChargingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChargingView.swift; sourceTree = "<group>"; };
+		9322F60C2AEFA8340013B0AB /* MapTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTestView.swift; sourceTree = "<group>"; };
+		9322F60F2AEFA8A80013B0AB /* MKMapRep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapRep.swift; sourceTree = "<group>"; };
+		9322F6112AEFA9250013B0AB /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		9322F6132AEFB0DE0013B0AB /* MarkerAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerAnnotation.swift; sourceTree = "<group>"; };
+		9322F6152AF002130013B0AB /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		9322F6172AF1F2C60013B0AB /* CLPlacemarkExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLPlacemarkExt.swift; sourceTree = "<group>"; };
 		93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryLevelRecord.swift; sourceTree = "<group>"; };
 		93B898F92AE76DB6005E1678 /* BatteryLevelViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryLevelViewModel.swift; sourceTree = "<group>"; };
 		93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryLevel.swift; sourceTree = "<group>"; };
@@ -263,6 +283,7 @@
 				7D02E7952ADE88BF00923AFB /* FallService.swift */,
 				7DB24EF72AE51E81009A4A6D /* SOSService.swift */,
 				7D9D41D92AE62EA200818908 /* InactivityService.swift */,
+				9322F6152AF002130013B0AB /* LocationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -271,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				93B898F92AE76DB6005E1678 /* BatteryLevelViewModel.swift */,
+				931293662AED3F070052F4AF /* BatteryMonitorViewModel.swift */,
 				4C6049C42AD7948F00E9F0BF /* MainViewModel.swift */,
 				4C47302B2AD9760C0025F089 /* LoginViewModel.swift */,
 				4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */,
@@ -325,7 +347,7 @@
 			children = (
 				7D02E7922ADE888800923AFB /* Constants */,
 				4CA232912ADD4517003874D2 /* Info.plist */,
-				4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */,
+				931293642AEA298E0052F4AF /* GoogleService-Info.plist */,
 				4C4730282AD8D2520025F089 /* Services */,
 				4C6049CC2AD7AEC800E9F0BF /* Models */,
 				4C6049C32AD7948700E9F0BF /* ViewModels */,
@@ -379,16 +401,19 @@
 		4CB0157D2AD4E5A20023C71E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9322F60E2AEFA89A0013B0AB /* MapKit */,
 				4C0F8A3C2AE784AF002E8578 /* Components */,
 				4C21A3E82ADF7ED60044E966 /* Caregiver */,
 				4C21A3E72ADF7ECF0044E966 /* Senior */,
 				4CB0155B2AD4DBBC0023C71E /* ContentView.swift */,
+				931293682AED53100052F4AF /* TestBatteryView.swift */,
 				4CB0157E2AD4E5F60023C71E /* LoginView.swift */,
 				4C6049C62AD7968700E9F0BF /* MainView.swift */,
 				4C6049C82AD799F200E9F0BF /* SignUpView.swift */,
 				9318D38C2ADCD1C800245AFF /* TestChargingView.swift */,
 				7D02E7242ADCC97200923AFB /* HistoryView.swift */,
 				8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */,
+				9322F60C2AEFA8340013B0AB /* MapTestView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -453,6 +478,7 @@
 			children = (
 				7D02E7552ADD023E00923AFB /* CalendarExt.swift */,
 				7D02E7562ADD023E00923AFB /* DateExt.swift */,
+				9322F6172AF1F2C60013B0AB /* CLPlacemarkExt.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -480,6 +506,7 @@
 				4CA2329C2ADE1F15003874D2 /* MainView.swift */,
 				7D02E75C2ADD023E00923AFB /* TestChargingView.swift */,
 				7D02E75D2ADD023E00923AFB /* IdleDetectionView.swift */,
+				9312936A2AEF4F040052F4AF /* CombinedView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -497,6 +524,7 @@
 				7D02E75F2ADD023E00923AFB /* ChargingRange.swift */,
 				7D02E7612ADD023E00923AFB /* UserProfile.swift */,
 				8D7D73052ADE247D00251550 /* Inactivity.swift */,
+				931293622AEA08820052F4AF /* LocationRecord.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -507,6 +535,16 @@
 				7D02E7932ADE889500923AFB /* FirestoreConstants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		9322F60E2AEFA89A0013B0AB /* MapKit */ = {
+			isa = PBXGroup;
+			children = (
+				9322F60F2AEFA8A80013B0AB /* MKMapRep.swift */,
+				9322F6112AEFA9250013B0AB /* MapViewModel.swift */,
+				9322F6132AEFB0DE0013B0AB /* MarkerAnnotation.swift */,
+			);
+			path = MapKit;
 			sourceTree = "<group>";
 		};
 		93CC91592AD8E6B800D1AC86 /* Enums */ = {
@@ -611,8 +649,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CB015612AD4DBBF0023C71E /* Preview Assets.xcassets in Resources */,
+				931293652AEA298E0052F4AF /* GoogleService-Info.plist in Resources */,
 				4CB0155E2AD4DBBF0023C71E /* Assets.xcassets in Resources */,
-				4CAD39482AE8B9CB00F84FD6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,6 +674,8 @@
 				7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */,
 				93B898FA2AE76DB6005E1678 /* BatteryLevelViewModel.swift in Sources */,
 				7D02E7962ADE88BF00923AFB /* FallService.swift in Sources */,
+				931293692AED53100052F4AF /* TestBatteryView.swift in Sources */,
+				9322F60D2AEFA8340013B0AB /* MapTestView.swift in Sources */,
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
 				93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
@@ -649,18 +689,21 @@
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
 				4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */,
 				4CA7922A2ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift in Sources */,
+				931293672AED3F070052F4AF /* BatteryMonitorViewModel.swift in Sources */,
 				4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */,
 				4C21A3E62ADF7ECA0044E966 /* SeniorView.swift in Sources */,
+				9322F6162AF002130013B0AB /* LocationService.swift in Sources */,
 				4CA792302ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift in Sources */,
 				4CA7922C2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift in Sources */,
+				9322F6142AEFB0DE0013B0AB /* MarkerAnnotation.swift in Sources */,
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
 				4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */,
 				8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */,
 				7DB24EF62AE51E79009A4A6D /* SOS.swift in Sources */,
-				9318D3892ADCD18600245AFF /* ChargingViewModel.swift in Sources */,
 				93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
 				4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */,
+				9322F6122AEFA9250013B0AB /* MapViewModel.swift in Sources */,
 				4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */,
 				7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */,
 				8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */,
@@ -676,6 +719,7 @@
 				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
 				7D9D41DC2AE7561600818908 /* InactivityType.swift in Sources */,
 				7D9D41D82AE62DB800818908 /* Idle.swift in Sources */,
+				9322F6102AEFA8A80013B0AB /* MKMapRep.swift in Sources */,
 				93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */,
 				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
 			);
@@ -698,8 +742,10 @@
 				4CB0156E2AD4DBBF0023C71E /* ContentView.swift in Sources */,
 				7D02E77B2ADD39D800923AFB /* CoreMotionManager.swift in Sources */,
 				4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */,
+				9312936B2AEF4F040052F4AF /* CombinedView.swift in Sources */,
 				7D02E7682ADD023E00923AFB /* CalendarExt.swift in Sources */,
 				7D02E76D2ADD023E00923AFB /* IdleDetectionView.swift in Sources */,
+				931293632AEA08820052F4AF /* LocationRecord.swift in Sources */,
 				7D02E7642ADD023E00923AFB /* ChargingViewModel.swift in Sources */,
 				4CB0156C2AD4DBBF0023C71E /* YTeamApp.swift in Sources */,
 				4CA232A02ADE1F1D003874D2 /* TestAuthViewModel.swift in Sources */,
@@ -714,6 +760,7 @@
 				93B898EE2AE616C3005E1678 /* BatteryLevelRecord.swift in Sources */,
 				8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */,
 				4CA2329A2ADE1EF1003874D2 /* DataUser.swift in Sources */,
+				9322F6182AF1F2C60013B0AB /* CLPlacemarkExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -851,7 +898,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = DQPBPU9766;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -860,20 +907,21 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.LifeWatch;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kevin.LifeWatch;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.LifeWatch.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.LifeWatch.watchkitapp;
 				PRODUCT_NAME = "LifeWatch Watch App";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.6;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
@@ -886,7 +934,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = DQPBPU9766;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -895,13 +943,14 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.LifeWatch;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kevin.LifeWatch;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.LifeWatch.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.LifeWatch.watchkitapp;
 				PRODUCT_NAME = "LifeWatch Watch App";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -909,7 +958,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 9.6;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
@@ -920,10 +969,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = YTeam/YTeam.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = DQPBPU9766;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -939,8 +989,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.LifeWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.LifeWatch;
 				PRODUCT_NAME = LifeWatch;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -955,10 +1006,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = YTeam/YTeam.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = DQPBPU9766;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -974,8 +1026,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.LifeWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.LifeWatch;
 				PRODUCT_NAME = LifeWatch;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
