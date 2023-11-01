@@ -35,6 +35,35 @@ struct SeniorEmergencyView: View {
                             .padding(.top, 4)
                         }
                     }
+                    Button {
+                        PTT.shared.requestJoinChannel()
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text("requestJoinChannel")
+                                .fontWeight(.semibold)
+                                .padding()
+                            Spacer()
+                        }
+                        .background(.accent)
+                        .foregroundStyle(.white)
+                        .cornerRadius(8)
+                    }
+                    .padding(.top, 8)
+                    Button {
+                        PTT.shared.stopReceivingAudio()
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text("stopReceivingAudio")
+                                .fontWeight(.semibold)
+                                .padding()
+                            Spacer()
+                        }
+                        .background(.accent)
+                        .foregroundStyle(.white)
+                        .cornerRadius(8)
+                    }
                     SOSButton()
                         .padding(.top, 8)
                     ChargingCard(batteryLevel: $batteryLevel)
