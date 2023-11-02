@@ -98,7 +98,7 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     func fallDetectionManagerDidChangeAuthorization(
         _ fallDetectionManager: CMFallDetectionManager
     )  {
-        print("Authorization for fall detection is changed.")
+        self.checkAndRequestForAuthorizationStatus()
     }
     
 }

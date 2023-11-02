@@ -10,6 +10,7 @@ import SwiftUI
 struct HeartRateView: View {
     @ObservedObject var heartManager: HeartManager = HeartManager()
     @ObservedObject var fallManager: FallDetectionManager = FallDetectionManager()
+    @ObservedObject var fallMotionManager: CoreMotionManager = CoreMotionManager()
     var body: some View {
         VStack{
             Button{
