@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct HeartRateView: View {
-    @ObservedObject var healthKitViewModel: HealthKitViewModel = HealthKitViewModel()
+    @ObservedObject var heartManager: HeartManager = HeartManager()
     var body: some View {
         VStack{
-            Text(healthKitViewModel.heartRate.description)
+            Text(heartManager.heartRate.description)
                 .font(.title)
             Text("BPM")
         }

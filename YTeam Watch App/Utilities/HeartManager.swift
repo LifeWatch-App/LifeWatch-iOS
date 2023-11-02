@@ -9,7 +9,7 @@ import Foundation
 import HealthKit
 
 @MainActor
-class HealthKitViewModel: ObservableObject {
+class HeartManager: ObservableObject {
     @Published var dataAvailable: Bool = false
     @Published var heartRate: Int = 0
     @Published var highHeartRate: Bool = false
