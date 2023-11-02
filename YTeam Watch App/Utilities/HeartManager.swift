@@ -32,6 +32,9 @@ class HeartManager: ObservableObject {
     private var highHeartRateObserverReady: Bool = false
     private var irregularHeartRhythmObserverReady: Bool = false
     
+    private let decoder: JSONDecoder = JSONDecoder()
+    private let service = DataService.shared
+    
     init() {
         if (HKHealthStore.isHealthDataAvailable()) {
             self.dataAvailable = true
@@ -45,19 +48,33 @@ class HeartManager: ObservableObject {
         
         if (self.dataAvailable) {
             self.setHeartRateObserver()
-            self.setHighHeartRateObserver()
-            self.setLowHeartRateObserver()
-            self.setIrregularHeartRateObserver()
+            Task {await self.setHighHeartRateObserver()}
+            Task {await self.setLowHeartRateObserver()}
+            Task {await self.setIrregularHeartRateObserver()}
         }
     }
     
     @MainActor
-    func setLowHeartRateObserver() {
+    func updateLowHeartRateToDatabase() async {
+        guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
+        let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
+        let timeDescription: Double = Date.now.timeIntervalSince1970
+        debugPrint("Test")
+        if (userRecord != nil) {
+            let heartAnomaly = HeartAnomaly(seniorId: Description(stringValue: userRecord?.userID), time: Description(doubleValue: timeDescription), anomaly: Description(stringValue: "lowHeart"))
+            Task { try? await self.service.set(endPoint: MultipleEndPoints.heartAnomaly, fields: heartAnomaly, httpMethod: .post) }
+            self.lowHeartRate = true
+            
+            debugPrint("Low Heart Rate Detected")
+        }
+    }
+    
+    @MainActor
+    func setLowHeartRateObserver() async {
         let observerQuery = HKObserverQuery(sampleType: self.lowHeartEventType, predicate: nil) { query, completionHandler, error in
             
             if (self.lowHeartRateObserverReady) {
-                self.lowHeartRate = true
-                debugPrint("Low Heart Rate Detected")
+                Task {await self.updateLowHeartRateToDatabase()}
             }
             
             if let error = error {
@@ -80,12 +97,26 @@ class HeartManager: ObservableObject {
     }
     
     @MainActor
-    func setHighHeartRateObserver() {
+    func updateHighHeartRateToDatabase() async {
+        guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
+        let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
+        let timeDescription: Double = Date.now.timeIntervalSince1970
+        
+        if (userRecord != nil) {
+            let heartAnomaly = HeartAnomaly(seniorId: Description(stringValue: userRecord?.userID), time: Description(doubleValue: timeDescription), anomaly: Description(stringValue: "highHeart"))
+            Task { try? await self.service.set(endPoint: MultipleEndPoints.heartAnomaly, fields: heartAnomaly, httpMethod: .post) }
+            self.highHeartRate = true
+            
+            debugPrint("High Heart Rate Detected")
+        }
+    }
+    
+    @MainActor
+    func setHighHeartRateObserver() async {
         let observerQuery = HKObserverQuery(sampleType: self.highHeartEventType, predicate: nil) { query, completionHandler, error in
         
             if (self.highHeartRateObserverReady) {
-                self.highHeartRate = true
-                debugPrint("High Heart Rate Detected")
+                Task {await self.updateHighHeartRateToDatabase()}
             }
             
             if let error = error {
@@ -107,12 +138,26 @@ class HeartManager: ObservableObject {
     }
     
     @MainActor
-    func setIrregularHeartRateObserver() {
+    func updateIrregularHeartRhythmToDatabase() async {
+        guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
+        let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
+        let timeDescription: Double = Date.now.timeIntervalSince1970
+        
+        if (userRecord != nil) {
+            let heartAnomaly = HeartAnomaly(seniorId: Description(stringValue: userRecord?.userID), time: Description(doubleValue: timeDescription), anomaly: Description(stringValue: "irregularHeart"))
+            Task { try? await self.service.set(endPoint: MultipleEndPoints.heartAnomaly, fields: heartAnomaly, httpMethod: .post) }
+            self.irregularHeartRate = true
+            
+            debugPrint("Irregular Heart Rate Detected")
+        }
+    }
+    
+    @MainActor
+    func setIrregularHeartRateObserver() async {
         let observerQuery = HKObserverQuery(sampleType: self.irregularHeartEventType, predicate: nil) { query, completionHandler, error in
             
             if (self.irregularHeartRhythmObserverReady) {
-                self.irregularHeartRate = true
-                debugPrint("Irregular Heart Rate Detected")
+                Task {await self.updateIrregularHeartRhythmToDatabase()}
             }
             
             if let error = error {
@@ -160,6 +205,7 @@ class HeartManager: ObservableObject {
         self.irregularHeartRate = false
     }
     
+    @MainActor
     func updateHeartRate() {
         let query = HKSampleQuery(sampleType: self.heartRateQuantityType, predicate: nil, limit: 1, sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)]) { query, samples, error in
             if let sample = samples?.first as? HKQuantitySample {

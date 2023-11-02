@@ -898,6 +898,8 @@
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = LifeWatch;
 				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "You can see your own heartbeat status.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "LifeWatch processes your heartbeat data for your knowledge about your own heart status.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -914,7 +916,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.6;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
@@ -933,6 +935,8 @@
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = LifeWatch;
 				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "You can see your own heartbeat status.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "LifeWatch processes your heartbeat data for your knowledge about your own heart status.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -950,7 +954,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 9.6;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};

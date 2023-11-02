@@ -11,11 +11,12 @@ struct MainView: View {
         @ObservedObject private var fallDetector = FallDetectionManager()
     @StateObject private var authVM = TestAuthViewModel()
     //    @StateObject private var locationViewModel = LocationViewModel()
-    @ObservedObject private var healthKitViewModel = HealthKitViewModel()
+    @ObservedObject private var heartManager = HeartManager()
     var body: some View {
         if authVM.userAuth?.userID != nil {
 //            IdleDetectionView()
-            TestChargingView()
+//            TestChargingView()
+            HeartRateView()
                 .environmentObject(authVM)
         } else if authVM.userAuth?.userID == nil {
             Text("Not authenticated and not logged in")
