@@ -97,6 +97,21 @@ struct CaregiverEmergencyView: View {
                         .foregroundStyle(.white)
                         .cornerRadius(8)
                     }
+                    .padding(.top, 8)
+                    Button {
+                        caregiverEmergencyViewModel.fetchAllRecording()
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text("fetch")
+                                .fontWeight(.semibold)
+                                .padding()
+                            Spacer()
+                        }
+                        .background(.accent)
+                        .foregroundStyle(.white)
+                        .cornerRadius(8)
+                    }
                     ForEach(caregiverEmergencyViewModel.recordingsList, id: \.self) { recording in
                                             VStack{
                                                 HStack{

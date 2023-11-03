@@ -36,21 +36,6 @@ struct SeniorEmergencyView: View {
                         }
                     }
                     Button {
-                        PTT.shared.requestJoinChannel()
-                    } label: {
-                        HStack {
-                            Spacer()
-                            Text("requestJoinChannel")
-                                .fontWeight(.semibold)
-                                .padding()
-                            Spacer()
-                        }
-                        .background(.accent)
-                        .foregroundStyle(.white)
-                        .cornerRadius(8)
-                    }
-                    .padding(.top, 8)
-                    Button {
                         PTT.shared.stopReceivingAudio()
                     } label: {
                         HStack {

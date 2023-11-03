@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import FirebaseAuth
 import AVFoundation
+import FirebaseStorage
 
 class CaregiverEmergencyViewModel: NSObject, ObservableObject, AVAudioPlayerDelegate  {
     @Published var invites: [Invite] = []
@@ -16,7 +17,7 @@ class CaregiverEmergencyViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var userData: UserData?
     private let service = AuthService.shared
     private var cancellables = Set<AnyCancellable>()
-    var recorder : AVAudioRecorder!
+
     var audioPlayer : AVAudioPlayer!
     @Published var recordingsList = [URL]()
 
@@ -46,73 +47,62 @@ class CaregiverEmergencyViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     }
     
     func startRecording(){
-            
-            let recordingSession = AVAudioSession.sharedInstance()
-            do {
-                try recordingSession.setCategory(.playAndRecord, mode: .default)
-                try recordingSession.setActive(true)
-            } catch {
-                print("Can not setup the Recording")
-            }
-            
-            let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let fileName = path.appendingPathComponent("CO-Voice : test.caf")
-            
-            
-            
-            let settings = [
-                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-                AVSampleRateKey: 12000,
-                AVNumberOfChannelsKey: 1,
-                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-            ]
-            
-            
-            do {
-                recorder = try AVAudioRecorder(url: fileName, settings: settings)
-                recorder.prepareToRecord()
-                recorder.record()
-                
-            } catch {
-                print("Failed to Setup the Recording")
-            }
-        }
-    
-    func stopRecording() {
-        recorder.stop()
+        PTT.shared.requestBeginTransmitting()
     }
     
+    func stopRecording() {
+        PTT.shared.stopTransmitting()
+    }
+    
+    
     func fetchAllRecording(){
-            
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let directoryContents = try! FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: nil)
+        // Get a reference to the storage service using the default Firebase App
+        let storage = Storage.storage()
 
-        for i in directoryContents {
-            recordingsList.append(i)
+        // Create a storage reference from our storage service
+        let storageRef = storage.reference()
+        let voiceRef = storageRef.child("voice/test.aac")
+
+        // Create local filesystem URL
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileName = path.appendingPathComponent("CO-Voice : download.aac")
+
+        // Download to the local filesystem
+        let downloadTask = voiceRef.write(toFile: fileName) { url, error in
+          if let error = error {
+            // Uh-oh, an error occurred!
+          } else {
+            // Local file URL for "images/island.jpg" is returned
+              self.recordingsList = []
+              let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+              let directoryContents = try! FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: nil)
+
+              print("downloaded: ", url)
+              for i in directoryContents {
+                  self.recordingsList.append(i)
+              }
+          }
         }
-            
     }
     
     func startPlaying(url : URL) {
+        print("playing: ", url)
       
         let playSession = AVAudioSession.sharedInstance()
             
         do {
-            try playSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print("Playing failed in Device")
         }
             
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf : url)
-            audioPlayer.prepareToPlay()
-            audioPlayer.play()
-                
-            for i in 0..<recordingsList.count{
-                if recordingsList[i] == url{
-                    /*ecordingsList[i].isPlaying = true*/
-                }
-            }
+            let data = try Data(contentsOf: url)
+            audioPlayer = try AVAudioPlayer(data: data, fileTypeHint: "aac")
+            audioPlayer!.prepareToPlay()
+            audioPlayer!.play()
+
                 
         } catch {
             print("Playing Failed")
@@ -134,7 +124,7 @@ class CaregiverEmergencyViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     }
     
     func deleteRecording(url : URL){
-        
+        print("delete: ", url)
         do {
             try FileManager.default.removeItem(at : url)
         } catch {
@@ -144,8 +134,6 @@ class CaregiverEmergencyViewModel: NSObject, ObservableObject, AVAudioPlayerDele
         for i in 0..<recordingsList.count {
             
             if recordingsList[i] == url {
-                stopPlaying(url: recordingsList[i])
-                
                 recordingsList.remove(at : i)
                     
                 break

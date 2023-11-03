@@ -15,11 +15,13 @@ struct MainView: View {
             if mainViewModel.userData?.role == "senior" {
                 SeniorView(mainViewModel: mainViewModel)
                     .task {
+                        PTT.shared.requestJoinChannel()
                         mainViewModel.addInvitesListener()
                     }
             } else {
                 CaregiverView(mainViewModel: mainViewModel)
                     .task {
+                        PTT.shared.requestJoinChannel()
                         mainViewModel.addInvitesListener()
                     }
             }
