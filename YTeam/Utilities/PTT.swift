@@ -11,12 +11,13 @@ import AVFAudio
 import UIKit
 import FirebaseStorage
 
-class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate {
+class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVAudioPlayerDelegate {
     static let shared = PTT()
     var channelManager: PTChannelManager? = nil
     var channelUUID = UUID(uuidString: "33041937-05b2-464a-98ad-3910cbe0d09e")
     var channelDescriptor = PTChannelDescriptor(name: "Awesome Crew", image: UIImage())
     var recorder : AVAudioRecorder!
+    var audioPlayer : AVAudioPlayer!
     var isTransmiting = false
     
     func channelDescriptor(restoredChannelUUID channelUUID: UUID) -> PTChannelDescriptor {
@@ -91,7 +92,45 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate {
                 print("Failed to Setup the Recording")
             }
         } else {
-            
+            let storage = Storage.storage()
+
+            // Create a storage reference from our storage service
+            let storageRef = storage.reference()
+            let voiceRef = storageRef.child("voice/test.aac")
+
+            // Create local filesystem URL
+            let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let fileName = path.appendingPathComponent("CO-Voice : download.aac")
+
+            // Download to the local filesystem
+            let downloadTask = voiceRef.write(toFile: fileName) { url, error in
+              if let error = error {
+                // Uh-oh, an error occurred!
+              } else {
+                // Local file URL for "images/island.jpg" is returned
+                  print("playing: ", fileName)
+                      
+                  do {
+                      try audioSession.setCategory(AVAudioSession.Category.playback)
+                      try audioSession.setActive(true)
+                  } catch {
+                      print("Playing failed in Device")
+                  }
+                      
+                  do {
+                      let data = try Data(contentsOf: fileName)
+                      self.audioPlayer = try AVAudioPlayer(data: data, fileTypeHint: "aac")
+                      self.audioPlayer!.prepareToPlay()
+                      self.audioPlayer!.play()
+                      self.audioPlayer!.delegate = self
+
+                          
+                  } catch {
+                      print("Playing Failed")
+                      print(error)
+                  }
+              }
+            }
         }
     }
     
@@ -129,8 +168,6 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate {
             }
             
             isTransmiting = false
-        } else {
-            
         }
     }
     
@@ -160,4 +197,8 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate {
         print("stopTransmitting")
         channelManager!.stopTransmitting(channelUUID: channelUUID!)
     }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        stopReceivingAudio()
+   }
 }
