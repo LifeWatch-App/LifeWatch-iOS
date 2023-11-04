@@ -1,5 +1,5 @@
 //
-//  SeniorEmergencyViewModel.swift
+//  CaregiverEmergencyViewModel.swift
 //  YTeam
 //
 //  Created by Yap Justin on 18/10/23.
@@ -9,12 +9,11 @@ import Foundation
 import Combine
 import FirebaseAuth
 
-class SeniorEmergencyViewModel: ObservableObject {
+class CaregiverDashboardViewModel: ObservableObject {
     @Published var invites: [Invite] = []
     @Published var user: User?
     @Published var userData: UserData?
     private let service = AuthService.shared
-    private let sosService: SOSService = SOSService.shared
     private var cancellables = Set<AnyCancellable>()
 
     init() {
@@ -32,16 +31,11 @@ class SeniorEmergencyViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func sendSOS() throws {
-        Task{ try? await sosService.sendSOS() }
-    }
-    
-    func acceptInvite(id: String) {
-        AuthService.shared.acceptInvite(id: id)
+    func sendRequestToSenior(email: String) {
+        AuthService.shared.sendRequestToSenior(email: email)
     }
     
     func signOut() {
         AuthService.shared.signOut()
     }
-
 }

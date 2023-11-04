@@ -32,10 +32,10 @@
 		4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232A32ADE1F4F003874D2 /* UserRecord.swift */; };
 		4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */; };
 		4CA232B72ADE48F7003874D2 /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232B62ADE48F7003874D2 /* Fall.swift */; };
-		4CA7922A2ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA792292ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift */; };
-		4CA7922C2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922B2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift */; };
-		4CA7922E2ADFB67B003B5EC9 /* SeniorEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */; };
-		4CA792302ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */; };
+		4CA7922A2ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA792292ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift */; };
+		4CA7922C2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922B2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift */; };
+		4CA7922E2ADFB67B003B5EC9 /* SeniorDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922D2ADFB67B003B5EC9 /* SeniorDashboardView.swift */; };
+		4CA792302ADFF9A1003B5EC9 /* CaregiverDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922F2ADFF9A1003B5EC9 /* CaregiverDashboardView.swift */; };
 		4CA792322ADFFFC2003B5EC9 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CA792312ADFFFC2003B5EC9 /* FirebaseMessaging */; };
 		4CAD39482AE8B9CB00F84FD6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */; };
 		4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB015592AD4DBBC0023C71E /* YTeamApp.swift */; };
@@ -88,11 +88,14 @@
 		7DB4E0CC2AEA063100270F2C /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */; };
 		7DB4E0CF2AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
 		7DB4E0D02AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
+		8D672F872AF517CF00C29E63 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D672F862AF517CF00C29E63 /* CircularProgressView.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8D8FB6B62AEA03C90081CD50 /* HeartRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
 		8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */; };
+		8DED83962AF5398C00AFB95B /* SOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED83952AF5398C00AFB95B /* SOSView.swift */; };
+		8DED83982AF53A5500AFB95B /* WalkieTalkieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED83972AF53A5500AFB95B /* WalkieTalkieView.swift */; };
 		9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38A2ADCD1AC00245AFF /* ChartData.swift */; };
 		9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38C2ADCD1C800245AFF /* TestChargingView.swift */; };
 		9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D39B2ADCD92B00245AFF /* FirebaseAuth */; };
@@ -153,10 +156,10 @@
 		4CA232A32ADE1F4F003874D2 /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
 		4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchConnectorService.swift; sourceTree = "<group>"; };
 		4CA232B62ADE48F7003874D2 /* Fall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
-		4CA792292ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverEmergencyViewModel.swift; sourceTree = "<group>"; };
-		4CA7922B2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyViewModel.swift; sourceTree = "<group>"; };
-		4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyView.swift; sourceTree = "<group>"; };
-		4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverEmergencyView.swift; sourceTree = "<group>"; };
+		4CA792292ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverDashboardViewModel.swift; sourceTree = "<group>"; };
+		4CA7922B2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorDashboardViewModel.swift; sourceTree = "<group>"; };
+		4CA7922D2ADFB67B003B5EC9 /* SeniorDashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeniorDashboardView.swift; sourceTree = "<group>"; };
+		4CA7922F2ADFF9A1003B5EC9 /* CaregiverDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverDashboardView.swift; sourceTree = "<group>"; };
 		4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CB015562AD4DBBC0023C71E /* LifeWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB015592AD4DBBC0023C71E /* YTeamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTeamApp.swift; sourceTree = "<group>"; };
@@ -206,11 +209,14 @@
 		7DB2E5FE2AF32F2F00CAD5A6 /* HeartAnomaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomaly.swift; sourceTree = "<group>"; };
 		7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
 		7DB4E0CE2AEA080E00270F2C /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
+		8D672F862AF517CF00C29E63 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateChart.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRoleView.swift; sourceTree = "<group>"; };
+		8DED83952AF5398C00AFB95B /* SOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSView.swift; sourceTree = "<group>"; };
+		8DED83972AF53A5500AFB95B /* WalkieTalkieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieView.swift; sourceTree = "<group>"; };
 		9318D38A2ADCD1AC00245AFF /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		9318D38C2ADCD1C800245AFF /* TestChargingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChargingView.swift; sourceTree = "<group>"; };
 		93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryLevelRecord.swift; sourceTree = "<group>"; };
@@ -249,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */,
+				8D672F862AF517CF00C29E63 /* CircularProgressView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -257,7 +264,9 @@
 			isa = PBXGroup;
 			children = (
 				4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */,
-				4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */,
+				4CA7922D2ADFB67B003B5EC9 /* SeniorDashboardView.swift */,
+				8DED83952AF5398C00AFB95B /* SOSView.swift */,
+				8DED83972AF53A5500AFB95B /* WalkieTalkieView.swift */,
 			);
 			path = Senior;
 			sourceTree = "<group>";
@@ -266,7 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				4C21A3E32ADF7B930044E966 /* CaregiverView.swift */,
-				4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */,
+				4CA7922F2ADFF9A1003B5EC9 /* CaregiverDashboardView.swift */,
 			);
 			path = Caregiver;
 			sourceTree = "<group>";
@@ -292,8 +301,8 @@
 				4C47302B2AD9760C0025F089 /* LoginViewModel.swift */,
 				4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */,
 				8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */,
-				4CA792292ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift */,
-				4CA7922B2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift */,
+				4CA792292ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift */,
+				4CA7922B2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift */,
 				4CB9AE592AEA0E72008F4381 /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
@@ -348,10 +357,10 @@
 				4C4730282AD8D2520025F089 /* Services */,
 				4C6049CC2AD7AEC800E9F0BF /* Models */,
 				4C6049C32AD7948700E9F0BF /* ViewModels */,
-				4CB015802AD4E6E00023C71E /* YTeam.entitlements */,
 				4CB0157D2AD4E5A20023C71E /* Views */,
 				7D02E71F2AD8ECA300923AFB /* Utilities */,
 				4CB015592AD4DBBC0023C71E /* YTeamApp.swift */,
+				4CB015802AD4E6E00023C71E /* YTeam.entitlements */,
 				4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */,
 				4CB0155F2AD4DBBF0023C71E /* Preview Content */,
 			);
@@ -670,24 +679,26 @@
 				9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */,
 				7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */,
 				93B898FA2AE76DB6005E1678 /* BatteryLevelViewModel.swift in Sources */,
+				8DED83962AF5398C00AFB95B /* SOSView.swift in Sources */,
 				7D02E7962ADE88BF00923AFB /* FallService.swift in Sources */,
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
 				93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
-				4CA7922E2ADFB67B003B5EC9 /* SeniorEmergencyView.swift in Sources */,
+				4CA7922E2ADFB67B003B5EC9 /* SeniorDashboardView.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
 				4CA232A42ADE1F4F003874D2 /* DataUser.swift in Sources */,
+				8DED83982AF53A5500AFB95B /* WalkieTalkieView.swift in Sources */,
 				7DB24EF82AE51E81009A4A6D /* SOSService.swift in Sources */,
 				7DB24EFA2AE51E9A009A4A6D /* Emergency.swift in Sources */,
 				4C6049C52AD7948F00E9F0BF /* MainViewModel.swift in Sources */,
 				9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */,
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
 				4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */,
-				4CA7922A2ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift in Sources */,
+				4CA7922A2ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift in Sources */,
 				4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */,
 				4C21A3E62ADF7ECA0044E966 /* SeniorView.swift in Sources */,
-				4CA792302ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift in Sources */,
-				4CA7922C2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift in Sources */,
+				4CA792302ADFF9A1003B5EC9 /* CaregiverDashboardView.swift in Sources */,
+				4CA7922C2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift in Sources */,
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
 				4CB9AE5A2AEA0E72008F4381 /* ProfileViewModel.swift in Sources */,
 				4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */,
@@ -715,6 +726,7 @@
 				7D9D41DC2AE7561600818908 /* InactivityType.swift in Sources */,
 				7D9D41D82AE62DB800818908 /* Idle.swift in Sources */,
 				93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */,
+				8D672F872AF517CF00C29E63 /* CircularProgressView.swift in Sources */,
 				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

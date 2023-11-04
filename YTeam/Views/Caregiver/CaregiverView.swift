@@ -12,7 +12,7 @@ struct CaregiverView: View {
     
     var body: some View {
         TabView {
-            CaregiverEmergencyView()
+            CaregiverDashboardView()
                 .tabItem {
                     Label("Emergency", systemImage: "light.beacon.max.fill")
                 }

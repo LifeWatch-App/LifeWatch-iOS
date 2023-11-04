@@ -1,0 +1,338 @@
+//
+//  SeniorEmergencyView.swift
+//  YTeam
+//
+//  Created by Kenny Jinhiro Wibowo on 18/10/23.
+//
+
+import SwiftUI
+
+struct SeniorDashboardView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    @StateObject var seniorDashboardViewModel = SeniorDashboardViewModel()
+    
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack{
+//                    VStack {
+//                        Text("Welcome, \(seniorDashboardViewModel.user?.email ?? "")!")
+//                        Text("Give your email to your caregivers")
+//                        ForEach(seniorDashboardViewModel.invites, id: \.id) { invite in
+//                            HStack {
+//                                Text("Invite from: \(invite.caregiverData!.email!)")
+//                                Text(invite.accepted! ? "(Accepted)" : "")
+//                                if (!invite.accepted!) {
+//                                    Button {
+//                                        seniorDashboardViewModel.acceptInvite(id: invite.id!)
+//                                    } label: {
+//                                        Text("Accept")
+//                                    }
+//                                }
+//                            }
+//                            .padding(.top, 4)
+//                        }
+//                    }
+                    
+                    ButtonCards(seniorDashboardViewModel: seniorDashboardViewModel)
+                    
+                    UpcomingActivity()
+                    
+                    Symtomps()
+                }
+                .padding(.horizontal)
+            }
+            .background(colorScheme == .light ? Color(.systemGroupedBackground) : .black)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        ProfileView()
+                    } label: {
+                        Image(systemName: "person.crop.circle")
+                            .font(.title)
+                    }
+                }
+            }
+            .navigationTitle("Dashboard")
+        }
+    }
+}
+
+struct ButtonCards: View {
+    @ObservedObject var seniorDashboardViewModel: SeniorDashboardViewModel
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            Button{
+                
+            } label: {
+                VStack(alignment: .leading) {
+                    HStack(alignment: .top) {
+                        Text("SOS\nButton")
+                            .multilineTextAlignment(.leading)
+                            .font(.title)
+                            .bold()
+                        
+                        Spacer()
+                        
+                        Image(systemName: "light.beacon.max.fill")
+                            .font(.title2)
+                    }
+                    
+                    Text("Alerting Family Member")
+                        .multilineTextAlignment(.leading)
+                }
+                .padding()
+                .background(Color("emergency-pink"))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+            
+            Button {
+                
+            } label: {
+                VStack(alignment: .leading) {
+                    HStack(alignment: .top) {
+                        Text("Walkie\nTalkie")
+                            .multilineTextAlignment(.leading)
+                            .font(.title)
+                            .bold()
+                        
+                        Spacer()
+                        
+                        Image(systemName: "flipphone")
+                            .font(.title2)
+                    }
+                    
+                    Text("Talk to Family Member")
+                        .multilineTextAlignment(.leading)
+                }
+                .padding()
+                .background(.accent)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+        }
+        .foregroundStyle(.white)
+    }
+}
+
+struct UpcomingActivity: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("Upcoming Activity")
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+                
+                Spacer()
+                
+                NavigationLink {
+                    EmptyView()
+                } label: {
+                    Text("See All")
+                        .font(.headline)
+                }
+            }
+            
+            VStack(spacing: 20) {
+                ForEach(0...2, id: \.self) {_ in
+                    HStack {
+                        Divider()
+                            .frame(minWidth: 4)
+                            .background(.accent)
+                            .clipShape(RoundedRectangle(cornerRadius: 100))
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Lunch")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                            HStack {
+                                Image(systemName: "clock")
+                                Text("13.00")
+                                    .padding(.leading, -4)
+                            }
+                            .foregroundColor(.secondary)
+                        }
+                        
+                        Spacer()
+                        
+                        Image(systemName: "circle")
+                            .font(.largeTitle)
+                            .bold()
+                            .foregroundStyle(.accent)
+                    }
+                }
+            }
+            .padding()
+            .background(colorScheme == .light ? .white : Color(.systemGray6))
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+        }
+        .padding(.vertical)
+    }
+}
+
+struct Symtomps: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("Symtomps")
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+                
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.title3)
+                        .bold()
+                }
+            }
+            
+            HStack(spacing: 16) {
+                Image("symtomps")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 50)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Muntah")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                    HStack {
+                        Image(systemName: "clock")
+                        Text("13.00")
+                            .padding(.leading, -4)
+                    }
+                    .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+            }
+            .padding()
+            .background(colorScheme == .light ? .white : Color(.systemGray6))
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+        }
+    }
+}
+
+//struct SOSButton: View {
+//    @ObservedObject var seniorDashboardViewModel: SeniorDashboardViewModel = SeniorDashboardViewModel()
+//    @ObservedObject var audioManager: AudioPlayerManager = AudioPlayerManager()
+//    
+//    var body: some View {
+//        Text("Press alert button to bell")
+//            .font(.system(size: 18))
+//        Button {
+//            Task{ try? seniorDashboardViewModel.sendSOS()}
+//            audioManager.playAlert()
+//        } label: {
+//            ZStack {
+//                Circle()
+//                    .stroke(.blue)
+//                    .frame(width: Screen.width * 0.9)
+//                Circle()
+//                    .tint(.blue)
+//                    .frame(width: Screen.width * 0.8, height: Screen.width * 0.8)
+//                Image(systemName: "light.beacon.max.fill")
+//                    .resizable()
+//                    .tint(.white)
+//                    .frame(width: Screen.width * 0.35 * 1.17730, height: Screen.width * 0.35)
+//            }
+//        }
+//    }
+//}
+//
+//struct WTLocationCard: View {
+//    @Binding var walkieTalkieToggle: Bool
+//    @Binding var locationToggle: Bool
+//    
+//    var body: some View {
+//        VStack(spacing: 8) {
+//            HStack{
+//                ZStack {
+//                    RoundedRectangle(cornerRadius: 5)
+//                        .foregroundStyle(.blue)
+//                        .frame(width: 38, height: 38)
+//                    Image(systemName: "flipphone")
+//                        .font(.system(size: 18))
+//                        .foregroundStyle(.white)
+//                }
+//                Toggle(isOn: $walkieTalkieToggle, label: {
+//                    Text("Walkie Talkie")
+//                        .font(.system(size: 18))
+//                })
+//            }
+//            .padding()
+//            Divider()
+//                .background(.primary)
+//                .padding(.leading, 48)
+//                
+//            HStack{
+//                ZStack {
+//                    RoundedRectangle(cornerRadius: 5)
+//                        .foregroundStyle(.blue)
+//                        .frame(width: 38, height: 38)
+//                    Image(systemName: "location.fill")
+//                        .font(.system(size: 18))
+//                        .foregroundStyle(.white)
+//                }
+//                Toggle(isOn: $locationToggle, label: {
+//                    Text("Location")
+//                        .font(.system(size: 18))
+//                })
+//            }
+//            .padding()
+//        }
+//        
+//        .background(.white)
+//        .clipShape(RoundedRectangle(cornerRadius: 8.0))
+//        .padding(.horizontal)
+//    }
+//}
+//
+//struct ChargingCard: View {
+//    @Binding var batteryLevel: Double
+//    
+//    var body: some View {
+//        HStack {
+//            ZStack {
+//                RoundedRectangle(cornerRadius: 5)
+//                    .foregroundStyle(.blue)
+//                    .frame(width: 38, height: 38)
+//                Image(systemName: "applewatch")
+//                    .font(.system(size: 18))
+//                    .foregroundStyle(.white)
+//            }
+//            VStack(alignment: .leading) {
+//                Text("Watch Battery")
+//                    .font(.system(size: 18))
+//                Text("Charging")
+//                    .font(.system(size: 14))
+//                    .foregroundStyle(.secondary)
+//            }
+//            Spacer()
+//            ZStack{
+//                CircularProgressView(progress: batteryLevel / 100)
+//                Text("\(batteryLevel, specifier: "%.0f")")
+//                    .bold()
+//            }
+//                .frame(width: Screen.width * 0.15)
+//        }
+//        .padding()
+//        .background(.white)
+//        .clipShape(RoundedRectangle(cornerRadius: 8.0))
+//        .padding(.horizontal)
+//        .padding(.top, 16)
+//    }
+//}
+
+#Preview {
+    SeniorDashboardView()
+        .preferredColorScheme(.dark)
+}
