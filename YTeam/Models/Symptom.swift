@@ -7,7 +7,14 @@
 
 import Foundation
 
-struct Symptom {
-    var symptom: String = ""
+struct Symptom : Identifiable {
+    var id = UUID()
+    var name: String = ""
     var time: Date = Date()
 }
+
+// dummy data
+let symptomsDummyData: [Symptom] = [
+    Symptom(name: "Cough", time: Date()),
+    Symptom(name: "Fever", time: Date()),
+]

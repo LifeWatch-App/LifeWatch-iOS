@@ -18,15 +18,19 @@ class CaregiverDashboardViewModel: ObservableObject {
     
     @Published var routines: [Routine] = []
     @Published var watchBattery: Double = 80
-    @Published var watchIsCharging = false
+    @Published var watchIsCharging = true
     @Published var phoneBattery: Double = 90
     @Published var phoneIsCharging = false
-    @Published var inactive = 30
+    @Published var isActive = true
+    @Published var inactivityTime = 30
     @Published var heartRate = 90
     @Published var location = "Outside"
 
     init() {
         setupSubscribers()
+        
+        // add dummy data
+        routines = routinesDummyData
     }
 
     private func setupSubscribers() {

@@ -37,9 +37,9 @@ struct SeniorDashboardView: View {
                     
                     ButtonCards(seniorDashboardViewModel: seniorDashboardViewModel)
                     
-                    UpcomingActivity()
+                    UpcomingActivity(seniorDashboardViewModel: seniorDashboardViewModel)
                     
-                    Symtomps()
+                    Symtomps(seniorDashboardViewModel: seniorDashboardViewModel)
                 }
                 .padding(.horizontal)
             }
@@ -119,10 +119,12 @@ struct ButtonCards: View {
 struct UpcomingActivity: View {
     @Environment(\.colorScheme) var colorScheme
     
+    @ObservedObject var seniorDashboardViewModel: SeniorDashboardViewModel
+    
     var body: some View {
         VStack {
             HStack {
-                Text("Upcoming Activity")
+                Text("Upcoming Routine")
                     .font(.headline)
                     .foregroundStyle(.secondary)
                 
@@ -137,7 +139,7 @@ struct UpcomingActivity: View {
             }
             
             VStack(spacing: 20) {
-                ForEach(0...2, id: \.self) {_ in
+                ForEach(seniorDashboardViewModel.routines.prefix(3)) { routine in
                     HStack {
                         Divider()
                             .frame(minWidth: 4)
@@ -145,12 +147,12 @@ struct UpcomingActivity: View {
                             .clipShape(RoundedRectangle(cornerRadius: 100))
                         
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("Lunch")
+                            Text(routine.name)
                                 .font(.title3)
                                 .fontWeight(.semibold)
                             HStack {
                                 Image(systemName: "clock")
-                                Text("13.00")
+                                Text(routine.time, style: .time)
                                     .padding(.leading, -4)
                             }
                             .foregroundColor(.secondary)
@@ -176,10 +178,12 @@ struct UpcomingActivity: View {
 struct Symtomps: View {
     @Environment(\.colorScheme) var colorScheme
     
+    @ObservedObject var seniorDashboardViewModel: SeniorDashboardViewModel
+    
     var body: some View {
         VStack {
             HStack {
-                Text("Symtomps")
+                Text("Symptoms")
                     .font(.headline)
                     .foregroundStyle(.secondary)
                 
@@ -194,29 +198,31 @@ struct Symtomps: View {
                 }
             }
             
-            HStack(spacing: 16) {
-                Image("symtomps")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 50)
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Muntah")
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                    HStack {
-                        Image(systemName: "clock")
-                        Text("13.00")
-                            .padding(.leading, -4)
+            ForEach(seniorDashboardViewModel.symptoms) { symptom in
+                HStack(spacing: 16) {
+                    Image("symtomps")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 50)
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(symptom.name)
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                        HStack {
+                            Image(systemName: "clock")
+                            Text(symptom.time, style: .time)
+                                .padding(.leading, -4)
+                        }
+                        .foregroundColor(.secondary)
                     }
-                    .foregroundColor(.secondary)
+                    
+                    Spacer()
                 }
-                
-                Spacer()
+                .padding()
+                .background(colorScheme == .light ? .white : Color(.systemGray6))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
             }
-            .padding()
-            .background(colorScheme == .light ? .white : Color(.systemGray6))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }
 }

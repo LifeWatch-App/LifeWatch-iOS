@@ -22,6 +22,10 @@ class SeniorDashboardViewModel: ObservableObject {
 
     init() {
         setupSubscribers()
+        
+        // add dummy data
+        routines = routinesDummyData
+        symptoms = symptomsDummyData
     }
 
     private func setupSubscribers() {
@@ -46,5 +50,4 @@ class SeniorDashboardViewModel: ObservableObject {
     func signOut() {
         AuthService.shared.signOut()
     }
-
 }

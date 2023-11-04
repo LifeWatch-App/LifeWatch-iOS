@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct CircularProgressView: View {
+struct BatteryCircularProgressView: View {
     let progress: Double
+    let charging: Bool
     
     var body: some View {
         ZStack {
@@ -20,7 +21,7 @@ struct CircularProgressView: View {
             Circle()
                 .trim(from: 0, to: progress)
                 .stroke(
-                    Color(progress > 0.25 && progress < 0.50 ? .orange : progress > 0.50 ? .blue : .red),
+                    Color(charging ? Color("secondary-orange") : progress > 0.2 ? .accent : Color("emergency-pink")),
                     style: StrokeStyle(
                         lineWidth: 6,
                         lineCap: .round
@@ -33,5 +34,5 @@ struct CircularProgressView: View {
 }
 
 #Preview {
-    CircularProgressView(progress: 0.8)
+    BatteryCircularProgressView(progress: 0.8, charging: true)
 }

@@ -18,7 +18,7 @@ struct CaregiverDashboardView: View {
         NavigationStack {
             VStack {
                 ScrollView {
-                    VStack{
+                    VStack(spacing: 20) {
                         //                    VStack {
                         //                        Text("Welcome, \(caregiverDashboardViewModel.user?.email ?? "")!")
                         //                        Text("Enter your senior's email")
@@ -41,10 +41,10 @@ struct CaregiverDashboardView: View {
                         //                    }
                         
                         SeniorStatus(caregiverDashboardViewModel: caregiverDashboardViewModel)
+                            .padding(.horizontal)
                         
                         UpcomingRoutines(caregiverDashboardViewModel: caregiverDashboardViewModel)
                     }
-                    .padding(.horizontal)
                 }
                 
                 Button {
@@ -93,23 +93,6 @@ struct CaregiverDashboardView: View {
                                 HStack(spacing: 16) {
                                         // Foreach seniornya
                                         VStack {
-                                            ZStack {
-                                                ZStack {
-                                                    Circle()
-                                                        .fill(.secondary.opacity(0.5))
-                                                    Text("S")
-                                                        .font(.title)
-                                                        .bold()
-                                                        .frame(width: 30, height: 30, alignment: .center)
-                                                    .padding()
-                                                }
-                                            }
-                                            
-                                            Text("Subroto")
-                                                .font(.callout)
-                                        }
-                                    
-                                        VStack {
                                             ZStack(alignment: .bottomTrailing) {
                                                 ZStack {
                                                     Circle()
@@ -126,6 +109,23 @@ struct CaregiverDashboardView: View {
                                             }
                                             
                                             Text("Subroto")
+                                                .font(.callout)
+                                        }
+                                    
+                                        VStack {
+                                            ZStack(alignment: .bottomTrailing) {
+                                                ZStack {
+                                                    Circle()
+                                                        .fill(.secondary.opacity(0.5))
+                                                    Text("B")
+                                                        .font(.title)
+                                                        .bold()
+                                                        .frame(width: 30, height: 30, alignment: .center)
+                                                    .padding()
+                                                }
+                                            }
+                                            
+                                            Text("Brotot")
                                                 .font(.callout)
                                         }
                                     
@@ -148,7 +148,7 @@ struct CaregiverDashboardView: View {
 //                                }
                             }
                             .padding()
-                            .background(.white)
+                            .background(colorScheme == .light ? .white : Color(.systemGray6))
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             .padding(.top, 32)
                         }
@@ -270,7 +270,7 @@ struct SeniorStatus: View {
                 VStack(alignment: .leading) {
                     HStack {
                         VStack {
-                            Image(systemName: "moon.fill")
+                            Image(systemName: caregiverDashboardViewModel.isActive ? "figure.run" : "moon.fill")
                                 .foregroundStyle(.white)
                         }
                         .padding(8)
@@ -280,18 +280,28 @@ struct SeniorStatus: View {
                         Spacer()
                     }
                     
-                    Text("Inactive for")
-                        .font(.subheadline)
-                    
-                    HStack {
-                        Text("\(caregiverDashboardViewModel.inactive)")
-                            .font(.title)
-                            .bold()
-                        
-                        Text("min")
-                            .foregroundStyle(.secondary)
+                    if caregiverDashboardViewModel.isActive {
+                        Text("Currently")
                             .font(.subheadline)
-                            .padding(.leading, -4)
+                        
+                        Text("Active")
+                            .font(.title2)
+                            .bold()
+                            .padding(.bottom, 6)
+                    } else {
+                        Text("Inactive for")
+                            .font(.subheadline)
+                        
+                        HStack {
+                            Text("\(caregiverDashboardViewModel.inactivityTime)")
+                                .font(.title)
+                                .bold()
+                            
+                            Text("min")
+                                .foregroundStyle(.secondary)
+                                .font(.subheadline)
+                                .padding(.leading, -4)
+                        }
                     }
                 }
                 .padding(12)
@@ -302,14 +312,15 @@ struct SeniorStatus: View {
             HStack(spacing: 12) {
                 HStack(spacing: 8) {
                     ZStack {
-                        CircularProgressView(progress: caregiverDashboardViewModel.watchBattery / 100)
+                        BatteryCircularProgressView(progress: caregiverDashboardViewModel.watchBattery / 100, charging: caregiverDashboardViewModel.watchIsCharging)
                             .frame(width: 50)
+                        
                         
                         Image(systemName: "applewatch")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 14)
-                            .foregroundStyle(.accent, .white)
+                            .foregroundStyle(caregiverDashboardViewModel.watchIsCharging ? Color("secondary-orange") : .accent, .white)
                     }
                     .padding(.horizontal, 4)
                     
@@ -340,14 +351,14 @@ struct SeniorStatus: View {
                 
                 HStack(spacing: 8) {
                     ZStack {
-                        CircularProgressView(progress: caregiverDashboardViewModel.phoneBattery / 100)
+                        BatteryCircularProgressView(progress: caregiverDashboardViewModel.phoneBattery / 100, charging: caregiverDashboardViewModel.phoneIsCharging)
                             .frame(width: 50)
                         
                         Image(systemName: "iphone")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 14)
-                            .foregroundStyle(.accent, .white)
+                            .foregroundStyle(caregiverDashboardViewModel.phoneIsCharging ? Color("secondary-orange") : .accent, .white)
                     }
                     .padding(.horizontal, 4)
                     
@@ -377,7 +388,6 @@ struct SeniorStatus: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
         }
-        .padding(.vertical)
     }
 }
 
@@ -402,42 +412,53 @@ struct UpcomingRoutines: View {
                         .font(.headline)
                 }
             }
+            .padding(.horizontal)
             
-            HStack(spacing: 16) {
-                VStack {
-                    Image(systemName: "pill.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 40)
-                        .foregroundStyle(.white)
-                }
-                .padding(12)
-                .background(.blue)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Obat")
-                        .font(.headline)
-                    Text("2 Tablet")
-                    HStack {
-                        Image(systemName: "clock")
-                        Text("13.00")
-                            .padding(.leading, -4)
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(caregiverDashboardViewModel.routines) { routine in
+                        HStack(spacing: 16) {
+                            VStack {
+                                Image(systemName: "pill.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40)
+                                    .foregroundStyle(.white)
+                            }
+                            .padding(12)
+                            .background(.blue)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(routine.name)
+                                    .font(.headline)
+                                Text(routine.description)
+                                HStack {
+                                    Image(systemName: "clock")
+                                    Text(routine.time, style: .time)
+                                        .padding(.leading, -4)
+                                }
+                                .foregroundColor(.secondary)
+                            }
+                            
+                            Spacer()
+                            
+                            Image(systemName: routine.isDone ? "checkmark.circle.fill" : "xmark.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40)
+                                .foregroundStyle(.white, routine.isDone ? Color("secondary-green") : Color("emergency-pink"))
+                        }
+                        .padding()
+                        .background(colorScheme == .light ? .white : Color(.systemGray6))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .frame(width: Screen.width - 32)
                     }
-                    .foregroundColor(.secondary)
                 }
-                
-                Spacer()
-                
-                Image(systemName: "checkmark.circle.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 40)
-                    .foregroundStyle(Color("secondary-green"))
+                .padding(.horizontal)
+                .scrollTargetLayout()
             }
-            .padding()
-            .background(colorScheme == .light ? .white : Color(.systemGray6))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .scrollTargetBehavior(.viewAligned)
         }
     }
 }
