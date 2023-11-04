@@ -47,6 +47,7 @@ struct SOSView: View {
                 Spacer()
             }
             .padding(.top, 150)
+            .padding(.horizontal)
             
             VStack {
                 HStack {
