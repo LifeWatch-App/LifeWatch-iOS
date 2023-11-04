@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CaregiverView: View {
     @ObservedObject var mainViewModel: MainViewModel
-    
+    @State var showChangeSenior = false
     var body: some View {
         TabView {
             CaregiverDashboardView()

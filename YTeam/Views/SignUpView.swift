@@ -66,7 +66,7 @@ struct SignUpView: View {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.title3)
                     }
-                    .foregroundStyle(accepted ? .black : .secondary)
+                    .foregroundStyle(accepted ? .accent : .secondary)
                     
                     Text("I accept the terms and privacy policy")
                     Spacer()
@@ -85,7 +85,7 @@ struct SignUpView: View {
                     }
                     .background(.accent)
                     .foregroundStyle(.white)
-                    .cornerRadius(8)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
                 .padding(.top, 8)
                 
@@ -107,4 +107,5 @@ struct SignUpView: View {
 
 #Preview {
     SignUpView()
+//        .preferredColorScheme(.dark)
 }

@@ -181,7 +181,7 @@ struct DeleteSheetView: View {
                         }
                         .background(.red)
                         .foregroundStyle(.white)
-                        .cornerRadius(8)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                     }
                     .padding(.top, 8)
                 } else if loginProvider == "apple.com" {

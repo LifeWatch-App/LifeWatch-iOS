@@ -15,6 +15,15 @@ class CaregiverDashboardViewModel: ObservableObject {
     @Published var userData: UserData?
     private let service = AuthService.shared
     private var cancellables = Set<AnyCancellable>()
+    
+    @Published var routines: [Routine] = []
+    @Published var watchBattery: Double = 80
+    @Published var watchIsCharging = false
+    @Published var phoneBattery: Double = 90
+    @Published var phoneIsCharging = false
+    @Published var inactive = 30
+    @Published var heartRate = 90
+    @Published var location = "Outside"
 
     init() {
         setupSubscribers()

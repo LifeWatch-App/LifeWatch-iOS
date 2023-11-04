@@ -221,10 +221,16 @@ struct Symtomps: View {
     }
 }
 
+#Preview {
+    SeniorDashboardView()
+        .preferredColorScheme(.dark)
+}
+
+
 //struct SOSButton: View {
 //    @ObservedObject var seniorDashboardViewModel: SeniorDashboardViewModel = SeniorDashboardViewModel()
 //    @ObservedObject var audioManager: AudioPlayerManager = AudioPlayerManager()
-//    
+//
 //    var body: some View {
 //        Text("Press alert button to bell")
 //            .font(.system(size: 18))
@@ -247,92 +253,3 @@ struct Symtomps: View {
 //        }
 //    }
 //}
-//
-//struct WTLocationCard: View {
-//    @Binding var walkieTalkieToggle: Bool
-//    @Binding var locationToggle: Bool
-//    
-//    var body: some View {
-//        VStack(spacing: 8) {
-//            HStack{
-//                ZStack {
-//                    RoundedRectangle(cornerRadius: 5)
-//                        .foregroundStyle(.blue)
-//                        .frame(width: 38, height: 38)
-//                    Image(systemName: "flipphone")
-//                        .font(.system(size: 18))
-//                        .foregroundStyle(.white)
-//                }
-//                Toggle(isOn: $walkieTalkieToggle, label: {
-//                    Text("Walkie Talkie")
-//                        .font(.system(size: 18))
-//                })
-//            }
-//            .padding()
-//            Divider()
-//                .background(.primary)
-//                .padding(.leading, 48)
-//                
-//            HStack{
-//                ZStack {
-//                    RoundedRectangle(cornerRadius: 5)
-//                        .foregroundStyle(.blue)
-//                        .frame(width: 38, height: 38)
-//                    Image(systemName: "location.fill")
-//                        .font(.system(size: 18))
-//                        .foregroundStyle(.white)
-//                }
-//                Toggle(isOn: $locationToggle, label: {
-//                    Text("Location")
-//                        .font(.system(size: 18))
-//                })
-//            }
-//            .padding()
-//        }
-//        
-//        .background(.white)
-//        .clipShape(RoundedRectangle(cornerRadius: 8.0))
-//        .padding(.horizontal)
-//    }
-//}
-//
-//struct ChargingCard: View {
-//    @Binding var batteryLevel: Double
-//    
-//    var body: some View {
-//        HStack {
-//            ZStack {
-//                RoundedRectangle(cornerRadius: 5)
-//                    .foregroundStyle(.blue)
-//                    .frame(width: 38, height: 38)
-//                Image(systemName: "applewatch")
-//                    .font(.system(size: 18))
-//                    .foregroundStyle(.white)
-//            }
-//            VStack(alignment: .leading) {
-//                Text("Watch Battery")
-//                    .font(.system(size: 18))
-//                Text("Charging")
-//                    .font(.system(size: 14))
-//                    .foregroundStyle(.secondary)
-//            }
-//            Spacer()
-//            ZStack{
-//                CircularProgressView(progress: batteryLevel / 100)
-//                Text("\(batteryLevel, specifier: "%.0f")")
-//                    .bold()
-//            }
-//                .frame(width: Screen.width * 0.15)
-//        }
-//        .padding()
-//        .background(.white)
-//        .clipShape(RoundedRectangle(cornerRadius: 8.0))
-//        .padding(.horizontal)
-//        .padding(.top, 16)
-//    }
-//}
-
-#Preview {
-    SeniorDashboardView()
-        .preferredColorScheme(.dark)
-}

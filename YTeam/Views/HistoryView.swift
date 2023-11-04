@@ -9,6 +9,7 @@ import SwiftUI
 import Charts
 
 struct HistoryView: View {
+    @Environment(\.colorScheme) var colorScheme
     @StateObject var historyViewModel: HistoryViewModel = HistoryViewModel()
     
     var body: some View {
@@ -144,11 +145,11 @@ struct HistoryHeartRate: View {
                             ForEach(historyViewModel.heartRateData) {
                                 LineMark(x: .value("Date", $0.day, unit: .day), y: .value("Avg. Heart Rate", $0.avgHeartRate)
                                 )
-                                .cornerRadius(2)
+                                .clipShape(RoundedRectangle(cornerRadius: 2))
                                 
                                 PointMark(x: .value("Date", $0.day, unit: .day), y: .value("Avg. Heart Rate", $0.avgHeartRate)
                                 )
-                                .cornerRadius(2)
+                                .clipShape(RoundedRectangle(cornerRadius: 2))
                             }
                             
                             if let rawSelectedDate {
@@ -174,7 +175,7 @@ struct HistoryHeartRate: View {
                                     }
                                     .padding(12)
                                     .background(Color(.systemGray6))
-                                    .cornerRadius(8)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
                                 }
                             }
                         }
@@ -189,7 +190,7 @@ struct HistoryHeartRate: View {
                     }
                     .padding()
                     .background(Color(.systemBackground))
-                    .cornerRadius(16)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
                     
                     // Heart Rate Card Here
                 }
@@ -254,7 +255,7 @@ struct HistoryInactivity: View {
                                     //                        historyViewModel.extractDate(date: $0.day, format: "E")
                             )
                             .foregroundStyle(by: .value("Type", $0.type))
-                            .cornerRadius(2)
+                            .clipShape(RoundedRectangle(cornerRadius: 2))
                         }
                         
                         if let rawSelectedDate {
@@ -285,7 +286,7 @@ struct HistoryInactivity: View {
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, 6)
                                 .background(Color(.systemGray6))
-                                .cornerRadius(8)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
                             }
                         }
                     }
@@ -303,7 +304,7 @@ struct HistoryInactivity: View {
                 }
                 .padding()
                 .background(Color(.systemBackground))
-                .cornerRadius(16)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
             }
             ForEach(historyViewModel.groupedInactivities, id: \.0) { (time: String, inactivities: [Any]) in
                 VStack{
@@ -377,7 +378,7 @@ struct DetectedFallCard: View {
         .foregroundStyle(.white)
         .padding()
         .background(.accent)
-        .cornerRadius(8)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
 
@@ -403,7 +404,7 @@ struct SOSCard: View {
         .foregroundStyle(.white)
         .padding()
         .background(Color("secondary-orange"))
-        .cornerRadius(8)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
 
@@ -421,7 +422,7 @@ struct HistoryData: View {
                     .foregroundStyle(.white)
                     .frame(width: 40, height: 40)
                     .background(.accent)
-                    .cornerRadius(8.0)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 Text("Fell")
                     .padding(.leading, 8.0)
                 Spacer()
@@ -433,13 +434,13 @@ struct HistoryData: View {
             }
             .padding()
             .background(Color(.white))
-            .cornerRadius(8.0)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
             HStack{
                 Image(systemName: "sos.circle.fill")
                     .foregroundStyle(.white)
                     .frame(width: 40, height: 40)
                     .background(Color("secondary-orange"))
-                    .cornerRadius(8.0)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 Text("Pressed")
                     .padding(.leading, 8.0)
                 Spacer()
@@ -451,7 +452,7 @@ struct HistoryData: View {
             }
             .padding()
             .background(Color(.white))
-            .cornerRadius(8.0)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }
 }
@@ -467,7 +468,7 @@ struct HistoryCard: View {
                 .foregroundStyle(.white)
                 .frame(width: 40, height: 40)
                 .background(option == .fell || option == .idle ? .accent : Color("secondary-orange"))
-                .cornerRadius(8.0)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
             Text(option == .fell ? "Fell" : option == .pressed ? "Pressed" : option == .idle ? "Idle" : "Charging")
                 .padding(.leading, 8.0)
             Spacer()
@@ -484,12 +485,13 @@ struct HistoryCard: View {
         }
         .padding()
         .background(Color(.systemBackground))
-        .cornerRadius(8.0)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
 
 #Preview {
     NavigationStack {
         HistoryView()
+//            .preferredColorScheme(.dark)
     }
 }

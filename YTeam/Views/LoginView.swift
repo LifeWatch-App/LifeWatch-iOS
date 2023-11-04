@@ -72,7 +72,7 @@ struct LoginPage: View {
                     }
                     .background(.accent)
                     .foregroundStyle(.white)
-                    .cornerRadius(8)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
                 .padding(.top, 8)
                 
@@ -104,4 +104,5 @@ struct LoginPage: View {
 
 #Preview {
     LoginView()
+        .preferredColorScheme(.dark)
 }

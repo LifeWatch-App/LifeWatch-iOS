@@ -16,6 +16,9 @@ class SeniorDashboardViewModel: ObservableObject {
     private let service = AuthService.shared
     private let sosService: SOSService = SOSService.shared
     private var cancellables = Set<AnyCancellable>()
+    
+    @Published var routines: [Routine] = []
+    @Published var symptoms: [Symptom] = []
 
     init() {
         setupSubscribers()

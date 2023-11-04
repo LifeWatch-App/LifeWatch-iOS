@@ -15,14 +15,14 @@ struct CircularProgressView: View {
             Circle()
                 .stroke(
                     Color(UIColor.systemGray5),
-                    lineWidth: 8
+                    lineWidth: 6
                 )
             Circle()
                 .trim(from: 0, to: progress)
                 .stroke(
                     Color(progress > 0.25 && progress < 0.50 ? .orange : progress > 0.50 ? .blue : .red),
                     style: StrokeStyle(
-                        lineWidth: 8,
+                        lineWidth: 6,
                         lineCap: .round
                     )
                 )
