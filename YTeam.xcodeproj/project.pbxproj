@@ -38,12 +38,11 @@
 		4CA7922E2ADFB67B003B5EC9 /* SeniorEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */; };
 		4CA792302ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */; };
 		4CA792322ADFFFC2003B5EC9 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CA792312ADFFFC2003B5EC9 /* FirebaseMessaging */; };
-		4CAD39482AE8B9CB00F84FD6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */; };
 		4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB015592AD4DBBC0023C71E /* YTeamApp.swift */; };
 		4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0155B2AD4DBBC0023C71E /* ContentView.swift */; };
 		4CB0155E2AD4DBBF0023C71E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */; };
 		4CB015612AD4DBBF0023C71E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB015602AD4DBBF0023C71E /* Preview Assets.xcassets */; };
-		4CB015672AD4DBBF0023C71E /* LifeWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4CB015662AD4DBBF0023C71E /* LifeWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4CB015672AD4DBBF0023C71E /* Careific Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4CB015662AD4DBBF0023C71E /* Careific Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4CB0156C2AD4DBBF0023C71E /* YTeamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0156B2AD4DBBF0023C71E /* YTeamApp.swift */; };
 		4CB0156E2AD4DBBF0023C71E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0156D2AD4DBBF0023C71E /* ContentView.swift */; };
 		4CB015702AD4DBC00023C71E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB0156F2AD4DBC00023C71E /* Assets.xcassets */; };
@@ -53,6 +52,7 @@
 		4CB9AE5A2AEA0E72008F4381 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB9AE592AEA0E72008F4381 /* ProfileViewModel.swift */; };
 		4CCBF3602AF38CBC005A2C24 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4CCBF35F2AF38CBC005A2C24 /* FirebaseStorage */; };
 		4CCDD55A2AF634BA00146330 /* PTTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCDD5592AF634BA00146330 /* PTTService.swift */; };
+		4CD95BAC2AF796AB00A37B38 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CD95BAB2AF796AB00A37B38 /* GoogleService-Info.plist */; };
 		4CF1BBE52AE75C1D000E1199 /* TimeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */; };
 		4CF1BBE62AE75C1D000E1199 /* TimeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */; };
 		7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7202AD8ECD500923AFB /* Screen.swift */; };
@@ -124,7 +124,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				4CB015672AD4DBBF0023C71E /* LifeWatch Watch App.app in Embed Watch Content */,
+				4CB015672AD4DBBF0023C71E /* Careific Watch App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -161,13 +161,12 @@
 		4CA7922B2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyViewModel.swift; sourceTree = "<group>"; };
 		4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyView.swift; sourceTree = "<group>"; };
 		4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverEmergencyView.swift; sourceTree = "<group>"; };
-		4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		4CB015562AD4DBBC0023C71E /* LifeWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CB015562AD4DBBC0023C71E /* Careific.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Careific.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB015592AD4DBBC0023C71E /* YTeamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTeamApp.swift; sourceTree = "<group>"; };
 		4CB0155B2AD4DBBC0023C71E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CB015602AD4DBBF0023C71E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		4CB015662AD4DBBF0023C71E /* LifeWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LifeWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CB015662AD4DBBF0023C71E /* Careific Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Careific Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB0156B2AD4DBBF0023C71E /* YTeamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTeamApp.swift; sourceTree = "<group>"; };
 		4CB0156D2AD4DBBF0023C71E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4CB0156F2AD4DBC00023C71E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -177,6 +176,7 @@
 		4CB9AE572AEA0E26008F4381 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		4CB9AE592AEA0E72008F4381 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		4CCDD5592AF634BA00146330 /* PTTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTTService.swift; sourceTree = "<group>"; };
+		4CD95BAB2AF796AB00A37B38 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeOption.swift; sourceTree = "<group>"; };
 		7D02E7042AD78AD300923AFB /* YTeam Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "YTeam Watch App.entitlements"; sourceTree = "<group>"; };
 		7D02E7202AD8ECD500923AFB /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
@@ -340,8 +340,8 @@
 		4CB015572AD4DBBC0023C71E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4CB015562AD4DBBC0023C71E /* LifeWatch.app */,
-				4CB015662AD4DBBF0023C71E /* LifeWatch Watch App.app */,
+				4CB015562AD4DBBC0023C71E /* Careific.app */,
+				4CB015662AD4DBBF0023C71E /* Careific Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -351,7 +351,7 @@
 			children = (
 				7D02E7922ADE888800923AFB /* Constants */,
 				4CA232912ADD4517003874D2 /* Info.plist */,
-				4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */,
+				4CD95BAB2AF796AB00A37B38 /* GoogleService-Info.plist */,
 				4C4730282AD8D2520025F089 /* Services */,
 				4C6049CC2AD7AEC800E9F0BF /* Models */,
 				4C6049C32AD7948700E9F0BF /* ViewModels */,
@@ -584,7 +584,7 @@
 				4CCBF35F2AF38CBC005A2C24 /* FirebaseStorage */,
 			);
 			productName = YTeam;
-			productReference = 4CB015562AD4DBBC0023C71E /* LifeWatch.app */;
+			productReference = 4CB015562AD4DBBC0023C71E /* Careific.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4CB015652AD4DBBF0023C71E /* YTeam Watch App */ = {
@@ -604,7 +604,7 @@
 				9318D39B2ADCD92B00245AFF /* FirebaseAuth */,
 			);
 			productName = "YTeam Watch App";
-			productReference = 4CB015662AD4DBBF0023C71E /* LifeWatch Watch App.app */;
+			productReference = 4CB015662AD4DBBF0023C71E /* Careific Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -654,7 +654,7 @@
 			files = (
 				4CB015612AD4DBBF0023C71E /* Preview Assets.xcassets in Resources */,
 				4CB0155E2AD4DBBF0023C71E /* Assets.xcassets in Resources */,
-				4CAD39482AE8B9CB00F84FD6 /* GoogleService-Info.plist in Resources */,
+				4CD95BAC2AF796AB00A37B38 /* GoogleService-Info.plist in Resources */,
 				7DB4E0CF2AEA080E00270F2C /* alert.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -900,28 +900,30 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "YTeam Watch App/YTeam Watch App.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = LifeWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Careific;
 				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "You can see your own heartbeat status.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "LifeWatch processes your heartbeat data for your knowledge about your own heart status.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Careific processes your heartbeat data for your knowledge about your own heart status.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.LifeWatch;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch.watchkitapp;
-				PRODUCT_NAME = "LifeWatch Watch App";
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific.watchkitapp;
+				PRODUCT_NAME = "Careific Watch App";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -937,28 +939,30 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "YTeam Watch App/YTeam Watch App.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = LifeWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Careific;
 				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "You can see your own heartbeat status.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "LifeWatch processes your heartbeat data for your knowledge about your own heart status.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Careific processes your heartbeat data for your knowledge about your own heart status.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.LifeWatch;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch.watchkitapp;
-				PRODUCT_NAME = "LifeWatch Watch App";
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific.watchkitapp;
+				PRODUCT_NAME = "Careific Watch App";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -979,11 +983,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = LifeWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Careific;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = PTT;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -996,8 +1000,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch;
-				PRODUCT_NAME = LifeWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
+				PRODUCT_NAME = Careific;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1015,11 +1019,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = LifeWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Careific;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = PTT;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1032,8 +1036,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch;
-				PRODUCT_NAME = LifeWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
+				PRODUCT_NAME = Careific;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

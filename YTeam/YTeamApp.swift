@@ -41,6 +41,12 @@ extension AppDelegate: MessagingDelegate {
         NotificationCenter.default.post(name: Notification.Name("fcmToken"), object: fcmToken, userInfo: dataDict)
         // Save it to the user defaults
         UserDefaults.standard.set(fcmToken, forKey: "fcmToken")
+        
+        if AuthService.shared.user != nil {
+            if (fcmToken != AuthService.shared.userData?.fcmToken ?? "") {
+                AuthService.shared.updateFCMToken(fcmToken: fcmToken!)
+            }
+        }
     }
 }
 

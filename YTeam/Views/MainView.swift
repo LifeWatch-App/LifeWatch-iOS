@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFAudio
 
 struct MainView: View {
     @StateObject var mainViewModel = MainViewModel()
@@ -16,13 +17,15 @@ struct MainView: View {
                 SeniorView(mainViewModel: mainViewModel)
                     .task {
                         PTT.shared.requestJoinChannel()
-                        mainViewModel.addInvitesListener()
+                        mainViewModel.addInvitesListener() 
+                        await AVAudioApplication.requestRecordPermission()
                     }
             } else {
                 CaregiverView(mainViewModel: mainViewModel)
                     .task {
                         PTT.shared.requestJoinChannel()
                         mainViewModel.addInvitesListener()
+                        await AVAudioApplication.requestRecordPermission()
                     }
             }
         } else {

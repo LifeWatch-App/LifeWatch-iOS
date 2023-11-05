@@ -140,29 +140,13 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                     let fcmToken = UserDefaults.standard.value(forKey: "fcmToken")
                     if fcmToken != nil {
                         if (fcmToken as! String != AuthService.shared.userData?.fcmToken ?? "") {
-                            self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
-                                "fcmToken": fcmToken!
-                            ]) { err in
-                                if let err = err {
-                                    print("Error updating document: \(err)")
-                                } else {
-                                    print("FCM token successfully updated")
-                                }
-                            }
+                            self.updateFCMToken(fcmToken: fcmToken! as! String)
                         }
                     }
                     let pttToken = UserDefaults.standard.value(forKey: "pttToken")
                     if (pttToken != nil) {
                         if (pttToken as! String != AuthService.shared.userData?.pttToken ?? "") {
-                            self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
-                                "pttToken": pttToken!
-                            ]) { err in
-                                if let err = err {
-                                    print("Error updating document: \(err)")
-                                } else {
-                                    print("PTT token successfully updated")
-                                }
-                            }
+                            self.updatePTTToken(pttToken: pttToken! as! String)
                         }
                     }
                    
@@ -209,6 +193,30 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                             }
                         }
                 }
+            }
+        }
+    }
+    
+    func updatePTTToken(pttToken: String) {
+        self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
+            "pttToken": pttToken
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("PTT token successfully updated to: ", pttToken)
+            }
+        }
+    }
+    
+    func updateFCMToken(fcmToken: String) {
+        self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
+            "fcmToken": fcmToken
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("FCM token successfully updated to: ", fcmToken)
             }
         }
     }
