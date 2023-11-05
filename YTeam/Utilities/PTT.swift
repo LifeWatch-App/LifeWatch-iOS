@@ -170,8 +170,10 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     
     func requestJoinChannel() {
         print("requestJoinChannel")
-        channelManager!.requestJoinChannel(channelUUID: channelUUID!,
-                                           descriptor: channelDescriptor)
+        if channelManager != nil {
+            channelManager!.requestJoinChannel(channelUUID: channelUUID!,
+                                               descriptor: channelDescriptor)
+        }
     }
     
     func requestBeginTransmitting() {

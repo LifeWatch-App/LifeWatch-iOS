@@ -137,31 +137,31 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                 if AuthService.shared.userData != nil {
                     // Check and update FCM token if needed
                     // Get the FCM token form user defaults
-                    guard let fcmToken = UserDefaults.standard.value(forKey: "fcmToken") else{
-                        return
-                    }
-                    if (fcmToken as! String != AuthService.shared.userData?.fcmToken ?? "") {
-                        self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
-                            "fcmToken": fcmToken
-                        ]) { err in
-                            if let err = err {
-                                print("Error updating document: \(err)")
-                            } else {
-                                print("FCM token successfully updated")
+                    let fcmToken = UserDefaults.standard.value(forKey: "fcmToken")
+                    if fcmToken != nil {
+                        if (fcmToken as! String != AuthService.shared.userData?.fcmToken ?? "") {
+                            self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
+                                "fcmToken": fcmToken!
+                            ]) { err in
+                                if let err = err {
+                                    print("Error updating document: \(err)")
+                                } else {
+                                    print("FCM token successfully updated")
+                                }
                             }
                         }
                     }
-                    guard let pttToken = UserDefaults.standard.value(forKey: "pttToken") else{
-                        return
-                    }
-                    if (pttToken as! String != AuthService.shared.userData?.pttToken ?? "") {
-                        self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
-                            "pttToken": pttToken
-                        ]) { err in
-                            if let err = err {
-                                print("Error updating document: \(err)")
-                            } else {
-                                print("PTT token successfully updated")
+                    let pttToken = UserDefaults.standard.value(forKey: "pttToken")
+                    if (pttToken != nil) {
+                        if (pttToken as! String != AuthService.shared.userData?.pttToken ?? "") {
+                            self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
+                                "pttToken": pttToken!
+                            ]) { err in
+                                if let err = err {
+                                    print("Error updating document: \(err)")
+                                } else {
+                                    print("PTT token successfully updated")
+                                }
                             }
                         }
                     }
