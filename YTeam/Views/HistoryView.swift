@@ -10,6 +10,7 @@ import Charts
 
 struct HistoryView: View {
     @StateObject var historyViewModel: HistoryViewModel = HistoryViewModel()
+    
     var body: some View {
         NavigationStack {
             VStack {

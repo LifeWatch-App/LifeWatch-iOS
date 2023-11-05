@@ -8,6 +8,7 @@
 import Foundation
 import CoreMotion
 
+@MainActor
 class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject {
     @Published var authorized: Bool = false
     
@@ -19,7 +20,7 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     override init() {
         super.init()
         self.assignDelegate()
-        Task{ await self.checkAndRequestForAuthorizationStatus() }
+        self.checkAndRequestForAuthorizationStatus()
     }
     
     /// Assign fall detection delegate to `watch for fall detection events`.
@@ -47,19 +48,17 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     ///  `sets the authorization boolean` in the ObservedObject.
     @MainActor
     func checkAndRequestForAuthorizationStatus() {
-        DispatchQueue.main.async {
-            if self.fallDetector.authorizationStatus == .authorized {
-                self.authorized = true
-            } else {
-                self.fallDetector.requestAuthorization { currentStatus in
-                    switch currentStatus {
-                    case .authorized:
-                        self.authorized = true
-                    default:
-                        self.authorized = false
-                    }
-                    
+        if self.fallDetector.authorizationStatus == .authorized {
+            self.authorized = true
+        } else {
+            self.fallDetector.requestAuthorization { currentStatus in
+                switch currentStatus {
+                case .authorized:
+                    self.authorized = true
+                default:
+                    self.authorized = false
                 }
+                
             }
         }
     }
