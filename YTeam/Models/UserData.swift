@@ -13,4 +13,5 @@ struct UserData: Identifiable, Codable {
     var email: String?
     var role: String?
     var fcmToken: String?
+    var pttToken: String?
 }

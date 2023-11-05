@@ -8,6 +8,8 @@
 import Foundation
 import Combine
 import FirebaseAuth
+import FirebaseStorage
+import AVFoundation
 
 class SeniorEmergencyViewModel: ObservableObject {
     @Published var invites: [Invite] = []
@@ -16,6 +18,9 @@ class SeniorEmergencyViewModel: ObservableObject {
     private let service = AuthService.shared
     private let sosService: SOSService = SOSService.shared
     private var cancellables = Set<AnyCancellable>()
+    
+    var audioPlayer : AVAudioPlayer!
+    @Published var recordingsList = [URL]()
 
     init() {
         setupSubscribers()
@@ -44,4 +49,11 @@ class SeniorEmergencyViewModel: ObservableObject {
         AuthService.shared.signOut()
     }
 
+    func startRecording(){
+        PTT.shared.requestBeginTransmitting()
+    }
+    
+    func stopRecording() {
+        PTT.shared.stopTransmitting()
+    }
 }

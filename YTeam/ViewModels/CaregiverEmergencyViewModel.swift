@@ -8,15 +8,21 @@
 import Foundation
 import Combine
 import FirebaseAuth
+import AVFoundation
+import FirebaseStorage
 
-class CaregiverEmergencyViewModel: ObservableObject {
+class CaregiverEmergencyViewModel: NSObject, ObservableObject, AVAudioPlayerDelegate  {
     @Published var invites: [Invite] = []
     @Published var user: User?
     @Published var userData: UserData?
     private let service = AuthService.shared
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    var audioPlayer : AVAudioPlayer!
+    @Published var recordingsList = [URL]()
+
+    override init() {
+        super.init()
         setupSubscribers()
     }
 
@@ -37,5 +43,13 @@ class CaregiverEmergencyViewModel: ObservableObject {
     
     func signOut() {
         AuthService.shared.signOut()
+    }
+    
+    func startRecording(){
+        PTT.shared.requestBeginTransmitting()
+    }
+    
+    func stopRecording() {
+        PTT.shared.stopTransmitting()
     }
 }

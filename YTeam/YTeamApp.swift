@@ -41,12 +41,19 @@ extension AppDelegate: MessagingDelegate {
         NotificationCenter.default.post(name: Notification.Name("fcmToken"), object: fcmToken, userInfo: dataDict)
         // Save it to the user defaults
         UserDefaults.standard.set(fcmToken, forKey: "fcmToken")
+        
+        if AuthService.shared.user != nil {
+            if (fcmToken != AuthService.shared.userData?.fcmToken ?? "") {
+                AuthService.shared.updateFCMToken(fcmToken: fcmToken!)
+            }
+        }
     }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
+        print("APNS Token: ", deviceToken.map { String(format: "%02.2hhx", $0) }.joined())
     }
 }
 
@@ -58,6 +65,9 @@ struct YTeamApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.light)
+                .task {
+                    try? await PTT.shared.setupChannelManager()
+                }
         }
     }
 }
