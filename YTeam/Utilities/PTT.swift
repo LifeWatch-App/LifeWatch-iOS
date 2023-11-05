@@ -44,14 +44,20 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     
     func channelManager(_ channelManager: PTChannelManager, receivedEphemeralPushToken pushToken: Data) {
         let pttToken = pushToken.map { String(format: "%02.2hhx", $0) }.joined()
-        print("PTT Token: ", pttToken)
-        UserDefaults.standard.set(pttToken, forKey: "pttToken")
-         
+        print("PTT TOKEN:", pttToken)
+        
+        let oldPttToken = UserDefaults.standard.value(forKey: "pttToken")
         if AuthService.shared.user != nil {
-            if (pttToken != AuthService.shared.userData?.pttToken ?? "") {
+            if oldPttToken != nil {
+                if ((oldPttToken as! String) != pttToken) {
+                    AuthService.shared.updatePTTToken(pttToken: pttToken)
+                }
+            } else {
                 AuthService.shared.updatePTTToken(pttToken: pttToken)
             }
         }
+        
+        UserDefaults.standard.set(pttToken, forKey: "pttToken")
     }
     
     func incomingPushResult(channelManager: PTChannelManager, channelUUID: UUID, pushPayload: [String : Any]) -> PTPushResult {

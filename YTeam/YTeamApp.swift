@@ -37,16 +37,21 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("FCM TOKEN:", fcmToken ?? "")
-        let dataDict: [String: String] = ["fcmToken": fcmToken ?? ""]
-        NotificationCenter.default.post(name: Notification.Name("fcmToken"), object: fcmToken, userInfo: dataDict)
-        // Save it to the user defaults
-        UserDefaults.standard.set(fcmToken, forKey: "fcmToken")
         
+        let oldFcmToken = UserDefaults.standard.value(forKey: "fcmToken")
         if AuthService.shared.user != nil {
-            if (fcmToken != AuthService.shared.userData?.fcmToken ?? "") {
+            if oldFcmToken != nil {
+                if ((oldFcmToken as! String) != fcmToken) {
+                    AuthService.shared.updateFCMToken(fcmToken: fcmToken!)
+                }
+            } else {
                 AuthService.shared.updateFCMToken(fcmToken: fcmToken!)
             }
         }
+        
+        let dataDict: [String: String] = ["fcmToken": fcmToken ?? ""]
+        NotificationCenter.default.post(name: Notification.Name("fcmToken"), object: fcmToken, userInfo: dataDict)
+        UserDefaults.standard.set(fcmToken, forKey: "fcmToken")
     }
 }
 
