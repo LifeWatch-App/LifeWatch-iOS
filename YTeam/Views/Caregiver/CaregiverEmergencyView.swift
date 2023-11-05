@@ -98,57 +98,6 @@ struct CaregiverEmergencyView: View {
                         .cornerRadius(8)
                     }
                     .padding(.top, 8)
-                    Button {
-                        caregiverEmergencyViewModel.fetchAllRecording()
-                    } label: {
-                        HStack {
-                            Spacer()
-                            Text("fetch")
-                                .fontWeight(.semibold)
-                                .padding()
-                            Spacer()
-                        }
-                        .background(.accent)
-                        .foregroundStyle(.white)
-                        .cornerRadius(8)
-                    }
-                    ForEach(caregiverEmergencyViewModel.recordingsList, id: \.self) { recording in
-                                            VStack{
-                                                HStack{
-                                                    Image(systemName:"headphones.circle.fill")
-                                                        .font(.system(size:50))
-                                                    
-                                                    VStack(alignment:.leading) {
-                                                        Text("\(recording.lastPathComponent)")
-                                                    }
-                                                    VStack {
-                                                        Button(action: {
-                                                            caregiverEmergencyViewModel.deleteRecording(url:recording)
-                                                        }) {
-                                                            Image(systemName:"xmark.circle.fill")
-                                                                .foregroundColor(.white)
-                                                                .font(.system(size:15))
-                                                        }
-                                                        Spacer()
-                                                        
-                                                        Button(action: {
-                                                            caregiverEmergencyViewModel.startPlaying(url: recording)
-                                                        }) {
-                                                            Image(systemName: "play.fill")
-                                                                .foregroundColor(.white)
-                                                                .font(.system(size:30))
-                                                        }
-                                                        
-                                                    }
-                                                    
-                                                }.padding()
-                                            }.padding(.horizontal,10)
-                                            .frame(width: 370, height: 85)
-                                            .background(Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)))
-                                            .cornerRadius(30)
-                                            .shadow(color: Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)).opacity(0.3), radius: 10, x: 0, y: 10)
-                                        }
-                    .padding(.top, 8)
                     CaregiverSOSButton()
                         .padding(.top, 8)
                     CaregiverChargingCard(batteryLevel: $batteryLevel)

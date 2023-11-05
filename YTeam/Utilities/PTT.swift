@@ -19,6 +19,7 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     var recorder : AVAudioRecorder!
     var audioPlayer : AVAudioPlayer!
     var isTransmiting = false
+    var speaker = PTParticipant(name: "-", image: UIImage())
     
     func channelDescriptor(restoredChannelUUID channelUUID: UUID) -> PTChannelDescriptor {
         return channelDescriptor
@@ -33,6 +34,8 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     }
     
     func channelManager(_ channelManager: PTChannelManager, channelUUID: UUID, didBeginTransmittingFrom source: PTChannelTransmitRequestSource) {
+        print("didBeginTransmittingFrom")
+        try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
         isTransmiting = true
     }
     
@@ -41,18 +44,18 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     
     func channelManager(_ channelManager: PTChannelManager, receivedEphemeralPushToken pushToken: Data) {
         print("PTT Token: ", pushToken.map { String(format: "%02.2hhx", $0) }.joined())
+        UserDefaults.standard.set(pushToken.map { String(format: "%02.2hhx", $0) }.joined(), forKey: "pttToken")
     }
     
     func incomingPushResult(channelManager: PTChannelManager, channelUUID: UUID, pushPayload: [String : Any]) -> PTPushResult {
         print("payload received")
         guard let activeSpeaker = pushPayload["activeSpeaker"] as? String else {
-               // If no active speaker is set, the only other valid operation
-               // is to leave the channel
-               return .leaveChannel
-           }
-
-           let participant = PTParticipant(name: activeSpeaker, image: UIImage())
-           return .activeRemoteParticipant(participant)
+            return .leaveChannel
+        }
+        print("payload received from: \(activeSpeaker)")
+        speaker = PTParticipant(name: activeSpeaker, image: UIImage())
+        try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
+        return .activeRemoteParticipant(speaker)
     }
     
     func stopReceivingAudio() {
@@ -60,20 +63,19 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     }
     
     func channelManager(_ channelManager: PTChannelManager, didActivate audioSession: AVAudioSession) {
-//        let recordingSession = AVAudioSession.sharedInstance()
+        print("didActivate")
         if isTransmiting {
             do {
-                try audioSession.setCategory(.playAndRecord, mode: .default)
+                try audioSession.setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
                 try audioSession.setActive(true)
             } catch {
                 print("Can not setup the Recording")
             }
             
+            let userId = AuthService.shared.user?.uid
             let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let fileName = path.appendingPathComponent("CO-Voice : test.aac")
+            let fileName = path.appendingPathComponent("\(userId!).aac")
             print("recorded: ", fileName)
-            
-            
             
             let settings = [
                 AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -81,7 +83,6 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
                 AVNumberOfChannelsKey: 1,
                 AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
             ]
-            
             
             do {
                 recorder = try AVAudioRecorder(url: fileName, settings: settings)
@@ -93,43 +94,39 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
             }
         } else {
             let storage = Storage.storage()
-
-            // Create a storage reference from our storage service
+            
             let storageRef = storage.reference()
-            let voiceRef = storageRef.child("voice/test.aac")
-
-            // Create local filesystem URL
+            let voiceRef = storageRef.child("voice/\(speaker.name).aac")
+            
             let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let fileName = path.appendingPathComponent("CO-Voice : download.aac")
-
-            // Download to the local filesystem
+            let fileName = path.appendingPathComponent("\(speaker.name).aac")
+            
             let downloadTask = voiceRef.write(toFile: fileName) { url, error in
-              if let error = error {
-                // Uh-oh, an error occurred!
-              } else {
-                // Local file URL for "images/island.jpg" is returned
-                  print("playing: ", fileName)
-                      
-                  do {
-                      try audioSession.setCategory(AVAudioSession.Category.playback)
-                      try audioSession.setActive(true)
-                  } catch {
-                      print("Playing failed in Device")
-                  }
-                      
-                  do {
-                      let data = try Data(contentsOf: fileName)
-                      self.audioPlayer = try AVAudioPlayer(data: data, fileTypeHint: "aac")
-                      self.audioPlayer!.prepareToPlay()
-                      self.audioPlayer!.play()
-                      self.audioPlayer!.delegate = self
-
-                          
-                  } catch {
-                      print("Playing Failed")
-                      print(error)
-                  }
-              }
+                if let error = error {
+                    self.stopReceivingAudio()
+                } else {
+                    print("playing: ", fileName)
+                    
+                    do {
+                        try audioSession.setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
+                        try audioSession.setActive(true)
+                    } catch {
+                        print("Playing failed in Device")
+                        self.stopReceivingAudio()
+                    }
+                    
+                    do {
+                        let data = try Data(contentsOf: fileName)
+                        self.audioPlayer = try AVAudioPlayer(data: data, fileTypeHint: "aac")
+                        self.audioPlayer!.prepareToPlay()
+                        self.audioPlayer!.play()
+                        self.audioPlayer!.delegate = self
+                    } catch {
+                        print("Playing Failed")
+                        print(error)
+                        self.stopReceivingAudio()
+                    }
+                }
             }
         }
     }
@@ -138,36 +135,25 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
         if isTransmiting {
             recorder.stop()
             
-            // Get a reference to the storage service using the default Firebase App
             let storage = Storage.storage()
-
-            // Create a storage reference from our storage service
-            let storageRef = storage.reference()
-                
-            let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let fileName = path.appendingPathComponent("CO-Voice : test.aac")
-
-            // Create a reference to the file you want to upload
-            let riversRef = storageRef.child("voice/test.aac")
-
-            // Upload the file to the path "images/rivers.jpg"
-            let uploadTask = riversRef.putFile(from: fileName, metadata: nil) { metadata, error in
-              guard let metadata = metadata else {
-                // Uh-oh, an error occurred!
-                return
-              }
-              // Metadata contains file metadata such as size, content-type.
-              let size = metadata.size
-              // You can also access to download URL after upload.
-              riversRef.downloadURL { (url, error) in
-                guard let downloadURL = url else {
-                  // Uh-oh, an error occurred!
-                  return
-                }
-              }
-            }
             
-            isTransmiting = false
+            let storageRef = storage.reference()
+            let userId = AuthService.shared.user?.uid
+            let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let fileName = path.appendingPathComponent("\(userId!).aac")
+            
+            let voiceRef = storageRef.child("voice/\(userId!).aac")
+            
+            voiceRef.putFile(from: fileName, metadata: nil) { metadata, error in
+                guard metadata != nil else {
+                    self.isTransmiting = false
+                    return
+                }
+                Task {
+                    try? await PTTService.shared.sendPTTNotification()
+                }
+                self.isTransmiting = false
+            }
         }
     }
     
@@ -185,7 +171,7 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     func requestJoinChannel() {
         print("requestJoinChannel")
         channelManager!.requestJoinChannel(channelUUID: channelUUID!,
-                                          descriptor: channelDescriptor)
+                                           descriptor: channelDescriptor)
     }
     
     func requestBeginTransmitting() {
@@ -200,5 +186,5 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         stopReceivingAudio()
-   }
+    }
 }

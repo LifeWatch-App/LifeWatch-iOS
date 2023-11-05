@@ -151,6 +151,20 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                             }
                         }
                     }
+                    guard let pttToken = UserDefaults.standard.value(forKey: "pttToken") else{
+                        return
+                    }
+                    if (pttToken as! String != AuthService.shared.userData?.pttToken ?? "") {
+                        self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
+                            "pttToken": pttToken
+                        ]) { err in
+                            if let err = err {
+                                print("Error updating document: \(err)")
+                            } else {
+                                print("PTT token successfully updated")
+                            }
+                        }
+                    }
                    
                     self.loginProviders = []
                     if let providerData = Auth.auth().currentUser?.providerData {
