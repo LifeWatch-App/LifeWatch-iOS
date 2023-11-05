@@ -15,156 +15,88 @@ struct CaregiverDashboardView: View {
     @State var showChangeSenior = false
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                ScrollView {
-                    VStack(spacing: 20) {
-                        //                    VStack {
-                        //                        Text("Welcome, \(caregiverDashboardViewModel.user?.email ?? "")!")
-                        //                        Text("Enter your senior's email")
-                        //                        TextField("Email", text: $email)
-                        //                            .padding()
-                        //                            .keyboardType(.emailAddress)
-                        //                            .autocapitalization(.none)
-                        //                        Button {
-                        //                            caregiverDashboardViewModel.sendRequestToSenior(email: email)
-                        //                        } label: {
-                        //                            Text("Request access")
-                        //                        }
-                        //                        ForEach(caregiverDashboardViewModel.invites, id: \.id) { invite in
-                        //                            HStack {
-                        //                                Text("Invite sent: \(invite.seniorData!.email!)")
-                        //                                Text(invite.accepted! ? "(Accepted)" : "(Pending)")
-                        //                            }
-                        //                            .padding(.top, 4)
-                        //                        }
-                        //                    }
-                        
-                        SeniorStatus(caregiverDashboardViewModel: caregiverDashboardViewModel)
-                            .padding(.horizontal)
-                        
-                        UpcomingRoutines(caregiverDashboardViewModel: caregiverDashboardViewModel)
+        ZStack {
+            NavigationStack {
+                VStack {
+                    ScrollView {
+                        VStack(spacing: 20) {
+                            //                    VStack {
+                            //                        Text("Welcome, \(caregiverDashboardViewModel.user?.email ?? "")!")
+                            //                        Text("Enter your senior's email")
+                            //                        TextField("Email", text: $email)
+                            //                            .padding()
+                            //                            .keyboardType(.emailAddress)
+                            //                            .autocapitalization(.none)
+                            //                        Button {
+                            //                            caregiverDashboardViewModel.sendRequestToSenior(email: email)
+                            //                        } label: {
+                            //                            Text("Request access")
+                            //                        }
+                            //                        ForEach(caregiverDashboardViewModel.invites, id: \.id) { invite in
+                            //                            HStack {
+                            //                                Text("Invite sent: \(invite.seniorData!.email!)")
+                            //                                Text(invite.accepted! ? "(Accepted)" : "(Pending)")
+                            //                            }
+                            //                            .padding(.top, 4)
+                            //                        }
+                            //                    }
+                            
+                            SeniorStatus(caregiverDashboardViewModel: caregiverDashboardViewModel)
+                                .padding(.horizontal)
+                            
+                            UpcomingRoutines(caregiverDashboardViewModel: caregiverDashboardViewModel)
+                        }
                     }
-                }
-                
-                Button {
                     
-                } label: {
-                    HStack {
-                        Spacer()
-                        
-                        Image(systemName: "flipphone")
-                        Text("Walkie Talkie")
-                        
-                        Spacer()
-                    }
-                    .foregroundStyle(.white)
-                    .padding(12)
-                    .background(.accent)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .padding(.vertical, 8)
-                    .padding(.horizontal)
-                }
-            }
-            .background(colorScheme == .light ? Color(.systemGroupedBackground) : .black)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        showChangeSenior.toggle()
+                        
                     } label: {
                         HStack {
-                            Text("Subroto")
+                            Spacer()
                             
-                            Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
-                                .font(.subheadline)
-                                .padding(.leading, -2)
+                            Image(systemName: "flipphone")
+                            Text("Walkie Talkie")
+                            
+                            Spacer()
                         }
-                        .font(.headline)
+                        .foregroundStyle(.white)
+                        .padding(12)
+                        .background(.accent)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .padding(.vertical, 8)
+                        .padding(.horizontal)
                     }
-                    .overlay(alignment: .topLeading) {
-                        if showChangeSenior {
-                            VStack {
-                                HStack {
-                                    Text("Senior:")
-                                        .font(.headline)
-                                    Spacer()
-                                }
-//                                ScrollView(.horizontal) {
-                                HStack(spacing: 16) {
-                                        // Foreach seniornya
-                                        VStack {
-                                            ZStack(alignment: .bottomTrailing) {
-                                                ZStack {
-                                                    Circle()
-                                                        .fill(.secondary.opacity(0.5))
-                                                    Text("S")
-                                                        .font(.title)
-                                                        .bold()
-                                                        .frame(width: 30, height: 30, alignment: .center)
-                                                    .padding()
-                                                }
-                                                
-                                                Image(systemName: "checkmark.circle.fill")
-                                                    .foregroundStyle(.white, Color("secondary-green"))
-                                            }
-                                            
-                                            Text("Subroto")
-                                                .font(.callout)
-                                        }
-                                    
-                                        VStack {
-                                            ZStack(alignment: .bottomTrailing) {
-                                                ZStack {
-                                                    Circle()
-                                                        .fill(.secondary.opacity(0.5))
-                                                    Text("B")
-                                                        .font(.title)
-                                                        .bold()
-                                                        .frame(width: 30, height: 30, alignment: .center)
-                                                    .padding()
-                                                }
-                                            }
-                                            
-                                            Text("Brotot")
-                                                .font(.callout)
-                                        }
-                                    
-                                        VStack {
-                                            ZStack {
-                                                Circle()
-                                                    .fill(.accent)
-                                                Image(systemName: "plus")
-                                                    .foregroundStyle(.white)
-                                                    .font(.title3)
-                                                    .bold()
-                                                    .frame(width: 30, height: 30, alignment: .center)
-                                                .padding()
-                                            }
-                                            
-                                            Text("Add")
-                                                .font(.callout)
-                                        }
-                                    }
-//                                }
+                }
+                .background(colorScheme == .light ? Color(.systemGroupedBackground) : .black)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            showChangeSenior.toggle()
+                        } label: {
+                            HStack {
+                                Text("Subroto")
+                                
+                                Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
+                                    .font(.subheadline)
+                                    .padding(.leading, -2)
                             }
-                            .padding()
-                            .background(colorScheme == .light ? .white : Color(.systemGray6))
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            .padding(.top, 32)
+                            .font(.headline)
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .topBarTrailing) {
+                        NavigationLink {
+                            ProfileView()
+                        } label: {
+                            Image(systemName: "person.crop.circle")
+                                .font(.title)
                         }
                     }
                 }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        ProfileView()
-                    } label: {
-                        Image(systemName: "person.crop.circle")
-                            .font(.title)
-                    }
-                }
+                .navigationTitle("Dashboard")
             }
-            .navigationTitle("Dashboard")
+            
+            ChangeSeniorOverlay(showChangeSenior: $showChangeSenior)
         }
     }
 }
