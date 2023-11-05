@@ -78,6 +78,8 @@
 		7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79F2ADFB35D00923AFB /* Charge.swift */; };
 		7D04164E2AEFBD5500C4CBA7 /* HeartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D04164A2AEF5EBC00C4CBA7 /* HeartManager.swift */; };
 		7D0416502AEFC11200C4CBA7 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D04164F2AEFC11200C4CBA7 /* HeartRateView.swift */; };
+		7D2151AF2AF723D8001BB9BC /* HeartAnomalyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */; };
+		7D2151B12AF72416001BB9BC /* HeartAnomaly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151B02AF72416001BB9BC /* HeartAnomaly.swift */; };
 		7D9D41D82AE62DB800818908 /* Idle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9D41D72AE62DB800818908 /* Idle.swift */; };
 		7D9D41DA2AE62EA200818908 /* InactivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9D41D92AE62EA200818908 /* InactivityService.swift */; };
 		7D9D41DC2AE7561600818908 /* InactivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9D41DB2AE7561600818908 /* InactivityType.swift */; };
@@ -197,6 +199,8 @@
 		7D02E79F2ADFB35D00923AFB /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
 		7D04164A2AEF5EBC00C4CBA7 /* HeartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartManager.swift; sourceTree = "<group>"; };
 		7D04164F2AEFC11200C4CBA7 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
+		7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomalyService.swift; sourceTree = "<group>"; };
+		7D2151B02AF72416001BB9BC /* HeartAnomaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomaly.swift; sourceTree = "<group>"; };
 		7D9D41D72AE62DB800818908 /* Idle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Idle.swift; sourceTree = "<group>"; };
 		7D9D41D92AE62EA200818908 /* InactivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityService.swift; sourceTree = "<group>"; };
 		7D9D41DB2AE7561600818908 /* InactivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityType.swift; sourceTree = "<group>"; };
@@ -280,6 +284,7 @@
 				7D02E7952ADE88BF00923AFB /* FallService.swift */,
 				7DB24EF72AE51E81009A4A6D /* SOSService.swift */,
 				7D9D41D92AE62EA200818908 /* InactivityService.swift */,
+				7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -316,6 +321,7 @@
 				7D9D41D72AE62DB800818908 /* Idle.swift */,
 				93B898FF2AE779F7005E1678 /* ChargingRange.swift */,
 				8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */,
+				7D2151B02AF72416001BB9BC /* HeartAnomaly.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -682,6 +688,7 @@
 				4C6049C52AD7948F00E9F0BF /* MainViewModel.swift in Sources */,
 				9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */,
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
+				7D2151B12AF72416001BB9BC /* HeartAnomaly.swift in Sources */,
 				4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */,
 				4CA7922A2ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift in Sources */,
 				4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */,
@@ -689,6 +696,7 @@
 				4CA792302ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift in Sources */,
 				4CA7922C2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift in Sources */,
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
+				7D2151AF2AF723D8001BB9BC /* HeartAnomalyService.swift in Sources */,
 				4CB9AE5A2AEA0E72008F4381 /* ProfileViewModel.swift in Sources */,
 				4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */,
 				7DB4E0CC2AEA063100270F2C /* AudioPlayerManager.swift in Sources */,

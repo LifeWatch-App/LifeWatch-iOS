@@ -192,6 +192,32 @@ struct HistoryHeartRate: View {
                     .cornerRadius(16)
                     
                     // Heart Rate Card Here
+                    ForEach(historyViewModel.groupedHeartAnomalies, id: \.0) { (time: String, anomalies: [HeartAnomaly]) in
+                        VStack{
+                            HStack{
+                                Text(time)
+                                    .font(.headline)
+                                Spacer()
+                            }
+                            .padding(.top, 8)
+                            ForEach(0..<anomalies.count, id: \.self) { index in
+                                if anomalies[index].anomaly == "lowHeart" {
+                                    HStack{
+                                        Text("Low Heart Card")
+                                    }
+//                                    HistoryCard(option: .idle, time: Date.unixToString(unix: idle.startTime ?? 0, timeOption: .hour), finishedTime: Date.unixToString(unix: idle.endTime ?? 0, timeOption: .hour))
+                                } else if anomalies[index].anomaly == "highHeart" {
+                                    HStack{
+                                        Text("High Heart Card")
+                                    }
+                                } else {
+                                    HStack{
+                                        Text("Irregular Heart Card")
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
             .padding(.horizontal)
