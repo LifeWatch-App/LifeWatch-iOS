@@ -270,8 +270,9 @@ struct SeniorStatus: View {
                 VStack(alignment: .leading) {
                     HStack {
                         VStack {
-                            Image(systemName: caregiverDashboardViewModel.isActive ? "figure.run" : "moon.fill")
+                            Image(systemName: caregiverDashboardViewModel.isActive ? "figure.walk" : "moon.fill")
                                 .foregroundStyle(.white)
+                                .padding(.horizontal, caregiverDashboardViewModel.isActive ? 2 : 0)
                         }
                         .padding(8)
                         .background(.blue)

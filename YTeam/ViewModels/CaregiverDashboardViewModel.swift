@@ -21,7 +21,7 @@ class CaregiverDashboardViewModel: ObservableObject {
     @Published var watchIsCharging = true
     @Published var phoneBattery: Double = 90
     @Published var phoneIsCharging = false
-    @Published var isActive = true
+    @Published var isActive = false
     @Published var inactivityTime = 30
     @Published var heartRate = 90
     @Published var location = "Outside"
