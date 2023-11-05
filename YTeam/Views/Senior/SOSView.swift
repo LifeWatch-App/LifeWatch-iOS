@@ -10,6 +10,9 @@ import SwiftUI
 struct SOSView: View {
     @Environment(\.dismiss) var dismiss
     
+    @ObservedObject var seniorDashboardViewModel: SeniorDashboardViewModel
+    @ObservedObject var audioManager: AudioPlayerManager = AudioPlayerManager()
+    
     @State var timeRemaining = 10
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -72,11 +75,14 @@ struct SOSView: View {
         .onReceive(timer) { _ in
             if timeRemaining > 0 {
                 timeRemaining -= 1
+            } else if timeRemaining == 0 {
+//                Task{ try? seniorDashboardViewModel.sendSOS()}
+//                audioManager.playAlert()
             }
         }
     }
 }
 
 #Preview {
-    SOSView()
+    SOSView(seniorDashboardViewModel: SeniorDashboardViewModel())
 }

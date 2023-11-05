@@ -43,6 +43,9 @@ struct SeniorDashboardView: View {
                 }
                 .padding(.horizontal)
             }
+            .sheet(isPresented: $seniorDashboardViewModel.showAddSymptom, content: {
+                AddSymptomView()
+            })
             .background(colorScheme == .light ? Color(.systemGroupedBackground) : .black)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -190,7 +193,7 @@ struct Symtomps: View {
                 Spacer()
                 
                 Button {
-                    
+                    seniorDashboardViewModel.showAddSymptom.toggle()
                 } label: {
                     Image(systemName: "plus")
                         .font(.title3)
@@ -231,31 +234,3 @@ struct Symtomps: View {
     SeniorDashboardView()
         .preferredColorScheme(.dark)
 }
-
-
-//struct SOSButton: View {
-//    @ObservedObject var seniorDashboardViewModel: SeniorDashboardViewModel = SeniorDashboardViewModel()
-//    @ObservedObject var audioManager: AudioPlayerManager = AudioPlayerManager()
-//
-//    var body: some View {
-//        Text("Press alert button to bell")
-//            .font(.system(size: 18))
-//        Button {
-//            Task{ try? seniorDashboardViewModel.sendSOS()}
-//            audioManager.playAlert()
-//        } label: {
-//            ZStack {
-//                Circle()
-//                    .stroke(.blue)
-//                    .frame(width: Screen.width * 0.9)
-//                Circle()
-//                    .tint(.blue)
-//                    .frame(width: Screen.width * 0.8, height: Screen.width * 0.8)
-//                Image(systemName: "light.beacon.max.fill")
-//                    .resizable()
-//                    .tint(.white)
-//                    .frame(width: Screen.width * 0.35 * 1.17730, height: Screen.width * 0.35)
-//            }
-//        }
-//    }
-//}

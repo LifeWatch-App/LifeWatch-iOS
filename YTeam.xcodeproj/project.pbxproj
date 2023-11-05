@@ -88,12 +88,18 @@
 		7DB4E0CC2AEA063100270F2C /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */; };
 		7DB4E0CF2AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
 		7DB4E0D02AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
+		8D21B03A2AF7A4F200D23BF1 /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */; };
+		8D21B03C2AF7AD7500D23BF1 /* AddRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03B2AF7AD7500D23BF1 /* AddRoutineView.swift */; };
+		8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */; };
+		8D21B0402AF7B51800D23BF1 /* HoursMinutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */; };
+		8D21B0422AF7DBF300D23BF1 /* RoutineCircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B0412AF7DBF300D23BF1 /* RoutineCircularProgressView.swift */; };
 		8D33E9192AF73A2F00C9D3C1 /* SymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9182AF73A2F00C9D3C1 /* SymptomView.swift */; };
 		8D33E91B2AF73A3500C9D3C1 /* EmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E91A2AF73A3500C9D3C1 /* EmergencyView.swift */; };
 		8D33E91D2AF73A3B00C9D3C1 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E91C2AF73A3B00C9D3C1 /* HeartRateView.swift */; };
 		8D33E91F2AF73A6100C9D3C1 /* InactivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E91E2AF73A6100C9D3C1 /* InactivityView.swift */; };
 		8D33E9212AF73E4F00C9D3C1 /* HistoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9202AF73E4F00C9D3C1 /* HistoryCard.swift */; };
 		8D33E9232AF740A200C9D3C1 /* HistoryWeekPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9222AF740A200C9D3C1 /* HistoryWeekPicker.swift */; };
+		8D33E9252AF7A4C000C9D3C1 /* RoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9242AF7A4C000C9D3C1 /* RoutineViewModel.swift */; };
 		8D672F872AF517CF00C29E63 /* BatteryCircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D672F862AF517CF00C29E63 /* BatteryCircularProgressView.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8D8FB6B62AEA03C90081CD50 /* HeartRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */; };
@@ -217,12 +223,18 @@
 		7DB2E5FE2AF32F2F00CAD5A6 /* HeartAnomaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomaly.swift; sourceTree = "<group>"; };
 		7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
 		7DB4E0CE2AEA080E00270F2C /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
+		8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
+		8D21B03B2AF7AD7500D23BF1 /* AddRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineView.swift; sourceTree = "<group>"; };
+		8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSymptomView.swift; sourceTree = "<group>"; };
+		8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursMinutes.swift; sourceTree = "<group>"; };
+		8D21B0412AF7DBF300D23BF1 /* RoutineCircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCircularProgressView.swift; sourceTree = "<group>"; };
 		8D33E9182AF73A2F00C9D3C1 /* SymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomView.swift; sourceTree = "<group>"; };
 		8D33E91A2AF73A3500C9D3C1 /* EmergencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyView.swift; sourceTree = "<group>"; };
 		8D33E91C2AF73A3B00C9D3C1 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
 		8D33E91E2AF73A6100C9D3C1 /* InactivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityView.swift; sourceTree = "<group>"; };
 		8D33E9202AF73E4F00C9D3C1 /* HistoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCard.swift; sourceTree = "<group>"; };
 		8D33E9222AF740A200C9D3C1 /* HistoryWeekPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryWeekPicker.swift; sourceTree = "<group>"; };
+		8D33E9242AF7A4C000C9D3C1 /* RoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewModel.swift; sourceTree = "<group>"; };
 		8D672F862AF517CF00C29E63 /* BatteryCircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryCircularProgressView.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateChart.swift; sourceTree = "<group>"; };
@@ -272,6 +284,7 @@
 			children = (
 				4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */,
 				8D672F862AF517CF00C29E63 /* BatteryCircularProgressView.swift */,
+				8D21B0412AF7DBF300D23BF1 /* RoutineCircularProgressView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -320,6 +333,7 @@
 				4CA792292ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift */,
 				4CA7922B2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift */,
 				4CB9AE592AEA0E72008F4381 /* ProfileViewModel.swift */,
+				8D33E9242AF7A4C000C9D3C1 /* RoutineViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -343,6 +357,7 @@
 				8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */,
 				8DED839C2AF663C900AFB95B /* Routine.swift */,
 				8DED839E2AF664CD00AFB95B /* Symptom.swift */,
+				8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -436,6 +451,9 @@
 				9318D38C2ADCD1C800245AFF /* TestChargingView.swift */,
 				8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */,
 				4CB9AE572AEA0E26008F4381 /* ProfileView.swift */,
+				8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */,
+				8D21B03B2AF7AD7500D23BF1 /* AddRoutineView.swift */,
+				8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -717,9 +735,11 @@
 				8D33E9212AF73E4F00C9D3C1 /* HistoryCard.swift in Sources */,
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
 				93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */,
+				8D21B0422AF7DBF300D23BF1 /* RoutineCircularProgressView.swift in Sources */,
 				8DED839F2AF664CD00AFB95B /* Symptom.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
 				4CA7922E2ADFB67B003B5EC9 /* SeniorDashboardView.swift in Sources */,
+				8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
 				4CA232A42ADE1F4F003874D2 /* DataUser.swift in Sources */,
 				8DED83982AF53A5500AFB95B /* WalkieTalkieView.swift in Sources */,
@@ -749,12 +769,14 @@
 				4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */,
 				7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */,
 				8D33E91F2AF73A6100C9D3C1 /* InactivityView.swift in Sources */,
+				8D21B03A2AF7A4F200D23BF1 /* RoutineView.swift in Sources */,
 				8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */,
 				9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */,
 				4C0F8A3E2AE784CD002E8578 /* SignInWithAppleButton.swift in Sources */,
 				4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */,
 				8DED839D2AF663C900AFB95B /* Routine.swift in Sources */,
 				4CF1BBE52AE75C1D000E1199 /* TimeOption.swift in Sources */,
+				8D33E9252AF7A4C000C9D3C1 /* RoutineViewModel.swift in Sources */,
 				8D8FB6B62AEA03C90081CD50 /* HeartRateChart.swift in Sources */,
 				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,
 				4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */,
@@ -763,10 +785,12 @@
 				4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */,
 				4CB9AE582AEA0E26008F4381 /* ProfileView.swift in Sources */,
 				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
+				8D21B0402AF7B51800D23BF1 /* HoursMinutes.swift in Sources */,
 				7D9D41DC2AE7561600818908 /* InactivityType.swift in Sources */,
 				7D9D41D82AE62DB800818908 /* Idle.swift in Sources */,
 				93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */,
 				8D672F872AF517CF00C29E63 /* BatteryCircularProgressView.swift in Sources */,
+				8D21B03C2AF7AD7500D23BF1 /* AddRoutineView.swift in Sources */,
 				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

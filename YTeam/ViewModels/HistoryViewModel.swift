@@ -600,8 +600,3 @@ enum HistoryCardOption: String, CaseIterable, Identifiable {
 enum ChangeWeek: String, CaseIterable {
     case next, previous
 }
-
-struct HoursMinutes {
-    var hours: Int = 0
-    var minutes: Int = 0
-}
