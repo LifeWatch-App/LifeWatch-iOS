@@ -18,6 +18,7 @@ struct FirestoreConstants {
     static let sosCollection = Firestore.firestore().collection("sos")
     static let idlesCollection = Firestore.firestore().collection("idles")
     static let batteryLevelCollection = Firestore.firestore().collection("batteryLevels")
+    static let pttCollection = Firestore.firestore().collection("ptt")
 }
 
 

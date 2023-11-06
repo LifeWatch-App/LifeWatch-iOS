@@ -8,6 +8,8 @@
 import Foundation
 import Combine
 import FirebaseAuth
+import FirebaseStorage
+import AVFoundation
 
 class SeniorDashboardViewModel: ObservableObject {
     @Published var invites: [Invite] = []
@@ -51,5 +53,13 @@ class SeniorDashboardViewModel: ObservableObject {
     
     func signOut() {
         AuthService.shared.signOut()
+    }
+
+    func startRecording(){
+        PTT.shared.requestBeginTransmitting()
+    }
+    
+    func stopRecording() {
+        PTT.shared.stopTransmitting()
     }
 }

@@ -8,8 +8,10 @@
 import Foundation
 import Combine
 import FirebaseAuth
+import AVFoundation
+import FirebaseStorage
 
-class CaregiverDashboardViewModel: ObservableObject {
+class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDelegate  {
     @Published var invites: [Invite] = []
     @Published var user: User?
     @Published var userData: UserData?
@@ -26,7 +28,11 @@ class CaregiverDashboardViewModel: ObservableObject {
     @Published var heartRate = 90
     @Published var location = "Outside"
 
-    init() {
+    var audioPlayer : AVAudioPlayer!
+    @Published var recordingsList = [URL]()
+
+    override init() {
+        super.init()
         setupSubscribers()
         
         // add dummy data
@@ -50,5 +56,13 @@ class CaregiverDashboardViewModel: ObservableObject {
     
     func signOut() {
         AuthService.shared.signOut()
+    }
+    
+    func startRecording(){
+        PTT.shared.requestBeginTransmitting()
+    }
+    
+    func stopRecording() {
+        PTT.shared.stopTransmitting()
     }
 }
