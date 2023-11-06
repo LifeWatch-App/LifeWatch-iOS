@@ -59,7 +59,6 @@ class HeartManager: ObservableObject {
         guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
         let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
         let timeDescription: Double = Date.now.timeIntervalSince1970
-        debugPrint("Test")
         if (userRecord != nil) {
             let heartAnomaly = HeartAnomaly(seniorId: Description(stringValue: userRecord?.userID), time: Description(doubleValue: timeDescription), anomaly: Description(stringValue: "lowHeart"))
             Task { try? await self.service.set(endPoint: MultipleEndPoints.heartAnomaly, fields: heartAnomaly, httpMethod: .post) }
@@ -210,7 +209,6 @@ class HeartManager: ObservableObject {
         let query = HKSampleQuery(sampleType: self.heartRateQuantityType, predicate: nil, limit: 1, sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)]) { query, samples, error in
             if let sample = samples?.first as? HKQuantitySample {
                 let heartRateValue = sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute()))
-                debugPrint(heartRateValue)
                 self.heartRate = Int(heartRateValue)
             }
         }

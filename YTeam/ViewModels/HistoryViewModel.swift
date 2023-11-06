@@ -10,13 +10,15 @@ import FirebaseAuth
 import Combine
 
 class HistoryViewModel: ObservableObject {
-    @Published var selectedHistoryMenu: HistoryMenu = .heartRate
+    @Published var selectedHistoryMenu: HistoryMenu = .emergency
     @Published var falls: [Fall] = []
     @Published var sos: [SOS] = []
     @Published var idles: [Idle] = []
     @Published var charges: [Charge] = []
+    @Published var heartAnomalies: [HeartAnomaly] = []
     @Published var groupedEmergencies: [(String, [Emergency])] = []
     @Published var groupedInactivities: [(String, [Any])] = []
+    @Published var groupedHeartAnomalies: [(String, [HeartAnomaly])] = []
     @Published var loading: Bool = true
     @Published var loggedIn: Bool = false
     @Published var fallsCount: Int = 0
@@ -36,6 +38,7 @@ class HistoryViewModel: ObservableObject {
     private let fallService: FallService = FallService.shared
     private let sosService: SOSService = SOSService.shared
     private let inactivityService: InactivityService = InactivityService.shared
+    private let heartAnomalyService: HeartAnomalyService = HeartAnomalyService.shared
     private var cancellables = Set<AnyCancellable>()
     
     init() {
@@ -61,8 +64,8 @@ class HistoryViewModel: ObservableObject {
                 
                 self.falls.append(contentsOf: fall)
                 self.fetchCurrentWeek()
-                self.updateGroupedEmergencies()
-                self.updateGroupedInactivities()
+//                self.updateGroupedEmergencies()
+//                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
         
@@ -73,8 +76,8 @@ class HistoryViewModel: ObservableObject {
                 
                 self.sos.append(contentsOf: sos)
                 self.fetchCurrentWeek()
-                self.updateGroupedEmergencies()
-                self.updateGroupedInactivities()
+//                self.updateGroupedEmergencies()
+//                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
         
@@ -85,8 +88,8 @@ class HistoryViewModel: ObservableObject {
                 
                 self.idles.append(contentsOf: idle)
                 self.fetchCurrentWeek()
-                self.convertInactivitesToInactivityCharts()
-                self.updateGroupedInactivities()
+//                self.convertInactivitesToInactivityCharts()
+//                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
         
@@ -97,8 +100,18 @@ class HistoryViewModel: ObservableObject {
                 
                 self.charges.append(contentsOf: charge)
                 self.fetchCurrentWeek()
-                self.convertInactivitesToInactivityCharts()
-                self.updateGroupedInactivities()
+//                self.convertInactivitesToInactivityCharts()
+//                self.updateGroupedInactivities()
+            }
+            .store(in: &cancellables)
+        
+        heartAnomalyService.$heartAnomalies
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] anomaly in
+                guard let self else {return}
+                
+                self.heartAnomalies.append(contentsOf: anomaly)
+                self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
         
@@ -293,6 +306,59 @@ class HistoryViewModel: ObservableObject {
             self.idleCount = idle
             self.chargeCount = charge
             self.loading = false
+            
+            self.convertInactivitesToInactivityCharts()
+        }
+    }
+    
+    /// Updates internal properties such as `idleCount, chargesCount, and groupedInactivities` and is only called in `setupEmergencySubscriber`.
+    ///
+    /// ```
+    /// HistoryViewModel.updateGroupedInactivities().
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Updated `idleCount, chargesCount, and groupedInactivities`.
+    func updateGroupedHeartAnomalies() {
+        self.checkAuth()
+        
+        if (self.loggedIn == true) {
+            let filteredHeartAnomalies = self.heartAnomalies.sorted { $0.time > $1.time }
+            
+            guard let firstDay = self.currentWeek.first else {return}
+            guard let lastDay = self.currentWeek.last else {return}
+            
+            var heartAnomaliesDictionary: [String: [HeartAnomaly]] = [:]
+            
+            for heartAnomaly in filteredHeartAnomalies {
+                let dateString = Date.unixToString(unix: heartAnomaly.time , timeOption: .date)
+                
+                if var heartAnomalies = heartAnomaliesDictionary[dateString] {
+                    heartAnomalies.append(heartAnomaly)
+                    heartAnomaliesDictionary[dateString] = heartAnomalies
+                } else {
+                    heartAnomaliesDictionary[dateString] = [heartAnomaly]
+                }
+                
+            }
+            
+            var uniqueKeys = Set<String>()
+            
+            let unixKeys = filteredHeartAnomalies.compactMap {$0.time}
+            let sortedUnixKeys = unixKeys.sorted {$0 > $1}
+            let sortedKeys = sortedUnixKeys.compactMap { unix -> String? in
+                if (uniqueKeys.insert(Date.unixToString(unix: unix, timeOption: .date)).inserted &&
+                    Date(timeIntervalSince1970: unix) >= firstDay &&
+                    Date(timeIntervalSince1970: unix) <= lastDay) {
+                    return Date.unixToString(unix: unix, timeOption: .date)
+                }
+                return nil
+            }
+            
+            self.groupedHeartAnomalies = sortedKeys.map {($0, heartAnomaliesDictionary[$0]!)}
+            
+            self.loading = false
         }
     }
     
@@ -354,15 +420,17 @@ class HistoryViewModel: ObservableObject {
 
         (0...6).forEach { day in
             if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
-//                weekday = calendar.date(byAdding: .hour, value: 7, to: weekday) ?? Date()
                 currentWeek.append(weekday)
             }
         }
         
+        currentWeek[currentWeek.count - 1] = calendar.date(bySettingHour: 18, minute: 0, second: 0, of: currentWeek.last!) ?? currentWeek.last!
+        
         withAnimation {
+            fetchCurrentWeekData()
             updateGroupedEmergencies()
             updateGroupedInactivities()
-            fetchCurrentWeekData()
+            updateGroupedHeartAnomalies()
         }
     }
     

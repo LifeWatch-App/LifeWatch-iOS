@@ -81,6 +81,9 @@
 		7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79F2ADFB35D00923AFB /* Charge.swift */; };
 		7D04164E2AEFBD5500C4CBA7 /* HeartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D04164A2AEF5EBC00C4CBA7 /* HeartManager.swift */; };
 		7D0416502AEFC11200C4CBA7 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D04164F2AEFC11200C4CBA7 /* HeartRateView.swift */; };
+		7D2151AF2AF723D8001BB9BC /* HeartAnomalyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */; };
+		7D2151B12AF72416001BB9BC /* HeartAnomaly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151B02AF72416001BB9BC /* HeartAnomaly.swift */; };
+		7D2151B32AF8734C001BB9BC /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151B22AF8734C001BB9BC /* Heartbeat.swift */; };
 		7D9D41D82AE62DB800818908 /* Idle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9D41D72AE62DB800818908 /* Idle.swift */; };
 		7D9D41DA2AE62EA200818908 /* InactivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9D41D92AE62EA200818908 /* InactivityService.swift */; };
 		7D9D41DC2AE7561600818908 /* InactivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9D41DB2AE7561600818908 /* InactivityType.swift */; };
@@ -220,6 +223,9 @@
 		7D02E79F2ADFB35D00923AFB /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
 		7D04164A2AEF5EBC00C4CBA7 /* HeartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartManager.swift; sourceTree = "<group>"; };
 		7D04164F2AEFC11200C4CBA7 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
+		7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomalyService.swift; sourceTree = "<group>"; };
+		7D2151B02AF72416001BB9BC /* HeartAnomaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomaly.swift; sourceTree = "<group>"; };
+		7D2151B22AF8734C001BB9BC /* Heartbeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
 		7D9D41D72AE62DB800818908 /* Idle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Idle.swift; sourceTree = "<group>"; };
 		7D9D41D92AE62EA200818908 /* InactivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityService.swift; sourceTree = "<group>"; };
 		7D9D41DB2AE7561600818908 /* InactivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityType.swift; sourceTree = "<group>"; };
@@ -327,6 +333,7 @@
 				7D02E7952ADE88BF00923AFB /* FallService.swift */,
 				7DB24EF72AE51E81009A4A6D /* SOSService.swift */,
 				7D9D41D92AE62EA200818908 /* InactivityService.swift */,
+				7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */,
 				4CCDD5592AF634BA00146330 /* PTTService.swift */,
 			);
 			path = Services;
@@ -365,6 +372,8 @@
 				7D9D41D72AE62DB800818908 /* Idle.swift */,
 				93B898FF2AE779F7005E1678 /* ChargingRange.swift */,
 				8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */,
+				7D2151B02AF72416001BB9BC /* HeartAnomaly.swift */,
+				7D2151B22AF8734C001BB9BC /* Heartbeat.swift */,
 				8DED839C2AF663C900AFB95B /* Routine.swift */,
 				8DED839E2AF664CD00AFB95B /* Symptom.swift */,
 				8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */,
@@ -763,6 +772,7 @@
 				8D33E91D2AF73A3B00C9D3C1 /* HeartRateView.swift in Sources */,
 				9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */,
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
+				7D2151B12AF72416001BB9BC /* HeartAnomaly.swift in Sources */,
 				4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */,
 				4CA7922A2ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift in Sources */,
 				4C7076332AEF925D00271E9E /* PTT.swift in Sources */,
@@ -772,6 +782,7 @@
 				8D33E91B2AF73A3500C9D3C1 /* EmergencyView.swift in Sources */,
 				4CA7922C2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift in Sources */,
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
+				7D2151AF2AF723D8001BB9BC /* HeartAnomalyService.swift in Sources */,
 				4CB9AE5A2AEA0E72008F4381 /* ProfileViewModel.swift in Sources */,
 				4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */,
 				7DB4E0CC2AEA063100270F2C /* AudioPlayerManager.swift in Sources */,
@@ -799,6 +810,7 @@
 				7D9D41DA2AE62EA200818908 /* InactivityService.swift in Sources */,
 				4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */,
 				4CB9AE582AEA0E26008F4381 /* ProfileView.swift in Sources */,
+				7D2151B32AF8734C001BB9BC /* Heartbeat.swift in Sources */,
 				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
 				8D21B0402AF7B51800D23BF1 /* HoursMinutes.swift in Sources */,
 				7D9D41DC2AE7561600818908 /* InactivityType.swift in Sources */,

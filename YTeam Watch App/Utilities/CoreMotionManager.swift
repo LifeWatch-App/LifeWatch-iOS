@@ -10,22 +10,27 @@ import CoreMotion
 
 class CoreMotionManager: ObservableObject {
     
-    private let motionManager: CMMotionManager = CMMotionManager()
+    private var motionManager: CMMotionManager = CMMotionManager()
     private let accelerometerInterval: Double = 2
     
     @Published var fall: Bool = false
     @Published var accelerometerAvailable: Bool = false
     @Published var accelerometerStarted: Bool = false
     
+    private var lastX: Double = 0
+    private var lastY: Double = 0
+    private var lastZ: Double = 0
+    
     private var accX: Double = 0
     private var accY: Double = 0
     private var accZ: Double = 0
+    
+    private var timer: Timer?
     
     init() {
         self.checkAccelerometerAvailability()
         self.setAccelerometerInterval(accelerometerInterval: self.accelerometerInterval)
         self.startAccelerometer()
-        self.checkForFalls(interval: self.accelerometerInterval)
     }
     
     
@@ -73,6 +78,7 @@ class CoreMotionManager: ObservableObject {
         if (self.accelerometerAvailable){
             self.motionManager.startAccelerometerUpdates()
             self.accelerometerStarted = true
+            self.checkForFalls(interval: self.accelerometerInterval)
         }
     }
     
@@ -85,9 +91,15 @@ class CoreMotionManager: ObservableObject {
     ///     - None
     /// - Returns: `Void. Starts accelerometer of the motion manager if accelerometer's availability is true.`
     func stopAccelerometer() {
-        if (self.accelerometerStarted) {
+        if self.timer != nil {
+            print("Stop the timer!")
+            self.timer?.invalidate()
+            self.timer = nil
+            
             self.motionManager.stopAccelerometerUpdates()
             self.accelerometerStarted = false
+            
+            //TODO: Send to database
         }
     }
     
@@ -100,22 +112,38 @@ class CoreMotionManager: ObservableObject {
     ///     - Interval (`Double`): The amount of seconds to log another report.
     /// - Returns: `Void. Starts a timer for every for user falls after accelerometer starts.`
     func checkForFalls(interval: Double) {
-        if (self.accelerometerStarted) {
-            Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { _ in
-                if let accelerationData = self.motionManager.accelerometerData {
+        if (self.accelerometerStarted && !self.fall) {
+            self.timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { timer in
+                if (self.fall) {
+                    return
+                }
+                
+                if let accelerationData = self.motionManager.accelerometerData, self.fall == false {
+                    self.lastX = self.accX
+                    self.lastY = self.accY
+                    self.lastZ = self.accZ
+                    
                     self.accX = accelerationData.acceleration.x
                     self.accY = accelerationData.acceleration.y
                     self.accZ = accelerationData.acceleration.z
+                    
+                    if (self.lastX == 0) && (self.lastY == 0) && (self.lastZ == 0) {
+                        return
+                    }
+                    
+                    print("Delta X: \(abs(self.accX - self.lastX))");
+                    print("Delta Y: \(abs(self.accY - self.lastY))");
+                    print("Delta Z: \(abs(self.accZ - self.lastZ))");
+                    
+                    self.accX = 1.3
+                    self.lastX = 0.1
+                    if (abs(self.accX - self.lastX) >= 0.9 || abs(self.accY - self.lastY) >= 0.9 || abs(self.accZ - self.lastZ) >= 0.9) {
+                        print("You fell")
+                        timer.invalidate()
+                        self.stopAccelerometer()
+                        self.fall = true
+                    }
                 }
-                
-                let accelerometerPrediction = -0.085405 * self.accX + 0.033008 * self.accY + -0.197427 * self.accZ
-                                                
-                if (accelerometerPrediction >= 0.6){
-                    self.fall = true
-                    debugPrint("Fell")
-                }
-                
-                debugPrint("X Accelerometer: \(self.accX), Y Accelerometer: \(self.accY), Z Accelerometer: \(self.accZ), AP: \(accelerometerPrediction)");
             }
         }
     }
