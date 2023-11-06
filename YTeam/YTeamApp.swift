@@ -37,9 +37,20 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("FCM TOKEN:", fcmToken ?? "")
+        
+        let oldFcmToken = UserDefaults.standard.value(forKey: "fcmToken")
+        if AuthService.shared.user != nil {
+            if oldFcmToken != nil {
+                if ((oldFcmToken as! String) != fcmToken) {
+                    AuthService.shared.updateFCMToken(fcmToken: fcmToken!)
+                }
+            } else {
+                AuthService.shared.updateFCMToken(fcmToken: fcmToken!)
+            }
+        }
+        
         let dataDict: [String: String] = ["fcmToken": fcmToken ?? ""]
         NotificationCenter.default.post(name: Notification.Name("fcmToken"), object: fcmToken, userInfo: dataDict)
-        // Save it to the user defaults
         UserDefaults.standard.set(fcmToken, forKey: "fcmToken")
     }
 }
@@ -47,6 +58,7 @@ extension AppDelegate: MessagingDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
+        print("APNS Token: ", deviceToken.map { String(format: "%02.2hhx", $0) }.joined())
     }
 }
 
@@ -58,6 +70,9 @@ struct YTeamApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.light)
+                .task {
+                    try? await PTT.shared.setupChannelManager()
+                }
         }
     }
 }

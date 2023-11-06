@@ -20,6 +20,7 @@
 		4C6049C92AD799F200E9F0BF /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6049C82AD799F200E9F0BF /* SignUpView.swift */; };
 		4C6049CB2AD79DDA00E9F0BF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049CA2AD79DDA00E9F0BF /* FirebaseFirestore */; };
 		4C6049D02AD7C6E000E9F0BF /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */; };
+		4C7076332AEF925D00271E9E /* PTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7076322AEF925D00271E9E /* PTT.swift */; };
 		4CA232972ADE1EF1003874D2 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232922ADE1EF1003874D2 /* UserRecord.swift */; };
 		4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232932ADE1EF1003874D2 /* ChartData.swift */; };
 		4CA232992ADE1EF1003874D2 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232942ADE1EF1003874D2 /* Invite.swift */; };
@@ -32,17 +33,16 @@
 		4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232A32ADE1F4F003874D2 /* UserRecord.swift */; };
 		4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */; };
 		4CA232B72ADE48F7003874D2 /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232B62ADE48F7003874D2 /* Fall.swift */; };
-		4CA7922A2ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA792292ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift */; };
-		4CA7922C2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922B2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift */; };
-		4CA7922E2ADFB67B003B5EC9 /* SeniorEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */; };
-		4CA792302ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */; };
+		4CA7922A2ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA792292ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift */; };
+		4CA7922C2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922B2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift */; };
+		4CA7922E2ADFB67B003B5EC9 /* SeniorDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922D2ADFB67B003B5EC9 /* SeniorDashboardView.swift */; };
+		4CA792302ADFF9A1003B5EC9 /* CaregiverDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7922F2ADFF9A1003B5EC9 /* CaregiverDashboardView.swift */; };
 		4CA792322ADFFFC2003B5EC9 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CA792312ADFFFC2003B5EC9 /* FirebaseMessaging */; };
-		4CAD39482AE8B9CB00F84FD6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */; };
 		4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB015592AD4DBBC0023C71E /* YTeamApp.swift */; };
 		4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0155B2AD4DBBC0023C71E /* ContentView.swift */; };
 		4CB0155E2AD4DBBF0023C71E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */; };
 		4CB015612AD4DBBF0023C71E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB015602AD4DBBF0023C71E /* Preview Assets.xcassets */; };
-		4CB015672AD4DBBF0023C71E /* LifeWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4CB015662AD4DBBF0023C71E /* LifeWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4CB015672AD4DBBF0023C71E /* Careific Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4CB015662AD4DBBF0023C71E /* Careific Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4CB0156C2AD4DBBF0023C71E /* YTeamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0156B2AD4DBBF0023C71E /* YTeamApp.swift */; };
 		4CB0156E2AD4DBBF0023C71E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0156D2AD4DBBF0023C71E /* ContentView.swift */; };
 		4CB015702AD4DBC00023C71E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB0156F2AD4DBC00023C71E /* Assets.xcassets */; };
@@ -50,6 +50,9 @@
 		4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB0157E2AD4E5F60023C71E /* LoginView.swift */; };
 		4CB9AE582AEA0E26008F4381 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB9AE572AEA0E26008F4381 /* ProfileView.swift */; };
 		4CB9AE5A2AEA0E72008F4381 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB9AE592AEA0E72008F4381 /* ProfileViewModel.swift */; };
+		4CCBF3602AF38CBC005A2C24 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4CCBF35F2AF38CBC005A2C24 /* FirebaseStorage */; };
+		4CCDD55A2AF634BA00146330 /* PTTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCDD5592AF634BA00146330 /* PTTService.swift */; };
+		4CD95BAC2AF796AB00A37B38 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CD95BAB2AF796AB00A37B38 /* GoogleService-Info.plist */; };
 		4CF1BBE52AE75C1D000E1199 /* TimeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */; };
 		4CF1BBE62AE75C1D000E1199 /* TimeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */; };
 		7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7202AD8ECD500923AFB /* Screen.swift */; };
@@ -91,11 +94,29 @@
 		7DB4E0CC2AEA063100270F2C /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */; };
 		7DB4E0CF2AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
 		7DB4E0D02AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
+		8D21B03A2AF7A4F200D23BF1 /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */; };
+		8D21B03C2AF7AD7500D23BF1 /* AddRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03B2AF7AD7500D23BF1 /* AddRoutineView.swift */; };
+		8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */; };
+		8D21B0402AF7B51800D23BF1 /* HoursMinutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */; };
+		8D21B0422AF7DBF300D23BF1 /* RoutineCircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B0412AF7DBF300D23BF1 /* RoutineCircularProgressView.swift */; };
+		8D21B0462AF7ED0B00D23BF1 /* ChangeSeniorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B0452AF7ED0B00D23BF1 /* ChangeSeniorOverlay.swift */; };
+		8D33E9192AF73A2F00C9D3C1 /* SymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9182AF73A2F00C9D3C1 /* SymptomView.swift */; };
+		8D33E91B2AF73A3500C9D3C1 /* EmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E91A2AF73A3500C9D3C1 /* EmergencyView.swift */; };
+		8D33E91D2AF73A3B00C9D3C1 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E91C2AF73A3B00C9D3C1 /* HeartRateView.swift */; };
+		8D33E91F2AF73A6100C9D3C1 /* InactivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E91E2AF73A6100C9D3C1 /* InactivityView.swift */; };
+		8D33E9212AF73E4F00C9D3C1 /* HistoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9202AF73E4F00C9D3C1 /* HistoryCard.swift */; };
+		8D33E9232AF740A200C9D3C1 /* HistoryWeekPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9222AF740A200C9D3C1 /* HistoryWeekPicker.swift */; };
+		8D33E9252AF7A4C000C9D3C1 /* RoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9242AF7A4C000C9D3C1 /* RoutineViewModel.swift */; };
+		8D672F872AF517CF00C29E63 /* BatteryCircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D672F862AF517CF00C29E63 /* BatteryCircularProgressView.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8D8FB6B62AEA03C90081CD50 /* HeartRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
 		8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */; };
+		8DED83962AF5398C00AFB95B /* SOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED83952AF5398C00AFB95B /* SOSView.swift */; };
+		8DED83982AF53A5500AFB95B /* WalkieTalkieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED83972AF53A5500AFB95B /* WalkieTalkieView.swift */; };
+		8DED839D2AF663C900AFB95B /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED839C2AF663C900AFB95B /* Routine.swift */; };
+		8DED839F2AF664CD00AFB95B /* Symptom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED839E2AF664CD00AFB95B /* Symptom.swift */; };
 		9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38A2ADCD1AC00245AFF /* ChartData.swift */; };
 		9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38C2ADCD1C800245AFF /* TestChargingView.swift */; };
 		9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D39B2ADCD92B00245AFF /* FirebaseAuth */; };
@@ -124,7 +145,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				4CB015672AD4DBBF0023C71E /* LifeWatch Watch App.app in Embed Watch Content */,
+				4CB015672AD4DBBF0023C71E /* Careific Watch App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +164,7 @@
 		4C6049C82AD799F200E9F0BF /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4C6049CD2AD7AF4000E9F0BF /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		4C6049D12AD7FD4A00E9F0BF /* Invite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
+		4C7076322AEF925D00271E9E /* PTT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTT.swift; sourceTree = "<group>"; };
 		4CA232912ADD4517003874D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4CA232922ADE1EF1003874D2 /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
 		4CA232932ADE1EF1003874D2 /* ChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
@@ -156,17 +178,16 @@
 		4CA232A32ADE1F4F003874D2 /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
 		4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchConnectorService.swift; sourceTree = "<group>"; };
 		4CA232B62ADE48F7003874D2 /* Fall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
-		4CA792292ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverEmergencyViewModel.swift; sourceTree = "<group>"; };
-		4CA7922B2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyViewModel.swift; sourceTree = "<group>"; };
-		4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeniorEmergencyView.swift; sourceTree = "<group>"; };
-		4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverEmergencyView.swift; sourceTree = "<group>"; };
-		4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		4CB015562AD4DBBC0023C71E /* LifeWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CA792292ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverDashboardViewModel.swift; sourceTree = "<group>"; };
+		4CA7922B2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorDashboardViewModel.swift; sourceTree = "<group>"; };
+		4CA7922D2ADFB67B003B5EC9 /* SeniorDashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeniorDashboardView.swift; sourceTree = "<group>"; };
+		4CA7922F2ADFF9A1003B5EC9 /* CaregiverDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverDashboardView.swift; sourceTree = "<group>"; };
+		4CB015562AD4DBBC0023C71E /* Careific.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Careific.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB015592AD4DBBC0023C71E /* YTeamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTeamApp.swift; sourceTree = "<group>"; };
 		4CB0155B2AD4DBBC0023C71E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CB015602AD4DBBF0023C71E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		4CB015662AD4DBBF0023C71E /* LifeWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LifeWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CB015662AD4DBBF0023C71E /* Careific Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Careific Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB0156B2AD4DBBF0023C71E /* YTeamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTeamApp.swift; sourceTree = "<group>"; };
 		4CB0156D2AD4DBBF0023C71E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4CB0156F2AD4DBC00023C71E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -175,6 +196,8 @@
 		4CB015802AD4E6E00023C71E /* YTeam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YTeam.entitlements; sourceTree = "<group>"; };
 		4CB9AE572AEA0E26008F4381 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		4CB9AE592AEA0E72008F4381 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		4CCDD5592AF634BA00146330 /* PTTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTTService.swift; sourceTree = "<group>"; };
+		4CD95BAB2AF796AB00A37B38 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeOption.swift; sourceTree = "<group>"; };
 		7D02E7042AD78AD300923AFB /* YTeam Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "YTeam Watch App.entitlements"; sourceTree = "<group>"; };
 		7D02E7202AD8ECD500923AFB /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
@@ -212,11 +235,29 @@
 		7DB2E5FE2AF32F2F00CAD5A6 /* HeartAnomaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomaly.swift; sourceTree = "<group>"; };
 		7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
 		7DB4E0CE2AEA080E00270F2C /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
+		8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
+		8D21B03B2AF7AD7500D23BF1 /* AddRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineView.swift; sourceTree = "<group>"; };
+		8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSymptomView.swift; sourceTree = "<group>"; };
+		8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursMinutes.swift; sourceTree = "<group>"; };
+		8D21B0412AF7DBF300D23BF1 /* RoutineCircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCircularProgressView.swift; sourceTree = "<group>"; };
+		8D21B0452AF7ED0B00D23BF1 /* ChangeSeniorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeSeniorOverlay.swift; sourceTree = "<group>"; };
+		8D33E9182AF73A2F00C9D3C1 /* SymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomView.swift; sourceTree = "<group>"; };
+		8D33E91A2AF73A3500C9D3C1 /* EmergencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyView.swift; sourceTree = "<group>"; };
+		8D33E91C2AF73A3B00C9D3C1 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
+		8D33E91E2AF73A6100C9D3C1 /* InactivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityView.swift; sourceTree = "<group>"; };
+		8D33E9202AF73E4F00C9D3C1 /* HistoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCard.swift; sourceTree = "<group>"; };
+		8D33E9222AF740A200C9D3C1 /* HistoryWeekPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryWeekPicker.swift; sourceTree = "<group>"; };
+		8D33E9242AF7A4C000C9D3C1 /* RoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewModel.swift; sourceTree = "<group>"; };
+		8D672F862AF517CF00C29E63 /* BatteryCircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryCircularProgressView.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateChart.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRoleView.swift; sourceTree = "<group>"; };
+		8DED83952AF5398C00AFB95B /* SOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSView.swift; sourceTree = "<group>"; };
+		8DED83972AF53A5500AFB95B /* WalkieTalkieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieView.swift; sourceTree = "<group>"; };
+		8DED839C2AF663C900AFB95B /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
+		8DED839E2AF664CD00AFB95B /* Symptom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symptom.swift; sourceTree = "<group>"; };
 		9318D38A2ADCD1AC00245AFF /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		9318D38C2ADCD1C800245AFF /* TestChargingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChargingView.swift; sourceTree = "<group>"; };
 		93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryLevelRecord.swift; sourceTree = "<group>"; };
@@ -237,6 +278,7 @@
 				4CA792322ADFFFC2003B5EC9 /* FirebaseMessaging in Frameworks */,
 				4C6049CB2AD79DDA00E9F0BF /* FirebaseFirestore in Frameworks */,
 				4C6049D02AD7C6E000E9F0BF /* FirebaseFirestoreSwift in Frameworks */,
+				4CCBF3602AF38CBC005A2C24 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +297,9 @@
 			isa = PBXGroup;
 			children = (
 				4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */,
+				8D672F862AF517CF00C29E63 /* BatteryCircularProgressView.swift */,
+				8D21B0412AF7DBF300D23BF1 /* RoutineCircularProgressView.swift */,
+				8D21B0452AF7ED0B00D23BF1 /* ChangeSeniorOverlay.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -263,7 +308,9 @@
 			isa = PBXGroup;
 			children = (
 				4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */,
-				4CA7922D2ADFB67B003B5EC9 /* SeniorEmergencyView.swift */,
+				4CA7922D2ADFB67B003B5EC9 /* SeniorDashboardView.swift */,
+				8DED83952AF5398C00AFB95B /* SOSView.swift */,
+				8DED83972AF53A5500AFB95B /* WalkieTalkieView.swift */,
 			);
 			path = Senior;
 			sourceTree = "<group>";
@@ -272,7 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				4C21A3E32ADF7B930044E966 /* CaregiverView.swift */,
-				4CA7922F2ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift */,
+				4CA7922F2ADFF9A1003B5EC9 /* CaregiverDashboardView.swift */,
 			);
 			path = Caregiver;
 			sourceTree = "<group>";
@@ -287,6 +334,7 @@
 				7DB24EF72AE51E81009A4A6D /* SOSService.swift */,
 				7D9D41D92AE62EA200818908 /* InactivityService.swift */,
 				7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */,
+				4CCDD5592AF634BA00146330 /* PTTService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -299,9 +347,10 @@
 				4C47302B2AD9760C0025F089 /* LoginViewModel.swift */,
 				4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */,
 				8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */,
-				4CA792292ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift */,
-				4CA7922B2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift */,
+				4CA792292ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift */,
+				4CA7922B2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift */,
 				4CB9AE592AEA0E72008F4381 /* ProfileViewModel.swift */,
+				8D33E9242AF7A4C000C9D3C1 /* RoutineViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -325,6 +374,9 @@
 				8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */,
 				7D2151B02AF72416001BB9BC /* HeartAnomaly.swift */,
 				7D2151B22AF8734C001BB9BC /* Heartbeat.swift */,
+				8DED839C2AF663C900AFB95B /* Routine.swift */,
+				8DED839E2AF664CD00AFB95B /* Symptom.swift */,
+				8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -342,8 +394,8 @@
 		4CB015572AD4DBBC0023C71E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4CB015562AD4DBBC0023C71E /* LifeWatch.app */,
-				4CB015662AD4DBBF0023C71E /* LifeWatch Watch App.app */,
+				4CB015562AD4DBBC0023C71E /* Careific.app */,
+				4CB015662AD4DBBF0023C71E /* Careific Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -353,14 +405,14 @@
 			children = (
 				7D02E7922ADE888800923AFB /* Constants */,
 				4CA232912ADD4517003874D2 /* Info.plist */,
-				4CAD39472AE8B9CB00F84FD6 /* GoogleService-Info.plist */,
+				4CD95BAB2AF796AB00A37B38 /* GoogleService-Info.plist */,
 				4C4730282AD8D2520025F089 /* Services */,
 				4C6049CC2AD7AEC800E9F0BF /* Models */,
 				4C6049C32AD7948700E9F0BF /* ViewModels */,
-				4CB015802AD4E6E00023C71E /* YTeam.entitlements */,
 				4CB0157D2AD4E5A20023C71E /* Views */,
 				7D02E71F2AD8ECA300923AFB /* Utilities */,
 				4CB015592AD4DBBC0023C71E /* YTeamApp.swift */,
+				4CB015802AD4E6E00023C71E /* YTeam.entitlements */,
 				4CB0155D2AD4DBBF0023C71E /* Assets.xcassets */,
 				4CB0155F2AD4DBBF0023C71E /* Preview Content */,
 			);
@@ -410,14 +462,17 @@
 				4C0F8A3C2AE784AF002E8578 /* Components */,
 				4C21A3E82ADF7ED60044E966 /* Caregiver */,
 				4C21A3E72ADF7ECF0044E966 /* Senior */,
+				8D33E90F2AF739DA00C9D3C1 /* History */,
 				4CB0155B2AD4DBBC0023C71E /* ContentView.swift */,
 				4CB0157E2AD4E5F60023C71E /* LoginView.swift */,
 				4C6049C62AD7968700E9F0BF /* MainView.swift */,
 				4C6049C82AD799F200E9F0BF /* SignUpView.swift */,
 				9318D38C2ADCD1C800245AFF /* TestChargingView.swift */,
-				7D02E7242ADCC97200923AFB /* HistoryView.swift */,
 				8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */,
 				4CB9AE572AEA0E26008F4381 /* ProfileView.swift */,
+				8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */,
+				8D21B03B2AF7AD7500D23BF1 /* AddRoutineView.swift */,
+				8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -445,6 +500,7 @@
 				7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */,
 				7D02E7202AD8ECD500923AFB /* Screen.swift */,
 				7D9D41DB2AE7561600818908 /* InactivityType.swift */,
+				4C7076322AEF925D00271E9E /* PTT.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -551,6 +607,20 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		8D33E90F2AF739DA00C9D3C1 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				7D02E7242ADCC97200923AFB /* HistoryView.swift */,
+				8D33E9182AF73A2F00C9D3C1 /* SymptomView.swift */,
+				8D33E91A2AF73A3500C9D3C1 /* EmergencyView.swift */,
+				8D33E91C2AF73A3B00C9D3C1 /* HeartRateView.swift */,
+				8D33E91E2AF73A6100C9D3C1 /* InactivityView.swift */,
+				8D33E9202AF73E4F00C9D3C1 /* HistoryCard.swift */,
+				8D33E9222AF740A200C9D3C1 /* HistoryWeekPicker.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		93CC91592AD8E6B800D1AC86 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
@@ -582,9 +652,10 @@
 				4C6049CA2AD79DDA00E9F0BF /* FirebaseFirestore */,
 				4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */,
 				4CA792312ADFFFC2003B5EC9 /* FirebaseMessaging */,
+				4CCBF35F2AF38CBC005A2C24 /* FirebaseStorage */,
 			);
 			productName = YTeam;
-			productReference = 4CB015562AD4DBBC0023C71E /* LifeWatch.app */;
+			productReference = 4CB015562AD4DBBC0023C71E /* Careific.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4CB015652AD4DBBF0023C71E /* YTeam Watch App */ = {
@@ -604,7 +675,7 @@
 				9318D39B2ADCD92B00245AFF /* FirebaseAuth */,
 			);
 			productName = "YTeam Watch App";
-			productReference = 4CB015662AD4DBBF0023C71E /* LifeWatch Watch App.app */;
+			productReference = 4CB015662AD4DBBF0023C71E /* Careific Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -654,7 +725,7 @@
 			files = (
 				4CB015612AD4DBBF0023C71E /* Preview Assets.xcassets in Resources */,
 				4CB0155E2AD4DBBF0023C71E /* Assets.xcassets in Resources */,
-				4CAD39482AE8B9CB00F84FD6 /* GoogleService-Info.plist in Resources */,
+				4CD95BAC2AF796AB00A37B38 /* GoogleService-Info.plist in Resources */,
 				7DB4E0CF2AEA080E00270F2C /* alert.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -676,28 +747,40 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CCDD55A2AF634BA00146330 /* PTTService.swift in Sources */,
 				9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */,
 				7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */,
+				8D33E9192AF73A2F00C9D3C1 /* SymptomView.swift in Sources */,
 				93B898FA2AE76DB6005E1678 /* BatteryLevelViewModel.swift in Sources */,
+				8DED83962AF5398C00AFB95B /* SOSView.swift in Sources */,
 				7D02E7962ADE88BF00923AFB /* FallService.swift in Sources */,
+				8D33E9212AF73E4F00C9D3C1 /* HistoryCard.swift in Sources */,
+				8D21B0462AF7ED0B00D23BF1 /* ChangeSeniorOverlay.swift in Sources */,
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
 				93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */,
+				8D21B0422AF7DBF300D23BF1 /* RoutineCircularProgressView.swift in Sources */,
+				8DED839F2AF664CD00AFB95B /* Symptom.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
-				4CA7922E2ADFB67B003B5EC9 /* SeniorEmergencyView.swift in Sources */,
+				4CA7922E2ADFB67B003B5EC9 /* SeniorDashboardView.swift in Sources */,
+				8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
 				4CA232A42ADE1F4F003874D2 /* DataUser.swift in Sources */,
+				8DED83982AF53A5500AFB95B /* WalkieTalkieView.swift in Sources */,
 				7DB24EF82AE51E81009A4A6D /* SOSService.swift in Sources */,
 				7DB24EFA2AE51E9A009A4A6D /* Emergency.swift in Sources */,
 				4C6049C52AD7948F00E9F0BF /* MainViewModel.swift in Sources */,
+				8D33E91D2AF73A3B00C9D3C1 /* HeartRateView.swift in Sources */,
 				9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */,
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
 				7D2151B12AF72416001BB9BC /* HeartAnomaly.swift in Sources */,
 				4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */,
-				4CA7922A2ADF92D0003B5EC9 /* CaregiverEmergencyViewModel.swift in Sources */,
+				4CA7922A2ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift in Sources */,
+				4C7076332AEF925D00271E9E /* PTT.swift in Sources */,
 				4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */,
 				4C21A3E62ADF7ECA0044E966 /* SeniorView.swift in Sources */,
-				4CA792302ADFF9A1003B5EC9 /* CaregiverEmergencyView.swift in Sources */,
-				4CA7922C2ADF92DB003B5EC9 /* SeniorEmergencyViewModel.swift in Sources */,
+				4CA792302ADFF9A1003B5EC9 /* CaregiverDashboardView.swift in Sources */,
+				8D33E91B2AF73A3500C9D3C1 /* EmergencyView.swift in Sources */,
+				4CA7922C2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift in Sources */,
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
 				7D2151AF2AF723D8001BB9BC /* HeartAnomalyService.swift in Sources */,
 				4CB9AE5A2AEA0E72008F4381 /* ProfileViewModel.swift in Sources */,
@@ -705,16 +788,21 @@
 				7DB4E0CC2AEA063100270F2C /* AudioPlayerManager.swift in Sources */,
 				8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */,
 				7DB24EF62AE51E79009A4A6D /* SOS.swift in Sources */,
+				8D33E9232AF740A200C9D3C1 /* HistoryWeekPicker.swift in Sources */,
 				93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
 				4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */,
 				4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */,
 				7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */,
+				8D33E91F2AF73A6100C9D3C1 /* InactivityView.swift in Sources */,
+				8D21B03A2AF7A4F200D23BF1 /* RoutineView.swift in Sources */,
 				8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */,
 				9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */,
 				4C0F8A3E2AE784CD002E8578 /* SignInWithAppleButton.swift in Sources */,
 				4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */,
+				8DED839D2AF663C900AFB95B /* Routine.swift in Sources */,
 				4CF1BBE52AE75C1D000E1199 /* TimeOption.swift in Sources */,
+				8D33E9252AF7A4C000C9D3C1 /* RoutineViewModel.swift in Sources */,
 				8D8FB6B62AEA03C90081CD50 /* HeartRateChart.swift in Sources */,
 				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,
 				4CB0155A2AD4DBBC0023C71E /* YTeamApp.swift in Sources */,
@@ -724,9 +812,12 @@
 				4CB9AE582AEA0E26008F4381 /* ProfileView.swift in Sources */,
 				7D2151B32AF8734C001BB9BC /* Heartbeat.swift in Sources */,
 				7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */,
+				8D21B0402AF7B51800D23BF1 /* HoursMinutes.swift in Sources */,
 				7D9D41DC2AE7561600818908 /* InactivityType.swift in Sources */,
 				7D9D41D82AE62DB800818908 /* Idle.swift in Sources */,
 				93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */,
+				8D672F872AF517CF00C29E63 /* BatteryCircularProgressView.swift in Sources */,
+				8D21B03C2AF7AD7500D23BF1 /* AddRoutineView.swift in Sources */,
 				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -901,28 +992,30 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "YTeam Watch App/YTeam Watch App.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = LifeWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Careific;
 				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "You can see your own heartbeat status.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "LifeWatch processes your heartbeat data for your knowledge about your own heart status.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Careific processes your heartbeat data for your knowledge about your own heart status.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.LifeWatch;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch.watchkitapp;
-				PRODUCT_NAME = "LifeWatch Watch App";
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific.watchkitapp;
+				PRODUCT_NAME = "Careific Watch App";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -938,28 +1031,30 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "YTeam Watch App/YTeam Watch App.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = LifeWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Careific;
 				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "You can see your own heartbeat status.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "LifeWatch processes your heartbeat data for your knowledge about your own heart status.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Careific processes your heartbeat data for your knowledge about your own heart status.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.LifeWatch;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch.watchkitapp;
-				PRODUCT_NAME = "LifeWatch Watch App";
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific.watchkitapp;
+				PRODUCT_NAME = "Careific Watch App";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -980,11 +1075,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = LifeWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Careific;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = PTT;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -996,8 +1092,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch;
-				PRODUCT_NAME = LifeWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
+				PRODUCT_NAME = Careific;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1015,11 +1111,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = LifeWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Careific;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = PTT;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1031,8 +1128,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.LifeWatch;
-				PRODUCT_NAME = LifeWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
+				PRODUCT_NAME = Careific;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1109,6 +1206,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		4CCBF35F2AF38CBC005A2C24 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 		9318D39B2ADCD92B00245AFF /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

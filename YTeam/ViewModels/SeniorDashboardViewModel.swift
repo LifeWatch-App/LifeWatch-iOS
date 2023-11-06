@@ -8,17 +8,28 @@
 import Foundation
 import Combine
 import FirebaseAuth
+import FirebaseStorage
+import AVFoundation
 
-class SeniorEmergencyViewModel: ObservableObject {
+class SeniorDashboardViewModel: ObservableObject {
     @Published var invites: [Invite] = []
     @Published var user: User?
     @Published var userData: UserData?
     private let service = AuthService.shared
     private let sosService: SOSService = SOSService.shared
     private var cancellables = Set<AnyCancellable>()
+    
+    @Published var showAddSymptom: Bool = false
+    
+    @Published var routines: [Routine] = []
+    @Published var symptoms: [Symptom] = []
 
     init() {
         setupSubscribers()
+        
+        // add dummy data
+        routines = routinesDummyData
+        symptoms = symptomsDummyData
     }
 
     private func setupSubscribers() {
@@ -44,4 +55,11 @@ class SeniorEmergencyViewModel: ObservableObject {
         AuthService.shared.signOut()
     }
 
+    func startRecording(){
+        PTT.shared.requestBeginTransmitting()
+    }
+    
+    func stopRecording() {
+        PTT.shared.stopTransmitting()
+    }
 }

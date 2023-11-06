@@ -11,19 +11,129 @@ struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @State private var showDeleteSheet = false
     
+    @State private var walkieToggle = true
+    @State private var locationToggle = true
+    @State private var inactivityToggle = true
+    
     var body: some View {
         NavigationStack {
             VStack {
+                VStack {
+                    ZStack {
+                        Circle()
+                            .fill(.secondary.opacity(0.5))
+                            .frame(width: 75)
+                        Text("S")
+                            .font(.largeTitle)
+                            .bold()
+                    }
+                    Text("Subroto")
+                        .font(.title2)
+                        .bold()
+                    Text("Senior")
+                }
+                .padding(.horizontal)
+                
+                List {
+                    Section(header: Text("App Settings")) {
+                        HStack {
+                            VStack {
+                                Image(systemName: "flipphone")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                            }
+                            .padding(8)
+                            .background(.accent)
+                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                            .foregroundStyle(.white)
+                            .padding(.trailing, 4)
+                            
+                            Text("Walkie Talkie")
+                                .fontWeight(.semibold)
+                            
+                            Spacer()
+                            
+                            Toggle("", isOn: $walkieToggle)
+                        }
+                        .padding(.vertical, 1)
+                        
+                        HStack {
+                            VStack {
+                                Image(systemName: "location.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                            }
+                            .padding(8)
+                            .background(.accent)
+                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                            .foregroundStyle(.white)
+                            .padding(.trailing, 4)
+                            
+                            Text("Location")
+                                .fontWeight(.semibold)
+                            
+                            Spacer()
+                            
+                            Toggle("", isOn: $locationToggle)
+                        }
+                        .padding(.vertical, 1)
+                        
+                        HStack {
+                            VStack {
+                                Image(systemName: "location.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                            }
+                            .padding(8)
+                            .background(.accent)
+                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                            .foregroundStyle(.white)
+                            .padding(.trailing, 4)
+                            
+                            Text("Inactivity")
+                                .fontWeight(.semibold)
+                            
+                            Spacer()
+                            
+                            Toggle("", isOn: $inactivityToggle)
+                        }
+                        .padding(.vertical, 1)
+                    }
+                    
+                    Section(header: Text("Care Team")) {
+                        Text("Alvin Limantra")
+                        Text("Valentina Chistine")
+                    }
+                }
+                
+                Spacer()
+                
                 Button(action: {
                     profileViewModel.signOut()
                 }, label: {
-                    Text("Sign Out")
+                    HStack {
+                        Spacer()
+                        Text("Sign Out")
+                        Spacer()
+                    }
+                    .foregroundStyle(.white)
+                    .padding(12)
+                    .background(.accent)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .padding(.vertical, 8)
+                    .padding(.horizontal)
                 })
+                
                 Button(action: {
                     showDeleteSheet = true
                 }, label: {
                     Text("Delete Account")
+                        .foregroundStyle(Color("emergency-pink"))
                 })
+                .padding(.horizontal)
             }
             .sheet(isPresented: $showDeleteSheet) {
                 DeleteSheetView(profileViewModel: profileViewModel)
@@ -31,6 +141,8 @@ struct ProfileView: View {
                         print("login providers: ", profileViewModel.loginProviders)
                     }
             }
+            .background(Color(.systemGroupedBackground))
+            .navigationTitle("Profile")
         }
     }
 }
@@ -69,7 +181,7 @@ struct DeleteSheetView: View {
                         }
                         .background(.red)
                         .foregroundStyle(.white)
-                        .cornerRadius(8)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                     }
                     .padding(.top, 8)
                 } else if loginProvider == "apple.com" {
@@ -88,4 +200,5 @@ struct DeleteSheetView: View {
 
 #Preview {
     ProfileView()
+        .preferredColorScheme(.dark)
 }

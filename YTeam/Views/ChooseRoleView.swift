@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ChooseRoleView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @ObservedObject var mainViewModel: MainViewModel
     
     var body: some View {
@@ -37,13 +39,13 @@ struct ChooseRoleView: View {
                                     .padding(.horizontal)
                                     .padding(.vertical, 8)
                                     .background(.accent)
-                                    .cornerRadius(4)
+                                    .clipShape(RoundedRectangle(cornerRadius: 4))
                             }
                         }
                     }
                     .padding()
-                    .background(.white)
-                    .cornerRadius(16)
+                    .background(colorScheme == .light ? .white : Color(.systemGray6))
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
                     
                     HStack(spacing: 16) {
                         VStack {
@@ -67,7 +69,7 @@ struct ChooseRoleView: View {
                     }
                     .padding(.trailing)
                     .background(.accent)
-                    .cornerRadius(16)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
                 }
                 
                 ZStack(alignment: .top) {
@@ -94,13 +96,13 @@ struct ChooseRoleView: View {
                                     .padding(.horizontal)
                                     .padding(.vertical, 8)
                                     .background(.accent)
-                                    .cornerRadius(4)
+                                    .clipShape(RoundedRectangle(cornerRadius: 4))
                             }
                         }
                     }
                     .padding()
-                    .background(.white)
-                    .cornerRadius(16)
+                    .background(colorScheme == .light ? .white : Color(.systemGray6))
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
                     
                     HStack(spacing: 16) {
                         VStack {
@@ -123,7 +125,7 @@ struct ChooseRoleView: View {
                     }
                     .padding(.trailing)
                     .background(.accent)
-                    .cornerRadius(16)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
                 }
                 
                 Spacer()
@@ -140,7 +142,7 @@ struct ChooseRoleView: View {
                 )
             }
             .padding()
-            .background(Color(.systemGroupedBackground))
+            .background(colorScheme == .light ? Color(.systemGroupedBackground) : .black)
             .navigationTitle("Choose Role")
         }
     }
@@ -148,4 +150,5 @@ struct ChooseRoleView: View {
 
 #Preview {
     ChooseRoleView(mainViewModel: MainViewModel())
+//        .preferredColorScheme(.dark)
 }
