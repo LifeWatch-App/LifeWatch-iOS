@@ -63,7 +63,9 @@ struct AddSymptomView: View {
                 
                 Section {
                     Button {
+                        // add function here
                         
+                        dismiss()
                     } label: {
                         HStack {
                             Spacer()

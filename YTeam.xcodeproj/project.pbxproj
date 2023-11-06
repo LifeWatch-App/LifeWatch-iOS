@@ -112,6 +112,7 @@
 		8D73C3D62AF8FC23009AFD80 /* CaregiverAllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3D52AF8FC23009AFD80 /* CaregiverAllRoutineView.swift */; };
 		8D73C3D82AF908B7009AFD80 /* AddSymptomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3D72AF908B7009AFD80 /* AddSymptomViewModel.swift */; };
 		8D73C3DA2AF909A2009AFD80 /* SymptomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3D92AF909A2009AFD80 /* SymptomList.swift */; };
+		8D73C3DC2AF915B7009AFD80 /* AddRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3DB2AF915B7009AFD80 /* AddRoutineViewModel.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8D8FB6B62AEA03C90081CD50 /* HeartRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
@@ -257,6 +258,7 @@
 		8D73C3D52AF8FC23009AFD80 /* CaregiverAllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverAllRoutineView.swift; sourceTree = "<group>"; };
 		8D73C3D72AF908B7009AFD80 /* AddSymptomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSymptomViewModel.swift; sourceTree = "<group>"; };
 		8D73C3D92AF909A2009AFD80 /* SymptomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomList.swift; sourceTree = "<group>"; };
+		8D73C3DB2AF915B7009AFD80 /* AddRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineViewModel.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateChart.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				4CB9AE592AEA0E72008F4381 /* ProfileViewModel.swift */,
 				8D33E9242AF7A4C000C9D3C1 /* RoutineViewModel.swift */,
 				8D73C3D72AF908B7009AFD80 /* AddSymptomViewModel.swift */,
+				8D73C3DB2AF915B7009AFD80 /* AddRoutineViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -760,6 +763,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CCDD55A2AF634BA00146330 /* PTTService.swift in Sources */,
+				8D73C3DC2AF915B7009AFD80 /* AddRoutineViewModel.swift in Sources */,
 				8D73C3DA2AF909A2009AFD80 /* SymptomList.swift in Sources */,
 				9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */,
 				7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */,
