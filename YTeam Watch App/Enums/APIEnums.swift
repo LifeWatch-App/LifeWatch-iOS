@@ -35,6 +35,7 @@ enum MultipleEndPoints: Endpoint {
     case charges
     case batteryLevels
     case heartAnomaly
+    case heartbeat
     
     var endPointDescription: String {
         switch self {
@@ -50,6 +51,8 @@ enum MultipleEndPoints: Endpoint {
             return "/batteryLevels/"
         case .heartAnomaly:
             return "/heartAnomaly/"
+        case .heartbeat:
+            return "/heartbeat/"
         }
     }
 }

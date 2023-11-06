@@ -210,6 +210,15 @@ class HeartManager: ObservableObject {
             if let sample = samples?.first as? HKQuantitySample {
                 let heartRateValue = sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute()))
                 self.heartRate = Int(heartRateValue)
+                
+                guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
+                let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
+                let timeDescription: Double = Date.now.timeIntervalSince1970
+                
+                if (userRecord != nil) && (Int(heartRateValue) > 0) {
+                    let heartbeat = Heartbeat(seniorId: Description(stringValue: userRecord?.userID), time: Description(doubleValue: timeDescription), bpm: Description(doubleValue: heartRateValue))
+                    Task { try? await self.service.set(endPoint: MultipleEndPoints.heartbeat, fields: heartbeat, httpMethod: .post) }
+                }
             }
         }
         

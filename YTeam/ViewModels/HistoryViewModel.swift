@@ -16,6 +16,7 @@ class HistoryViewModel: ObservableObject {
     @Published var idles: [Idle] = []
     @Published var charges: [Charge] = []
     @Published var heartAnomalies: [HeartAnomaly] = []
+    @Published var heartbeats: [Heartbeat] = []
     @Published var groupedEmergencies: [(String, [Emergency])] = []
     @Published var groupedInactivities: [(String, [Any])] = []
     @Published var groupedHeartAnomalies: [(String, [HeartAnomaly])] = []
@@ -35,10 +36,14 @@ class HistoryViewModel: ObservableObject {
     var currentDay: Date = Date()
     
     private var inactivityDataTemp: [InactivityChart] = []
+    private var heartbeatDataTemp: [HeartRateChart] = []
+    
     private let fallService: FallService = FallService.shared
     private let sosService: SOSService = SOSService.shared
     private let inactivityService: InactivityService = InactivityService.shared
     private let heartAnomalyService: HeartAnomalyService = HeartAnomalyService.shared
+    private let heartbeatService: HeartbeatService = HeartbeatService.shared
+    
     private var cancellables = Set<AnyCancellable>()
     
     init() {
@@ -64,8 +69,6 @@ class HistoryViewModel: ObservableObject {
                 
                 self.falls.append(contentsOf: fall)
                 self.fetchCurrentWeek()
-//                self.updateGroupedEmergencies()
-//                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
         
@@ -76,8 +79,6 @@ class HistoryViewModel: ObservableObject {
                 
                 self.sos.append(contentsOf: sos)
                 self.fetchCurrentWeek()
-//                self.updateGroupedEmergencies()
-//                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
         
@@ -88,8 +89,6 @@ class HistoryViewModel: ObservableObject {
                 
                 self.idles.append(contentsOf: idle)
                 self.fetchCurrentWeek()
-//                self.convertInactivitesToInactivityCharts()
-//                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
         
@@ -100,8 +99,6 @@ class HistoryViewModel: ObservableObject {
                 
                 self.charges.append(contentsOf: charge)
                 self.fetchCurrentWeek()
-//                self.convertInactivitesToInactivityCharts()
-//                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
         
@@ -115,6 +112,15 @@ class HistoryViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
+        heartbeatService.$heartbeats
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] heartbeat in
+                guard let self else {return}
+                
+                self.heartbeats.append(contentsOf: heartbeat)
+                self.fetchCurrentWeek()
+            }
+            .store(in: &cancellables)
     }
     
     /// Updates internal properties such as `loggedIn, falls, sos, fallsCount, sosCount, and groupedEmergencies` and is only called in `setupEmergencySubscriber`.
@@ -307,7 +313,7 @@ class HistoryViewModel: ObservableObject {
             self.chargeCount = charge
             self.loading = false
             
-            self.convertInactivitesToInactivityCharts()
+            self.convertInactivitiesToInactivityCharts()
         }
     }
     
@@ -426,10 +432,11 @@ class HistoryViewModel: ObservableObject {
         currentWeek[currentWeek.count - 1] = calendar.date(bySettingHour: 18, minute: 0, second: 0, of: currentWeek.last!) ?? currentWeek.last!
         
         withAnimation {
-            fetchCurrentWeekData()
-            updateGroupedEmergencies()
-            updateGroupedInactivities()
-            updateGroupedHeartAnomalies()
+            self.fetchCurrentWeekData()
+            self.updateGroupedEmergencies()
+            self.updateGroupedInactivities()
+            self.updateGroupedHeartAnomalies()
+            self.convertHeartbeatsToHeartRateChart()
         }
     }
     
@@ -442,7 +449,7 @@ class HistoryViewModel: ObservableObject {
     /// - Parameters:
     ///     - None
     /// - Returns: Updated `currentDay` and `currentWeek` .
-    func convertInactivitesToInactivityCharts() {
+    func convertInactivitiesToInactivityCharts() {
         let inactivities: [Any] = self.idles + self.charges
         self.inactivityDataTemp = inactivities.map { inactivity in
             let calendar = Calendar.current
@@ -511,6 +518,55 @@ class HistoryViewModel: ObservableObject {
         self.fetchCurrentWeekData()
     }
     
+    /// Updates internal properties such as `currentDay` and `currentWeek`.
+    ///
+    /// ```
+    /// HistoryViewModel.fetchCurrentWeek()
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Updated `currentDay` and `currentWeek` .
+    func convertHeartbeatsToHeartRateChart() {
+        let calendar = Calendar.current
+        
+        var heartbeatDictionary: [Date: [Heartbeat]] = [:]
+        
+        for heartbeat in self.heartbeats {
+            var heartbeatDate = Date(timeIntervalSince1970: heartbeat.time)
+            var dateComponents = calendar.dateComponents([.year, .month, .day], from: heartbeatDate)
+            dateComponents.hour = 0
+            dateComponents.minute = 0
+            
+            heartbeatDate = calendar.date(from: dateComponents) ?? Date()
+            
+            if var heartbeatArray = heartbeatDictionary[heartbeatDate] {
+                heartbeatArray.append(heartbeat)
+                heartbeatDictionary[heartbeatDate] = heartbeatArray
+            } else {
+                heartbeatDictionary[heartbeatDate] = [heartbeat]
+            }
+        }
+        
+        var heartrateChartList: [HeartRateChart] = []
+        
+        for (date, heartbeats) in heartbeatDictionary {
+            var totalBpm: Double = 0
+            var count: Double = 0
+            var averageBpm: Double = 0
+            for heartbeat in heartbeats {
+                count += 1
+                totalBpm += heartbeat.bpm
+            }
+            
+            averageBpm = totalBpm / count
+            heartrateChartList.append(HeartRateChart(day: date, avgHeartRate: Int(averageBpm)))
+        }
+        
+        self.heartbeatDataTemp = heartrateChartList
+        self.fetchCurrentWeekData()
+    }
+    
     /// Updates `inactivityData` from `inactivityDataTemp`.
     ///
     /// ```
@@ -540,6 +596,7 @@ class HistoryViewModel: ObservableObject {
                     }
                 }
             }
+            
             (0...1).forEach { i in
                 if inactivity[i].minutes == 0 {
                     inactivity[i].day = tempDate
@@ -554,7 +611,7 @@ class HistoryViewModel: ObservableObject {
             }
             
             var heartRate = HeartRateChart()
-            heartRateDummyData.forEach { data in
+            self.heartbeatDataTemp.forEach { data in
                 if data.day == tempDate {
                     heartRate.day = data.day
                     heartRate.avgHeartRate = data.avgHeartRate

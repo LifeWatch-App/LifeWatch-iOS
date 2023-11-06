@@ -84,21 +84,5 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
                 let time = Fall(time: Description(doubleValue: timeDescription), seniorId: Description(stringValue: userRecord?.userID))
                 Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time, httpMethod: .post) }
             }
-        }
-    
-    /// `Unchangable conforming function to automatically check for change in authorization`.
-    ///
-    /// ```
-    /// Not Called. Leave it be.
-    /// ```
-    ///
-    /// - Parameters:
-    ///     - None
-    /// - Returns: None.
-    func fallDetectionManagerDidChangeAuthorization(
-        _ fallDetectionManager: CMFallDetectionManager
-    )  {
-        self.checkAndRequestForAuthorizationStatus()
     }
-    
 }
