@@ -10,6 +10,7 @@ import FirebaseFirestoreSwift
 
 struct UserData: Identifiable, Codable {
     @DocumentID var id: String?
+    var name: String?
     var email: String?
     var role: String?
     var fcmToken: String?

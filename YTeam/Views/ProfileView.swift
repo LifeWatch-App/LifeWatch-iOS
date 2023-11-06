@@ -27,10 +27,11 @@ struct ProfileView: View {
                             .font(.largeTitle)
                             .bold()
                     }
-                    Text("Subroto")
+                    Text(profileViewModel.userData?.name ?? "Unknown")
                         .font(.title2)
                         .bold()
-                    Text("Senior")
+                    Text(profileViewModel.userData?.role == "senior" ? "Senior" : "Caregiver")
+                    Text(profileViewModel.user!.email ?? "Unknown Email")
                 }
                 .padding(.horizontal)
                 
@@ -104,8 +105,27 @@ struct ProfileView: View {
                     }
                     
                     Section(header: Text("Care Team")) {
-                        Text("Alvin Limantra")
-                        Text("Valentina Chistine")
+                        ForEach(profileViewModel.invites, id: \.id) { invite in
+                            HStack {
+                                Text(invite.caregiverData!.name!)
+                                Spacer()
+                                if invite.accepted! {
+                                    Button {
+                                        profileViewModel.denyInvite(id: invite.id!)
+                                    } label: {
+                                        Text("Remove")
+                                            .foregroundStyle(.red)
+                                    }
+                                } else {
+                                    Button {
+                                        profileViewModel.acceptInvite(id: invite.id!)
+                                    } label: {
+                                        Text("Accept")
+                                    }
+                                }
+                            }
+                        }
+                       
                     }
                 }
                 

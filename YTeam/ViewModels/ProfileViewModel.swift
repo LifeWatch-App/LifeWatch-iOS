@@ -6,11 +6,15 @@
 //
 
 import Foundation
+import FirebaseAuth
 import Combine
 
 class ProfileViewModel: ObservableObject {
     @Published var password = ""
     @Published var loginProviders: [String] = []
+    @Published var user: User?
+    @Published var userData: UserData?
+    @Published var invites: [Invite] = []
     private let service = AuthService.shared
     private var cancellables = Set<AnyCancellable>()
 
@@ -20,8 +24,12 @@ class ProfileViewModel: ObservableObject {
 
     private func setupSubscribers() {
         service.$loginProviders
-            .sink { [weak self] loginProviders in
+            .combineLatest(service.$invites, service.$userData, service.$user)
+            .sink { [weak self] loginProviders, invites, userData, user in
                 self?.loginProviders = loginProviders
+                self?.invites = invites
+                self?.userData = userData
+                self?.user = user
             }
             .store(in: &cancellables)
     }
@@ -40,5 +48,13 @@ class ProfileViewModel: ObservableObject {
     
     func deleteAccountWithApple() {
         AuthService.shared.deleteAccountWithApple()
+    }
+    
+    func acceptInvite(id: String) {
+        AuthService.shared.acceptInvite(id: id)
+    }
+    
+    func denyInvite(id: String) {
+        AuthService.shared.denyInvite(id: id)
     }
 }

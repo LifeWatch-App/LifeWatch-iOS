@@ -27,6 +27,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var inactivityTime = 30
     @Published var heartRate = 90
     @Published var location = "Outside"
+    @Published var inviteEmail = ""
 
     var audioPlayer : AVAudioPlayer!
     @Published var recordingsList = [URL]()
@@ -50,8 +51,8 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .store(in: &cancellables)
     }
     
-    func sendRequestToSenior(email: String) {
-        AuthService.shared.sendRequestToSenior(email: email)
+    func sendRequestToSenior() {
+        AuthService.shared.sendRequestToSenior(email: inviteEmail)
     }
     
     func signOut() {
