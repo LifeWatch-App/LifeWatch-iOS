@@ -183,6 +183,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                         .collection("users")
                         .document(AuthService.shared.user!.uid)
                         .setData([
+                            "name": "Unknown Name",
                             "email": AuthService.shared.user!.email!,
                             "role": NSNull(),
                             "fcmToken": fcmToken
