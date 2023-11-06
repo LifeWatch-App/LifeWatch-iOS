@@ -16,12 +16,12 @@ struct HistoryCard: View {
     
     var body: some View {
         HStack{
-            Image(systemName: option == .fell ? "figure.fall" : option == .pressed ? "sos.circle.fill" : option == .idle ? "moon.fill" : "bolt.fill")
+            Image(systemName: option == .fell ? "figure.fall" : option == .pressed ? "sos.circle.fill" : option == .idle ? "moon.fill" : option == .charging ? "bolt.fill" : "arrow.down.heart.fill")
                 .foregroundStyle(.white)
                 .frame(width: 40, height: 40)
-                .background(option == .fell || option == .idle ? .accent : Color("emergency-pink"))
+                .background(option == .fell || option == .idle ? .accent : option == .pressed || option == .lowHeartRate ? Color("emergency-pink") : Color("secondary-orange"))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-            Text(option == .fell ? "Fell" : option == .pressed ? "Pressed" : option == .idle ? "Idle" : "Charging")
+            Text(option == .fell ? "Fell" : option == .pressed ? "Pressed" : option == .idle ? "Idle" : option == .charging ? "Charging" : option == .lowHeartRate ? "Low Heart Rate Detected" : option == .highHeartRate ? "High Heart Rate Detected" : "Irregular Heart Rate Detected")
                 .padding(.leading, 8.0)
             Spacer()
             Group{

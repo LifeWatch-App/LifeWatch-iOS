@@ -357,7 +357,6 @@ class HistoryViewModel: ObservableObject {
             }
             
             self.groupedHeartAnomalies = sortedKeys.map {($0, heartAnomaliesDictionary[$0]!)}
-            
             self.loading = false
         }
     }
@@ -661,7 +660,7 @@ enum HistoryMenu: String, CaseIterable, Identifiable {
 }
 
 enum HistoryCardOption: String, CaseIterable, Identifiable {
-    case fell, pressed, idle, charging, heartRateDown, heartRatePeak, heartAttack
+    case fell, pressed, idle, charging, lowHeartRate, highHeartRate, irregularHeartRate
     var id: Self { self }
 }
 
