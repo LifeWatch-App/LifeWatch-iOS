@@ -12,10 +12,8 @@ struct AddRoutineView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack {
-                    
-                }
+            Form {
+                
             }
             .navigationTitle("Add Routine")
             .navigationBarTitleDisplayMode(.inline)

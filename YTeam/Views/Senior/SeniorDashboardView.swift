@@ -134,7 +134,7 @@ struct UpcomingActivity: View {
                 Spacer()
                 
                 NavigationLink {
-                    EmptyView()
+                    SeniorAllRoutineView(seniorDashboardViewModel: seniorDashboardViewModel)
                 } label: {
                     Text("See All")
                         .font(.headline)
@@ -153,6 +153,9 @@ struct UpcomingActivity: View {
                             Text(routine.name)
                                 .font(.title3)
                                 .fontWeight(.semibold)
+                            
+                            Text(routine.description)
+                            
                             HStack {
                                 Image(systemName: "clock")
                                 Text(routine.time, style: .time)
@@ -164,8 +167,9 @@ struct UpcomingActivity: View {
                         Spacer()
                         
                         Image(systemName: "circle")
-                            .font(.largeTitle)
-                            .bold()
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 45)
                             .foregroundStyle(.accent)
                     }
                 }
@@ -186,7 +190,7 @@ struct Symtomps: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Symptoms")
+                Text("Today's Symptoms")
                     .font(.headline)
                     .foregroundStyle(.secondary)
                 
@@ -208,19 +212,25 @@ struct Symtomps: View {
                         .scaledToFit()
                         .frame(height: 50)
                     
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading) {
                         Text(symptom.name)
                             .font(.title3)
                             .fontWeight(.semibold)
-                        HStack {
-                            Image(systemName: "clock")
-                            Text(symptom.time, style: .time)
-                                .padding(.leading, -4)
+                        
+                        if let note = symptom.note {
+                            Text(note)
                         }
-                        .foregroundColor(.secondary)
                     }
                     
                     Spacer()
+                    
+                    HStack {
+                        Image(systemName: "clock")
+                        Text(symptom.time, style: .time)
+                            .padding(.leading, -4)
+                    }
+                    .foregroundColor(.secondary)
+                    .padding(.leading, 4)
                 }
                 .padding()
                 .background(colorScheme == .light ? .white : Color(.systemGray6))
@@ -232,5 +242,5 @@ struct Symtomps: View {
 
 #Preview {
     SeniorDashboardView()
-        .preferredColorScheme(.dark)
+//        .preferredColorScheme(.dark)
 }

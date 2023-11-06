@@ -55,7 +55,50 @@ struct RoutineView: View {
                     }
                     
                     // foreach routine here
-                    ForEach(0...2, id: \.self) { _ in
+                    ForEach(0...1, id: \.self) { _ in
+                        HStack(spacing: 8) {
+                            VStack {
+                                Image(systemName: "pill.circle.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 28)
+                                    .foregroundStyle(.white, .accent)
+                                
+                                RoundedRectangle(cornerRadius: 100)
+                                    .fill(.secondary.opacity(0.5))
+                                    .frame(width: 2)
+                            }
+                            
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Jogging")
+                                        .font(.title3)
+                                        .fontWeight(.semibold)
+                                    
+                                    Text("Morning Jogging 10KM")
+                                    
+                                    HStack {
+                                        Image(systemName: "clock")
+                                        Text("3:33 AM")
+                                            .padding(.leading, -4)
+                                    }
+                                    .foregroundColor(.secondary)
+                                }
+                                
+                                Spacer()
+                                
+                                Image(systemName: "circle")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 45)
+                                    .foregroundStyle(.accent)
+                                    .padding(.leading, 2)
+                            }
+                            .padding()
+                            .background(colorScheme == .light ? .white : Color(.systemGray6))
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                        }
+                        
                         HStack(spacing: 8) {
                             VStack {
                                 Image(systemName: "pill.circle.fill")
@@ -92,8 +135,8 @@ struct RoutineView: View {
                                 Divider()
                                     .padding(.vertical, 4)
                                 
-                                HStack(alignment: .top, spacing: 24) {
-                                    Spacer()
+                                HStack(alignment: .top, spacing: 20) {
+                                    Spacer(minLength: 0)
                                     
                                     VStack {
                                         Button {
@@ -105,7 +148,7 @@ struct RoutineView: View {
                                                 .frame(width: 50)
                                         }
                                         
-                                        Text("4:44 PM")
+                                        Text("04:44 AM")
                                             .font(.subheadline)
                                             .foregroundStyle(.accent)
                                     }
@@ -119,6 +162,10 @@ struct RoutineView: View {
                                                 .scaledToFit()
                                                 .frame(width: 50)
                                         }
+                                        
+                                        Text("12:24 PM")
+                                            .font(.subheadline)
+                                            .foregroundStyle(.accent)
                                     }
                                     
                                     VStack {
@@ -130,9 +177,13 @@ struct RoutineView: View {
                                                 .scaledToFit()
                                                 .frame(width: 50)
                                         }
+                                        
+                                        Text("05:42 PM")
+                                            .font(.subheadline)
+                                            .foregroundStyle(.accent)
                                     }
                                     
-                                    Spacer()
+                                    Spacer(minLength: 0)
                                 }
                                 
                                 Text("Take the tablet with a full glass of water.")
