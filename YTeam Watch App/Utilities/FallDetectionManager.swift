@@ -114,7 +114,7 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
         }
     }
     
-    func sendNotification() {
+    func sendFall() {
         guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
         let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
         let timeDescription: Double = Date.now.timeIntervalSince1970

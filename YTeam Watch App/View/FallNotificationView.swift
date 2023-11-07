@@ -9,8 +9,13 @@ import SwiftUI
 import UserNotifications
 
 struct FallNotificationView: View {
+    @EnvironmentObject var fallManager: FallDetectionManager
+    @EnvironmentObject var coreMotionManager: CoreMotionManager
+    
     @Environment(\.presentationMode) var presentationMode
+    
     @State private var progress: CGFloat = 1
+    @State private var pressedCancel: Bool = false
     
     var body: some View {
         VStack {
@@ -26,9 +31,14 @@ struct FallNotificationView: View {
                     .bold()
                     .font(.title2)
             }
-            HStack {
-                
-            }
+            Button {
+                fallManager.cancelFallStatus()
+                coreMotionManager.cancelFallStatus()
+                self.presentationMode.wrappedValue.dismiss()
+                self.pressedCancel = true
+            } label: {
+                Text("No, I did not")
+            }.padding(.top, 8)
         }
         .onAppear {
             self.updateCountdown()
@@ -37,12 +47,17 @@ struct FallNotificationView: View {
     
     func updateCountdown() {
         if (self.progress > 0) {
+            print("Fall", pressedCancel)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.progress -= 0.1
                 self.updateCountdown()
             }
         } else {
             self.presentationMode.wrappedValue.dismiss()
+            if (!pressedCancel) {
+                fallManager.sendFall()
+            }
+            self.pressedCancel = false
         }
     }
 }

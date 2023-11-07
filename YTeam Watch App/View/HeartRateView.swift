@@ -32,9 +32,7 @@ struct HeartRateView: View {
                 .font(.title)
             Text("BPM")
         }
-        .sheet(isPresented: $fallManager.fall) {
-            FallNotificationView()
-        }
+        
     }
 }
 
