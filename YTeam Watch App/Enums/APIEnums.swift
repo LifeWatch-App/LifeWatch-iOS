@@ -15,6 +15,7 @@ enum SingleEndpoints: Endpoint {
     case charges(chargeDocumentID: String)
     case idles(idleDocumentID: String)
     case batteryLevels(batteryLevelsDocumentID: String)
+    case homeLocations(homeLocationsDocumentID: String)
 
     var endPointDescription: String {
         switch self {
@@ -24,6 +25,8 @@ enum SingleEndpoints: Endpoint {
             return "/idles/\(idleDocumentID)"
         case let .batteryLevels(batteryLevelsDocumentID):
             return "/batteryLevels/\(batteryLevelsDocumentID)"
+        case let .homeLocations(homeLocationsDocumentID):
+            return "/homeLocations/\(homeLocationsDocumentID)"
         }
     }
 }
@@ -34,6 +37,9 @@ enum MultipleEndPoints: Endpoint {
     case idles
     case charges
     case batteryLevels
+    case homeLocations
+    case liveLocations
+
     case heartAnomaly
     
     var endPointDescription: String {
@@ -48,6 +54,10 @@ enum MultipleEndPoints: Endpoint {
             return "/charges/"
         case .batteryLevels:
             return "/batteryLevels/"
+        case .homeLocations:
+            return "/homeLocations/"
+        case .liveLocations:
+            return "/liveLocations/"
         case .heartAnomaly:
             return "/heartAnomaly/"
         }

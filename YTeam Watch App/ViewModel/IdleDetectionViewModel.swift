@@ -94,8 +94,10 @@ class IdleDetectionViewModel: ObservableObject {
             let idleData = Inactivity(seniorId: Description(stringValue: userRecord.userID), startTime: Description(doubleValue: Date.now.timeIntervalSince1970), taskState: Description(stringValue: "ongoing"))
             
             if self.currentIdle == nil {
-                self.currentIdle = idleData
-                Task { try? await service.set(endPoint: MultipleEndPoints.idles, fields: idleData, httpMethod: .post) }
+                Task {
+                    try? await service.set(endPoint: MultipleEndPoints.idles, fields: idleData, httpMethod: .post)
+                    self.currentIdle = idleData
+                }
             }
         } catch {
             print("Failed to decode data: \(error)")
@@ -115,7 +117,7 @@ class IdleDetectionViewModel: ObservableObject {
                     return
                 }
                 
-                guard let specificIdleRecord = idleRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID && $0.fields?.startTime?.stringValue == self.currentIdle?.startTime?.stringValue }) else {
+                guard let specificIdleRecord = idleRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID && $0.fields?.startTime?.doubleValue == self.currentIdle?.startTime?.doubleValue }) else {
                     print("Failed to find specific idle record")
                     return
                 }
@@ -142,7 +144,7 @@ class IdleDetectionViewModel: ObservableObject {
                 
                 guard let userID = try? JSONDecoder().decode(UserRecord.self, from: userIDData as! Data).userID else { return }
                 
-                guard let specificIdleRecord = idleRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID && $0.fields?.startTime?.stringValue == currentIdle?.startTime?.stringValue }) else { return }
+                guard let specificIdleRecord = idleRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID && $0.fields?.startTime?.doubleValue == self.currentIdle?.startTime?.doubleValue }) else { return }
                 guard let specificIdleRecordDocumentName = specificIdleRecord.name else { return }
                 let components = specificIdleRecordDocumentName.components(separatedBy: "/")
                 guard let specificIdleRecordDocumentID = components.last else { return }
