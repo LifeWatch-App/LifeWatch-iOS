@@ -118,14 +118,14 @@
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
 		8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */; };
-		931293632AEA08820052F4AF /* LocationRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293622AEA08820052F4AF /* LocationRecord.swift */; };
-		931293672AED3F070052F4AF /* BatteryMonitorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293662AED3F070052F4AF /* BatteryMonitorViewModel.swift */; };
-		931293692AED53100052F4AF /* TestBatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293682AED53100052F4AF /* TestBatteryView.swift */; };
-		9312936B2AEF4F040052F4AF /* CombinedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9312936A2AEF4F040052F4AF /* CombinedView.swift */; };
 		8DED83962AF5398C00AFB95B /* SOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED83952AF5398C00AFB95B /* SOSView.swift */; };
 		8DED83982AF53A5500AFB95B /* WalkieTalkieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED83972AF53A5500AFB95B /* WalkieTalkieView.swift */; };
 		8DED839D2AF663C900AFB95B /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED839C2AF663C900AFB95B /* Routine.swift */; };
 		8DED839F2AF664CD00AFB95B /* Symptom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED839E2AF664CD00AFB95B /* Symptom.swift */; };
+		931293632AEA08820052F4AF /* LocationRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293622AEA08820052F4AF /* LocationRecord.swift */; };
+		931293672AED3F070052F4AF /* BatteryMonitorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293662AED3F070052F4AF /* BatteryMonitorViewModel.swift */; };
+		931293692AED53100052F4AF /* TestBatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293682AED53100052F4AF /* TestBatteryView.swift */; };
+		9312936B2AEF4F040052F4AF /* CombinedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9312936A2AEF4F040052F4AF /* CombinedView.swift */; };
 		9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38A2ADCD1AC00245AFF /* ChartData.swift */; };
 		9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38C2ADCD1C800245AFF /* TestChargingView.swift */; };
 		9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D39B2ADCD92B00245AFF /* FirebaseAuth */; };
@@ -279,14 +279,14 @@
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRoleView.swift; sourceTree = "<group>"; };
-		931293622AEA08820052F4AF /* LocationRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecord.swift; sourceTree = "<group>"; };
-		931293662AED3F070052F4AF /* BatteryMonitorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryMonitorViewModel.swift; sourceTree = "<group>"; };
-		931293682AED53100052F4AF /* TestBatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBatteryView.swift; sourceTree = "<group>"; };
-		9312936A2AEF4F040052F4AF /* CombinedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedView.swift; sourceTree = "<group>"; };
 		8DED83952AF5398C00AFB95B /* SOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSView.swift; sourceTree = "<group>"; };
 		8DED83972AF53A5500AFB95B /* WalkieTalkieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieView.swift; sourceTree = "<group>"; };
 		8DED839C2AF663C900AFB95B /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
 		8DED839E2AF664CD00AFB95B /* Symptom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symptom.swift; sourceTree = "<group>"; };
+		931293622AEA08820052F4AF /* LocationRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRecord.swift; sourceTree = "<group>"; };
+		931293662AED3F070052F4AF /* BatteryMonitorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryMonitorViewModel.swift; sourceTree = "<group>"; };
+		931293682AED53100052F4AF /* TestBatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBatteryView.swift; sourceTree = "<group>"; };
+		9312936A2AEF4F040052F4AF /* CombinedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedView.swift; sourceTree = "<group>"; };
 		9318D38A2ADCD1AC00245AFF /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		9318D38C2ADCD1C800245AFF /* TestChargingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChargingView.swift; sourceTree = "<group>"; };
 		9322F60C2AEFA8340013B0AB /* MapTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTestView.swift; sourceTree = "<group>"; };
@@ -655,16 +655,6 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		9322F60E2AEFA89A0013B0AB /* MapKit */ = {
-			isa = PBXGroup;
-			children = (
-				9322F60F2AEFA8A80013B0AB /* MKMapRep.swift */,
-				9322F6112AEFA9250013B0AB /* MapViewModel.swift */,
-				9322F6132AEFB0DE0013B0AB /* MarkerAnnotation.swift */,
-			);
-			path = MapKit;
-			sourceTree = "<group>";
-		};
 		7DB4E0CD2AEA080300270F2C /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -685,6 +675,16 @@
 				8D33E9222AF740A200C9D3C1 /* HistoryWeekPicker.swift */,
 			);
 			path = History;
+			sourceTree = "<group>";
+		};
+		9322F60E2AEFA89A0013B0AB /* MapKit */ = {
+			isa = PBXGroup;
+			children = (
+				9322F60F2AEFA8A80013B0AB /* MKMapRep.swift */,
+				9322F6112AEFA9250013B0AB /* MapViewModel.swift */,
+				9322F6132AEFB0DE0013B0AB /* MarkerAnnotation.swift */,
+			);
+			path = MapKit;
 			sourceTree = "<group>";
 		};
 		93CC91592AD8E6B800D1AC86 /* Enums */ = {
@@ -790,7 +790,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CB015612AD4DBBF0023C71E /* Preview Assets.xcassets in Resources */,
-				931293652AEA298E0052F4AF /* GoogleService-Info.plist in Resources */,
 				4CB0155E2AD4DBBF0023C71E /* Assets.xcassets in Resources */,
 				4CD95BAC2AF796AB00A37B38 /* GoogleService-Info.plist in Resources */,
 				7DB4E0CF2AEA080E00270F2C /* alert.mp3 in Resources */,
@@ -1083,7 +1082,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -1122,7 +1121,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -1163,7 +1162,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -1200,7 +1199,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
