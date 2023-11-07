@@ -29,9 +29,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var location = "Outside"
     @Published var inviteEmail = ""
 
-    var audioPlayer : AVAudioPlayer!
-    @Published var recordingsList = [URL]()
-
     override init() {
         super.init()
         batteryService.observeIdleSpecific()
@@ -83,14 +80,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     
     func signOut() {
         AuthService.shared.signOut()
-    }
-    
-    func startRecording(){
-        PTT.shared.requestBeginTransmitting()
-    }
-    
-    func stopRecording() {
-        PTT.shared.stopTransmitting()
     }
 
     private func loadLatestLiveLocation(documents: [DocumentChange]) -> LiveLocation? {

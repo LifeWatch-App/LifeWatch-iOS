@@ -22,7 +22,6 @@
 		4C6049D02AD7C6E000E9F0BF /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */; };
 		4C7076332AEF925D00271E9E /* PTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7076322AEF925D00271E9E /* PTT.swift */; };
 		4CA232972ADE1EF1003874D2 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232922ADE1EF1003874D2 /* UserRecord.swift */; };
-		4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232932ADE1EF1003874D2 /* ChartData.swift */; };
 		4CA232992ADE1EF1003874D2 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232942ADE1EF1003874D2 /* Invite.swift */; };
 		4CA2329B2ADE1EF1003874D2 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232962ADE1EF1003874D2 /* UserData.swift */; };
 		4CA2329D2ADE1F15003874D2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329C2ADE1F15003874D2 /* MainView.swift */; };
@@ -53,6 +52,7 @@
 		4CD95BAC2AF796AB00A37B38 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CD95BAB2AF796AB00A37B38 /* GoogleService-Info.plist */; };
 		4CF1BBE52AE75C1D000E1199 /* TimeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */; };
 		4CF1BBE62AE75C1D000E1199 /* TimeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */; };
+		4CF962C82AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF962C72AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift */; };
 		7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7202AD8ECD500923AFB /* Screen.swift */; };
 		7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7242ADCC97200923AFB /* HistoryView.swift */; };
 		7D02E7622ADD023E00923AFB /* LocationVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E74C2ADD023E00923AFB /* LocationVIewModel.swift */; };
@@ -124,7 +124,6 @@
 		931293672AED3F070052F4AF /* BatteryMonitorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293662AED3F070052F4AF /* BatteryMonitorViewModel.swift */; };
 		931293692AED53100052F4AF /* TestBatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293682AED53100052F4AF /* TestBatteryView.swift */; };
 		9312936B2AEF4F040052F4AF /* CombinedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9312936A2AEF4F040052F4AF /* CombinedView.swift */; };
-		9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38A2ADCD1AC00245AFF /* ChartData.swift */; };
 		9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318D38C2ADCD1C800245AFF /* TestChargingView.swift */; };
 		9318D39C2ADCD92B00245AFF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9318D39B2ADCD92B00245AFF /* FirebaseAuth */; };
 		9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7612ADD023E00923AFB /* UserProfile.swift */; };
@@ -185,7 +184,6 @@
 		4C7076322AEF925D00271E9E /* PTT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTT.swift; sourceTree = "<group>"; };
 		4CA232912ADD4517003874D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4CA232922ADE1EF1003874D2 /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
-		4CA232932ADE1EF1003874D2 /* ChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		4CA232942ADE1EF1003874D2 /* Invite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
 		4CA232962ADE1EF1003874D2 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		4CA2329C2ADE1F15003874D2 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -215,6 +213,7 @@
 		4CCDD5592AF634BA00146330 /* PTTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTTService.swift; sourceTree = "<group>"; };
 		4CD95BAB2AF796AB00A37B38 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeOption.swift; sourceTree = "<group>"; };
+		4CF962C72AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieViewModel.swift; sourceTree = "<group>"; };
 		7D02E7042AD78AD300923AFB /* YTeam Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "YTeam Watch App.entitlements"; sourceTree = "<group>"; };
 		7D02E7202AD8ECD500923AFB /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		7D02E7242ADCC97200923AFB /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
@@ -283,7 +282,6 @@
 		931293662AED3F070052F4AF /* BatteryMonitorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryMonitorViewModel.swift; sourceTree = "<group>"; };
 		931293682AED53100052F4AF /* TestBatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBatteryView.swift; sourceTree = "<group>"; };
 		9312936A2AEF4F040052F4AF /* CombinedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedView.swift; sourceTree = "<group>"; };
-		9318D38A2ADCD1AC00245AFF /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		9318D38C2ADCD1C800245AFF /* TestChargingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChargingView.swift; sourceTree = "<group>"; };
 		9322F60C2AEFA8340013B0AB /* MapTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTestView.swift; sourceTree = "<group>"; };
 		9322F60F2AEFA8A80013B0AB /* MKMapRep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapRep.swift; sourceTree = "<group>"; };
@@ -393,6 +391,7 @@
 				8D33E9242AF7A4C000C9D3C1 /* RoutineViewModel.swift */,
 				8D73C3D72AF908B7009AFD80 /* AddSymptomViewModel.swift */,
 				8D73C3DB2AF915B7009AFD80 /* AddRoutineViewModel.swift */,
+				4CF962C72AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -406,7 +405,6 @@
 				7DB24EF52AE51E79009A4A6D /* SOS.swift */,
 				4C6049CD2AD7AF4000E9F0BF /* UserData.swift */,
 				4C6049D12AD7FD4A00E9F0BF /* Invite.swift */,
-				9318D38A2ADCD1AC00245AFF /* ChartData.swift */,
 				8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */,
 				7D02E7972ADE892500923AFB /* Fall.swift */,
 				7D02E79F2ADFB35D00923AFB /* Charge.swift */,
@@ -627,7 +625,6 @@
 			isa = PBXGroup;
 			children = (
 				4CA232B62ADE48F7003874D2 /* Fall.swift */,
-				4CA232932ADE1EF1003874D2 /* ChartData.swift */,
 				93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */,
 				4CA232922ADE1EF1003874D2 /* UserRecord.swift */,
 				4CA232942ADE1EF1003874D2 /* Invite.swift */,
@@ -820,6 +817,7 @@
 				931293692AED53100052F4AF /* TestBatteryView.swift in Sources */,
 				9322F60D2AEFA8340013B0AB /* MapTestView.swift in Sources */,
 				93D4FA642AF7976E000850CE /* BatteryCard.swift in Sources */,
+				4CF962C82AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift in Sources */,
 				8D33E9212AF73E4F00C9D3C1 /* HistoryCard.swift in Sources */,
 				8D21B0462AF7ED0B00D23BF1 /* ChangeSeniorOverlay.swift in Sources */,
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
@@ -869,7 +867,6 @@
 				8D33E91F2AF73A6100C9D3C1 /* InactivityView.swift in Sources */,
 				8D21B03A2AF7A4F200D23BF1 /* RoutineView.swift in Sources */,
 				8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */,
-				9318D38B2ADCD1AC00245AFF /* ChartData.swift in Sources */,
 				4C0F8A3E2AE784CD002E8578 /* SignInWithAppleButton.swift in Sources */,
 				4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */,
 				8DED839D2AF663C900AFB95B /* Routine.swift in Sources */,
@@ -916,7 +913,6 @@
 				4CA232972ADE1EF1003874D2 /* UserRecord.swift in Sources */,
 				4CB0156E2AD4DBBF0023C71E /* ContentView.swift in Sources */,
 				7D02E77B2ADD39D800923AFB /* CoreMotionManager.swift in Sources */,
-				4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */,
 				9312936B2AEF4F040052F4AF /* CombinedView.swift in Sources */,
 				7D02E7682ADD023E00923AFB /* CalendarExt.swift in Sources */,
 				7D02E76D2ADD023E00923AFB /* IdleDetectionView.swift in Sources */,
@@ -935,7 +931,6 @@
 				4CA232B72ADE48F7003874D2 /* Fall.swift in Sources */,
 				93B898EE2AE616C3005E1678 /* BatteryLevelRecord.swift in Sources */,
 				8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */,
-				4CA2329A2ADE1EF1003874D2 /* DataUser.swift in Sources */,
 				9322F6182AF1F2C60013B0AB /* CLPlacemarkExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

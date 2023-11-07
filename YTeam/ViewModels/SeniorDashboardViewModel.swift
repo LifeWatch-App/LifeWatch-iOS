@@ -60,12 +60,4 @@ class SeniorDashboardViewModel: ObservableObject {
     func signOut() {
         AuthService.shared.signOut()
     }
-
-    func startRecording(){
-        PTT.shared.requestBeginTransmitting()
-    }
-    
-    func stopRecording() {
-        PTT.shared.stopTransmitting()
-    }
 }

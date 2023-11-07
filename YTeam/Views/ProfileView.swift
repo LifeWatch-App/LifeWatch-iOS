@@ -31,7 +31,7 @@ struct ProfileView: View {
                         .font(.title2)
                         .bold()
                     Text(profileViewModel.userData?.role == "senior" ? "Senior" : "Caregiver")
-                    Text(profileViewModel.user!.email ?? "Unknown Email")
+                    Text(profileViewModel.user?.email ?? "Unknown Email")
                 }
                 .padding(.horizontal)
                 

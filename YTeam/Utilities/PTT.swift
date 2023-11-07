@@ -19,7 +19,9 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     var recorder : AVAudioRecorder!
     var audioPlayer : AVAudioPlayer!
     var isTransmiting = false
+    @Published var isPlaying = false
     var speaker = PTParticipant(name: "-", image: UIImage())
+    @Published var status = "Hold to Talk"
     
     func channelDescriptor(restoredChannelUUID channelUUID: UUID) -> PTChannelDescriptor {
         return channelDescriptor
@@ -37,6 +39,9 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
         print("didBeginTransmittingFrom")
         try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
         isTransmiting = true
+        DispatchQueue.main.async{
+            self.status = "Connecting... Please Keep Holding The Button"
+          }
     }
     
     func channelManager(_ channelManager: PTChannelManager, channelUUID: UUID, didEndTransmittingFrom source: PTChannelTransmitRequestSource) {
@@ -46,18 +51,13 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
         let pttToken = pushToken.map { String(format: "%02.2hhx", $0) }.joined()
         print("PTT TOKEN:", pttToken)
         
-        let oldPttToken = UserDefaults.standard.value(forKey: "pttToken")
-        if AuthService.shared.user != nil {
-            if oldPttToken != nil {
-                if ((oldPttToken as! String) != pttToken) {
-                    AuthService.shared.updatePTTToken(pttToken: pttToken)
-                }
-            } else {
+        UserDefaults.standard.set(pttToken, forKey: "pttToken")
+        
+        if AuthService.shared.userData?.pttToken != nil {
+            if ((AuthService.shared.userData?.pttToken!) != pttToken) {
                 AuthService.shared.updatePTTToken(pttToken: pttToken)
             }
         }
-        
-        UserDefaults.standard.set(pttToken, forKey: "pttToken")
     }
     
     func incomingPushResult(channelManager: PTChannelManager, channelUUID: UUID, pushPayload: [String : Any]) -> PTPushResult {
@@ -66,6 +66,9 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
             return .leaveChannel
         }
         print("payload received from: \(activeSpeaker)")
+        DispatchQueue.main.async{
+            self.isPlaying = true
+          }
         speaker = PTParticipant(name: activeSpeaker, image: UIImage())
         try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
         return .activeRemoteParticipant(speaker)
@@ -101,7 +104,9 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
                 recorder = try AVAudioRecorder(url: fileName, settings: settings)
                 recorder.prepareToRecord()
                 recorder.record()
-                
+                DispatchQueue.main.async{
+                    self.status = "Start Speaking"
+                  }
             } catch {
                 print("Failed to Setup the Recording")
             }
@@ -138,6 +143,9 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
                         print("Playing Failed")
                         print(error)
                         self.stopReceivingAudio()
+                        DispatchQueue.main.async{
+                            self.isPlaying = false
+                          }
                     }
                 }
             }
@@ -146,6 +154,9 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     
     func channelManager(_ channelManager: PTChannelManager, didDeactivate audioSession: AVAudioSession) {
         if isTransmiting {
+            DispatchQueue.main.async{
+                self.status = "Hold to Talk"
+              }
             recorder.stop()
             
             let storage = Storage.storage()
@@ -160,6 +171,7 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
             voiceRef.putFile(from: fileName, metadata: nil) { metadata, error in
                 guard metadata != nil else {
                     self.isTransmiting = false
+                    print("eer: ", error)
                     return
                 }
                 Task {
@@ -197,9 +209,15 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     func stopTransmitting() {
         print("stopTransmitting")
         channelManager!.stopTransmitting(channelUUID: channelUUID!)
+        DispatchQueue.main.async{
+            self.status = "Hold to Talk"
+          }
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         stopReceivingAudio()
+        DispatchQueue.main.async{
+            self.isPlaying = false
+          }
     }
 }
