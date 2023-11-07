@@ -38,20 +38,16 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("FCM TOKEN:", fcmToken ?? "")
         
-        let oldFcmToken = UserDefaults.standard.value(forKey: "fcmToken")
-        if AuthService.shared.user != nil {
-            if oldFcmToken != nil {
-                if ((oldFcmToken as! String) != fcmToken) {
-                    AuthService.shared.updateFCMToken(fcmToken: fcmToken!)
-                }
-            } else {
+        UserDefaults.standard.set(fcmToken, forKey: "fcmToken")
+        
+        if AuthService.shared.userData?.fcmToken != nil {
+            if ((AuthService.shared.userData?.fcmToken!) != fcmToken) {
                 AuthService.shared.updateFCMToken(fcmToken: fcmToken!)
             }
         }
         
         let dataDict: [String: String] = ["fcmToken": fcmToken ?? ""]
         NotificationCenter.default.post(name: Notification.Name("fcmToken"), object: fcmToken, userInfo: dataDict)
-        UserDefaults.standard.set(fcmToken, forKey: "fcmToken")
     }
 }
 
