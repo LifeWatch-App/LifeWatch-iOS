@@ -10,13 +10,15 @@ import FirebaseAuth
 import Combine
 
 class HistoryViewModel: ObservableObject {
-    @Published var selectedHistoryMenu: HistoryMenu = .inactivity
+    @Published var selectedHistoryMenu: HistoryMenu = .emergency
     @Published var falls: [Fall] = []
     @Published var sos: [SOS] = []
     @Published var idles: [Idle] = []
     @Published var charges: [Charge] = []
+    @Published var heartAnomalies: [HeartAnomaly] = []
     @Published var groupedEmergencies: [(String, [Emergency])] = []
     @Published var groupedInactivities: [(String, [Any])] = []
+    @Published var groupedHeartAnomalies: [(String, [HeartAnomaly])] = []
     @Published var loading: Bool = true
     @Published var loggedIn: Bool = false
     @Published var fallsCount: Int = 0
@@ -24,9 +26,11 @@ class HistoryViewModel: ObservableObject {
     @Published var idleCount: Int = 0
     @Published var chargeCount: Int = 0
     @Published var inactivityData: [InactivityChart] = []
+    @Published var heartRateData: [HeartRateChart] = []
     @Published var currentWeek: [Date] = []
     @Published var totalIdleTime: String = ""
     @Published var totalChargingTime: String = ""
+    @Published var avgHeartRate: Int = 0
     
     var currentDay: Date = Date()
     
@@ -34,6 +38,7 @@ class HistoryViewModel: ObservableObject {
     private let fallService: FallService = FallService.shared
     private let sosService: SOSService = SOSService.shared
     private let inactivityService: InactivityService = InactivityService.shared
+    private let heartAnomalyService: HeartAnomalyService = HeartAnomalyService.shared
     private var cancellables = Set<AnyCancellable>()
     
     init() {
@@ -59,8 +64,8 @@ class HistoryViewModel: ObservableObject {
                 
                 self.falls.append(contentsOf: fall)
                 self.fetchCurrentWeek()
-                self.updateGroupedEmergencies()
-                self.updateGroupedInactivities()
+//                self.updateGroupedEmergencies()
+//                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
         
@@ -71,8 +76,8 @@ class HistoryViewModel: ObservableObject {
                 
                 self.sos.append(contentsOf: sos)
                 self.fetchCurrentWeek()
-                self.updateGroupedEmergencies()
-                self.updateGroupedInactivities()
+//                self.updateGroupedEmergencies()
+//                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
         
@@ -83,8 +88,8 @@ class HistoryViewModel: ObservableObject {
                 
                 self.idles.append(contentsOf: idle)
                 self.fetchCurrentWeek()
-                self.convertInactivitesToInactivityCharts()
-                self.updateGroupedInactivities()
+//                self.convertInactivitesToInactivityCharts()
+//                self.updateGroupedInactivities()
             }
             .store(in: &cancellables)
         
@@ -95,8 +100,18 @@ class HistoryViewModel: ObservableObject {
                 
                 self.charges.append(contentsOf: charge)
                 self.fetchCurrentWeek()
-                self.convertInactivitesToInactivityCharts()
-                self.updateGroupedInactivities()
+//                self.convertInactivitesToInactivityCharts()
+//                self.updateGroupedInactivities()
+            }
+            .store(in: &cancellables)
+        
+        heartAnomalyService.$heartAnomalies
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] anomaly in
+                guard let self else {return}
+                
+                self.heartAnomalies.append(contentsOf: anomaly)
+                self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
         
@@ -291,6 +306,59 @@ class HistoryViewModel: ObservableObject {
             self.idleCount = idle
             self.chargeCount = charge
             self.loading = false
+            
+            self.convertInactivitesToInactivityCharts()
+        }
+    }
+    
+    /// Updates internal properties such as `idleCount, chargesCount, and groupedInactivities` and is only called in `setupEmergencySubscriber`.
+    ///
+    /// ```
+    /// HistoryViewModel.updateGroupedInactivities().
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Updated `idleCount, chargesCount, and groupedInactivities`.
+    func updateGroupedHeartAnomalies() {
+        self.checkAuth()
+        
+        if (self.loggedIn == true) {
+            let filteredHeartAnomalies = self.heartAnomalies.sorted { $0.time > $1.time }
+            
+            guard let firstDay = self.currentWeek.first else {return}
+            guard let lastDay = self.currentWeek.last else {return}
+            
+            var heartAnomaliesDictionary: [String: [HeartAnomaly]] = [:]
+            
+            for heartAnomaly in filteredHeartAnomalies {
+                let dateString = Date.unixToString(unix: heartAnomaly.time , timeOption: .date)
+                
+                if var heartAnomalies = heartAnomaliesDictionary[dateString] {
+                    heartAnomalies.append(heartAnomaly)
+                    heartAnomaliesDictionary[dateString] = heartAnomalies
+                } else {
+                    heartAnomaliesDictionary[dateString] = [heartAnomaly]
+                }
+                
+            }
+            
+            var uniqueKeys = Set<String>()
+            
+            let unixKeys = filteredHeartAnomalies.compactMap {$0.time}
+            let sortedUnixKeys = unixKeys.sorted {$0 > $1}
+            let sortedKeys = sortedUnixKeys.compactMap { unix -> String? in
+                if (uniqueKeys.insert(Date.unixToString(unix: unix, timeOption: .date)).inserted &&
+                    Date(timeIntervalSince1970: unix) >= firstDay &&
+                    Date(timeIntervalSince1970: unix) <= lastDay) {
+                    return Date.unixToString(unix: unix, timeOption: .date)
+                }
+                return nil
+            }
+            
+            self.groupedHeartAnomalies = sortedKeys.map {($0, heartAnomaliesDictionary[$0]!)}
+            
+            self.loading = false
         }
     }
     
@@ -352,17 +420,18 @@ class HistoryViewModel: ObservableObject {
 
         (0...6).forEach { day in
             if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
-//                weekday = calendar.date(byAdding: .hour, value: 7, to: weekday) ?? Date()
                 currentWeek.append(weekday)
             }
         }
         
+        currentWeek[currentWeek.count - 1] = calendar.date(bySettingHour: 18, minute: 0, second: 0, of: currentWeek.last!) ?? currentWeek.last!
+        
         withAnimation {
+            fetchCurrentWeekData()
             updateGroupedEmergencies()
             updateGroupedInactivities()
-            fetchCurrentWeekData()
+            updateGroupedHeartAnomalies()
         }
-//        print(currentWeek)
     }
     
     /// Updates internal properties such as `currentDay` and `currentWeek`.
@@ -454,11 +523,11 @@ class HistoryViewModel: ObservableObject {
     /// - Returns: Updated `inactivityData` .
     func fetchCurrentWeekData() {
         self.inactivityData = []
+        self.heartRateData = []
         var tempDate = currentWeek.first ?? Date()
         
         while tempDate <= currentWeek.last ?? Date() {
             var inactivity = [InactivityChart(), InactivityChart()]
-            
             self.inactivityDataTemp.forEach { data in
                 if (data.day == tempDate && data.minutes != 0) {
                     if data.type == "Idle" {
@@ -472,7 +541,6 @@ class HistoryViewModel: ObservableObject {
                     }
                 }
             }
-            
             (0...1).forEach { i in
                 if inactivity[i].minutes == 0 {
                     inactivity[i].day = tempDate
@@ -486,9 +554,20 @@ class HistoryViewModel: ObservableObject {
                 self.inactivityData.append(inactivity[i])
             }
             
+            var heartRate = HeartRateChart()
+            heartRateDummyData.forEach { data in
+                if data.day == tempDate {
+                    heartRate.day = data.day
+                    heartRate.avgHeartRate = data.avgHeartRate
+                }
+            }
+            self.heartRateData.append(heartRate)
+            
             tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate) ?? Date()
         }
+        
         countTotalWeekData()
+        countAvgHeartRate()
     }
     
     /// Updates `totalIdleTime` and `totalChargingTime` from data.
@@ -516,6 +595,16 @@ class HistoryViewModel: ObservableObject {
         self.totalIdleTime = convertToHoursMinutes(minutes: totalIdle)
         self.totalChargingTime = convertToHoursMinutes(minutes: totalCharging)
         self.loading = false
+    }
+    
+    func countAvgHeartRate() {
+        avgHeartRate = 0
+        
+        heartRateData.forEach { data in
+            avgHeartRate += data.avgHeartRate
+        }
+        
+        avgHeartRate = avgHeartRate / 7
     }
     
     /// Formats Date object into String.
@@ -564,24 +653,18 @@ class HistoryViewModel: ObservableObject {
         let remainingMinutes = minutes % 60
         return "\(hours)h \(remainingMinutes)m"
     }
-    
 }
 
 enum HistoryMenu: String, CaseIterable, Identifiable {
-    case emergency, inactivity
+    case emergency, heartRate, inactivity
     var id: Self { self }
 }
 
 enum HistoryCardOption: String, CaseIterable, Identifiable {
-    case fell, pressed, idle, charging
+    case fell, pressed, idle, charging, heartRateDown, heartRatePeak, heartAttack
     var id: Self { self }
 }
 
 enum ChangeWeek: String, CaseIterable {
     case next, previous
-}
-
-struct HoursMinutes {
-    var hours: Int = 0
-    var minutes: Int = 0
 }

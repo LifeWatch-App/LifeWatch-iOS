@@ -8,7 +8,7 @@
 import Foundation
 
 struct BatteryLevelRecord: Hashable, Codable {
-    var seniorID: Description?
+    var seniorId: Description?
     var watchBatteryLevel: Description?
     var iphoneBatteryLevel: Description?
     var watchLastUpdatedAt: Description?

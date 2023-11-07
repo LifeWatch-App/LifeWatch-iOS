@@ -65,7 +65,7 @@ class MainViewModel: ObservableObject {
         AuthService.shared.setRole(role: role)
     }
 
-    func setupAuthWatch() {
-
+    func addInvitesListener() {
+        AuthService.shared.addInvitesListener()
     }
 }

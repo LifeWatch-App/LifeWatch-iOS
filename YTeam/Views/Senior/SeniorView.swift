@@ -12,16 +12,16 @@ struct SeniorView: View {
     
     var body: some View {
         TabView {
-            SeniorEmergencyView()
+            SeniorDashboardView()
                 .tabItem {
                     Label("Emergency", systemImage: "light.beacon.max.fill")
                 }
             
-//            EmptyView()
-//                .tabItem {
-//                    Label("Medicine", systemImage: "pill.fill")
-//                }
-//            
+            RoutineView()
+                .tabItem {
+                    Label("Routine", systemImage: "person.badge.clock.fill")
+                }
+            
             HistoryView()
                 .tabItem {
                     Label("History", systemImage: "chart.bar.fill")

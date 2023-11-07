@@ -11,7 +11,7 @@ struct ContentView: View {
     @StateObject private var mainViewModel = MainViewModel()
     
     var body: some View {
-        Group {
+        ZStack {
             if mainViewModel.isLoading {
                 ProgressView()
             } else {
@@ -21,9 +21,12 @@ struct ContentView: View {
                     LoginView()
                 }
             }
-        }.task {
+        }
+        .transition(.slide)
+        .task {
             AuthService.shared.listenToAuthState()
-        }.onChange(of: AuthService.shared.user) { oldValue, newValue in
+        }
+        .onChange(of: AuthService.shared.user) { oldValue, newValue in
             if oldValue == nil && newValue != nil {
                 mainViewModel.getUserData()
             }

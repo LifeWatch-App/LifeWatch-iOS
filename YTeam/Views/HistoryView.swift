@@ -10,49 +10,54 @@ import Charts
 
 struct HistoryView: View {
     @StateObject var historyViewModel: HistoryViewModel = HistoryViewModel()
+    
     var body: some View {
-        VStack {
-            HistoryPicker(selectedHistoryMenu: $historyViewModel.selectedHistoryMenu)
-                .padding(.top, 8)
-            
-            HStack {
-                Button {
-                    historyViewModel.changeWeek(type: .previous)
-                } label: {
-                    Image(systemName: "arrow.left.circle.fill")
-                        .font(.title)
+        NavigationStack {
+            VStack {
+                HistoryPicker(selectedHistoryMenu: $historyViewModel.selectedHistoryMenu)
+                    .padding(.top, 8)
+                
+                HStack {
+                    Button {
+                        historyViewModel.changeWeek(type: .previous)
+                    } label: {
+                        Image(systemName: "arrow.left.circle.fill")
+                            .font(.title)
+                    }
+                    
+                    Spacer()
+                    
+                    Text("\(historyViewModel.extractDate(date: historyViewModel.currentWeek.first ?? Date(), format: "dd MMM yyyy")) - \(historyViewModel.extractDate(date: historyViewModel.currentWeek.last ?? Date(), format: "dd MMM yyyy"))")
+                        .fontWeight(.semibold)
+                        .font(.system(size: 20))
+                        .padding(.horizontal, 2)
+                    
+                    Spacer()
+                    
+                    Button {
+                        historyViewModel.changeWeek(type: .next)
+                    } label: {
+                        Image(systemName: "arrow.right.circle.fill")
+                            .font(.title)
+                    }
+                    .disabled(historyViewModel.isToday(date: Date()))
+                }
+                .padding([.horizontal, .top])
+                
+                ScrollView{
+                    if historyViewModel.selectedHistoryMenu == .emergency {
+                        HistoryEmergency(historyViewModel: historyViewModel)
+                    } else if historyViewModel.selectedHistoryMenu == .heartRate {
+                        HistoryHeartRate(historyViewModel: historyViewModel)
+                    } else if historyViewModel.selectedHistoryMenu == .inactivity {
+                        HistoryInactivity(historyViewModel: historyViewModel)
+                    }
                 }
                 
-                Spacer()
-                
-                Text("\(historyViewModel.extractDate(date: historyViewModel.currentWeek.first ?? Date(), format: "dd MMM yyyy")) - \(historyViewModel.extractDate(date: historyViewModel.currentWeek.last ?? Date(), format: "dd MMM yyyy"))")
-                    .fontWeight(.semibold)
-                    .font(.system(size: 20))
-                    .padding(.horizontal, 2)
-                
-                Spacer()
-                
-                Button {
-                    historyViewModel.changeWeek(type: .next)
-                } label: {
-                    Image(systemName: "arrow.right.circle.fill")
-                        .font(.title)
-                }
-                .disabled(historyViewModel.isToday(date: Date()))
             }
-            .padding([.horizontal, .top])
-            
-            ScrollView{
-                if historyViewModel.selectedHistoryMenu == .emergency {
-                    HistoryEmergency(historyViewModel: historyViewModel)
-                } else if historyViewModel.selectedHistoryMenu == .inactivity {
-                    HistoryInactivity(historyViewModel: historyViewModel)
-                }
-            }
-
+            .background(Color(.systemGroupedBackground))
+            .navigationTitle("History")
         }
-        .background(Color(.systemGroupedBackground))
-        .navigationTitle("History")
     }
 }
 
@@ -92,6 +97,131 @@ struct HistoryEmergency: View {
         }
         .padding(.top, 8)
         .padding(.horizontal, 16)
+    }
+}
+
+struct HistoryHeartRate: View {
+    @Environment(\.calendar) var calendar
+    @ObservedObject var historyViewModel: HistoryViewModel
+    
+    func endOfDay(for date: Date) -> Date {
+        calendar.date(byAdding: .day, value: 1, to: date)!
+    }
+    
+    @State var rawSelectedDate: Date? = nil
+    var selectedDate: HeartRateChart? {
+        if let rawSelectedDate {
+            return historyViewModel.heartRateData.first {
+                let endOfDay = endOfDay(for: $0.day)
+                
+                return ($0.day ... endOfDay).contains(rawSelectedDate)
+            }
+        }
+        
+        return nil
+    }
+    
+    var body: some View {
+        VStack {
+            VStack {
+                HistoryHeader()
+                if (historyViewModel.loading == true) {
+                    ProgressView()
+                } else {
+                    VStack {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Average Heart Rate This Week")
+                                    .foregroundStyle(.secondary)
+                                Text("\(historyViewModel.avgHeartRate) BPM")
+                                    .font(.headline)
+                            }
+                            Spacer()
+                        }
+                        .opacity(selectedDate == nil ? 1.0 : 0.0)
+                        
+                        Chart {
+                            ForEach(historyViewModel.heartRateData) {
+                                LineMark(x: .value("Date", $0.day, unit: .day), y: .value("Avg. Heart Rate", $0.avgHeartRate)
+                                )
+                                .cornerRadius(2)
+                                
+                                PointMark(x: .value("Date", $0.day, unit: .day), y: .value("Avg. Heart Rate", $0.avgHeartRate)
+                                )
+                                .cornerRadius(2)
+                            }
+                            
+                            if let rawSelectedDate {
+                                RuleMark(
+                                    x: .value("Selected", rawSelectedDate, unit: .day)
+                                )
+                                .foregroundStyle(Color(.systemGray6))
+                                .offset(yStart: -8, yEnd: -1)
+                                .zIndex(-1)
+                                .annotation(
+                                    position: .top, spacing: 0,
+                                    overflowResolution: .init(
+                                        x: .fit(to: .chart),
+                                        y: .disabled
+                                    )
+                                ) {
+                                    HStack {
+                                        Text("Avg. Heart Rate:")
+                                            .foregroundStyle(.accent)
+                                        
+                                        Text("\(selectedDate?.avgHeartRate ?? 0) BPM")
+                                            .font(.headline)
+                                    }
+                                    .padding(12)
+                                    .background(Color(.systemGray6))
+                                    .cornerRadius(8)
+                                }
+                            }
+                        }
+                        .chartLegend(.hidden)
+                        .chartXSelection(value: $rawSelectedDate)
+                        .chartXAxis {
+                            AxisMarks(values: historyViewModel.inactivityData.map { $0.day }) { date in
+                                AxisValueLabel(format: .dateTime.weekday(), horizontalSpacing: 10)
+                            }
+                        }
+                        .frame(height: 200)
+                    }
+                    .padding()
+                    .background(Color(.systemBackground))
+                    .cornerRadius(16)
+                    
+                    // Heart Rate Card Here
+                    ForEach(historyViewModel.groupedHeartAnomalies, id: \.0) { (time: String, anomalies: [HeartAnomaly]) in
+                        VStack{
+                            HStack{
+                                Text(time)
+                                    .font(.headline)
+                                Spacer()
+                            }
+                            .padding(.top, 8)
+                            ForEach(0..<anomalies.count, id: \.self) { index in
+                                if anomalies[index].anomaly == "lowHeart" {
+                                    HStack{
+                                        Text("Low Heart Card")
+                                    }
+//                                    HistoryCard(option: .idle, time: Date.unixToString(unix: idle.startTime ?? 0, timeOption: .hour), finishedTime: Date.unixToString(unix: idle.endTime ?? 0, timeOption: .hour))
+                                } else if anomalies[index].anomaly == "highHeart" {
+                                    HStack{
+                                        Text("High Heart Card")
+                                    }
+                                } else {
+                                    HStack{
+                                        Text("Irregular Heart Card")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(.horizontal)
+        }
     }
 }
 
@@ -220,11 +350,6 @@ struct HistoryInactivity: View {
                     }
                 }
             }
-            
-//            HistoryCard(option: .idle, time: .constant("00:00"))
-//                .listRowSeparator(.hidden)
-//            HistoryCard(option: .charging, time: .constant("00:00"))
-//                .listRowSeparator(.hidden)
         }
         .padding(.top, 8)
         .padding(.horizontal, 16)
@@ -237,6 +362,7 @@ struct HistoryPicker: View {
     var body: some View {
         Picker("HistoryMenu", selection: $selectedHistoryMenu) {
             Text("Emergency").tag(HistoryMenu.emergency)
+            Text("Heart Rate").tag(HistoryMenu.heartRate)
             Text("Inactivity").tag(HistoryMenu.inactivity)
         }
         .pickerStyle(.segmented)

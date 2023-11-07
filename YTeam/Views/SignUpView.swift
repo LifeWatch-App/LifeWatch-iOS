@@ -12,8 +12,7 @@ import FirebaseAuth
 
 struct SignUpView: View {
     @ObservedObject private var signUpViewModel = SignUpViewModel()
-    @Binding var isSigningUp: Bool
-    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var accepted: Bool = false
     
     var body: some View {
@@ -67,7 +66,7 @@ struct SignUpView: View {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.title3)
                     }
-                    .foregroundStyle(accepted ? .black : .secondary)
+                    .foregroundStyle(accepted ? .accent : .secondary)
                     
                     Text("I accept the terms and privacy policy")
                     Spacer()
@@ -86,14 +85,14 @@ struct SignUpView: View {
                     }
                     .background(.accent)
                     .foregroundStyle(.white)
-                    .cornerRadius(8)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
                 .padding(.top, 8)
                 
                 HStack {
                     Text("Already have an account?")
                     Button {
-                        isSigningUp.toggle()
+                        self.presentationMode.wrappedValue.dismiss()
                     } label: {
                         Text("Login")
                     }
@@ -107,5 +106,6 @@ struct SignUpView: View {
 }
 
 #Preview {
-    SignUpView(isSigningUp: .constant(true))
+    SignUpView()
+//        .preferredColorScheme(.dark)
 }
