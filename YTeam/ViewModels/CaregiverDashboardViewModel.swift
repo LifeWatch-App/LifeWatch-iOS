@@ -18,6 +18,8 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     private let service = AuthService.shared
     private var cancellables = Set<AnyCancellable>()
     
+    @Published var showWalkieTalkie: Bool = false
+    
     @Published var routines: [Routine] = []
     @Published var watchBattery: Double = 80
     @Published var watchIsCharging = true

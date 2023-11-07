@@ -14,7 +14,7 @@ struct CaregiverView: View {
         TabView {
             CaregiverDashboardView()
                 .tabItem {
-                    Label("Emergency", systemImage: "light.beacon.max.fill")
+                    Label("Dashboard", systemImage: "list.clipboard.fill")
                 }
             
             RoutineView()
