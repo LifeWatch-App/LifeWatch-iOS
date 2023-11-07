@@ -68,7 +68,7 @@ struct ButtonCards: View {
     var body: some View {
         HStack(spacing: 12) {
             Button{
-                
+                seniorDashboardViewModel.showSOS.toggle()
             } label: {
                 VStack(alignment: .leading) {
                     HStack(alignment: .top) {
@@ -90,9 +90,12 @@ struct ButtonCards: View {
                 .background(Color("emergency-pink"))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
+            .fullScreenCover(isPresented: $seniorDashboardViewModel.showSOS, content: {
+                SOSView(seniorDashboardViewModel: seniorDashboardViewModel)
+            })
             
             Button {
-                
+                seniorDashboardViewModel.showWalkieTalkie.toggle()
             } label: {
                 VStack(alignment: .leading) {
                     HStack(alignment: .top) {
@@ -114,6 +117,9 @@ struct ButtonCards: View {
                 .background(.accent)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
+            .fullScreenCover(isPresented: $seniorDashboardViewModel.showWalkieTalkie, content: {
+                WalkieTalkieView()
+            })
         }
         .foregroundStyle(.white)
     }

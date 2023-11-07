@@ -49,7 +49,7 @@ struct CaregiverDashboardView: View {
                     }
                     
                     Button {
-                        
+                        caregiverDashboardViewModel.showWalkieTalkie.toggle()
                     } label: {
                         HStack {
                             Spacer()
@@ -66,6 +66,9 @@ struct CaregiverDashboardView: View {
                         .padding(.vertical, 8)
                         .padding(.horizontal)
                     }
+                    .fullScreenCover(isPresented: $caregiverDashboardViewModel.showWalkieTalkie, content: {
+                        WalkieTalkieView()
+                    })
                 }
                 .background(colorScheme == .light ? Color(.systemGroupedBackground) : .black)
                 .toolbar {
