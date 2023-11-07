@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AddRoutineViewModel: ObservableObject {
+class AddEditRoutineViewModel: ObservableObject {
     @Published var type = "Medicine"
     @Published var times: [Date] = [Date(), Date(), Date()]
     @Published var timeAmount = 1

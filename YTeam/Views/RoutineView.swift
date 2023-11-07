@@ -11,6 +11,7 @@ struct RoutineView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @StateObject var routineViewModel = RoutineViewModel()
+    @State var routine: Routine = Routine()
     
     var body: some View {
         NavigationStack {
@@ -18,7 +19,7 @@ struct RoutineView: View {
                 VStack {
                     RoutineWeekPicker(routineViewModel: routineViewModel)
                     
-                    ScrollView(.horizontal) {
+                    ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 12) {
                             ForEach(routineViewModel.currentWeek, id: \.self) { day in
                                 Button {
@@ -87,12 +88,22 @@ struct RoutineView: View {
                                 
                                 Spacer()
                                 
-                                Image(systemName: "circle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 45)
+                                VStack(alignment: .trailing) {
+                                    Button("Edit") {
+                                        routine = routine
+                                        routineViewModel.showEditRoutine.toggle()
+                                    }
                                     .foregroundStyle(.accent)
-                                    .padding(.leading, 2)
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "circle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 45)
+                                        .foregroundStyle(.accent)
+                                        .padding(.leading, 2)
+                                }
                             }
                             .padding()
                             .background(colorScheme == .light ? .white : Color(.systemGray6))
@@ -126,7 +137,8 @@ struct RoutineView: View {
                                     Spacer()
                                     
                                     Button("Edit") {
-                                        
+                                        routine = routine
+                                        routineViewModel.showEditRoutine.toggle()
                                     }
                                     .foregroundStyle(.accent)
                                     .padding(.leading, 2)
@@ -202,7 +214,10 @@ struct RoutineView: View {
             }
             .background(Color(.systemGroupedBackground))
             .sheet(isPresented: $routineViewModel.showAddRoutine, content: {
-                AddRoutineView()
+                AddEditRoutineView(routine: nil)
+            })
+            .sheet(isPresented: $routineViewModel.showEditRoutine, content: {
+                AddEditRoutineView(routine: routine)
             })
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

@@ -16,25 +16,6 @@ struct SeniorDashboardView: View {
         NavigationStack {
             ScrollView {
                 VStack{
-//                    VStack {
-//                        Text("Welcome, \(seniorDashboardViewModel.user?.email ?? "")!")
-//                        Text("Give your email to your caregivers")
-//                        ForEach(seniorDashboardViewModel.invites, id: \.id) { invite in
-//                            HStack {
-//                                Text("Invite from: \(invite.caregiverData!.email!)")
-//                                Text(invite.accepted! ? "(Accepted)" : "")
-//                                if (!invite.accepted!) {
-//                                    Button {
-//                                        seniorDashboardViewModel.acceptInvite(id: invite.id!)
-//                                    } label: {
-//                                        Text("Accept")
-//                                    }
-//                                }
-//                            }
-//                            .padding(.top, 4)
-//                        }
-//                    }
-                    
                     ButtonCards(seniorDashboardViewModel: seniorDashboardViewModel)
                     
                     ForEach(seniorDashboardViewModel.invites, id: \.id) { invite in
@@ -183,19 +164,22 @@ struct UpcomingActivity: View {
             
             VStack(spacing: 20) {
                 ForEach(seniorDashboardViewModel.routines.prefix(3)) { routine in
-                    HStack {
-                        Divider()
-                            .frame(minWidth: 4)
-                            .background(.accent)
-                            .clipShape(RoundedRectangle(cornerRadius: 100))
+                    HStack(spacing: 16) {
+                        VStack {
+                            Image(systemName: routine.type == "Medicine" ? "pill.fill" : "figure.run")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40)
+                                .foregroundStyle(.white)
+                        }
+                        .padding(12)
+                        .background(.blue)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                         
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(routine.name)
-                                .font(.title3)
-                                .fontWeight(.semibold)
-                            
-                            Text(routine.description)
-                            
+                            Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
+                                .font(.headline)
+                            Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
                             HStack {
                                 Image(systemName: "clock")
                                 Text(routine.time, style: .time)
@@ -206,11 +190,11 @@ struct UpcomingActivity: View {
                         
                         Spacer()
                         
-                        Image(systemName: "circle")
+                        Image(systemName: routine.isDone ? "checkmark.circle.fill" : "circle")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 45)
-                            .foregroundStyle(.accent)
+                            .frame(width: 40)
+                            .foregroundStyle(.white, .accent)
                     }
                 }
             }
@@ -247,7 +231,7 @@ struct Symtomps: View {
             
             ForEach(seniorDashboardViewModel.symptoms) { symptom in
                 HStack(spacing: 16) {
-                    Image("symtomps")
+                    Image("safe")
                         .resizable()
                         .scaledToFit()
                         .frame(height: 50)
@@ -259,6 +243,7 @@ struct Symtomps: View {
                         
                         if let note = symptom.note {
                             Text(note)
+                                .font(.subheadline)
                         }
                     }
                     
@@ -268,6 +253,7 @@ struct Symtomps: View {
                         Image(systemName: "clock")
                         Text(symptom.time, style: .time)
                             .padding(.leading, -4)
+                            .font(.subheadline)
                     }
                     .foregroundColor(.secondary)
                     .padding(.leading, 4)

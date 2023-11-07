@@ -7,16 +7,17 @@
 
 import SwiftUI
 
-struct AddRoutineView: View {
+struct AddEditRoutineView: View {
     @Environment(\.dismiss) var dismiss
     
-    @StateObject var addRoutineViewModel = AddRoutineViewModel()
+    @StateObject var addEditRoutineViewModel = AddEditRoutineViewModel()
+    let routine: Routine?
     
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    Picker("Routine Type", selection: $addRoutineViewModel.type) {
+                    Picker("Routine Type", selection: $addEditRoutineViewModel.type) {
                         Text("Medicine")
                             .tag("Medicine")
                         Text("Activity")
@@ -26,22 +27,22 @@ struct AddRoutineView: View {
                     Text("type")
                 }
                 
-                if addRoutineViewModel.type == "Medicine" {
+                if addEditRoutineViewModel.type == "Medicine" {
                     Section {
                         HStack {
                             Text("Medicine")
                             Spacer()
-                            TextField("Type here", text: $addRoutineViewModel.medicine)
+                            TextField("Type here", text: $addEditRoutineViewModel.medicine)
                                 .multilineTextAlignment(.trailing)
                         }
                         
                         HStack {
                             Text("Amount")
                             Spacer()
-                            TextField("0", text: $addRoutineViewModel.medicineAmount)
+                            TextField("0", text: $addEditRoutineViewModel.medicineAmount)
                                 .multilineTextAlignment(.trailing)
                                 .keyboardType(.decimalPad)
-                            Picker("", selection: $addRoutineViewModel.medicineUnit) {
+                            Picker("", selection: $addEditRoutineViewModel.medicineUnit) {
                                 ForEach(MedicineUnit.allCases) { unit in
                                     Text(unit.rawValue)
                                 }
@@ -55,7 +56,7 @@ struct AddRoutineView: View {
                         HStack {
                             Text("Activity Name")
                             Spacer()
-                            TextField("Type here", text: $addRoutineViewModel.activity)
+                            TextField("Type here", text: $addEditRoutineViewModel.activity)
                                 .multilineTextAlignment(.trailing)
                         }
                     } header: {
@@ -63,7 +64,7 @@ struct AddRoutineView: View {
                     }
                     
                     Section {
-                        TextEditor(text: $addRoutineViewModel.description)
+                        TextEditor(text: $addEditRoutineViewModel.description)
                     } header: {
                         Text("Activity Description")
                     }
@@ -73,12 +74,12 @@ struct AddRoutineView: View {
                     HStack {
                         Text("Times per day")
                         Spacer()
-                        Stepper("", value: $addRoutineViewModel.timeAmount, in: 1...3)
-                        Text("\(addRoutineViewModel.timeAmount)")
+                        Stepper("", value: $addEditRoutineViewModel.timeAmount, in: 1...3)
+                        Text("\(addEditRoutineViewModel.timeAmount)")
                     }
                     
-                    ForEach(0..<addRoutineViewModel.timeAmount, id: \.self) { i in
-                        DatePicker(selection: $addRoutineViewModel.times[i], in: ...Date.now, displayedComponents: .hourAndMinute) {
+                    ForEach(0..<addEditRoutineViewModel.timeAmount, id: \.self) { i in
+                        DatePicker(selection: $addEditRoutineViewModel.times[i], in: ...Date.now, displayedComponents: .hourAndMinute) {
                             Text("Time \(i+1)")
                         }
                     }
@@ -105,7 +106,7 @@ struct AddRoutineView: View {
                 }
                 .listRowBackground(Color.accent)
             }
-            .navigationTitle("Add Routine")
+            .navigationTitle(routine == nil ? "Add Routine" : "Edit Routine")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -115,10 +116,22 @@ struct AddRoutineView: View {
                     .foregroundStyle(.accent)
                 }
             }
+            .onAppear {
+                if let routine = routine {
+                    addEditRoutineViewModel.type = routine.type
+//                    addEditRoutineViewModel.times: [Date] = [Date(), Date(), Date()]
+                    addEditRoutineViewModel.timeAmount = 1
+                    addEditRoutineViewModel.activity = routine.activity ?? ""
+                    addEditRoutineViewModel.description = routine.description ?? ""
+                    addEditRoutineViewModel.medicine = routine.medicine ?? ""
+                    addEditRoutineViewModel.medicineAmount = routine.medicineAmount ?? ""
+                    addEditRoutineViewModel.medicineUnit = routine.medicineUnit ?? .Tablet
+                }
+            }
         }
     }
 }
 
 #Preview {
-    AddRoutineView()
+    AddEditRoutineView(routine: nil)
 }
