@@ -13,10 +13,13 @@ import MapKit
 
 final class MapViewModel: NSObject, ObservableObject {
     @Published var mapRegion: MKCoordinateRegion?
+    @Published var mapRegion2: MKCoordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 39.23165776, longitude: -122.03069996), latitudinalMeters: 50, longitudinalMeters: 50)
     @Published var lastSeenLocation: CLLocationCoordinate2D?
+    @Published var allLocations: [LiveLocation] = []
     @Published var recenter: Bool = false
     @Published var zoomOut: Bool = false
-    @Published var testGeoLocation: Bool = false
+    @Published var shouldSelect: Bool = false
+    @Published var selectedPlacemark: CLLocationCoordinate2D?
     var cancellables = Set<AnyCancellable>()
     private let service = LocationService()
 
@@ -24,6 +27,7 @@ final class MapViewModel: NSObject, ObservableObject {
         super.init()
         service.observeHomeLocationSpecific()
         service.observeLiveLocationSpecific()
+        service.observeAllLiveLocation()
         setupSubscribers()
     }
 
@@ -48,6 +52,17 @@ final class MapViewModel: NSObject, ObservableObject {
                 }
             }
             .store(in: &cancellables)
+
+        service.$documentChangesAllLiveLocation
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] documentChanges in
+                guard let self = self else { return }
+                print("Document Changes", documentChanges)
+                withAnimation {
+                    self.allLocations.insert(contentsOf: self.loadLiveLocations(documents: documentChanges), at: 0)
+                }
+            }
+            .store(in: &cancellables)
     }
 
     private func loadLatestLiveLocation(documents: [DocumentChange]) -> CLLocationCoordinate2D? {
@@ -59,6 +74,22 @@ final class MapViewModel: NSObject, ObservableObject {
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
 
         return coordinate
+    }
+
+    private func loadLiveLocations(documents: [DocumentChange]) -> [LiveLocation] {
+        var liveLocations: [LiveLocation] = []
+
+        for document in documents {
+            guard var documentData = try? document.document.data(as: LiveLocation.self) else {
+                print("Unable to decode to LiveLocation")
+                return []
+            }
+            documentData.addressArray = documentData.locationName?.components(separatedBy: ",") ?? []
+            liveLocations.append(documentData)
+        }
+
+        print("LiveLocs", liveLocations)
+        return liveLocations
     }
 
     private func loadLatestHomeLocation(documents: [DocumentChange]) -> MKCoordinateRegion? {
@@ -73,11 +104,11 @@ final class MapViewModel: NSObject, ObservableObject {
 }
 
 extension MapViewModel: MKMapViewDelegate {
-
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKCircle {
             let boundCircle = MKCircleRenderer(overlay: overlay)
             boundCircle.strokeColor = UIColor.systemBlue
+            boundCircle.lineWidth = 4
             boundCircle.fillColor = UIColor.systemBlue.withAlphaComponent(0.25)
 
             return boundCircle
@@ -92,6 +123,16 @@ extension MapViewModel: MKMapViewDelegate {
             marker.markerTintColor = .systemBlue
             marker.isDraggable = false
             marker.isHidden = false
+
+            switch annotation.title {
+            case "Senior's Home Location":
+                marker.glyphImage = UIImage(systemName: "house.fill")
+            case "Last Seen Location":
+                marker.glyphImage = UIImage(systemName: "figure.dance")
+            default:
+                break
+            }
+
             return marker
         }
 

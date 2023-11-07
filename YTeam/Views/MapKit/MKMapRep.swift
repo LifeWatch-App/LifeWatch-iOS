@@ -15,12 +15,13 @@ import Contacts
 struct MKMapRep: UIViewRepresentable {
     @ObservedObject var mapVM: MapViewModel
     
+
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
-        
+
         if let mapRegion = context.coordinator.mapRegion, let lastSeenLocation = context.coordinator.lastSeenLocation {
-            //            mapView.setRegion(mapRegion, animated: true)
+            mapView.setRegion(mapRegion, animated: true)
             //            let circle = MKCircle(center: mapRegion.center, radius: 1000)
             //            mapView.setVisibleMapRect(circle.boundingMapRect, edgePadding: .init(top: 30, left: 50, bottom: 20, right: 50), animated: true)
             //
@@ -37,36 +38,26 @@ struct MKMapRep: UIViewRepresentable {
     func makeCoordinator() -> MapViewModel {
         return mapVM
     }
-    
+
     func updateUIView(_ uiView: MKMapView, context: Context) {
         let mapVM = context.coordinator
-        
+
         DispatchQueue.main.async {
-            if mapVM.recenter {
-                zoomRecenterLiveLocation(mapView: uiView, context: context)
-                context.coordinator.recenter = false
-            }
-            
-            if mapVM.zoomOut {
-                zoomOutRecenterLiveLocation(mapView: uiView, context: context)
-                context.coordinator.zoomOut = false
-            }
+            //            if mapVM.recenter {
+            //                zoomRecenterLiveLocation(mapView: uiView, context: context)
+            //                context.coordinator.recenter = false
+            //            }
+            //
+            //            if mapVM.zoomOut {
+            //                zoomOutRecenterLiveLocation(mapView: uiView, context: context)
+            //                context.coordinator.zoomOut = false
+            //            }
 
-            if mapVM.testGeoLocation {
-                testLocation(context: context) { placemark, error in
-//                    print(placemark?.country)
-//                    print(placemark?.name)
-//                    print(placemark?.subAdministrativeArea)
-//                    print(placemark?.areasOfInterest?[0] ?? "Unknown")
-//                    print(placemark?.thoroughfare)
-//                    print(
-//                    print(placemark?.subThoroughfare)
-//                    let address = "\(placemark?.subThoroughfare ?? "") \(placemark?.thoroughfare ?? ""), \(placemark?.locality ?? ""), \(placemark?.subLocality ?? ""), \(placemark?.administrativeArea ?? "") \(placemark?.postalCode ?? ""), \(placemark?.country ?? "")"
-//                    print("\(address)")
-                    print(placemark?.formattedAddress)
-
-                    context.coordinator.testGeoLocation = false
-                }
+            if mapVM.shouldSelect && mapVM.selectedPlacemark != nil {
+                zoomLocation(mapView: uiView, context: context)
+                print("Zoomed to location: \(context.coordinator.selectedPlacemark)")
+                context.coordinator.selectedPlacemark = nil
+                context.coordinator.shouldSelect = false
             }
 
             mapVM.$lastSeenLocation
@@ -75,7 +66,7 @@ struct MKMapRep: UIViewRepresentable {
                     self.updateLiveLocationAnnotation(mapView: uiView, context: context)
                 }
                 .store(in: &context.coordinator.cancellables)
-            
+
             mapVM.$mapRegion
                 .receive(on: DispatchQueue.main)
                 .sink { newCoordinate in
@@ -107,19 +98,19 @@ struct MKMapRep: UIViewRepresentable {
 
     private func updateLiveLocationAnnotation(mapView: MKMapView, context: Context) {
         for annotation in mapView.annotations {
-            if annotation.title == "Last Seen location" {
+            if annotation.title == "Last Seen Location" {
                 mapView.removeAnnotation(annotation)
             }
         }
         guard let lastSeenLocation = context.coordinator.lastSeenLocation else { return }
         let coordinateRegion = MKCoordinateRegion(center: lastSeenLocation, latitudinalMeters: 200, longitudinalMeters: 200)
-        let lastSeenAnnotation = MarkerAnnotation(title: "Last Seen location", coordinate: lastSeenLocation)
-        withAnimation {
-            mapView.addAnnotation(lastSeenAnnotation)
-        }
+        let lastSeenAnnotation = MarkerAnnotation(title: "Last Seen Location", coordinate: lastSeenLocation)
+
+        mapView.addAnnotation(lastSeenAnnotation)
+
         mapView.setRegion(coordinateRegion, animated: true)
     }
-    
+
     private func updateHomeLocationAnnotation(mapView: MKMapView, context: Context) {
         for annotation in mapView.annotations {
             if annotation.title == "Senior's Home Location" {
@@ -132,18 +123,18 @@ struct MKMapRep: UIViewRepresentable {
             mapView.addAnnotation(lastSeenAnnotation)
         }
     }
-    
+
     private func updateRegionCircle(mapView: MKMapView, context: Context) {
         for overlay in mapView.overlays {
             mapView.removeOverlay(overlay)
         }
-        
+
         guard let mapRegionCenter = context.coordinator.mapRegion?.center else { return }
-        let circle = MKCircle(center: mapRegionCenter, radius: 1000)
-        mapView.setVisibleMapRect(circle.boundingMapRect, edgePadding: .init(top: 30, left: 50, bottom: 20, right: 50), animated: true)
+        let circle = MKCircle(center: mapRegionCenter, radius: 200)
+        //        mapView.setVisibleMapRect(circle.boundingMapRect, edgePadding: .init(top: 30, left: 50, bottom: 20, right: 50), animated: true)
         mapView.addOverlay(circle)
     }
-    
+
     private func zoomRecenterLiveLocation(mapView: MKMapView, context: Context) {
         guard let location = context.coordinator.lastSeenLocation else {
             print("Print mapRegion not available")
@@ -153,7 +144,20 @@ struct MKMapRep: UIViewRepresentable {
         let region = MKCoordinateRegion(center: location, latitudinalMeters: 50, longitudinalMeters: 50)
         mapView.setRegion(region, animated: true)
     }
-    
+
+    private func zoomLocation(mapView: MKMapView, context: Context) {
+        guard let location = context.coordinator.selectedPlacemark else {
+            print("Print mapRegion not available")
+            return
+        }
+
+        print(location)
+
+        //        let region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.04, longitudeDelta: 0.04))
+        let region = MKCoordinateRegion(center: location, latitudinalMeters: 50, longitudinalMeters: 50)
+        mapView.setRegion(region, animated: true)
+    }
+
     private func zoomOutRecenterLiveLocation(mapView: MKMapView, context: Context) {
         guard let location = context.coordinator.lastSeenLocation else {
             print("Print mapRegion not available")
@@ -163,7 +167,7 @@ struct MKMapRep: UIViewRepresentable {
         let region = MKCoordinateRegion(center: location, latitudinalMeters: 50, longitudinalMeters: 50)
         mapView.setRegion(region, animated: true)
     }
-    
+
     typealias UIViewType = MKMapView
 }
 
