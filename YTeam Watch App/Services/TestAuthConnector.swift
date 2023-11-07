@@ -37,6 +37,8 @@ final class TestAuthConnector: NSObject, WCSessionDelegate {
                         return
                     }
 
+                    print("Decoded user record", decodedUserRecord  )
+
                     if decodedUserRecord?.userID == userRecordData.userID {
                         self.userRecord = decodedUserRecord
                     } else {

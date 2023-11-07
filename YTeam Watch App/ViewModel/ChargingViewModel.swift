@@ -8,7 +8,7 @@ import Foundation
 import WatchKit
 import Combine
 
-final class CobaTestViewModel: ObservableObject {
+final class ChargingViewModel: ObservableObject {
     private let interface = WKInterfaceDevice()
     private var cancellables = Set<AnyCancellable>()
     private var batterySubscription: AnyCancellable?
@@ -145,8 +145,9 @@ final class CobaTestViewModel: ObservableObject {
                 switch batteryState {
                 case .charging:
                     if self.currentRange == nil {
-                        self.currentRange = ChargingRange(startCharging: Date.now, taskState: "ongoing")
-                        let rangeCurrent: ChargingRangeRecord = ChargingRangeRecord(seniorId: Description(stringValue: userID), startCharging: Description(stringValue: self.currentRange?.startCharging?.description), taskState: Description(stringValue: self.currentRange?.taskState))
+                        let currentRange = ChargingRange(startCharging: Date.now, taskState: "ongoing")
+                        let rangeCurrent: ChargingRangeRecord = ChargingRangeRecord(seniorId: Description(stringValue: userID), startCharging: Description(doubleValue: currentRange.startCharging?.timeIntervalSince1970), taskState: Description(stringValue: currentRange.taskState))
+                        self.currentRange = currentRange
                         Task { try? await self.service.set(endPoint: MultipleEndPoints.charges, fields: rangeCurrent, httpMethod: .post) }
                     }
                 case .unplugged:
@@ -162,12 +163,12 @@ final class CobaTestViewModel: ObservableObject {
                             Task {
                                 if let chargingRecords: FirebaseRecords<ChargingRangeRecord> = try? await self.service.fetch(endPoint: MultipleEndPoints.charges, httpMethod: .get) {
 
-                                    guard let specificChargingRecord = chargingRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID && $0.fields?.startCharging?.stringValue == currentRange.startCharging?.description  }) else { return }
+                                    guard let specificChargingRecord = chargingRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID && $0.fields?.startCharging?.doubleValue == currentRange.startCharging?.timeIntervalSince1970  }) else { return }
                                     guard let specificChargingRecordDocumentName = specificChargingRecord.name else { return }
                                     let components = specificChargingRecordDocumentName.components(separatedBy: "/")
                                     guard let specificChargingRecordDocumentID = components.last else { return }
-
-                                    let updatedChargingRecord = ChargingRangeRecord(seniorId: Description(stringValue: specificChargingRecord.fields?.seniorId?.stringValue), startCharging: Description(stringValue: specificChargingRecord.fields?.startCharging?.stringValue), endCharging: Description(stringValue: Date.now.description), taskState: Description(stringValue: "ended"))
+                                    
+                                    let updatedChargingRecord = ChargingRangeRecord(seniorId: Description(stringValue: specificChargingRecord.fields?.seniorId?.stringValue), startCharging: Description(doubleValue: specificChargingRecord.fields?.startCharging?.doubleValue), endCharging: Description(doubleValue: Date.now.timeIntervalSince1970), taskState: Description(stringValue: "ended"))
                                     try await self.service.set(endPoint: SingleEndpoints.charges(chargeDocumentID: specificChargingRecordDocumentID), fields: updatedChargingRecord, httpMethod: .patch)
                                     self.resetRanges()
                                 }
@@ -177,7 +178,7 @@ final class CobaTestViewModel: ObservableObject {
                             Task {
                                 if let chargingRecords: FirebaseRecords<ChargingRangeRecord> = try? await self.service.fetch(endPoint: MultipleEndPoints.charges, httpMethod: .get) {
 
-                                    guard let specificChargingRecord = chargingRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID && $0.fields?.startCharging?.stringValue == currentRange.startCharging?.description  }) else { return }
+                                    guard let specificChargingRecord = chargingRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID && $0.fields?.startCharging?.doubleValue == currentRange.startCharging?.timeIntervalSince1970  }) else { return }
                                     guard let specificChargingRecordDocumentName = specificChargingRecord.name else { return }
                                     let components = specificChargingRecordDocumentName.components(separatedBy: "/")
                                     guard let specificChargingRecordDocumentID = components.last else { return }
