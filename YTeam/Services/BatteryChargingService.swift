@@ -10,7 +10,9 @@ import Firebase
 
 final class BatteryChargingService {
     static let shared = BatteryChargingService()
-    @Published var documentChanges = [DocumentChange]()
+    @Published var batteryDocumentChanges = [DocumentChange]()
+    @Published var idleDocumentChanges = [DocumentChange]()
+    @Published var latestLocationDocumentChanges = [DocumentChange]()
 
     func fetchBatteryLevel() async throws -> [BatteryLevel] {
         let snapshot = try await FirestoreConstants.batteryLevelCollection.getDocuments()
@@ -81,7 +83,33 @@ final class BatteryChargingService {
 
         query.addSnapshotListener { querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.documentChanges = changes
+            self.batteryDocumentChanges = changes
+        }
+    }
+
+    func observeIdleSpecific() {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+
+        let query = FirestoreConstants.idlesCollection
+            .whereField("seniorId", isEqualTo: currentUid)
+
+        query.addSnapshotListener { querySnapshot, error in
+            guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
+            self.idleDocumentChanges = changes
+        }
+    }
+
+    func observeLiveLocationSpecific() {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+
+        let query = FirestoreConstants.liveLocationsCollection
+            .whereField("seniorId", isEqualTo: currentUid)
+            .order(by: "createdAt", descending: true)
+            .limit(to: 1)
+
+        query.addSnapshotListener { querySnapshot, error in
+            guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
+            self.latestLocationDocumentChanges = changes
         }
     }
 }
