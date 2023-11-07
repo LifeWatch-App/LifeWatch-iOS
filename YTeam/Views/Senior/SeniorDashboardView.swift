@@ -37,6 +37,40 @@ struct SeniorDashboardView: View {
                     
                     ButtonCards(seniorDashboardViewModel: seniorDashboardViewModel)
                     
+                    ForEach(seniorDashboardViewModel.invites, id: \.id) { invite in
+                        if !invite.accepted! {
+                            HStack() {
+                                VStack(alignment: .leading) {
+                                    Text("\(invite.caregiverData!.name!)")
+                                        .font(.title3)
+                                        .fontWeight(.semibold)
+                                    Text("Would like to join your care team")
+                                        .foregroundColor(.secondary)
+                                
+                                }
+                                Spacer()
+                                HStack(spacing: 16) {
+                                    Button {
+                                        seniorDashboardViewModel.acceptInvite(id: invite.id!)
+                                    } label: {
+                                        Text("Accept")
+                                    }
+                                    Button {
+                                        seniorDashboardViewModel.denyInvite(id: invite.id!)
+                                    } label: {
+                                        Text("Deny")
+                                            .foregroundStyle(.red)
+                                    }
+                                }
+                                .padding(.leading, 4)
+                            }
+                            .padding()
+                            .background(colorScheme == .light ? .white : Color(.systemGray6))
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                        }
+                                                
+                    }
+                    
                     UpcomingActivity(seniorDashboardViewModel: seniorDashboardViewModel)
                     
                     Symtomps(seniorDashboardViewModel: seniorDashboardViewModel)
@@ -68,7 +102,7 @@ struct ButtonCards: View {
     var body: some View {
         HStack(spacing: 12) {
             Button{
-                
+                seniorDashboardViewModel.showSOS.toggle()
             } label: {
                 VStack(alignment: .leading) {
                     HStack(alignment: .top) {
@@ -90,9 +124,12 @@ struct ButtonCards: View {
                 .background(Color("emergency-pink"))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
+            .fullScreenCover(isPresented: $seniorDashboardViewModel.showSOS, content: {
+                SOSView(seniorDashboardViewModel: seniorDashboardViewModel)
+            })
             
             Button {
-                
+                seniorDashboardViewModel.showWalkieTalkie.toggle()
             } label: {
                 VStack(alignment: .leading) {
                     HStack(alignment: .top) {
@@ -114,6 +151,9 @@ struct ButtonCards: View {
                 .background(.accent)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
+            .fullScreenCover(isPresented: $seniorDashboardViewModel.showWalkieTalkie, content: {
+                WalkieTalkieView()
+            })
         }
         .foregroundStyle(.white)
     }

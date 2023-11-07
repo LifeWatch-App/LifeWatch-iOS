@@ -24,12 +24,10 @@
 		4CA232972ADE1EF1003874D2 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232922ADE1EF1003874D2 /* UserRecord.swift */; };
 		4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232932ADE1EF1003874D2 /* ChartData.swift */; };
 		4CA232992ADE1EF1003874D2 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232942ADE1EF1003874D2 /* Invite.swift */; };
-		4CA2329A2ADE1EF1003874D2 /* DataUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232952ADE1EF1003874D2 /* DataUser.swift */; };
 		4CA2329B2ADE1EF1003874D2 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232962ADE1EF1003874D2 /* UserData.swift */; };
 		4CA2329D2ADE1F15003874D2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329C2ADE1F15003874D2 /* MainView.swift */; };
 		4CA232A02ADE1F1D003874D2 /* TestAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */; };
 		4CA232A12ADE1F1D003874D2 /* TestAuthConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2329F2ADE1F1D003874D2 /* TestAuthConnector.swift */; };
-		4CA232A42ADE1F4F003874D2 /* DataUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232A22ADE1F4F003874D2 /* DataUser.swift */; };
 		4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232A32ADE1F4F003874D2 /* UserRecord.swift */; };
 		4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */; };
 		4CA232B72ADE48F7003874D2 /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA232B62ADE48F7003874D2 /* Fall.swift */; };
@@ -189,12 +187,10 @@
 		4CA232922ADE1EF1003874D2 /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
 		4CA232932ADE1EF1003874D2 /* ChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		4CA232942ADE1EF1003874D2 /* Invite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
-		4CA232952ADE1EF1003874D2 /* DataUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataUser.swift; sourceTree = "<group>"; };
 		4CA232962ADE1EF1003874D2 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		4CA2329C2ADE1F15003874D2 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		4CA2329E2ADE1F1D003874D2 /* TestAuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAuthViewModel.swift; sourceTree = "<group>"; };
 		4CA2329F2ADE1F1D003874D2 /* TestAuthConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAuthConnector.swift; sourceTree = "<group>"; };
-		4CA232A22ADE1F4F003874D2 /* DataUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataUser.swift; sourceTree = "<group>"; };
 		4CA232A32ADE1F4F003874D2 /* UserRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
 		4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchConnectorService.swift; sourceTree = "<group>"; };
 		4CA232B62ADE48F7003874D2 /* Fall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
@@ -405,7 +401,6 @@
 			isa = PBXGroup;
 			children = (
 				93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */,
-				4CA232A22ADE1F4F003874D2 /* DataUser.swift */,
 				7DB24EF92AE51E9A009A4A6D /* Emergency.swift */,
 				4CA232A32ADE1F4F003874D2 /* UserRecord.swift */,
 				7DB24EF52AE51E79009A4A6D /* SOS.swift */,
@@ -635,7 +630,6 @@
 				4CA232932ADE1EF1003874D2 /* ChartData.swift */,
 				93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */,
 				4CA232922ADE1EF1003874D2 /* UserRecord.swift */,
-				4CA232952ADE1EF1003874D2 /* DataUser.swift */,
 				4CA232942ADE1EF1003874D2 /* Invite.swift */,
 				4CA232962ADE1EF1003874D2 /* UserData.swift */,
 				7D02E75F2ADD023E00923AFB /* ChargingRange.swift */,
@@ -836,7 +830,6 @@
 				4CA7922E2ADFB67B003B5EC9 /* SeniorDashboardView.swift in Sources */,
 				8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
-				4CA232A42ADE1F4F003874D2 /* DataUser.swift in Sources */,
 				8DED83982AF53A5500AFB95B /* WalkieTalkieView.swift in Sources */,
 				7DB24EF82AE51E81009A4A6D /* SOSService.swift in Sources */,
 				7DB24EFA2AE51E9A009A4A6D /* Emergency.swift in Sources */,
