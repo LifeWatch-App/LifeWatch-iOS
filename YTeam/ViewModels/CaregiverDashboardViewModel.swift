@@ -19,17 +19,10 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     private let authService = AuthService.shared
     private let batteryService = BatteryChargingService.shared
     @Published var batteryInfo: BatteryLevel?
-    @Published var latestInfo
+    @Published var latestLocationInfo: LiveLocation?
     @Published var idleInfo: [Idle] = []
     private var cancellables = Set<AnyCancellable>()
-    
     @Published var routines: [Routine] = []
-//    @Published var watchBattery: Double = 80
-//    @Published var watchIsCharging = true
-//    @Published var phoneBattery: Double = 90
-//    @Published var phoneIsCharging = false
-    @Published var isActive = false
-    @Published var inactivityTime = 30
     @Published var heartRate = 90
     @Published var location = "Outside"
 
@@ -39,6 +32,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     override init() {
         super.init()
         batteryService.observeIdleSpecific()
+        batteryService.observeLiveLocationSpecific()
         batteryService.observeBatteryStateLevelSpecific()
         setupSubscribers()
         // add dummy data
@@ -68,7 +62,14 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
                 self.idleInfo = self.loadInitialIdleLevel(documents: documentChanges)
-                print(self.idleInfo)
+            }
+            .store(in: &cancellables)
+
+        batteryService.$latestLocationDocumentChanges
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] documentChanges in
+                guard let self = self else { return }
+                self.latestLocationInfo = self.loadLatestLiveLocation(documents: documentChanges)
             }
             .store(in: &cancellables)
     }
@@ -108,20 +109,5 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
         }
 
         return idles
-
-//        if (idles.contains { idle in
-//            idle.taskState == "ongoing"
-//        }) {
-//
-//        }
-//
-//        return idles.first { idle in
-//            idle.taskState == "ongoing"
-//        }
     }
-
-
-    //MARK: CHECK IF THERE IS ONGOING
-    //MARK: IF YES GET DATA OF ONGOING FOR THE SENIOR
-    //MARK: IF NO SHOW THAT THE SENIOR IS ACTIVE
 }

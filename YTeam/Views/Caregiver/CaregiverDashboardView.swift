@@ -189,8 +189,9 @@ struct SeniorStatus: View {
                     
                     Text("Location")
                         .font(.subheadline)
-                    
-                    Text("\(caregiverDashboardViewModel.location)")
+
+
+                    Text("\(caregiverDashboardViewModel.latestLocationInfo?.isOutside ?? false ? "Outside" : "Home")")
                         .font(.title2)
                         .bold()
                         .padding(.bottom, 6)
