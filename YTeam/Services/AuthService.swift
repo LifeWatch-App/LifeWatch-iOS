@@ -32,11 +32,20 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     }
     
     func login(email: String, password: String) {
+        withAnimation {
+            isLoading = true
+        }
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "")
+                withAnimation {
+                    self.isLoading = false
+                }
             } else {
                 print("Login Success")
+                withAnimation {
+                    self.isLoading = false
+                }
             }
             
             self.loginProviders = []
@@ -48,7 +57,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         }
     }
     
-    func signUp(email: String, password: String) {
+    func signUp(name: String, email: String, password: String) {
         //TODO: When launch app check if user data exists in UserDefault or not, if yes get that user, if not save it in user default the one that is passed from watchconnectivity
         withAnimation {
             isLoading = true
@@ -57,6 +66,10 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error != nil {
                 print(error?.localizedDescription ?? "")
+                withAnimation {
+                    self.isLoading = false
+                }
+                
             } else {
                 print("success")
                 
@@ -69,6 +82,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                     .collection("users")
                     .document(AuthService.shared.user!.uid)
                     .setData([
+                        "name": name,
                         "email": AuthService.shared.user!.email!,
                         "role": NSNull(),
                         "fcmToken": fcmToken
@@ -169,6 +183,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                         .collection("users")
                         .document(AuthService.shared.user!.uid)
                         .setData([
+                            "name": "Unknown Name",
                             "email": AuthService.shared.user!.email!,
                             "role": NSNull(),
                             "fcmToken": fcmToken
@@ -484,6 +499,16 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                 print("Error updating document: \(err)")
             } else {
                 print("Document successfully updated")
+            }
+        }
+    }
+    
+    func denyInvite(id: String) {
+        db.collection("invites").document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed")
             }
         }
     }

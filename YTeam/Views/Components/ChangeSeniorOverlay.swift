@@ -10,6 +10,7 @@ import SwiftUI
 struct ChangeSeniorOverlay: View {
     @Environment(\.colorScheme) var colorScheme
     
+    @Binding var showInviteSheet: Bool
     @Binding var showChangeSenior: Bool
     
     @State var scrollViewContentSize: CGSize = .zero
@@ -72,6 +73,9 @@ struct ChangeSeniorOverlay: View {
                                         Text("Add")
                                             .font(.callout)
                                     }
+                                    .onTapGesture {
+                                        showInviteSheet = true
+                                    }
                                 }
                             }
                             .background(
@@ -101,5 +105,5 @@ struct ChangeSeniorOverlay: View {
 }
 
 #Preview {
-    ChangeSeniorOverlay(showChangeSenior: .constant(true))
+    ChangeSeniorOverlay(showInviteSheet: .constant(false), showChangeSenior: .constant(true))
 }
