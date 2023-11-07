@@ -69,4 +69,27 @@ extension Date {
         return dateFormatter.string(from: date)
     }
 
+
+    static func timeDifference(unix: Double) -> (String, Double) {
+        let currentTime = Date().timeIntervalSince1970
+        let timeDifference = currentTime - unix
+        if timeDifference < 60 {
+            // Less than a minute
+            let seconds = Int(timeDifference)
+            return ("\(seconds)", timeDifference)
+        } else if timeDifference < 3600 {
+            // Less than an hour
+            let minutes = Int(timeDifference / 60)
+            return ("\(minutes)", timeDifference)
+        } else if timeDifference < 86400 {
+            // Less than a day
+            let hours = Int(timeDifference / 3600)
+            return ("\(hours)", timeDifference)
+        } else {
+            // More than a day
+            let days = Int(timeDifference / 86400)
+            return ("\(days)", timeDifference)
+        }
+    }
+
 }

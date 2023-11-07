@@ -20,7 +20,7 @@ final class BatteryMonitorViewModel: ObservableObject {
     }
 
     func setupSubscribers() {
-        service.$documentChanges
+        service.$batteryDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
