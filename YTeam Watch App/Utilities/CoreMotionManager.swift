@@ -145,4 +145,17 @@ class CoreMotionManager: ObservableObject {
             }
         }
     }
+    
+    /// Disables `fall`.
+    ///
+    /// ```
+    /// CoreMotionManager().cancelFallStatus().
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Void. Disables fall
+    func cancelFallStatus() {
+        self.fall = false
+    }
 }

@@ -81,6 +81,12 @@
 		7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E79F2ADFB35D00923AFB /* Charge.swift */; };
 		7D04164E2AEFBD5500C4CBA7 /* HeartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D04164A2AEF5EBC00C4CBA7 /* HeartManager.swift */; };
 		7D0416502AEFC11200C4CBA7 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D04164F2AEFC11200C4CBA7 /* HeartRateView.swift */; };
+		7D0508DE2AF9D3C200439E75 /* FallNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0508DD2AF9D3C100439E75 /* FallNotificationView.swift */; };
+		7D0508E32AF9F5F000439E75 /* SOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0508E22AF9F5F000439E75 /* SOSView.swift */; };
+		7D0508E52AF9F60D00439E75 /* SOSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0508E42AF9F60D00439E75 /* SOSManager.swift */; };
+		7D0508E72AF9F6C800439E75 /* SOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0508E62AF9F6C800439E75 /* SOS.swift */; };
+		7D0508E92AF9FADA00439E75 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0508E82AF9FADA00439E75 /* AudioManager.swift */; };
+		7D0508ED2AF9FB5900439E75 /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7D0508EC2AF9FB5800439E75 /* alert.mp3 */; };
 		7D2151AF2AF723D8001BB9BC /* HeartAnomalyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */; };
 		7D2151B12AF72416001BB9BC /* HeartAnomaly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151B02AF72416001BB9BC /* HeartAnomaly.swift */; };
 		7D2151B32AF8734C001BB9BC /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151B22AF8734C001BB9BC /* Heartbeat.swift */; };
@@ -225,6 +231,12 @@
 		7D02E79F2ADFB35D00923AFB /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
 		7D04164A2AEF5EBC00C4CBA7 /* HeartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartManager.swift; sourceTree = "<group>"; };
 		7D04164F2AEFC11200C4CBA7 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
+		7D0508DD2AF9D3C100439E75 /* FallNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallNotificationView.swift; sourceTree = "<group>"; };
+		7D0508E22AF9F5F000439E75 /* SOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSView.swift; sourceTree = "<group>"; };
+		7D0508E42AF9F60D00439E75 /* SOSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSManager.swift; sourceTree = "<group>"; };
+		7D0508E62AF9F6C800439E75 /* SOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOS.swift; sourceTree = "<group>"; };
+		7D0508E82AF9FADA00439E75 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		7D0508EC2AF9FB5800439E75 /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = alert.mp3; path = Shared/Sounds/alert.mp3; sourceTree = SOURCE_ROOT; };
 		7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomalyService.swift; sourceTree = "<group>"; };
 		7D2151B02AF72416001BB9BC /* HeartAnomaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomaly.swift; sourceTree = "<group>"; };
 		7D2151B22AF8734C001BB9BC /* Heartbeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
@@ -435,6 +447,7 @@
 		4CB0156A2AD4DBBF0023C71E /* YTeam Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				7D0508EA2AF9FAF700439E75 /* Shared */,
 				7D02E7572ADD023E00923AFB /* Constants */,
 				7D02E7592ADD023E00923AFB /* Enums */,
 				7D02E7542ADD023E00923AFB /* Extension */,
@@ -537,6 +550,8 @@
 				7D02E7532ADD023E00923AFB /* WatchConnectorManageWatch.swift */,
 				7D04164A2AEF5EBC00C4CBA7 /* HeartManager.swift */,
 				7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */,
+				7D0508E42AF9F60D00439E75 /* SOSManager.swift */,
+				7D0508E82AF9FADA00439E75 /* AudioManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -574,6 +589,8 @@
 				7D02E75C2ADD023E00923AFB /* TestChargingView.swift */,
 				7D02E75D2ADD023E00923AFB /* IdleDetectionView.swift */,
 				7D04164F2AEFC11200C4CBA7 /* HeartRateView.swift */,
+				7D0508DD2AF9D3C100439E75 /* FallNotificationView.swift */,
+				7D0508E22AF9F5F000439E75 /* SOSView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -593,6 +610,7 @@
 				8D7D73052ADE247D00251550 /* Inactivity.swift */,
 				7DB2E5FE2AF32F2F00CAD5A6 /* HeartAnomaly.swift */,
 				7D2151B42AF8EDE3001BB9BC /* Heartbeat.swift */,
+				7D0508E62AF9F6C800439E75 /* SOS.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -603,6 +621,22 @@
 				7D02E7932ADE889500923AFB /* FirestoreConstants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		7D0508EA2AF9FAF700439E75 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				7D0508EB2AF9FB1700439E75 /* Sounds */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		7D0508EB2AF9FB1700439E75 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				7D0508EC2AF9FB5800439E75 /* alert.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		7DB4E0CD2AEA080300270F2C /* Sounds */ = {
@@ -743,6 +777,7 @@
 				4CB015732AD4DBC00023C71E /* Preview Assets.xcassets in Resources */,
 				4CB015702AD4DBC00023C71E /* Assets.xcassets in Resources */,
 				7DB4E0D02AEA080E00270F2C /* alert.mp3 in Resources */,
+				7D0508ED2AF9FB5900439E75 /* alert.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -835,6 +870,7 @@
 			files = (
 				7D02E76E2ADD023E00923AFB /* ChargingRange.swift in Sources */,
 				7D0416502AEFC11200C4CBA7 /* HeartRateView.swift in Sources */,
+				7D0508E92AF9FADA00439E75 /* AudioManager.swift in Sources */,
 				7D02E76C2ADD023E00923AFB /* TestChargingView.swift in Sources */,
 				7D02E7632ADD023E00923AFB /* IdleDetectionViewModel.swift in Sources */,
 				7D04164E2AEFBD5500C4CBA7 /* HeartManager.swift in Sources */,
@@ -848,23 +884,27 @@
 				4CB0156E2AD4DBBF0023C71E /* ContentView.swift in Sources */,
 				7D02E77B2ADD39D800923AFB /* CoreMotionManager.swift in Sources */,
 				7D2151B52AF8EDE3001BB9BC /* Heartbeat.swift in Sources */,
+				7D0508E52AF9F60D00439E75 /* SOSManager.swift in Sources */,
 				4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */,
 				7D02E7682ADD023E00923AFB /* CalendarExt.swift in Sources */,
 				7D02E76D2ADD023E00923AFB /* IdleDetectionView.swift in Sources */,
 				7D02E7642ADD023E00923AFB /* ChargingViewModel.swift in Sources */,
 				7DB2E5FF2AF32F2F00CAD5A6 /* HeartAnomaly.swift in Sources */,
+				7D0508E72AF9F6C800439E75 /* SOS.swift in Sources */,
 				4CB0156C2AD4DBBF0023C71E /* YTeamApp.swift in Sources */,
 				4CA232A02ADE1F1D003874D2 /* TestAuthViewModel.swift in Sources */,
 				4CF1BBE62AE75C1D000E1199 /* TimeOption.swift in Sources */,
 				7D02E7702ADD023E00923AFB /* UserProfile.swift in Sources */,
 				4CA2329B2ADE1EF1003874D2 /* UserData.swift in Sources */,
 				7D02E7662ADD023E00923AFB /* FallDetectionManager.swift in Sources */,
+				7D0508DE2AF9D3C200439E75 /* FallNotificationView.swift in Sources */,
 				7D02E7652ADD023E00923AFB /* DataService.swift in Sources */,
 				4CA232A12ADE1F1D003874D2 /* TestAuthConnector.swift in Sources */,
 				7D02E7692ADD023E00923AFB /* DateExt.swift in Sources */,
 				4CA232B72ADE48F7003874D2 /* Fall.swift in Sources */,
 				93B898EE2AE616C3005E1678 /* BatteryLevelRecord.swift in Sources */,
 				8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */,
+				7D0508E32AF9F5F000439E75 /* SOSView.swift in Sources */,
 				4CA2329A2ADE1EF1003874D2 /* DataUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
