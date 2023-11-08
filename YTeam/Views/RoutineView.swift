@@ -15,42 +15,42 @@ struct RoutineView: View {
     
     var body: some View {
         NavigationStack {
-            if routineViewModel.routines.count > 0 {
-                ScrollView {
-                    VStack {
-                        RoutineWeekPicker(routineViewModel: routineViewModel)
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 12) {
-                                ForEach(routineViewModel.currentWeek, id: \.self) { day in
-                                    Button {
-                                        routineViewModel.currentDay = day
-                                    } label: {
-                                        VStack {
-                                            ZStack {
-                                                RoutineCircularProgressView(progress: routineViewModel.progressCount)
-                                                    .frame(width: 40)
-                                                
-                                                Text("\(routineViewModel.extractDate(date: day, format: "d"))")
-                                                    .fontWeight(.semibold)
-                                                    .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : Color(.label))
-                                            }
+            ScrollView {
+                VStack {
+                    RoutineWeekPicker(routineViewModel: routineViewModel)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 12) {
+                            ForEach(routineViewModel.currentWeek, id: \.self) { day in
+                                Button {
+                                    routineViewModel.currentDay = day
+                                } label: {
+                                    VStack {
+                                        ZStack {
+                                            RoutineCircularProgressView(progress: routineViewModel.progressCount)
+                                                .frame(width: 40)
                                             
-                                            Text("\(routineViewModel.extractDate(date: day, format: "E"))")
-                                                .font(.subheadline)
+                                            Text("\(routineViewModel.extractDate(date: day, format: "d"))")
+                                                .fontWeight(.semibold)
                                                 .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : Color(.label))
                                         }
+                                        
+                                        Text("\(routineViewModel.extractDate(date: day, format: "E"))")
+                                            .font(.subheadline)
+                                            .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : Color(.label))
                                     }
-                                    .disabled(day > Date())
                                 }
+                                .disabled(day > Date())
                             }
-                            .frame(height: 70)
-                            .padding(.leading, 4)
                         }
-                        .padding(.bottom, 4)
-                        
+                        .frame(height: 70)
+                        .padding(.leading, 4)
+                    }
+                    .padding(.bottom, 4)
+                    
+                    if routineViewModel.routines.count > 0 {
                         HStack {
-                            Text("23 Oct 2023")
+                            Text("\(routineViewModel.extractDate(date: routineViewModel.currentDay, format: "dd MMM yyyy"))")
                                 .font(.title3)
                                 .fontWeight(.semibold)
                             Spacer()
@@ -190,53 +190,37 @@ struct RoutineView: View {
                                 .padding(.bottom, 4)
                             }
                         }
-                    }
-                    .padding(.horizontal)
-                }
-                .background(Color(.systemGroupedBackground))
-                .sheet(isPresented: $routineViewModel.showAddRoutine, content: {
-                    AddEditRoutineView(routine: nil)
-                })
-                .sheet(isPresented: $routineViewModel.showEditRoutine, content: {
-                    AddEditRoutineView(routine: routine)
-                })
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            routineViewModel.showAddRoutine.toggle()
-                        } label: {
-                            Image(systemName: "plus")
-                                .font(.title3)
-                                .bold()
-                                .foregroundStyle(.accent)
+                    } else {
+                        ContentUnavailableView {
+                            Label("Routines not Set", systemImage: "pills.fill")
+                        } description: {
+                            Text("Add a daily medicine or activity schedule by clicking the plus button.")
                         }
+                        .padding(.top, 64)
                     }
                 }
-                .navigationTitle("Routines")
-            } else {
-                ContentUnavailableView {
-                    Label("Routines not Set", systemImage: "pills.fill")
-                } description: {
-                    Text("Add a daily medicine or activity schedule by clicking the plus button.")
-                }
-                .background(Color(.systemGroupedBackground))
-                .sheet(isPresented: $routineViewModel.showAddRoutine, content: {
-                    AddEditRoutineView(routine: nil)
-                })
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            routineViewModel.showAddRoutine.toggle()
-                        } label: {
-                            Image(systemName: "plus")
-                                .font(.title3)
-                                .bold()
-                                .foregroundStyle(.accent)
-                        }
-                    }
-                }
-                .navigationTitle("Routines")
+                .padding(.horizontal)
             }
+            .background(Color(.systemGroupedBackground))
+            .sheet(isPresented: $routineViewModel.showAddRoutine, content: {
+                AddEditRoutineView(routine: nil)
+            })
+            .sheet(isPresented: $routineViewModel.showEditRoutine, content: {
+                AddEditRoutineView(routine: routine)
+            })
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        routineViewModel.showAddRoutine.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(.title3)
+                            .bold()
+                            .foregroundStyle(.accent)
+                    }
+                }
+            }
+            .navigationTitle("Routines")
         }
     }
 }
@@ -276,6 +260,7 @@ struct RoutineWeekPicker: View {
         .onChange(of: routineViewModel.currentWeek) { oldValue, newValue in
             if routineViewModel.currentDay > Date() {
                 routineViewModel.currentDay = Date()
+                routineViewModel.fetchCurrentWeek()
             }
         }
     }

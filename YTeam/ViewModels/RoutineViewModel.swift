@@ -15,7 +15,7 @@ class RoutineViewModel: ObservableObject {
     @Published var currentDay: Date = Date()
     
     @Published var routines: [Routine] = []
-    @Published var progressCount: Double = 0.0
+    @Published var progressCount: Double = 0
     
     init() {
         fetchCurrentWeek()
@@ -46,7 +46,7 @@ class RoutineViewModel: ObservableObject {
     }
     
     func countProgress() {
-        var totalProgress: Double = 0.0
+        var totalProgress: Double = 0
         
         routines.forEach { routine in
             routine.isDone.forEach { done in
@@ -55,6 +55,10 @@ class RoutineViewModel: ObservableObject {
                 }
                 totalProgress += 1
             }
+        }
+        
+        if totalProgress == 0 {
+            totalProgress += 1
         }
         
         progressCount = (progressCount / totalProgress)
