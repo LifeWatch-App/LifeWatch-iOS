@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct HeartRateView: View {
-    @ObservedObject var heartManager: HeartManager = HeartManager()
-    @ObservedObject var fallManager: FallDetectionManager = FallDetectionManager()
-    @ObservedObject var fallMotionManager: CoreMotionManager = CoreMotionManager()
+    @EnvironmentObject var heartManager: HeartManager
+    @EnvironmentObject var fallManager: FallDetectionManager
+    @EnvironmentObject var motionManager: CoreMotionManager
     var body: some View {
         VStack{
             Button{
@@ -32,6 +32,7 @@ struct HeartRateView: View {
                 .font(.title)
             Text("BPM")
         }
+        
     }
 }
 
