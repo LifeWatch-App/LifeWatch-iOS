@@ -31,7 +31,7 @@ class HistoryViewModel: ObservableObject {
     @Published var totalIdleTime: String = ""
     @Published var totalChargingTime: String = ""
     @Published var avgHeartRate: Int = 0
-    @Published var symptoms = ["Headache": 0, "Fever": 0, "Fatigue": 0, "Nausea": 0, "Dizziness": 0, "Shortness of Breath": 0, "Indigestion": 0, "Constipation": 0, "Cough": 0, "Skin Rashes": 0, "Minor Injuries": 0, "Insomnia": 0, "Sore Throat": 0]
+    @Published var symptoms: [String : Int] = ["Headache": 0, "Fever": 0, "Fatigue": 0, "Nausea": 0, "Dizziness": 0, "Shortness of Breath": 0, "Indigestion": 0, "Constipation": 0, "Cough": 0, "Skin Rashes": 0, "Minor Injuries": 0, "Insomnia": 0, "Sore Throat": 0]
     
 //    @Published var headache = 0
 //    @Published var fever = 0
@@ -63,6 +63,9 @@ class HistoryViewModel: ObservableObject {
     init() {
         fetchCurrentWeek()
         setupEmergencySubscriber()
+        
+        // still use symptom dummy data
+        countSymptom()
     }
     
     /// Subscribes to the FallService to check for changes, and updates `loading, loggedIn, fallsCount, falls, and groupedFalls`.
@@ -683,6 +686,14 @@ class HistoryViewModel: ObservableObject {
         }
         
         avgHeartRate = avgHeartRate / dayCount
+    }
+    
+    func countSymptom() {
+        symptomsDummyData.forEach { symptom in
+            if var symptomType = symptoms.first(where: { (key, value)->Bool in key == symptom.name }) {
+                symptoms[symptomType.key]! += 1
+            }
+        }
     }
     
     /// Formats Date object into String.
