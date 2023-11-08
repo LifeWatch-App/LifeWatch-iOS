@@ -29,13 +29,14 @@ struct AddSymptomView: View {
 
                 Section(header: Text("Symptom")) {
                     LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(symptomList) { symptom in
+                        ForEach(symptomList, id: \.self) { symptom in
                             VStack {
                                 ZStack(alignment: .bottomTrailing) {
-                                    Image(symptom.image)
+                                    Image(symptom)
                                         .resizable()
                                         .scaledToFit()
                                         .frame(height: 48)
+                                        .clipShape(Circle())
                                     
                                     if addSymptomViewModel.selectedSymptom == symptom {
                                         Image(systemName: "checkmark.circle.fill")
@@ -43,7 +44,7 @@ struct AddSymptomView: View {
                                     }
                                 }
                                 
-                                Text(symptom.name)
+                                Text(symptom)
                                     .font(.callout)
                                     .foregroundStyle(Color(.label))
                                     .multilineTextAlignment(.center)

@@ -23,7 +23,7 @@ struct ChangeSeniorOverlay: View {
                         Text("Senior:")
                             .font(.headline)
                         
-                        ScrollView(.horizontal) {
+                        ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 16) {
                                 // Foreach seniornya
                                 Button {
@@ -97,8 +97,16 @@ struct ChangeSeniorOverlay: View {
                     
                     Spacer()
                 }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    showChangeSenior = false
+                }
                 
                 Spacer()
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                showChangeSenior = false
             }
         }
     }

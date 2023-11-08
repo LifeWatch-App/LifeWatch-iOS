@@ -28,7 +28,7 @@ struct MapTestView: View {
 //                                    }
 //                                }
 
-                ScrollView(.horizontal) {
+                ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(mapVM.allLocations, id: \.self) { location in
                             VStack {

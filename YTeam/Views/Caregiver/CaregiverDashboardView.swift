@@ -11,7 +11,6 @@ struct CaregiverDashboardView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @StateObject var caregiverDashboardViewModel = CaregiverDashboardViewModel()
-    @State var email = ""
     @State var showChangeSenior = false
     @State var showInviteSheet = false
     
@@ -21,27 +20,6 @@ struct CaregiverDashboardView: View {
                 VStack {
                     ScrollView {
                         VStack(spacing: 20) {
-                            //                    VStack {
-                            //                        Text("Welcome, \(caregiverDashboardViewModel.user?.email ?? "")!")
-                            //                        Text("Enter your senior's email")
-                            //                        TextField("Email", text: $email)
-                            //                            .padding()
-                            //                            .keyboardType(.emailAddress)
-                            //                            .autocapitalization(.none)
-                            //                        Button {
-                            //                            caregiverDashboardViewModel.sendRequestToSenior(email: email)
-                            //                        } label: {
-                            //                            Text("Request access")
-                            //                        }
-                            //                        ForEach(caregiverDashboardViewModel.invites, id: \.id) { invite in
-                            //                            HStack {
-                            //                                Text("Invite sent: \(invite.seniorData!.email!)")
-                            //                                Text(invite.accepted! ? "(Accepted)" : "(Pending)")
-                            //                            }
-                            //                            .padding(.top, 4)
-                            //                        }
-                            //                    }
-                            
                             SeniorStatus(caregiverDashboardViewModel: caregiverDashboardViewModel)
                                 .padding(.horizontal)
                             
@@ -171,7 +149,7 @@ struct SeniorStatus: View {
             }
             
             HStack(spacing: 12) {
-                Image("symtomps")
+                Image("safe")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 50)
@@ -421,12 +399,12 @@ struct UpcomingRoutines: View {
             }
             .padding(.horizontal)
             
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(caregiverDashboardViewModel.routines) { routine in
                         HStack(spacing: 16) {
                             VStack {
-                                Image(systemName: "pill.fill")
+                                Image(systemName: routine.type == "Medicine" ? "pill.fill" : "figure.run")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 40)
@@ -437,9 +415,9 @@ struct UpcomingRoutines: View {
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             
                             VStack(alignment: .leading, spacing: 4) {
-                                Text(routine.name)
+                                Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
                                     .font(.headline)
-                                Text(routine.description)
+                                Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
                                 HStack {
                                     Image(systemName: "clock")
                                     Text(routine.time, style: .time)

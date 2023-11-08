@@ -18,7 +18,7 @@ struct CaregiverAllRoutineView: View {
                 ForEach(caregiverDashboardViewModel.routines) { routine in
                     HStack(spacing: 16) {
                         VStack {
-                            Image(systemName: "pill.fill")
+                            Image(systemName: routine.type == "Medicine" ? "pill.fill" : "figure.run")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 40)
@@ -29,9 +29,9 @@ struct CaregiverAllRoutineView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(routine.name)
+                            Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
                                 .font(.headline)
-                            Text(routine.description)
+                            Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
                             HStack {
                                 Image(systemName: "clock")
                                 Text(routine.time, style: .time)

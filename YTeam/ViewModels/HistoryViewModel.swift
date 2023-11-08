@@ -599,12 +599,20 @@ class HistoryViewModel: ObservableObject {
     
     func countAvgHeartRate() {
         avgHeartRate = 0
+        var dayCount = 0
         
         heartRateData.forEach { data in
-            avgHeartRate += data.avgHeartRate
+            if data.avgHeartRate > 0 {
+                avgHeartRate += data.avgHeartRate
+                dayCount += 1
+            }
         }
         
-        avgHeartRate = avgHeartRate / 7
+        if dayCount == 0 {
+            dayCount += 1
+        }
+        
+        avgHeartRate = avgHeartRate / dayCount
     }
     
     /// Formats Date object into String.

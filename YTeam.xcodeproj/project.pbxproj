@@ -93,7 +93,7 @@
 		7DB4E0CF2AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
 		7DB4E0D02AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
 		8D21B03A2AF7A4F200D23BF1 /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */; };
-		8D21B03C2AF7AD7500D23BF1 /* AddRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03B2AF7AD7500D23BF1 /* AddRoutineView.swift */; };
+		8D21B03C2AF7AD7500D23BF1 /* AddEditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03B2AF7AD7500D23BF1 /* AddEditRoutineView.swift */; };
 		8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */; };
 		8D21B0402AF7B51800D23BF1 /* HoursMinutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */; };
 		8D21B0422AF7DBF300D23BF1 /* RoutineCircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B0412AF7DBF300D23BF1 /* RoutineCircularProgressView.swift */; };
@@ -109,8 +109,7 @@
 		8D73C3D42AF8F23B009AFD80 /* SeniorAllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3D32AF8F23B009AFD80 /* SeniorAllRoutineView.swift */; };
 		8D73C3D62AF8FC23009AFD80 /* CaregiverAllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3D52AF8FC23009AFD80 /* CaregiverAllRoutineView.swift */; };
 		8D73C3D82AF908B7009AFD80 /* AddSymptomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3D72AF908B7009AFD80 /* AddSymptomViewModel.swift */; };
-		8D73C3DA2AF909A2009AFD80 /* SymptomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3D92AF909A2009AFD80 /* SymptomList.swift */; };
-		8D73C3DC2AF915B7009AFD80 /* AddRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3DB2AF915B7009AFD80 /* AddRoutineViewModel.swift */; };
+		8D73C3DC2AF915B7009AFD80 /* AddEditRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3DB2AF915B7009AFD80 /* AddEditRoutineViewModel.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8D8FB6B62AEA03C90081CD50 /* HeartRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
@@ -251,7 +250,7 @@
 		7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
 		7DB4E0CE2AEA080E00270F2C /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
 		8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
-		8D21B03B2AF7AD7500D23BF1 /* AddRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineView.swift; sourceTree = "<group>"; };
+		8D21B03B2AF7AD7500D23BF1 /* AddEditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditRoutineView.swift; sourceTree = "<group>"; };
 		8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSymptomView.swift; sourceTree = "<group>"; };
 		8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursMinutes.swift; sourceTree = "<group>"; };
 		8D21B0412AF7DBF300D23BF1 /* RoutineCircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCircularProgressView.swift; sourceTree = "<group>"; };
@@ -267,8 +266,7 @@
 		8D73C3D32AF8F23B009AFD80 /* SeniorAllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorAllRoutineView.swift; sourceTree = "<group>"; };
 		8D73C3D52AF8FC23009AFD80 /* CaregiverAllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverAllRoutineView.swift; sourceTree = "<group>"; };
 		8D73C3D72AF908B7009AFD80 /* AddSymptomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSymptomViewModel.swift; sourceTree = "<group>"; };
-		8D73C3D92AF909A2009AFD80 /* SymptomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomList.swift; sourceTree = "<group>"; };
-		8D73C3DB2AF915B7009AFD80 /* AddRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineViewModel.swift; sourceTree = "<group>"; };
+		8D73C3DB2AF915B7009AFD80 /* AddEditRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditRoutineViewModel.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateChart.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
@@ -346,6 +344,7 @@
 				4CA7922D2ADFB67B003B5EC9 /* SeniorDashboardView.swift */,
 				8DED83952AF5398C00AFB95B /* SOSView.swift */,
 				8D73C3D32AF8F23B009AFD80 /* SeniorAllRoutineView.swift */,
+				8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */,
 			);
 			path = Senior;
 			sourceTree = "<group>";
@@ -390,8 +389,8 @@
 				4CB9AE592AEA0E72008F4381 /* ProfileViewModel.swift */,
 				8D33E9242AF7A4C000C9D3C1 /* RoutineViewModel.swift */,
 				8D73C3D72AF908B7009AFD80 /* AddSymptomViewModel.swift */,
-				8D73C3DB2AF915B7009AFD80 /* AddRoutineViewModel.swift */,
 				4CF962C72AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift */,
+				8D73C3DB2AF915B7009AFD80 /* AddEditRoutineViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -417,7 +416,6 @@
 				8DED839C2AF663C900AFB95B /* Routine.swift */,
 				8DED839E2AF664CD00AFB95B /* Symptom.swift */,
 				8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */,
-				8D73C3D92AF909A2009AFD80 /* SymptomList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -515,8 +513,7 @@
 				9322F60C2AEFA8340013B0AB /* MapTestView.swift */,
 				4CB9AE572AEA0E26008F4381 /* ProfileView.swift */,
 				8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */,
-				8D21B03B2AF7AD7500D23BF1 /* AddRoutineView.swift */,
-				8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */,
+				8D21B03B2AF7AD7500D23BF1 /* AddEditRoutineView.swift */,
 				8DED83972AF53A5500AFB95B /* WalkieTalkieView.swift */,
 			);
 			path = Views;
@@ -806,8 +803,7 @@
 			files = (
 				93D4FA622AF78FCD000850CE /* ColorExt.swift in Sources */,
 				4CCDD55A2AF634BA00146330 /* PTTService.swift in Sources */,
-				8D73C3DC2AF915B7009AFD80 /* AddRoutineViewModel.swift in Sources */,
-				8D73C3DA2AF909A2009AFD80 /* SymptomList.swift in Sources */,
+				8D73C3DC2AF915B7009AFD80 /* AddEditRoutineViewModel.swift in Sources */,
 				9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */,
 				7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */,
 				8D33E9192AF73A2F00C9D3C1 /* SymptomView.swift in Sources */,
@@ -889,7 +885,7 @@
 				9322F6102AEFA8A80013B0AB /* MKMapRep.swift in Sources */,
 				93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */,
 				8D672F872AF517CF00C29E63 /* BatteryCircularProgressView.swift in Sources */,
-				8D21B03C2AF7AD7500D23BF1 /* AddRoutineView.swift in Sources */,
+				8D21B03C2AF7AD7500D23BF1 /* AddEditRoutineView.swift in Sources */,
 				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,17 +9,23 @@ import Foundation
 
 struct Routine: Identifiable {
     var id = UUID()
-    var name: String = ""
-    var type: String = ""
-    var description: String = ""
-    var isDone: Bool = false
+    var type = ""
     var time: Date = Date()
+    var activity: String?
+    var description: String?
+    var medicine: String?
+    var medicineAmount: String?
+    var medicineUnit: MedicineUnit?
+    var isDone: Bool = false
 }
 
 // dummy data
 let routinesDummyData: [Routine] = [
-    Routine(name: "OBH Combi", type: "medicine", description: "2 Tablet", isDone: true, time: Date()),
-    Routine(name: "Paramex", type: "medicine", description: "2 Tablet", isDone: false, time: Date()),
-    Routine(name: "Jogging", type: "activity", description: "2 KM", isDone: false, time: Date()),
-    Routine(name: "Eat", type: "activity", description: "breakfast", isDone: false, time: Date()),
+    Routine(type: "Medicine", time: Date(), medicine: "OBH Combi", medicineAmount: "200", medicineUnit: .Mililitre, isDone: true),
+    Routine(type: "Medicine", time: Date(), medicine: "OBH Combi", medicineAmount: "200", medicineUnit: .Mililitre, isDone: true),
+    Routine(type: "Medicine", time: Date(), medicine: "Panadol", medicineAmount: "2", medicineUnit: .Tablet, isDone: true),
+    Routine(type: "Activity", time: Date(), activity: "Jogging", description: "10 km", isDone: true),
+    Routine(type: "Activity", time: Date(), activity: "Eat", description: "Order from Gofood Delivery", isDone: true),
+    Routine(type: "Activity", time: Date(), activity: "Eat", description: "Order from Gofood Delivery", isDone: false),
+    Routine(type: "Activity", time: Date(), activity: "Eat", description: "Order from Gofood Delivery", isDone: false),
 ]

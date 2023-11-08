@@ -11,5 +11,5 @@ class AddSymptomViewModel: ObservableObject {
     @Published var time = Date()
     @Published var notes = ""
     
-    @Published var selectedSymptom: SymptomList?
+    @Published var selectedSymptom: String?
 }
