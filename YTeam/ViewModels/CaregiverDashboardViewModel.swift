@@ -16,7 +16,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var invites: [Invite] = []
     @Published var user: User?
     @Published var userData: UserData?
-    private let authService = AuthService.shared
+    private let authService = AuthService.shared 
     private let batteryService = BatteryChargingService.shared
     @Published var batteryInfo: BatteryLevel?
     @Published var latestLocationInfo: LiveLocation?
