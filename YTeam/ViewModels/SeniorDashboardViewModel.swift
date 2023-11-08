@@ -20,6 +20,8 @@ class SeniorDashboardViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     @Published var showAddSymptom: Bool = false
+    @Published var showSOS: Bool = false
+    @Published var showWalkieTalkie: Bool = false
     
     @Published var routines: [Routine] = []
     @Published var symptoms: [Symptom] = []
@@ -51,15 +53,11 @@ class SeniorDashboardViewModel: ObservableObject {
         AuthService.shared.acceptInvite(id: id)
     }
     
-    func signOut() {
-        AuthService.shared.signOut()
-    }
-
-    func startRecording(){
-        PTT.shared.requestBeginTransmitting()
+    func denyInvite(id: String) {
+        AuthService.shared.denyInvite(id: id)
     }
     
-    func stopRecording() {
-        PTT.shared.stopTransmitting()
+    func signOut() {
+        AuthService.shared.signOut()
     }
 }

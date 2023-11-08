@@ -8,40 +8,29 @@
 import SwiftUI
 
 struct TestChargingView: View {
-    @StateObject private var vm = CobaTestViewModel()
+    @StateObject private var vm = ChargingViewModel()
     @EnvironmentObject var authVM: TestAuthViewModel
-
+    
     var body: some View {
         VStack {
             Text("\(vm.batteryLevel?.description ?? "Not able to fetch") %")
             Text(vm.batteryCharging.description)
-
+            
             Button("Test Auth") {
                 print(authVM.userAuth)
             }
-
+            
             HStack {
                 Button("Start") {
                     vm.startCharging()
                 }
-
+                
                 Button("Stop") {
                     vm.stopCharging()
                 }
             }
-
-            //            ForEach(vm.chargingRangesForWatch, id: \.self) { range in
-            //                VStack {
-            //                    Text(range.getFormattedStartEndTime(chargingRange: range))
-            //                }
-            //            }
+            .padding()
         }
-        //        .onChange(of: vm.batteryCharging ?? .unknown, perform: { newValue in
-        //            if let userID = authVM.userAuth?.userID {
-        //                vm.handleBatteryStateChange(batteryState: newValue, userID: userID)
-        //            }
-        //        })
-        .padding()
     }
 }
 

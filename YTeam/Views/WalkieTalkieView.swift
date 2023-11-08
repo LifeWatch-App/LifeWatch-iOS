@@ -9,6 +9,9 @@ import SwiftUI
 
 struct WalkieTalkieView: View {
     @Environment(\.dismiss) var dismiss
+    @StateObject var walkieTalkieViewModel = WalkieTalkieViewModel()
+    @State var hasPressed = false
+    
     
     var body: some View {
         ZStack {
@@ -23,7 +26,7 @@ struct WalkieTalkieView: View {
                     .frame(width: Screen.width / 1.2)
                 
                 Circle()
-                    .fill(.white)
+                    .fill(walkieTalkieViewModel.isPlaying! ? .gray : .white)
                     .frame(width: Screen.width / 1.3)
                 
                 Image(systemName: "flipphone")
@@ -31,9 +34,21 @@ struct WalkieTalkieView: View {
                     .foregroundStyle(.accent)
             }
             .frame(width: Screen.width, height: Screen.height)
+            .onLongPressGesture(minimumDuration: .infinity, maximumDistance: 100, pressing: {
+                pressing in
+                self.hasPressed = pressing
+                if !walkieTalkieViewModel.isPlaying! {
+                    if pressing {
+                        walkieTalkieViewModel.startRecording()
+                    }
+                    if !pressing {
+                        walkieTalkieViewModel.stopRecording()
+                    }
+                }
+            }, perform: {})
             
             VStack(spacing: 4) {
-                Text("Press to Talk With Family Members")
+                Text(walkieTalkieViewModel.isPlaying! ? "Senior is speaking" : walkieTalkieViewModel.status!)
                     .font(.title3)
                 
                 Spacer()

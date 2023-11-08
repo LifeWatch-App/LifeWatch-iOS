@@ -10,6 +10,7 @@ import SwiftUI
 struct ChangeSeniorOverlay: View {
     @Environment(\.colorScheme) var colorScheme
     
+    @Binding var showInviteSheet: Bool
     @Binding var showChangeSenior: Bool
     
     @State var scrollViewContentSize: CGSize = .zero
@@ -22,7 +23,7 @@ struct ChangeSeniorOverlay: View {
                         Text("Senior:")
                             .font(.headline)
                         
-                        ScrollView(.horizontal) {
+                        ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 16) {
                                 // Foreach seniornya
                                 Button {
@@ -72,6 +73,9 @@ struct ChangeSeniorOverlay: View {
                                         Text("Add")
                                             .font(.callout)
                                     }
+                                    .onTapGesture {
+                                        showInviteSheet = true
+                                    }
                                 }
                             }
                             .background(
@@ -93,13 +97,21 @@ struct ChangeSeniorOverlay: View {
                     
                     Spacer()
                 }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    showChangeSenior = false
+                }
                 
                 Spacer()
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                showChangeSenior = false
             }
         }
     }
 }
 
 #Preview {
-    ChangeSeniorOverlay(showChangeSenior: .constant(true))
+    ChangeSeniorOverlay(showInviteSheet: .constant(false), showChangeSenior: .constant(true))
 }

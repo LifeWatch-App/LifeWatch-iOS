@@ -39,11 +39,13 @@ struct Description: Codable, Hashable {
     let doubleValue: Double?
     let intValue: Int?
     let timeStampValue: String?
-    
-    init(stringValue: String? = nil, doubleValue: Double? = nil, intValue: Int? = nil, timeStampValue: String? = nil) {
+    let booleanValue: Bool?
+
+    init(stringValue: String? = nil, doubleValue: Double? = nil, intValue: Int? = nil, timeStampValue: String? = nil, booleanValue: Bool? = nil) {
         self.stringValue = stringValue
         self.doubleValue = doubleValue
         self.intValue = intValue
         self.timeStampValue = timeStampValue
+        self.booleanValue = booleanValue
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 
 class RoutineViewModel: ObservableObject {
     @Published var showAddRoutine: Bool = false
+    @Published var showEditRoutine: Bool = false
     
     @Published var currentWeek: [Date] = []
     @Published var currentDay: Date = Date()

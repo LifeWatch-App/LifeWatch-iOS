@@ -16,26 +16,41 @@ struct SeniorDashboardView: View {
         NavigationStack {
             ScrollView {
                 VStack{
-//                    VStack {
-//                        Text("Welcome, \(seniorDashboardViewModel.user?.email ?? "")!")
-//                        Text("Give your email to your caregivers")
-//                        ForEach(seniorDashboardViewModel.invites, id: \.id) { invite in
-//                            HStack {
-//                                Text("Invite from: \(invite.caregiverData!.email!)")
-//                                Text(invite.accepted! ? "(Accepted)" : "")
-//                                if (!invite.accepted!) {
-//                                    Button {
-//                                        seniorDashboardViewModel.acceptInvite(id: invite.id!)
-//                                    } label: {
-//                                        Text("Accept")
-//                                    }
-//                                }
-//                            }
-//                            .padding(.top, 4)
-//                        }
-//                    }
-                    
                     ButtonCards(seniorDashboardViewModel: seniorDashboardViewModel)
+                    
+                    ForEach(seniorDashboardViewModel.invites, id: \.id) { invite in
+                        if !invite.accepted! {
+                            HStack() {
+                                VStack(alignment: .leading) {
+                                    Text("\(invite.caregiverData!.name!)")
+                                        .font(.title3)
+                                        .fontWeight(.semibold)
+                                    Text("Would like to join your care team")
+                                        .foregroundColor(.secondary)
+                                
+                                }
+                                Spacer()
+                                HStack(spacing: 16) {
+                                    Button {
+                                        seniorDashboardViewModel.acceptInvite(id: invite.id!)
+                                    } label: {
+                                        Text("Accept")
+                                    }
+                                    Button {
+                                        seniorDashboardViewModel.denyInvite(id: invite.id!)
+                                    } label: {
+                                        Text("Deny")
+                                            .foregroundStyle(.red)
+                                    }
+                                }
+                                .padding(.leading, 4)
+                            }
+                            .padding()
+                            .background(colorScheme == .light ? .white : Color(.systemGray6))
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                        }
+                                                
+                    }
                     
                     UpcomingActivity(seniorDashboardViewModel: seniorDashboardViewModel)
                     
@@ -68,7 +83,7 @@ struct ButtonCards: View {
     var body: some View {
         HStack(spacing: 12) {
             Button{
-                
+                seniorDashboardViewModel.showSOS.toggle()
             } label: {
                 VStack(alignment: .leading) {
                     HStack(alignment: .top) {
@@ -90,9 +105,12 @@ struct ButtonCards: View {
                 .background(Color("emergency-pink"))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
+            .fullScreenCover(isPresented: $seniorDashboardViewModel.showSOS, content: {
+                SOSView(seniorDashboardViewModel: seniorDashboardViewModel)
+            })
             
             Button {
-                
+                seniorDashboardViewModel.showWalkieTalkie.toggle()
             } label: {
                 VStack(alignment: .leading) {
                     HStack(alignment: .top) {
@@ -114,6 +132,9 @@ struct ButtonCards: View {
                 .background(.accent)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
+            .fullScreenCover(isPresented: $seniorDashboardViewModel.showWalkieTalkie, content: {
+                WalkieTalkieView()
+            })
         }
         .foregroundStyle(.white)
     }
@@ -134,7 +155,7 @@ struct UpcomingActivity: View {
                 Spacer()
                 
                 NavigationLink {
-                    EmptyView()
+                    SeniorAllRoutineView(seniorDashboardViewModel: seniorDashboardViewModel)
                 } label: {
                     Text("See All")
                         .font(.headline)
@@ -143,16 +164,22 @@ struct UpcomingActivity: View {
             
             VStack(spacing: 20) {
                 ForEach(seniorDashboardViewModel.routines.prefix(3)) { routine in
-                    HStack {
-                        Divider()
-                            .frame(minWidth: 4)
-                            .background(.accent)
-                            .clipShape(RoundedRectangle(cornerRadius: 100))
+                    HStack(spacing: 16) {
+                        VStack {
+                            Image(systemName: routine.type == "Medicine" ? "pill.fill" : "figure.run")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40)
+                                .foregroundStyle(.white)
+                        }
+                        .padding(12)
+                        .background(.blue)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                         
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(routine.name)
-                                .font(.title3)
-                                .fontWeight(.semibold)
+                            Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
+                                .font(.headline)
+                            Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
                             HStack {
                                 Image(systemName: "clock")
                                 Text(routine.time, style: .time)
@@ -163,10 +190,11 @@ struct UpcomingActivity: View {
                         
                         Spacer()
                         
-                        Image(systemName: "circle")
-                            .font(.largeTitle)
-                            .bold()
-                            .foregroundStyle(.accent)
+                        Image(systemName: routine.isDone ? "checkmark.circle.fill" : "circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40)
+                            .foregroundStyle(.white, .accent)
                     }
                 }
             }
@@ -186,7 +214,7 @@ struct Symtomps: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Symptoms")
+                Text("Today's Symptoms")
                     .font(.headline)
                     .foregroundStyle(.secondary)
                 
@@ -203,24 +231,32 @@ struct Symtomps: View {
             
             ForEach(seniorDashboardViewModel.symptoms) { symptom in
                 HStack(spacing: 16) {
-                    Image("symtomps")
+                    Image("safe")
                         .resizable()
                         .scaledToFit()
                         .frame(height: 50)
                     
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading) {
                         Text(symptom.name)
                             .font(.title3)
                             .fontWeight(.semibold)
-                        HStack {
-                            Image(systemName: "clock")
-                            Text(symptom.time, style: .time)
-                                .padding(.leading, -4)
+                        
+                        if let note = symptom.note {
+                            Text(note)
+                                .font(.subheadline)
                         }
-                        .foregroundColor(.secondary)
                     }
                     
                     Spacer()
+                    
+                    HStack {
+                        Image(systemName: "clock")
+                        Text(symptom.time, style: .time)
+                            .padding(.leading, -4)
+                            .font(.subheadline)
+                    }
+                    .foregroundColor(.secondary)
+                    .padding(.leading, 4)
                 }
                 .padding()
                 .background(colorScheme == .light ? .white : Color(.systemGray6))
@@ -232,5 +268,5 @@ struct Symtomps: View {
 
 #Preview {
     SeniorDashboardView()
-        .preferredColorScheme(.dark)
+//        .preferredColorScheme(.dark)
 }

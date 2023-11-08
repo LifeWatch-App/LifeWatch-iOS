@@ -10,11 +10,28 @@ import Foundation
 struct Symptom : Identifiable {
     var id = UUID()
     var name: String = ""
+    var note: String?
     var time: Date = Date()
 }
+
+let symptomList: [String] = [
+    "Headache",
+    "Fever",
+    "Fatigue",
+    "Nausea",
+    "Dizziness",
+    "Shortness of Breath",
+    "Indigestion",
+    "Constipation",
+    "Cough",
+    "Skin Rashes",
+    "Minor Injuries",
+    "Insomnia",
+    "Sore Throat"
+]
 
 // dummy data
 let symptomsDummyData: [Symptom] = [
     Symptom(name: "Cough", time: Date()),
-    Symptom(name: "Fever", time: Date()),
+    Symptom(name: "Fever", note: "39 degrees celcius", time: Date()),
 ]

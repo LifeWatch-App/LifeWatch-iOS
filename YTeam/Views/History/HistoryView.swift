@@ -38,12 +38,28 @@ struct HistoryView: View {
                         }
                         
                         VStack(spacing: 12) {
-                            HStack {
-                                Spacer()
+                            ForEach(symptomsDummyData.prefix(3).indices, id: \.self) { index in
+                                HStack {
+                                    Image(symptomsDummyData[index].name)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 32)
+                                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                                    
+                                    Text(symptomsDummyData[index].name)
+                                        .font(.headline)
+                                        .padding(.leading, 4)
+                                    
+                                    Spacer()
+                                    
+                                    Text("1")
+                                        .font(.title3)
+                                        .bold()
+                                }
                                 
-                                Text("No Data")
-                                
-                                Spacer()
+                                if index != symptomsDummyData.count-1 && index < 2 {
+                                    Divider()
+                                }
                             }
                         }
                         .padding()
@@ -73,7 +89,7 @@ struct HistoryView: View {
                             HStack {
                                 Image(systemName: "figure.fall")
                                     .resizable()
-                                    .frame(width: 20, height: 20)
+                                    .frame(width: 16, height: 16)
                                     .foregroundStyle(.white)
                                     .padding(8)
                                     .background(.accent)
@@ -81,7 +97,7 @@ struct HistoryView: View {
                                 
                                 Text("Detected Falls")
                                     .font(.headline)
-                                    .padding(.leading, 8)
+                                    .padding(.leading, 4)
                                 
                                 Spacer()
                                 
@@ -95,7 +111,7 @@ struct HistoryView: View {
                             HStack {
                                 Image(systemName: "sos.circle.fill")
                                     .resizable()
-                                    .frame(width: 20, height: 20)
+                                    .frame(width: 16, height: 16)
                                     .foregroundStyle(.white)
                                     .padding(8)
                                     .background(Color("emergency-pink"))
@@ -103,7 +119,7 @@ struct HistoryView: View {
                                 
                                 Text("SOS Button Pressed")
                                     .font(.headline)
-                                    .padding(.leading, 8)
+                                    .padding(.leading, 4)
                                 
                                 Spacer()
                                 
@@ -202,6 +218,7 @@ struct HistoryView: View {
                         .background(colorScheme == .light ? .white : Color(.systemGray6))
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                     }
+                    .padding(.bottom, 8)
                 }
             }
             .padding(.horizontal)

@@ -8,11 +8,11 @@
 import Foundation
 
 class SignUpViewModel: ObservableObject {
-    @Published var username = ""
+    @Published var name = ""
     @Published var email = ""
     @Published var password = ""
     
     func signUp() {
-        AuthService.shared.signUp(email: email, password: password)
+        AuthService.shared.signUp(name: name, email: email, password: password)
     }
 }

@@ -14,12 +14,17 @@ struct CaregiverView: View {
         TabView {
             CaregiverDashboardView()
                 .tabItem {
-                    Label("Emergency", systemImage: "light.beacon.max.fill")
+                    Label("Dashboard", systemImage: "list.clipboard.fill")
                 }
             
             RoutineView()
                 .tabItem {
                     Label("Routine", systemImage: "person.badge.clock.fill")
+                }
+            
+            MapTestView()
+                .tabItem {
+                    Label("Location", systemImage: "location.fill")
                 }
             
             HistoryView()
