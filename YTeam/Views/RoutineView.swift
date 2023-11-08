@@ -27,17 +27,17 @@ struct RoutineView: View {
                                 } label: {
                                     VStack {
                                         ZStack {
-                                            RoutineCircularProgressView(progress: routineViewModel.progressCount)
+                                            RoutineCircularProgressView(progress: routineViewModel.progressCount, disabled: day > Date())
                                                 .frame(width: 40)
                                             
                                             Text("\(routineViewModel.extractDate(date: day, format: "d"))")
                                                 .fontWeight(.semibold)
-                                                .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : Color(.label))
+                                                .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : day > Date() ? .secondary : Color(.label))
                                         }
                                         
                                         Text("\(routineViewModel.extractDate(date: day, format: "E"))")
                                             .font(.subheadline)
-                                            .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : Color(.label))
+                                            .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : day > Date() ? .secondary : Color(.label))
                                     }
                                 }
                                 .disabled(day > Date())

@@ -194,11 +194,10 @@ struct UpcomingActivity: View {
                             Spacer()
                             
                             Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
-//                            Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "xmark.circle.fill")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 40)
-                                .foregroundStyle(.white, .accent)
+                                .foregroundStyle(.accent)
                         }
                     }
                 }
