@@ -47,7 +47,6 @@ struct FallNotificationView: View {
     
     func updateCountdown() {
         if (self.progress > 0) {
-            print("Fall", pressedCancel)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.progress -= 0.1
                 self.updateCountdown()
