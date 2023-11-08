@@ -139,13 +139,16 @@ struct AddEditRoutineView: View {
             .onAppear {
                 if let routine = routine {
                     addEditRoutineViewModel.type = routine.type
-//                    addEditRoutineViewModel.times: [Date] = [Date(), Date(), Date()]
-                    addEditRoutineViewModel.timeAmount = 1
+                    addEditRoutineViewModel.timeAmount = routine.time.count
                     addEditRoutineViewModel.activity = routine.activity ?? ""
                     addEditRoutineViewModel.description = routine.description ?? ""
                     addEditRoutineViewModel.medicine = routine.medicine ?? ""
                     addEditRoutineViewModel.medicineAmount = routine.medicineAmount ?? ""
                     addEditRoutineViewModel.medicineUnit = routine.medicineUnit ?? .Tablet
+                    
+                    for (index, time) in routine.time.enumerated() {
+                        addEditRoutineViewModel.times[index] = time
+                    }
                 }
             }
         }
