@@ -8,8 +8,8 @@
 import Foundation
 
 struct Routine: Identifiable {
-    var id = UUID()
-    var type = ""
+    var id: String = ""
+    var type: String  = ""
 //    var time: [Date] = [Date(), Date(), Date()]
     var time: [Date] = []
     var activity: String?

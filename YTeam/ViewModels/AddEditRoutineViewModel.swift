@@ -62,9 +62,8 @@ class AddEditRoutineViewModel: ObservableObject {
             isDoneIndex += 1
         }
         
-        self.routine = RoutineData(seniorId: seniorId, type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
+        self.routine = RoutineData(id: UUID().uuidString, seniorId: seniorId, type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
         
-        print(self.routine)
         Task {await self.sendRoutine()}
     }
     

@@ -28,9 +28,8 @@ class RoutineService {
     /// - Returns: If user is logged in, add a snapshot listener to the database and filter it based on the UID.
     @MainActor
     func observeAllRoutines() async throws {
-        guard let userId = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
+        guard let userId = Auth.auth().currentUser?.uid else { return }
         
-        print("User Id: ", userId)
         let query = FirestoreConstants.routinesCollection
                                     .whereField("seniorId", isEqualTo: userId)
         

@@ -137,7 +137,7 @@ struct RoutineView: View {
                                                     .font(.title3)
                                                     .fontWeight(.semibold)
                                                 
-                                                Text("1 remaining")
+                                                Text("\(routine.isDone.filter {$0 == false}.count) remaining")
                                                     .font(.subheadline)
                                             }
                                             

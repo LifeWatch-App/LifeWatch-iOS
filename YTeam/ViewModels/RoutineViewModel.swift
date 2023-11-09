@@ -26,7 +26,7 @@ class RoutineViewModel: ObservableObject {
     init() {
         setupRoutineSubscribers()
         fetchCurrentWeek()
-        routines = routinesDummyData
+//        routines = routinesDummyData
         countProgress()
     }
     
@@ -43,7 +43,6 @@ class RoutineViewModel: ObservableObject {
     }
     
     func fetchCurrentWeek() {
-        print("Routines", routineData)
         currentWeek = []
         
         let calendar = Calendar.current
@@ -60,6 +59,38 @@ class RoutineViewModel: ObservableObject {
                 currentWeek.append(weekday)
             }
         }
+        
+        self.convertRoutineDataToRoutine()
+    }
+    
+    func convertRoutineDataToRoutine() {
+        self.routines = self.routineData.map { routine in
+            var medicineUnit: MedicineUnit
+            var routineTime: [Date] = []
+            
+            for time in routine.time {
+                routineTime.append( Date(timeIntervalSince1970: time))
+            }
+            
+            switch (routine.medicineUnit) {
+            case "CC":
+                medicineUnit = .CC
+            case "Pill":
+                medicineUnit = .Pill
+            case "Gram":
+                medicineUnit = .Gram
+            case "Litre":
+                medicineUnit = .Litre
+            case "Mililitre":
+                medicineUnit = .Mililitre
+            default:
+                medicineUnit = .Tablet
+            }
+            
+            return Routine(id: routine.id, type: routine.type, time: routineTime, activity: routine.activity, description: routine.description, medicine: routine.medicine, medicineAmount: routine.medicineAmount, medicineUnit: medicineUnit, isDone: routine.isDone)
+        }
+        
+        self.countProgress()
     }
     
     func countProgress() {

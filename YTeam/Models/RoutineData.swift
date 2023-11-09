@@ -9,6 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct RoutineData: Codable, Hashable {
+    var id: String = ""
     var seniorId: String = ""
     var type: String = ""
     var time: [Double] = []
