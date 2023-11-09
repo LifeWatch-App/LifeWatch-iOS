@@ -14,6 +14,7 @@ final class BatteryChargingService {
     @Published var idleDocumentChanges = [DocumentChange]()
     @Published var latestLocationDocumentChanges = [DocumentChange]()
     @Published var heartRateDocumentChanges = [DocumentChange]()
+    @Published var symptomsDocumentChanges = [DocumentChange]()
 
     func fetchBatteryLevel() async throws -> [BatteryLevel] {
         let snapshot = try await FirestoreConstants.batteryLevelCollection.getDocuments()
@@ -28,9 +29,9 @@ final class BatteryChargingService {
     }
 
     func createBatteryLevel(batteryLevel: Int) async throws {
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
-        let batteryLevelRecord: BatteryLevel = BatteryLevel(seniorId: currentUid, iphoneBatteryLevel: batteryLevel.description, iphoneLastUpdatedAt: Date.now.description)
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+//        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
+        let batteryLevelRecord: BatteryLevel = BatteryLevel(seniorId: uid, iphoneBatteryLevel: batteryLevel.description, iphoneLastUpdatedAt: Date.now.description)
         do {
             let encodedData = try Firestore.Encoder().encode(batteryLevelRecord)
             try await FirestoreConstants.batteryLevelCollection.document().setData(encodedData)
@@ -42,10 +43,10 @@ final class BatteryChargingService {
     }
 
     func updateBatteryLevel(batteryLevel: BatteryLevel) async throws {
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+//        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
         guard let encodedData = try? Firestore.Encoder().encode(batteryLevel) else { return }
-        let documents = try await FirestoreConstants.batteryLevelCollection.whereField("seniorId", isEqualTo: currentUid).getDocuments().documents.first
+        let documents = try await FirestoreConstants.batteryLevelCollection.whereField("seniorId", isEqualTo: uid).getDocuments().documents.first
         try await documents?.reference.updateData(encodedData)
     }
 
@@ -64,13 +65,13 @@ final class BatteryChargingService {
     }
 
     func deleteChargingRecord(startCharging: String) async throws {
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let uid = Auth.auth().currentUser?.uid else { return }
 
-        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
+//        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
 
         print(startCharging )
         let documents = try await FirestoreConstants.chargesCollection
-            .whereField("seniorId", isEqualTo: currentUid)
+            .whereField("seniorId", isEqualTo: uid)
             .whereField("startCharging", isEqualTo: startCharging)
             .getDocuments().documents
 
@@ -134,6 +135,19 @@ final class BatteryChargingService {
         query.addSnapshotListener { querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
             self.heartRateDocumentChanges = changes
+        }
+    }
+
+    func observeSyptoms() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+
+        let query = FirestoreConstants.symptomsCollection
+            .whereField("seniorId", isEqualTo: uid)
+            .order(by: "time", descending: true)
+
+        query.addSnapshotListener { querySnapshot, error in
+            guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
+            self.symptomsDocumentChanges = changes
         }
     }
 }
