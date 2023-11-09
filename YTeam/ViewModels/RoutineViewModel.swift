@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class RoutineViewModel: ObservableObject {
     @Published var showAddRoutine: Bool = false
@@ -17,16 +18,32 @@ class RoutineViewModel: ObservableObject {
     @Published var routines: [Routine] = []
     @Published var progressCount: Double = 0
     
+    private var routineData: [RoutineData] = []
+    private var cancellables = Set<AnyCancellable>()
+    
+    private let routineService: RoutineService = RoutineService.shared
+    
     init() {
+        setupRoutineSubscribers()
         fetchCurrentWeek()
-        
-        // add dummy data
         routines = routinesDummyData
-        
         countProgress()
     }
     
+    func setupRoutineSubscribers() {
+        routineService.$routines
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] routine in
+                guard let self else { return }
+                
+                self.routineData.append(contentsOf: routine)
+                self.fetchCurrentWeek()
+            }
+            .store(in: &cancellables)
+    }
+    
     func fetchCurrentWeek() {
+        print("Routines", routineData)
         currentWeek = []
         
         let calendar = Calendar.current
