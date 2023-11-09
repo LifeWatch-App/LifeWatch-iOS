@@ -9,12 +9,14 @@ import SwiftUI
 
 struct ChangeSeniorOverlay: View {
     @Environment(\.colorScheme) var colorScheme
-    
+    @Binding var invites: [Invite]
+    @Binding var selectedUserId: String?
     @Binding var showInviteSheet: Bool
     @Binding var showChangeSenior: Bool
-    
+    let service = AuthService.shared
+
     @State var scrollViewContentSize: CGSize = .zero
-    
+
     var body: some View {
         if showChangeSenior {
             HStack {
@@ -22,40 +24,50 @@ struct ChangeSeniorOverlay: View {
                     VStack(alignment: .leading) {
                         Text("Senior:")
                             .font(.headline)
-                        
+
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 16) {
                                 // Foreach seniornya
-                                Button {
-                                    
-                                } label: {
-                                    VStack {
-                                        ZStack(alignment: .bottomTrailing) {
-                                            ZStack {
-                                                Circle()
-                                                    .fill(.gray.opacity(0.5))
-                                                    .frame(width: 64)
-                                                Text("S")
-                                                    .font(.title)
-                                                    .bold()
-                                                    .foregroundStyle(Color(.label))
-                                                    .frame(width: 30, height: 30, alignment: .center)
-                                                    .padding()
+                                ForEach(invites) { invite in
+                                    if invite.accepted ?? false {
+                                        Button {
+                                            if selectedUserId != invite.seniorId {
+                                                selectedUserId = invite.seniorId
+                                                UserDefaults.standard.set(invite.seniorId, forKey: "selectedSenior")
+                                                print(UserDefaults.standard.object(forKey: "selectedSenior"))
                                             }
-                                            
-                                            // if selected
-                                            Image(systemName: "checkmark.circle.fill")
-                                                .foregroundStyle(.white, Color("secondary-green"))
+                                        } label: {
+                                            VStack {
+                                                ZStack(alignment: .bottomTrailing) {
+                                                    ZStack {
+                                                        Circle()
+                                                            .fill(.gray.opacity(0.5))
+                                                            .frame(width: 64)
+                                                        Text("\(invite.seniorData?.name?.first?.description ?? "S")")
+                                                            .font(.title)
+                                                            .bold()
+                                                            .foregroundStyle(Color(.label))
+                                                            .frame(width: 30, height: 30, alignment: .center)
+                                                            .padding()
+                                                    }
+
+                                                    // if selected
+                                                    if selectedUserId == invite.seniorId {
+                                                        Image(systemName: "checkmark.circle.fill")
+                                                            .foregroundStyle(.white, Color("secondary-green"))
+                                                    }
+                                                }
+
+                                                Text("\(invite.seniorData?.name ?? "Subroto")")
+                                                    .font(.callout)
+                                                    .foregroundStyle(Color(.label))
+                                            }
                                         }
-                                        
-                                        Text("Subroto")
-                                            .font(.callout)
-                                            .foregroundStyle(Color(.label))
                                     }
                                 }
-                                
+
                                 Button {
-                                    
+
                                 } label: {
                                     VStack {
                                         ZStack {
@@ -69,7 +81,7 @@ struct ChangeSeniorOverlay: View {
                                                 .frame(width: 30, height: 30, alignment: .center)
                                                 .padding()
                                         }
-                                        
+
                                         Text("Add")
                                             .font(.callout)
                                     }
@@ -94,14 +106,14 @@ struct ChangeSeniorOverlay: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .padding(.top, 32)
                     .padding(.horizontal)
-                    
+
                     Spacer()
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
                     showChangeSenior = false
                 }
-                
+
                 Spacer()
             }
             .contentShape(Rectangle())
@@ -112,6 +124,6 @@ struct ChangeSeniorOverlay: View {
     }
 }
 
-#Preview {
-    ChangeSeniorOverlay(showInviteSheet: .constant(false), showChangeSenior: .constant(true))
-}
+//#Preview {
+//    ChangeSeniorOverlay(showInviteSheet: .constant(false), invites: <#Binding<[Invite]>#>, showChangeSenior: .constant(true))
+//}

@@ -81,7 +81,7 @@ struct CaregiverDashboardView: View {
                 .navigationTitle("Dashboard")
             }
             
-            ChangeSeniorOverlay(showInviteSheet: $showInviteSheet, showChangeSenior: $showChangeSenior)
+            ChangeSeniorOverlay(invites: $caregiverDashboardViewModel.invites, selectedUserId: $caregiverDashboardViewModel.selectedInviteId, showInviteSheet: $showInviteSheet, showChangeSenior: $showChangeSenior)
         }
     }
 }
@@ -192,7 +192,7 @@ struct SeniorStatus: View {
                         .font(.subheadline)
                     
                     HStack {
-                        Text("\(caregiverDashboardViewModel.heartRate)")
+                        Text("\(caregiverDashboardViewModel.heartBeatInfo?.bpm.description ?? "0")")
                             .font(.title)
                             .bold()
                         
@@ -200,6 +200,7 @@ struct SeniorStatus: View {
                             .foregroundStyle(.secondary)
                             .font(.subheadline)
                             .padding(.leading, -4)
+//                            .opacity((caregiverDashboardViewModel.heartBeatInfo != nil) ? 1 : 0)
                     }
                 }
                 .padding(12)
@@ -221,8 +222,8 @@ struct SeniorStatus: View {
                     
                     Text("Location")
                         .font(.subheadline)
-
-
+                    
+                    
                     Text("\(caregiverDashboardViewModel.latestLocationInfo?.isOutside ?? false ? "Outside" : "Home")")
                         .font(.title2)
                         .bold()
@@ -252,21 +253,21 @@ struct SeniorStatus: View {
                             .font(.subheadline)
                         
                         HStack {
-                            Text(Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).0)
+                            Text(Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeString)
                                 .font(.title)
                                 .bold()
                             
-                            if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).1) <= 60 {
+                            if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 60 {
                                 Text("min")
                                     .foregroundStyle(.secondary)
                                     .font(.subheadline)
                                     .padding(.leading, -4)
-                            } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).1) <= 3600 {
+                            } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 3600 {
                                 Text("hours")
                                     .foregroundStyle(.secondary)
                                     .font(.subheadline)
                                     .padding(.leading, -4)
-                            } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).1) >= 86400 {
+                            } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) >= 86400 {
                                 Text("days")
                                     .foregroundStyle(.secondary)
                                     .font(.subheadline)
@@ -287,12 +288,11 @@ struct SeniorStatus: View {
                 .background(colorScheme == .light ? .white : Color(.systemGray6))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
-            
-            if let batteryInfo = caregiverDashboardViewModel.batteryInfo {
+
                 HStack(spacing: 12) {
                     HStack(spacing: 8) {
                         ZStack {
-                            BatteryCircularProgressView(progress: (Double(batteryInfo.watchBatteryLevel ?? "0") ?? 0) / 100, charging: batteryInfo.watchBatteryState == "charging")
+                            BatteryCircularProgressView(progress: (Double(caregiverDashboardViewModel.batteryInfo?.watchBatteryLevel ?? "0") ?? 0) / 100, charging: caregiverDashboardViewModel.batteryInfo?.watchBatteryState == "charging")
                                 .frame(width: 50)
                             
                             
@@ -300,7 +300,7 @@ struct SeniorStatus: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 14)
-                                .foregroundStyle(batteryInfo.watchBatteryState == "charging" ? Color("secondary-orange") : .accent, .white)
+                                .foregroundStyle(caregiverDashboardViewModel.batteryInfo?.watchBatteryState == "charging" ? Color("secondary-orange") : .accent, .white)
                         }
                         .padding(.horizontal, 4)
                         
@@ -309,18 +309,18 @@ struct SeniorStatus: View {
                                 .font(.caption)
                             
                             HStack {
-                                if batteryInfo.watchBatteryState == "charging" {
+                                if caregiverDashboardViewModel.batteryInfo?.watchBatteryState == "charging" {
                                     Image(systemName: "bolt.fill")
                                         .foregroundStyle(Color("secondary-orange"))
                                 }
                                 
-                                Text("\(Double(batteryInfo.watchBatteryLevel ?? "0") ?? 0, specifier: "%.0f")%")
+                                Text("\(Double(caregiverDashboardViewModel.batteryInfo?.watchBatteryLevel ?? "No Data") ?? 0, specifier: "%.0f")%")
                                     .font(.title3)
                                     .fontWeight(.semibold)
-                                    .padding(.leading, batteryInfo.watchBatteryState == "charging" ? -4 : 0)
+                                    .padding(.leading, caregiverDashboardViewModel.batteryInfo?.watchBatteryState == "charging" ? -4 : 0)
                             }
-                            .animation(.easeInOut, value: batteryInfo.watchBatteryState)
-                            .animation(.easeInOut, value: batteryInfo.watchBatteryLevel)
+                            .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo?.watchBatteryState)
+                            .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo?.watchBatteryLevel)
                         }
                         
                         Spacer()
@@ -333,14 +333,14 @@ struct SeniorStatus: View {
                     
                     HStack(spacing: 8) {
                         ZStack {
-                            BatteryCircularProgressView(progress: (Double(batteryInfo.iphoneBatteryLevel ?? "0") ?? 0) / 100, charging: batteryInfo.iphoneBatteryState == "charging")
+                            BatteryCircularProgressView(progress: (Double(caregiverDashboardViewModel.batteryInfo?.iphoneBatteryLevel ?? "0") ?? 0) / 100, charging: caregiverDashboardViewModel.batteryInfo?.iphoneBatteryState == "charging")
                                 .frame(width: 50)
                             
                             Image(systemName: "iphone")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 14)
-                                .foregroundStyle(batteryInfo.iphoneBatteryState == "charging" ? Color("secondary-orange") : .accent, .white)
+                                .foregroundStyle(caregiverDashboardViewModel.batteryInfo?.iphoneBatteryState == "charging" ? Color("secondary-orange") : .accent, .white)
                         }
                         .padding(.horizontal, 4)
                         
@@ -349,18 +349,18 @@ struct SeniorStatus: View {
                                 .font(.caption)
                             
                             HStack {
-                                if batteryInfo.iphoneBatteryState == "charging" {
+                                if caregiverDashboardViewModel.batteryInfo?.iphoneBatteryState == "charging" {
                                     Image(systemName: "bolt.fill")
                                         .foregroundStyle(Color("secondary-orange"))
                                 }
                                 
-                                Text("\(Double(batteryInfo.iphoneBatteryLevel ?? "0") ?? 0, specifier: "%.0f")%")
+                                Text("\(Double(caregiverDashboardViewModel.batteryInfo?.iphoneBatteryLevel ?? "No Data") ?? 0, specifier: "%.0f")%")
                                     .font(.title3)
                                     .fontWeight(.semibold)
-                                    .padding(.leading, batteryInfo.iphoneBatteryState == "charging" ? -4 : 0)
+                                    .padding(.leading, caregiverDashboardViewModel.batteryInfo?.iphoneBatteryState == "charging" ? -4 : 0)
                             }
-                            .animation(.easeInOut, value: batteryInfo.iphoneBatteryState)
-                            .animation(.easeInOut, value: batteryInfo.iphoneBatteryLevel)
+                            .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo?.iphoneBatteryState)
+                            .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo?.iphoneBatteryLevel)
                         }
                         
                         Spacer()
@@ -371,7 +371,7 @@ struct SeniorStatus: View {
                     .background(colorScheme == .light ? .white : Color(.systemGray6))
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
-            }
+
         }
     }
 }

@@ -29,7 +29,7 @@ class FallService {
     @MainActor
     func observeAllFalls() async throws {
         guard let userId = Auth.auth().currentUser?.uid else { return }
-        
+
         let query = FirestoreConstants.fallsCollection
                                     .whereField("seniorId", isEqualTo: userId)
     

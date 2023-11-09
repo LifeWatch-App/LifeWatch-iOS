@@ -70,7 +70,7 @@ extension Date {
     }
 
 
-    static func timeDifference(unix: Double) -> (String, Double) {
+    static func timeDifference(unix: Double) -> (timeString: String, timeDifference: Double) {
         let currentTime = Date().timeIntervalSince1970
         let timeDifference = currentTime - unix
         if timeDifference < 60 {

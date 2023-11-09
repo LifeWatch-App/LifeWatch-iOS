@@ -12,9 +12,9 @@ struct CombinedView: View {
     @StateObject private var idleVM = IdleDetectionViewModel()
     @StateObject private var chargingVM = ChargingViewModel()
     @EnvironmentObject private var authVM: TestAuthViewModel
-
+    
     var body: some View {
-
+        
         switch locationVM.authorizationStatus {
         case .notDetermined:
             AnyView(RequestLocationView())
@@ -28,7 +28,7 @@ struct CombinedView: View {
                 VStack(spacing: 15) {
                     Text("\(chargingVM.batteryLevel?.description ?? "Not able to fetch") %")
                     Text(chargingVM.batteryCharging.description)
-
+                    
                     VStack {
                         PairView(
                             leftText: "Latitude:",
@@ -39,7 +39,7 @@ struct CombinedView: View {
                             rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)
                         )
                     }
-
+                    
                     VStack {
                         Button("Set Current Location as Home") {
                             locationVM.shouldSet = true

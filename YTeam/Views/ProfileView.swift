@@ -107,7 +107,7 @@ struct ProfileView: View {
                     Section(header: Text("Care Team")) {
                         ForEach(profileViewModel.invites, id: \.id) { invite in
                             HStack {
-                                Text(invite.caregiverData!.name!)
+                                Text(invite.caregiverData!.name ?? "Subroto")
                                 Spacer()
                                 if invite.accepted! {
                                     Button {
