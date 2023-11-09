@@ -22,7 +22,7 @@ struct SeniorDashboardView: View {
                         if !invite.accepted! {
                             HStack() {
                                 VStack(alignment: .leading) {
-                                    Text("\(invite.caregiverData!.name!)")
+                                    Text("\(invite.caregiverData!.name ?? "Subroto")")
                                         .font(.title3)
                                         .fontWeight(.semibold)
                                     Text("Would like to join your care team")

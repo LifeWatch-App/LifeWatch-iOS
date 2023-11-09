@@ -19,6 +19,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     @Published var invites: [Invite] = []
     @Published var isLoading = false
     @Published var loginProviders: [String] = []
+    @Published var selectedInviteId: String?
     @Published var isDeleteAppleAccount = false
     var invitesListener: ListenerRegistration?
     
@@ -283,6 +284,20 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                 } else {
                                     invite?.caregiverData = try? querySnapshot?.data(as: UserData.self)
                                     self.invites.append(invite!)
+
+                                    if !self.invites.isEmpty {
+                                        if let selectedSeniorId = UserDefaults.standard.string(forKey: "selectedSenior") {
+                                            if self.selectedInviteId != selectedSeniorId {
+                                                self.selectedInviteId = selectedSeniorId
+                                            }
+
+                                        } else {
+                                            self.selectedInviteId = self.invites.first?.seniorId
+                                            UserDefaults.standard.set(self.invites.first?.seniorId, forKey: "selectedSenior")
+                                        }
+                                    } else {
+                                        self.selectedInviteId = nil
+                                    }
                                 }
                                 
                                 if (index == documents.count - 1) {
@@ -459,6 +474,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                                 print("Error deleting user account: \(err)")
                                             } else {
                                                 print("User account deletion successful")
+
                                             }
                                             
                                             withAnimation {
@@ -497,6 +513,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                             print("Error deleting user account: \(err)")
                         } else {
                             print("User account deletion successful")
+                            UserDefaults.standard.removeObject(forKey: "selectedSenior")
                         }
                         
                         self.isLoading = false

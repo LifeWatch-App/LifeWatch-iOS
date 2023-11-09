@@ -32,23 +32,12 @@ class MainViewModel: ObservableObject {
                 self?.isLoading = isLoading
             }
             .store(in: &cancellables)
-
-        //        AuthService.shared.$userData
-        //            .sink { [weak self] userData in
-        //                self?.userData = userData
-        //            }
-        //            .store(in: &cancellables)
-        //
-        //        AuthService.shared.$invites.sink { [weak self] invites in
-        //            self?.invites = invites
-        //        }
-        //        .store(in: &cancellables)
     }
 
     func handleAuthWatch(userID: String?, userData: UserData?, invites: [Invite]) {
         let encoder = JSONEncoder()
         let userRecord = UserRecord(userID: userID, userData: userData, invites: invites)
-        if let encodedData = try? encoder.encode(userRecord) {
+        if let encodedData = try? encoder.encode(userRecord), userData?.role != "caregiver" {
             WatchConnectorService.shared.session.sendMessage(["user_auth": encodedData], replyHandler: nil)
         }
     }
