@@ -241,7 +241,7 @@ struct Symtomps: View {
                         .frame(height: 50)
                     
                     VStack(alignment: .leading) {
-                        Text(symptom.name)
+                        Text(symptom.name ?? "Unknown")
                             .font(.title3)
                             .fontWeight(.semibold)
                         
@@ -255,7 +255,7 @@ struct Symtomps: View {
                     
                     HStack {
                         Image(systemName: "clock")
-                        Text(symptom.time, style: .time)
+                        Text(Date.unixToDate(unix: symptom.time ?? 0), style: .time)
                             .padding(.leading, -4)
                             .font(.subheadline)
                     }

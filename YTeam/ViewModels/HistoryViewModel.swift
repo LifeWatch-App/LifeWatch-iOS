@@ -65,7 +65,7 @@ class HistoryViewModel: ObservableObject {
         setupEmergencySubscriber()
         
         // still use symptom dummy data
-        countSymptom()
+//        countSymptom()
     }
     
     /// Subscribes to the FallService to check for changes, and updates `loading, loggedIn, fallsCount, falls, and groupedFalls`.
@@ -688,13 +688,13 @@ class HistoryViewModel: ObservableObject {
         avgHeartRate = avgHeartRate / dayCount
     }
     
-    func countSymptom() {
-        symptomsDummyData.forEach { symptom in
-            if var symptomType = symptoms.first(where: { (key, value)->Bool in key == symptom.name }) {
-                symptoms[symptomType.key]! += 1
-            }
-        }
-    }
+//    func countSymptom() {
+//        symptomsDummyData.forEach { symptom in
+//            if var symptomType = symptoms.first(where: { (key, value)->Bool in key == symptom.name }) {
+//                symptoms[symptomType.key]! += 1
+//            }
+//        }
+//    }
     
     /// Formats Date object into String.
     ///
