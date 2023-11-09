@@ -954,7 +954,6 @@
 				7D02E77B2ADD39D800923AFB /* CoreMotionManager.swift in Sources */,
 				7D2151B52AF8EDE3001BB9BC /* Heartbeat.swift in Sources */,
 				7D0508E52AF9F60D00439E75 /* SOSManager.swift in Sources */,
-				4CA232982ADE1EF1003874D2 /* ChartData.swift in Sources */,
 				9312936B2AEF4F040052F4AF /* CombinedView.swift in Sources */,
 				7D02E7682ADD023E00923AFB /* CalendarExt.swift in Sources */,
 				7D02E76D2ADD023E00923AFB /* IdleDetectionView.swift in Sources */,
@@ -976,7 +975,6 @@
 				93B898EE2AE616C3005E1678 /* BatteryLevelRecord.swift in Sources */,
 				8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */,
 				7D0508E32AF9F5F000439E75 /* SOSView.swift in Sources */,
-				4CA2329A2ADE1EF1003874D2 /* DataUser.swift in Sources */,
 				9322F6182AF1F2C60013B0AB /* CLPlacemarkExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1116,7 +1114,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -1127,13 +1125,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.Careific;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.Careific.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific.watchkitapp;
 				PRODUCT_NAME = "Careific Watch App";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
@@ -1155,7 +1153,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -1166,13 +1164,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.Careific;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.Careific.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific.watchkitapp;
 				PRODUCT_NAME = "Careific Watch App";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
@@ -1196,7 +1194,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -1213,7 +1211,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.Careific;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
 				PRODUCT_NAME = Careific;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1233,7 +1231,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = Y545JRBLJ5;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -1250,7 +1248,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.Careific;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
 				PRODUCT_NAME = Careific;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
