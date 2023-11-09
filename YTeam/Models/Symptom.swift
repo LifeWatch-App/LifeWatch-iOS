@@ -34,4 +34,6 @@ let symptomList: [String] = [
 let symptomsDummyData: [Symptom] = [
     Symptom(name: "Cough", time: Date()),
     Symptom(name: "Fever", note: "39 degrees celcius", time: Date()),
+    Symptom(name: "Nausea", time: Date()),
+    Symptom(name: "Fever", note: "41 degrees celcius", time: Date()),
 ]

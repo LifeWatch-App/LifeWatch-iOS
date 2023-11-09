@@ -21,7 +21,7 @@ struct SymptomView: View {
                     
                     ScrollView {
                         VStack {
-                            SymptomCards()
+                            SymptomCards(historyViewModel: historyViewModel)
                             
                             // foreach symptom here
                             
@@ -40,43 +40,45 @@ struct SymptomView: View {
 struct SymptomCards: View {
     @Environment(\.colorScheme) var colorScheme
     
+    @ObservedObject var historyViewModel: HistoryViewModel
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: 12) {
-                ForEach(symptomList, id: \.self) { symptom in
+                ForEach(historyViewModel.symptoms.sorted { $0.value > $1.value }, id: \.key) { key, value in
                     VStack(alignment: .leading) {
                         HStack {
-                            Image(symptom)
+                            Image("\(key)")
                                 .resizable()
-                                .scaledToFit()
-                                .frame(width: 36)
+                                .frame(width: 36, height: 36)
                                 .clipShape(RoundedRectangle(cornerRadius: 4))
                             
                             Spacer()
                         }
                         
-                        Text(symptom)
-                            .font(.subheadline)
+                        Text("\(key)")
+                            .font(.system(size: 16))
                             .minimumScaleFactor(0.5)
                         
+                        Spacer()
+                        
                         HStack {
-                            Text("0")
-                                .font(.title)
+                            Text("\(value)")
+                                .font(.system(size: 28))
                                 .bold()
                             
                             Text("times")
                                 .foregroundStyle(.secondary)
-                                .font(.subheadline)
-                                .padding(.leading, -4)
+                                .font(.system(size: 16))
                         }
                     }
                     .padding(12)
-                    .frame(width: 110)
+                    .frame(width: 110, height: 145)
                     .background(colorScheme == .light ? .white : Color(.systemGray6))
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
             }
-            .padding(.leading)
+            .padding(.horizontal)
         }
         
     }

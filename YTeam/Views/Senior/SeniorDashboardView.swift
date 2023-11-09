@@ -163,38 +163,42 @@ struct UpcomingActivity: View {
             }
             
             VStack(spacing: 20) {
-                ForEach(seniorDashboardViewModel.routines.prefix(3)) { routine in
-                    HStack(spacing: 16) {
-                        VStack {
-                            Image(systemName: routine.type == "Medicine" ? "pill.fill" : "figure.run")
+                // Ambil 3 dengan waktu terdekat yang belum done
+                ForEach(seniorDashboardViewModel.routines.prefix(2)) { routine in
+                    ForEach(routine.time.indices, id: \.self) { i in
+                        HStack(spacing: 16) {
+                            VStack {
+                                Image(systemName: routine.type == "Medicine" ? "pill.fill" : "figure.run")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40)
+                                    .foregroundStyle(.white)
+                            }
+                            .padding(12)
+                            .frame(width: 52, height: 52)
+                            .background(.blue)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
+                                    .font(.headline)
+                                Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
+                                HStack {
+                                    Image(systemName: "clock")
+                                    Text(routine.time[i], style: .time)
+                                        .padding(.leading, -4)
+                                }
+                                .foregroundColor(.secondary)
+                            }
+                            
+                            Spacer()
+                            
+                            Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 40)
-                                .foregroundStyle(.white)
+                                .foregroundStyle(.accent)
                         }
-                        .padding(12)
-                        .background(.blue)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
-                                .font(.headline)
-                            Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
-                            HStack {
-                                Image(systemName: "clock")
-                                Text(routine.time, style: .time)
-                                    .padding(.leading, -4)
-                            }
-                            .foregroundColor(.secondary)
-                        }
-                        
-                        Spacer()
-                        
-                        Image(systemName: routine.isDone ? "checkmark.circle.fill" : "circle")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40)
-                            .foregroundStyle(.white, .accent)
                     }
                 }
             }

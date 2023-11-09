@@ -79,7 +79,7 @@ struct AddEditRoutineView: View {
                     }
                     
                     ForEach(0..<addEditRoutineViewModel.timeAmount, id: \.self) { i in
-                        DatePicker(selection: $addEditRoutineViewModel.times[i], in: ...Date.now, displayedComponents: .hourAndMinute) {
+                        DatePicker(selection: $addEditRoutineViewModel.times[i], displayedComponents: .hourAndMinute) {
                             Text("Time \(i+1)")
                         }
                     }
@@ -96,7 +96,7 @@ struct AddEditRoutineView: View {
                         HStack {
                             Spacer()
                             
-                            Text("Add Routine")
+                            Text(routine == nil ? "Add Routine" : "Edit Routine")
                                 .fontWeight(.semibold)
                                 .foregroundStyle(.white)
                             
@@ -105,6 +105,26 @@ struct AddEditRoutineView: View {
                     }
                 }
                 .listRowBackground(Color.accent)
+                
+                if routine != nil {
+                    Section {
+                        Button {
+                            // add function here
+                            
+                            dismiss()
+                        } label: {
+                            HStack {
+                                Spacer()
+                                
+                                Text("Delete Routine")
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(Color("emergency-pink"))
+                                
+                                Spacer()
+                            }
+                        }
+                    }
+                }
             }
             .navigationTitle(routine == nil ? "Add Routine" : "Edit Routine")
             .navigationBarTitleDisplayMode(.inline)
@@ -119,13 +139,16 @@ struct AddEditRoutineView: View {
             .onAppear {
                 if let routine = routine {
                     addEditRoutineViewModel.type = routine.type
-//                    addEditRoutineViewModel.times: [Date] = [Date(), Date(), Date()]
-                    addEditRoutineViewModel.timeAmount = 1
+                    addEditRoutineViewModel.timeAmount = routine.time.count
                     addEditRoutineViewModel.activity = routine.activity ?? ""
                     addEditRoutineViewModel.description = routine.description ?? ""
                     addEditRoutineViewModel.medicine = routine.medicine ?? ""
                     addEditRoutineViewModel.medicineAmount = routine.medicineAmount ?? ""
                     addEditRoutineViewModel.medicineUnit = routine.medicineUnit ?? .Tablet
+                    
+                    for (index, time) in routine.time.enumerated() {
+                        addEditRoutineViewModel.times[index] = time
+                    }
                 }
             }
         }
