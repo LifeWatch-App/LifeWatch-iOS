@@ -22,6 +22,11 @@ struct CaregiverView: View {
                     Label("Routine", systemImage: "person.badge.clock.fill")
                 }
             
+            MapTestView()
+                .tabItem {
+                    Label("Location", systemImage: "location.fill")
+                }
+            
             HistoryView()
                 .tabItem {
                     Label("History", systemImage: "chart.bar.fill")

@@ -153,7 +153,7 @@ struct ProfileView: View {
                     Text("Delete Account")
                         .foregroundStyle(Color("emergency-pink"))
                 })
-                .padding(.horizontal)
+                .padding([.horizontal, .bottom])
             }
             .sheet(isPresented: $showDeleteSheet) {
                 DeleteSheetView(profileViewModel: profileViewModel)

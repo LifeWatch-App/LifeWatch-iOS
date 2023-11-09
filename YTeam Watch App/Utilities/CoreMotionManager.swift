@@ -135,8 +135,6 @@ class CoreMotionManager: ObservableObject {
                     print("Delta Y: \(abs(self.accY - self.lastY))");
                     print("Delta Z: \(abs(self.accZ - self.lastZ))");
                     
-                    self.accX = 1.3
-                    self.lastX = 0.1
                     if (abs(self.accX - self.lastX) >= 0.9 || abs(self.accY - self.lastY) >= 0.9 || abs(self.accZ - self.lastZ) >= 0.9) {
                         print("You fell")
                         timer.invalidate()
@@ -146,5 +144,18 @@ class CoreMotionManager: ObservableObject {
                 }
             }
         }
+    }
+    
+    /// Disables `fall`.
+    ///
+    /// ```
+    /// CoreMotionManager().cancelFallStatus().
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Void. Disables fall
+    func cancelFallStatus() {
+        self.fall = false
     }
 }

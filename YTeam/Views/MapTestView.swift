@@ -93,7 +93,12 @@ struct MapTestView: View {
                 .scrollIndicators(.hidden)
 
             } else {
-                Text("Not Available")
+                ContentUnavailableView {
+                    Label("Location not Available", systemImage: "location.fill")
+                } description: {
+                    Text("Ask your senior to turn on their location.")
+                }
+                .background(Color(.systemGroupedBackground))
             }
         }
     }

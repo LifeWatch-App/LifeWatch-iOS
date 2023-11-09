@@ -41,6 +41,8 @@ enum MultipleEndPoints: Endpoint {
     case liveLocations
 
     case heartAnomaly
+    case heartbeat
+    case sos
     
     var endPointDescription: String {
         switch self {
@@ -60,6 +62,10 @@ enum MultipleEndPoints: Endpoint {
             return "/liveLocations/"
         case .heartAnomaly:
             return "/heartAnomaly/"
+        case .heartbeat:
+            return "/heartbeat/"
+        case .sos:
+            return "/sos/"
         }
     }
 }

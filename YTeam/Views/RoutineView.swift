@@ -24,23 +24,23 @@ struct RoutineView: View {
                             ForEach(routineViewModel.currentWeek, id: \.self) { day in
                                 Button {
                                     routineViewModel.currentDay = day
-                                    print(routineViewModel.currentDay)
                                 } label: {
                                     VStack {
                                         ZStack {
-                                            RoutineCircularProgressView(progress: 0.4)
+                                            RoutineCircularProgressView(progress: routineViewModel.progressCount, disabled: day > Date())
                                                 .frame(width: 40)
                                             
                                             Text("\(routineViewModel.extractDate(date: day, format: "d"))")
                                                 .fontWeight(.semibold)
-                                                .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : Color(.label))
+                                                .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : day > Date() ? .secondary : Color(.label))
                                         }
                                         
                                         Text("\(routineViewModel.extractDate(date: day, format: "E"))")
                                             .font(.subheadline)
-                                            .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : Color(.label))
+                                            .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : day > Date() ? .secondary : Color(.label))
                                     }
                                 }
+                                .disabled(day > Date())
                             }
                         }
                         .frame(height: 70)
@@ -48,166 +48,155 @@ struct RoutineView: View {
                     }
                     .padding(.bottom, 4)
                     
-                    HStack {
-                        Text("23 Oct 2023")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                        Spacer()
-                    }
-                    
-                    // foreach routine here
-                    ForEach(0...1, id: \.self) { _ in
-                        HStack(spacing: 8) {
-                            VStack {
-                                Image(systemName: "pill.circle.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 28)
-                                    .foregroundStyle(.white, .accent)
-                                
-                                RoundedRectangle(cornerRadius: 100)
-                                    .fill(.secondary.opacity(0.5))
-                                    .frame(width: 2)
-                            }
-                            
-                            HStack {
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text("Jogging")
-                                        .font(.title3)
-                                        .fontWeight(.semibold)
-                                    
-                                    Text("Morning Jogging 10KM")
-                                    
-                                    HStack {
-                                        Image(systemName: "clock")
-                                        Text("3:33 AM")
-                                            .padding(.leading, -4)
-                                    }
-                                    .foregroundColor(.secondary)
-                                }
-                                
-                                Spacer()
-                                
-                                VStack(alignment: .trailing) {
-                                    Button("Edit") {
-                                        routine = routine
-                                        routineViewModel.showEditRoutine.toggle()
-                                    }
-                                    .foregroundStyle(.accent)
-                                    
-                                    Spacer()
-                                    
-                                    Image(systemName: "circle")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 45)
-                                        .foregroundStyle(.accent)
-                                        .padding(.leading, 2)
-                                }
-                            }
-                            .padding()
-                            .background(colorScheme == .light ? .white : Color(.systemGray6))
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                    if routineViewModel.routines.count > 0 {
+                        HStack {
+                            Text("\(routineViewModel.extractDate(date: routineViewModel.currentDay, format: "dd MMM yyyy"))")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                            Spacer()
                         }
                         
-                        HStack(spacing: 8) {
-                            VStack {
-                                Image(systemName: "pill.circle.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 28)
-                                    .foregroundStyle(.white, .accent)
-                                
-                                RoundedRectangle(cornerRadius: 100)
-                                    .fill(.secondary.opacity(0.5))
-                                    .frame(width: 2)
-                            }
-                            
-                            VStack(alignment: .leading) {
-                                HStack(alignment: .top) {
+                        // foreach routine here
+                        ForEach(routineViewModel.routines) { routine in
+                            if routine.time.count == 1 {
+                                HStack(spacing: 8) {
+                                    VStack {
+                                        Image(systemName: routine.type == "Medicine" ? "pill.circle.fill" : "figure.run.circle.fill")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 28)
+                                            .foregroundStyle(.white, .accent)
+                                        
+                                        RoundedRectangle(cornerRadius: 100)
+                                            .fill(.secondary.opacity(0.5))
+                                            .frame(width: 2)
+                                    }
+                                    
+                                    HStack {
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
+                                                .font(.title3)
+                                                .fontWeight(.semibold)
+                                            
+                                            Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
+                                            
+                                            HStack {
+                                                Image(systemName: "clock")
+                                                Text(routine.time.first ?? Date(), style: .time)
+                                                    .padding(.leading, -4)
+                                            }
+                                            .foregroundColor(.secondary)
+                                        }
+                                        
+                                        Spacer()
+                                        
+                                        VStack(alignment: .trailing) {
+                                            Button("Edit") {
+                                                self.routine = routine
+                                                routineViewModel.showEditRoutine.toggle()
+                                            }
+                                            .foregroundStyle(.accent)
+                                            
+                                            Spacer()
+                                            
+                                            Button {
+                                                // change done status here
+                                                
+                                            } label: {
+                                                Image(systemName: "circle")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 45)
+                                                    .foregroundStyle(.accent)
+                                                    .padding(.leading, 2)
+                                            }
+                                        }
+                                    }
+                                    .padding()
+                                    .background(colorScheme == .light ? .white : Color(.systemGray6))
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                }
+                            } else {
+                                HStack(spacing: 8) {
+                                    VStack {
+                                        Image(systemName: routine.type == "Medicine" ? "pill.circle.fill" : "figure.run.circle.fill")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 28)
+                                            .foregroundStyle(.white, .accent)
+                                        
+                                        RoundedRectangle(cornerRadius: 100)
+                                            .fill(.secondary.opacity(0.5))
+                                            .frame(width: 2)
+                                    }
+                                    
                                     VStack(alignment: .leading) {
-                                        Text("Doxylamine")
-                                            .font(.title3)
-                                            .fontWeight(.semibold)
+                                        HStack(alignment: .top) {
+                                            VStack(alignment: .leading) {
+                                                Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
+                                                    .font(.title3)
+                                                    .fontWeight(.semibold)
+                                                
+                                                Text("1 remaining")
+                                                    .font(.subheadline)
+                                            }
+                                            
+                                            Spacer()
+                                            
+                                            Button("Edit") {
+                                                self.routine = routine
+                                                routineViewModel.showEditRoutine.toggle()
+                                            }
+                                            .foregroundStyle(.accent)
+                                            .padding(.leading, 2)
+                                        }
                                         
-                                        Text("1 remaining")
-                                            .font(.subheadline)
+                                        Divider()
+                                            .padding(.vertical, 4)
+                                        
+                                        HStack(alignment: .top, spacing: 20) {
+                                            Spacer(minLength: 0)
+                                            
+                                            ForEach(routine.time.indices, id: \.self) { i in
+                                                VStack {
+                                                    Button {
+                                                        // change done status here
+                                                        
+                                                    } label: {
+                                                        Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
+                                                            .resizable()
+                                                            .scaledToFit()
+                                                            .frame(width: 50)
+                                                    }
+                                                    
+                                                    Text("\(routine.time[i], style: .time)")
+                                                        .font(.subheadline)
+                                                        .foregroundStyle(.accent)
+                                                }
+                                            }
+                                            
+                                            Spacer(minLength: 0)
+                                        }
+                                        
+                                        Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
+                                            .foregroundStyle(.secondary)
+                                            .padding(.top, 8)
+                                            .minimumScaleFactor(0.5)
                                     }
-                                    
-                                    Spacer()
-                                    
-                                    Button("Edit") {
-                                        routine = routine
-                                        routineViewModel.showEditRoutine.toggle()
-                                    }
-                                    .foregroundStyle(.accent)
-                                    .padding(.leading, 2)
+                                    .padding()
+                                    .background(colorScheme == .light ? .white : Color(.systemGray6))
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
                                 }
-                                
-                                Divider()
-                                    .padding(.vertical, 4)
-                                
-                                HStack(alignment: .top, spacing: 20) {
-                                    Spacer(minLength: 0)
-                                    
-                                    VStack {
-                                        Button {
-                                            
-                                        } label: {
-                                            Image(systemName: "checkmark.circle.fill")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 50)
-                                        }
-                                        
-                                        Text("04:44 AM")
-                                            .font(.subheadline)
-                                            .foregroundStyle(.accent)
-                                    }
-                                    
-                                    VStack {
-                                        Button {
-                                            
-                                        } label: {
-                                            Image(systemName: "circle")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 50)
-                                        }
-                                        
-                                        Text("12:24 PM")
-                                            .font(.subheadline)
-                                            .foregroundStyle(.accent)
-                                    }
-                                    
-                                    VStack {
-                                        Button {
-                                            
-                                        } label: {
-                                            Image(systemName: "circle")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 50)
-                                        }
-                                        
-                                        Text("05:42 PM")
-                                            .font(.subheadline)
-                                            .foregroundStyle(.accent)
-                                    }
-                                    
-                                    Spacer(minLength: 0)
-                                }
-                                
-                                Text("Take the tablet with a full glass of water.")
-                                    .foregroundStyle(.secondary)
-                                    .padding(.top, 8)
-                                    .minimumScaleFactor(0.5)
+                                .padding(.bottom, 4)
                             }
-                            .padding()
-                            .background(colorScheme == .light ? .white : Color(.systemGray6))
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
                         }
-                        .padding(.bottom, 4)
+                    } else {
+                        ContentUnavailableView {
+                            Label("Routines not Set", systemImage: "pills.fill")
+                        } description: {
+                            Text("Add a daily medicine or activity schedule by clicking the plus button.")
+                        }
+                        .padding(.top, 64)
                     }
                 }
                 .padding(.horizontal)
@@ -265,9 +254,15 @@ struct RoutineWeekPicker: View {
                     .font(.title)
                     .foregroundStyle(.white, !routineViewModel.isToday(date: Date()) ? .accent : .gray)
             }
-            .disabled(routineViewModel.isToday(date: Date()))
+            .disabled(routineViewModel.currentWeek.contains(Date()))
         }
         .padding(.vertical, 8)
+        .onChange(of: routineViewModel.currentWeek) { oldValue, newValue in
+            if routineViewModel.currentDay > Date() {
+                routineViewModel.currentDay = Date()
+                routineViewModel.fetchCurrentWeek()
+            }
+        }
     }
 }
 

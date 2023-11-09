@@ -7,10 +7,12 @@
 
 import Foundation
 import CoreMotion
+import UserNotifications
 
 @MainActor
 class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject {
     @Published var authorized: Bool = false
+    @Published var fall: Bool = false
     
     let fallDetector = CMFallDetectionManager()
     
@@ -75,30 +77,50 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     func fallDetectionManager(
         _ fallDetectionManager: CMFallDetectionManager,
         didDetect event: CMFallDetectionEvent) async {
-            
-            guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
-            let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
-            let timeDescription: Double = Date.now.timeIntervalSince1970
-            
-            if (userRecord != nil) {
-                let time = Fall(time: Description(doubleValue: timeDescription), seniorId: Description(stringValue: userRecord?.userID))
-                Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time, httpMethod: .post) }
-            }
-        }
+            self.fall = true
+            self.scheduleNotification()
+    }
     
-    /// `Unchangable conforming function to automatically check for change in authorization`.
+    /// Disables `fall`.
     ///
     /// ```
-    /// Not Called. Leave it be.
+    /// FallDetectionManager().cancelFallStatus().
     /// ```
     ///
     /// - Parameters:
     ///     - None
-    /// - Returns: None.
-    func fallDetectionManagerDidChangeAuthorization(
-        _ fallDetectionManager: CMFallDetectionManager
-    )  {
-        self.checkAndRequestForAuthorizationStatus()
+    /// - Returns: Void. Disables fall
+    func cancelFallStatus() {
+        self.fall = false
     }
     
+    func scheduleNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "Potential Fall"
+        content.body = "Apple Watch Detected a Potential Fall."
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.5, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+        let acceptAction = UNNotificationAction(identifier: "AcceptAction", title: "Yes", options: [])
+        let rejectAction = UNNotificationAction(identifier: "RejectAction", title: "No", options: [])
+        let fallCategory = UNNotificationCategory(identifier: "FallNotification", actions: [acceptAction, rejectAction], intentIdentifiers: [], options: [])
+        
+        UNUserNotificationCenter.current().setNotificationCategories([fallCategory])
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error)")
+            }
+        }
+    }
+    
+    func sendFall() {
+        guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
+        let userRecord = try? self.decoder.decode(UserRecord.self, from: data)
+        let timeDescription: Double = Date.now.timeIntervalSince1970
+        if (userRecord != nil) {
+            let time = Fall(time: Description(doubleValue: timeDescription), seniorId: Description(stringValue: userRecord?.userID))
+            Task { try? await service.set(endPoint: MultipleEndPoints.falls, fields: time, httpMethod: .post) }
+        }
+    }
 }

@@ -14,8 +14,16 @@ class RoutineViewModel: ObservableObject {
     @Published var currentWeek: [Date] = []
     @Published var currentDay: Date = Date()
     
+    @Published var routines: [Routine] = []
+    @Published var progressCount: Double = 0
+    
     init() {
         fetchCurrentWeek()
+        
+        // add dummy data
+        routines = routinesDummyData
+        
+        countProgress()
     }
     
     func fetchCurrentWeek() {
@@ -35,6 +43,25 @@ class RoutineViewModel: ObservableObject {
                 currentWeek.append(weekday)
             }
         }
+    }
+    
+    func countProgress() {
+        var totalProgress: Double = 0
+        
+        routines.forEach { routine in
+            routine.isDone.forEach { done in
+                if done == true {
+                    progressCount += 1
+                }
+                totalProgress += 1
+            }
+        }
+        
+        if totalProgress == 0 {
+            totalProgress += 1
+        }
+        
+        progressCount = (progressCount / totalProgress)
     }
     
     func changeWeek(type: ChangeWeek) {
