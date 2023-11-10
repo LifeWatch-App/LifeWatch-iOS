@@ -30,6 +30,7 @@ class RoutineService {
     func observeAllRoutines() async throws {
         guard let userId = Auth.auth().currentUser?.uid else { return }
         
+        print(userId)
         let query = FirestoreConstants.routinesCollection
                                     .whereField("seniorId", isEqualTo: userId)
         
@@ -47,5 +48,12 @@ class RoutineService {
         guard let encodedRoutineData = try? Firestore.Encoder().encode(routine) else { return }
         
         try? await routinesCollection.document().setData(encodedRoutineData)
+    }
+    
+    @MainActor
+    func updateChargingRecord(routine: RoutineData) async throws {
+        guard let encodedData = try? Firestore.Encoder().encode(routine) else { return }
+        let documents = try await FirestoreConstants.routinesCollection.whereField("id", isEqualTo: routine.id).getDocuments().documents.first
+        try await documents?.reference.updateData(encodedData)
     }
 }

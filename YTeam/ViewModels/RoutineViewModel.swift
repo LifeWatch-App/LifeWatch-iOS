@@ -37,6 +37,7 @@ class RoutineViewModel: ObservableObject {
                 guard let self else { return }
                 
                 self.routineData.append(contentsOf: routine)
+                print(routineData)
                 self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
@@ -93,6 +94,9 @@ class RoutineViewModel: ObservableObject {
         self.countProgress()
     }
     
+    func updateRoutine(routine: Routine, index: Int) {
+        //Add Update Routine
+    }
     func countProgress() {
         var totalProgress: Double = 0
         

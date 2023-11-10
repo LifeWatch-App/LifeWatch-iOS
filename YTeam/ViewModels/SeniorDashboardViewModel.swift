@@ -25,7 +25,10 @@ class SeniorDashboardViewModel: ObservableObject {
     
     @Published var routines: [Routine] = []
     @Published var symptoms: [Symptom] = []
-
+    
+    private var routineData: [RoutineData] = []
+    private let routineService: RoutineService = RoutineService.shared
+    
     init() {
         setupSubscribers()
         
@@ -43,6 +46,44 @@ class SeniorDashboardViewModel: ObservableObject {
                 self?.invites = invites
             }
             .store(in: &cancellables)
+        
+        routineService.$routines
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] routine in
+                guard let self else { return }
+                
+                self.routineData.append(contentsOf: routine)
+                self.convertRoutineDataToRoutine()
+            }
+            .store(in: &cancellables)
+    }
+    
+    func convertRoutineDataToRoutine() {
+        self.routines = self.routineData.map { routine in
+            var medicineUnit: MedicineUnit
+            var routineTime: [Date] = []
+            
+            for time in routine.time {
+                routineTime.append( Date(timeIntervalSince1970: time))
+            }
+            
+            switch (routine.medicineUnit) {
+            case "CC":
+                medicineUnit = .CC
+            case "Pill":
+                medicineUnit = .Pill
+            case "Gram":
+                medicineUnit = .Gram
+            case "Litre":
+                medicineUnit = .Litre
+            case "Mililitre":
+                medicineUnit = .Mililitre
+            default:
+                medicineUnit = .Tablet
+            }
+            
+            return Routine(id: routine.id, type: routine.type, time: routineTime, activity: routine.activity, description: routine.description, medicine: routine.medicine, medicineAmount: routine.medicineAmount, medicineUnit: medicineUnit, isDone: routine.isDone)
+        }
     }
     
     func sendSOS() throws {

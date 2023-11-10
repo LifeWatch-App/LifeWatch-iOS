@@ -161,7 +161,7 @@ struct RoutineView: View {
                                                 VStack {
                                                     Button {
                                                         // change done status here
-                                                        
+                                                        routineViewModel.updateRoutine(routine, i)
                                                     } label: {
                                                         Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
                                                             .resizable()
