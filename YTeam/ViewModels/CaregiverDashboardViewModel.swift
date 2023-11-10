@@ -23,10 +23,11 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var selectedInviteId: String?
     @Published var idleInfo: [Idle] = []
     @Published var heartBeatInfo: Heartbeat?
+    @Published var latestSymptomInfo: Symptom?
     private var cancellables = Set<AnyCancellable>()
     @Published var showWalkieTalkie: Bool = false
     @Published var routines: [Routine] = []
-//    @Published var heartRate = 90
+    //    @Published var heartRate = 90
     @Published var inviteEmail = ""
 
     override init() {
@@ -72,6 +73,16 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 self.batteryService.observeLiveLocationSpecific()
                 self.batteryService.observeBatteryStateLevelSpecific()
                 self.batteryService.observeHeartRateSpecific()
+                self.batteryService.observeLatestSyptoms()
+            }
+            .store(in: &cancellables)
+
+        batteryService.$symptomsDocumentChanges
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] documentChanges in
+                guard let self = self else { return }
+                self.latestSymptomInfo = self.loadLatestSymptom(documents: documentChanges)
+                print(self.latestSymptomInfo)
             }
             .store(in: &cancellables)
 
@@ -87,7 +98,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
-                print(documentChanges.first?.document.data())
                 self.idleInfo = self.loadInitialIdleLevel(documents: documentChanges)
             }
             .store(in: &cancellables)
@@ -96,7 +106,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
-                print(documentChanges.first?.document.data())
                 self.latestLocationInfo = self.loadLatestLiveLocation(documents: documentChanges)
             }
             .store(in: &cancellables)
@@ -120,6 +129,10 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
 
     private func loadLatestLiveLocation(documents: [DocumentChange]) -> LiveLocation? {
         return try? documents.first?.document.data(as: LiveLocation.self)
+    }
+
+    private func loadLatestSymptom(documents: [DocumentChange]) -> Symptom? {
+        return try? documents.first?.document.data(as: Symptom.self)
     }
 
     private func loadInitialBatteryLevel(documents: [DocumentChange]) -> BatteryLevel? {
