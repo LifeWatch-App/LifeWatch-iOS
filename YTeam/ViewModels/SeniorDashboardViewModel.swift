@@ -48,7 +48,6 @@ class SeniorDashboardViewModel: ObservableObject {
         batteryService.$symptomsDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
-                print(documentChanges)
                 guard let self = self else { return }
                 self.symptoms.insert(contentsOf: self.loadInitialSymptoms(documents: documentChanges), at: 0)
             }

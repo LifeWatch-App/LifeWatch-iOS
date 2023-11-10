@@ -7,18 +7,21 @@
 
 import SwiftUI
 import FirebaseAuth
+import Firebase
 import Combine
 
 class HistoryViewModel: ObservableObject {
     @Published var falls: [Fall] = []
     @Published var sos: [SOS] = []
     @Published var idles: [Idle] = []
+    @Published var selectedUserId: String?
     @Published var charges: [Charge] = []
     @Published var heartAnomalies: [HeartAnomaly] = []
     @Published var heartbeats: [Heartbeat] = []
     @Published var groupedEmergencies: [(String, [Emergency])] = []
     @Published var groupedInactivities: [(String, [Any])] = []
     @Published var groupedHeartAnomalies: [(String, [HeartAnomaly])] = []
+    @Published var filteredSymptoms: [String: Int] = [:]
     @Published var loading: Bool = true
     @Published var loggedIn: Bool = false
     @Published var fallsCount: Int = 0
@@ -31,29 +34,32 @@ class HistoryViewModel: ObservableObject {
     @Published var totalIdleTime: String = ""
     @Published var totalChargingTime: String = ""
     @Published var avgHeartRate: Int = 0
+    @Published var symptomsTest: [Symptom] = []
     @Published var symptoms: [String : Int] = ["Headache": 0, "Fever": 0, "Fatigue": 0, "Nausea": 0, "Dizziness": 0, "Shortness of Breath": 0, "Indigestion": 0, "Constipation": 0, "Cough": 0, "Skin Rashes": 0, "Minor Injuries": 0, "Insomnia": 0, "Sore Throat": 0]
-    
-//    @Published var headache = 0
-//    @Published var fever = 0
-//    @Published var fatigue = 0
-//    @Published var nausea = 0
-//    @Published var dizziness = 0
-//    @Published var shortnessOfBreath = 0
-//    @Published var indigestion = 0
-//    @Published var constipation = 0
-//    @Published var cough = 0
-//    @Published var skinRashes = 0
-//    @Published var minorInjuries = 0
-//    @Published var insomnia = 0
-//    @Published var soreThroat = 0
+    //
+    //    @Published var headache = 0
+    //    @Published var fever = 0
+    //    @Published var fatigue = 0
+    //    @Published var nausea = 0
+    //    @Published var dizziness = 0
+    //    @Published var shortnessOfBreath = 0
+    //    @Published var indigestion = 0
+    //    @Published var constipation = 0
+    //    @Published var cough = 0
+    //    @Published var skinRashes = 0
+    //    @Published var minorInjuries = 0
+    //    @Published var insomnia = 0
+    //    @Published var soreThroat = 0
     
     var currentDay: Date = Date()
     
     private var inactivityDataTemp: [InactivityChart] = []
     private var heartbeatDataTemp: [HeartRateChart] = []
     
+    private let batteryService = BatteryChargingService.shared
     private let fallService: FallService = FallService.shared
     private let sosService: SOSService = SOSService.shared
+    private let authService = AuthService.shared
     private let inactivityService: InactivityService = InactivityService.shared
     private let heartAnomalyService: HeartAnomalyService = HeartAnomalyService.shared
     private let heartbeatService: HeartbeatService = HeartbeatService.shared
@@ -61,11 +67,7 @@ class HistoryViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        fetchCurrentWeek()
         setupEmergencySubscriber()
-        
-        // still use symptom dummy data
-//        countSymptom()
     }
     
     /// Subscribes to the FallService to check for changes, and updates `loading, loggedIn, fallsCount, falls, and groupedFalls`.
@@ -78,7 +80,6 @@ class HistoryViewModel: ObservableObject {
     ///     - None
     /// - Returns: If user is logged in, return `sorted falls only if there are the senior's falls`.
     func setupEmergencySubscriber() {
-        
         fallService.$falls
             .receive(on: DispatchQueue.main)
             .sink { [weak self] fall in
@@ -138,7 +139,75 @@ class HistoryViewModel: ObservableObject {
                 self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
+        
+        batteryService.$symptomsDocumentChanges
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] documentChanges in
+                guard let self else {return}
+                self.symptomsTest.append(contentsOf: self.loadInitialSymptoms(documents: documentChanges))
+                self.fetchCurrentWeek()
+            }
+            .store(in: &cancellables)
+        
+        authService.$selectedInviteId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] id in
+                if self?.selectedUserId != id && id != nil {
+                    self?.selectedUserId = id
+                }
+            }
+            .store(in: &cancellables)
+        
+        $selectedUserId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] id in
+                print("SelectedId", id)
+                print("From UserDefaults", UserDefaults.standard.string(forKey: "selectedSenior"))
+                self?.filteredSymptoms = [:]
+                self?.symptomsTest = []
+                self?.batteryService.observeSyptoms()
+                self?.fetchCurrentWeek()
+            }
+            .store(in: &cancellables)
     }
+    
+    
+    private func loadInitialSymptoms(documents: [DocumentChange]) -> [Symptom] {
+        var symptoms: [Symptom] = []
+        for document in documents {
+            do {
+                let symptom = try document.document.data(as: Symptom.self)
+                symptoms.append(symptom)
+            } catch {
+                print("Error: \(error)")
+            }
+        }
+        print(symptoms)
+        return symptoms
+    }
+    
+    func updateSymptoms() {
+        self.filteredSymptoms = [:]
+        let unixRanges = currentWeek.map({ Date.dateToUnix(date: $0) })
+        guard let upperUnixRange = unixRanges.first, let lowerUnixRange = unixRanges.last else { return }
+        let filteredSyptoms = symptomsTest.filter { symptom in
+            guard let symptomTime = symptom.time else { return false }
+            return symptomTime >= upperUnixRange && symptomTime <= lowerUnixRange
+        }
+        
+        for value in filteredSyptoms {
+            if let symptomName = value.name {
+                if self.filteredSymptoms[symptomName] != nil {
+                    self.filteredSymptoms[symptomName]! += 1
+                } else {
+                    self.filteredSymptoms[symptomName] = 1
+                }
+            }
+        }
+        
+        print(self.filteredSymptoms)
+    }
+    
     
     /// Updates internal properties such as `loggedIn, falls, sos, fallsCount, sosCount, and groupedEmergencies` and is only called in `setupEmergencySubscriber`.
     ///
@@ -433,13 +502,13 @@ class HistoryViewModel: ObservableObject {
         currentWeek = []
         
         let calendar = Calendar.current
-
+        
         let week = calendar.dateInterval(of: .weekOfMonth, for: self.currentDay)
-
+        
         guard let firstWeekDay = week?.start else {
             return
         }
-
+        
         (0...6).forEach { day in
             if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
                 currentWeek.append(weekday)
@@ -450,6 +519,7 @@ class HistoryViewModel: ObservableObject {
         
         withAnimation {
             self.fetchCurrentWeekData()
+            self.updateSymptoms()
             self.updateGroupedEmergencies()
             self.updateGroupedInactivities()
             self.updateGroupedHeartAnomalies()
@@ -479,7 +549,7 @@ class HistoryViewModel: ObservableObject {
                 var dateComponents = calendar.dateComponents([.year, .month, .day], from: startDate)
                 dateComponents.hour = 0
                 dateComponents.minute = 0
-
+                
                 startDate = calendar.date(from: dateComponents) ?? Date()
                 
                 return InactivityChart(day: startDate, minutes: minutes, type: "Idle")
@@ -491,7 +561,7 @@ class HistoryViewModel: ObservableObject {
                 var dateComponents = calendar.dateComponents([.year, .month, .day], from: startDate)
                 dateComponents.hour = 0
                 dateComponents.minute = 0
-
+                
                 startDate = calendar.date(from: dateComponents) ?? Date()
                 
                 return InactivityChart(day: startDate, minutes: minutes, type: "Charging")
@@ -502,7 +572,7 @@ class HistoryViewModel: ObservableObject {
         self.inactivityDataTemp = self.inactivityDataTemp.filter { $0.minutes > 0}
         
         var inactivityDictionary: [Date: [InactivityChart]] = [:]
-
+        
         for inactivity in self.inactivityDataTemp {
             let inactivityDate = inactivity.day
             if var inactivityArray = inactivityDictionary[inactivityDate] {
@@ -659,7 +729,7 @@ class HistoryViewModel: ObservableObject {
         inactivityData.forEach { data in
             if data.type == "Idle" {
                 totalIdle += data.minutes
-            } 
+            }
             if data.type == "Charging" {
                 totalCharging += data.minutes
             }
@@ -688,13 +758,13 @@ class HistoryViewModel: ObservableObject {
         avgHeartRate = avgHeartRate / dayCount
     }
     
-//    func countSymptom() {
-//        symptomsDummyData.forEach { symptom in
-//            if var symptomType = symptoms.first(where: { (key, value)->Bool in key == symptom.name }) {
-//                symptoms[symptomType.key]! += 1
-//            }
-//        }
-//    }
+    //    func countSymptom() {
+    //        symptomsDummyData.forEach { symptom in
+    //            if var symptomType = symptoms.first(where: { (key, value)->Bool in key == symptom.name }) {
+    //                symptoms[symptomType.key]! += 1
+    //            }
+    //        }
+    //    }
     
     /// Formats Date object into String.
     ///
@@ -724,7 +794,7 @@ class HistoryViewModel: ObservableObject {
     /// - Returns: true, false
     func isToday(date: Date) -> Bool {
         let calendar = Calendar.current
-
+        
         return calendar.isDate(currentDay, inSameDayAs: date)
     }
     

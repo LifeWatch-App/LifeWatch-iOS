@@ -38,7 +38,7 @@ struct HistoryView: View {
                         }
                         
                         VStack(spacing: 16) {
-                            ForEach(historyViewModel.symptoms.sorted { $0.value > $1.value }.prefix(3), id: \.key) { key, value in
+                            ForEach(historyViewModel.filteredSymptoms.sorted { $0.value > $1.value }.prefix(3), id: \.key) { key, value in
                                 HStack {
                                     Image("\(key)")
                                         .resizable()

@@ -45,7 +45,7 @@ struct SymptomCards: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: 12) {
-                ForEach(historyViewModel.symptoms.sorted { $0.value > $1.value }, id: \.key) { key, value in
+                ForEach(historyViewModel.filteredSymptoms.sorted { $0.value > $1.value }, id: \.key) { key, value in
                     VStack(alignment: .leading) {
                         HStack {
                             Image("\(key)")

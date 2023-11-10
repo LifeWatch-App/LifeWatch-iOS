@@ -139,7 +139,8 @@ final class BatteryChargingService {
     }
 
     func observeSyptoms() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let uid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
+//        guard let uid = Auth.auth().currentUser?.uid else { return }
 
         let query = FirestoreConstants.symptomsCollection
             .whereField("seniorId", isEqualTo: uid)

@@ -103,7 +103,7 @@ struct MKMapRep: UIViewRepresentable {
             }
         }
         guard let lastSeenLocation = context.coordinator.lastSeenLocation else { return }
-        let coordinateRegion = MKCoordinateRegion(center: lastSeenLocation, latitudinalMeters: 200, longitudinalMeters: 200)
+        let coordinateRegion = MKCoordinateRegion(center: lastSeenLocation, latitudinalMeters: 50, longitudinalMeters: 50)
         let lastSeenAnnotation = MarkerAnnotation(title: "Last Seen Location", coordinate: lastSeenLocation)
 
         mapView.addAnnotation(lastSeenAnnotation)

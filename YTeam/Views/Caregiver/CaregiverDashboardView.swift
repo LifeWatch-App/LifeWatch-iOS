@@ -85,7 +85,8 @@ struct CaregiverDashboardView: View {
                 .navigationTitle("Dashboard")
             }
             
-            ChangeSeniorOverlay(invites: $caregiverDashboardViewModel.invites, selectedUserId: $caregiverDashboardViewModel.selectedInviteId, showInviteSheet: $showInviteSheet, showChangeSenior: $showChangeSenior)
+            ChangeSeniorOverlay(showInviteSheet: $showInviteSheet, showChangeSenior: $showChangeSenior)
+                .environmentObject(caregiverDashboardViewModel)
         }
     }
 }
