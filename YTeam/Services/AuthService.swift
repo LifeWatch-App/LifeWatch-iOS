@@ -44,6 +44,17 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                 }
             } else {
                 print("Login Success")
+                let udid: String = UIDevice().identifierForVendor!.uuidString
+                
+                self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
+                    "udid": UIDevice().identifierForVendor?.uuidString
+                ]) { err in
+                    if let err = err {
+                        print("Error updating udid: \(err)")
+                    } else {
+                        print("UDID successfully updated to: ", udid)
+                    }
+                }
             }
             
             self.loginProviders = []
@@ -115,7 +126,8 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         
         self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
             "fcmToken": NSNull(),
-            "pttToken": NSNull()
+            "pttToken": NSNull(),
+            "udid": NSNull()
         ]) { err in
             if let err = err {
                 print("Error updating document: \(err)")
@@ -150,9 +162,13 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
             } else {
                 AuthService.shared.userData = try? querySnapshot!.data(as: UserData.self)
                 
+                let udid: String = UIDevice().identifierForVendor!.uuidString
+                
                 if AuthService.shared.userData != nil {
-                    // Check and update FCM token if needed
-                    // Get the FCM token form user defaults
+                    if AuthService.shared.userData!.udid! != udid {
+                        self.signOut()
+                    }
+                    
                     let fcmToken = UserDefaults.standard.value(forKey: "fcmToken")
                     if fcmToken != nil {
                         if (fcmToken as! String != AuthService.shared.userData?.fcmToken ?? "") {
