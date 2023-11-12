@@ -1122,8 +1122,9 @@
 				INFOPLIST_KEY_NSFallDetectionUsageDescription = "A notification will be sent to your care team if a fall has been detected";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "You can see your own heartbeat status";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Careific processes your heartbeat data for your knowledge about your own heart status";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Your heart rate history will be shared with your care team";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be shared with your care team";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1161,8 +1162,9 @@
 				INFOPLIST_KEY_NSFallDetectionUsageDescription = "A notification will be sent to your care team if a fall has been detected";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "You can see your own heartbeat status";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Careific processes your heartbeat data for your knowledge about your own heart status";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Your heart rate history will be shared with your care team";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be shared with your care team";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1199,6 +1201,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Careific;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be shared with your care team";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for the wakie-talkie feature";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1237,6 +1241,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Careific;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be shared with your care team";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for the wakie-talkie feature";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
