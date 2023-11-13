@@ -15,7 +15,8 @@ final class BatteryChargingService {
     @Published var latestLocationDocumentChanges = [DocumentChange]()
     @Published var heartRateDocumentChanges = [DocumentChange]()
     @Published var symptomsDocumentChanges = [DocumentChange]()
-    
+    @Published var symptomsLatestDocumentChanges = [DocumentChange]()
+
     func fetchBatteryLevel() async throws -> [BatteryLevel] {
         let snapshot = try await FirestoreConstants.batteryLevelCollection.getDocuments()
         let batteryLevels = snapshot.documents.compactMap({ try? $0.data(as: BatteryLevel.self) })
@@ -160,7 +161,8 @@ final class BatteryChargingService {
         let startOfDay = calendar.startOfDay(for: currentDate)
         let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
 
-        print(endOfDay.timeIntervalSince1970)
+        print("StartOfDay", startOfDay.timeIntervalSince1970)
+        print("EndOfDay", endOfDay.timeIntervalSince1970)
 
         let query = FirestoreConstants.symptomsCollection
             .whereField("seniorId", isEqualTo: uid)
@@ -171,7 +173,7 @@ final class BatteryChargingService {
         
         query.addSnapshotListener { querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.symptomsDocumentChanges = changes
+            self.symptomsLatestDocumentChanges = changes
         }
     }
 }

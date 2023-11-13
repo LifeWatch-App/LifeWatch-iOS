@@ -77,12 +77,11 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             }
             .store(in: &cancellables)
 
-        batteryService.$symptomsDocumentChanges
+        batteryService.$symptomsLatestDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
                 self.latestSymptomInfo = self.loadLatestSymptom(documents: documentChanges)
-                print(self.latestSymptomInfo)
             }
             .store(in: &cancellables)
 
