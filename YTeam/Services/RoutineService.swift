@@ -29,13 +29,12 @@ class RoutineService {
     @MainActor
     func observeAllRoutines() async throws {
         guard let userId = Auth.auth().currentUser?.uid else { return }
-        
-        print(userId)
+
         let query = FirestoreConstants.routinesCollection
                                     .whereField("seniorId", isEqualTo: userId)
         
         query.addSnapshotListener { [weak self] snapshot, _ in
-            guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
+            guard let changes = snapshot?.documentChanges.filter({ $0.type == .added || $0.type == .modified }) else { return }
             let routines = changes.compactMap({ try? $0.document.data(as: RoutineData.self) })
             self?.routines = routines
         }
@@ -51,7 +50,8 @@ class RoutineService {
     }
     
     @MainActor
-    func updateChargingRecord(routine: RoutineData) async throws {
+    func updateRoutine(routine: RoutineData) async throws {
+        print("Called")
         guard let encodedData = try? Firestore.Encoder().encode(routine) else { return }
         let documents = try await FirestoreConstants.routinesCollection.whereField("id", isEqualTo: routine.id).getDocuments().documents.first
         try await documents?.reference.updateData(encodedData)

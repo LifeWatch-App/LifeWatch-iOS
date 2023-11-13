@@ -33,12 +33,18 @@ class RoutineViewModel: ObservableObject {
     func setupRoutineSubscribers() {
         routineService.$routines
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] routine in
+            .sink { [weak self] routines in
                 guard let self else { return }
-                
-                self.routineData.append(contentsOf: routine)
-                print(routineData)
-                self.fetchCurrentWeek()
+                print("Routine Data", self.routineData)
+                print("Updated Single Data", routines)
+                for (_, routine) in routines.enumerated() {
+                    if let concurrentIndex = self.routineData.firstIndex(where: {$0.id == routine.id}) {
+                        self.routineData[concurrentIndex] = routine
+                    } else {
+                        self.routineData.append(routine)
+                    }
+                    self.fetchCurrentWeek()
+                }
             }
             .store(in: &cancellables)
     }
@@ -88,15 +94,40 @@ class RoutineViewModel: ObservableObject {
                 medicineUnit = .Tablet
             }
             
-            return Routine(id: routine.id, type: routine.type, time: routineTime, activity: routine.activity, description: routine.description, medicine: routine.medicine, medicineAmount: routine.medicineAmount, medicineUnit: medicineUnit, isDone: routine.isDone)
+            return Routine(id: routine.id, type: routine.type, seniorId: routine.seniorId, time: routineTime, activity: routine.activity, description: routine.description, medicine: routine.medicine, medicineAmount: routine.medicineAmount, medicineUnit: medicineUnit, isDone: routine.isDone)
         }
         
         self.countProgress()
     }
+    func updateSingleRoutine(routine: Routine) {
+        let routineDataDate: [Double] = routine.time.map { time in
+            return time.timeIntervalSince1970
+        }
+        
+        var newIsDone: [Bool] = routine.isDone
+        newIsDone[0].toggle()
+        
+        print("Single Update Routine", newIsDone)
+        
+        let newRoutine: RoutineData = RoutineData(id: routine.id, seniorId: routine.seniorId ?? "", type: routine.type, time: routineDataDate, activity: routine.activity ?? "", description: routine.description ?? "", medicine: routine.medicine ?? "", medicineAmount: routine.medicineAmount ?? "", medicineUnit: routine.medicineUnit?.rawValue ?? "", isDone: newIsDone)
+        
+        Task { try? await routineService.updateRoutine(routine: newRoutine)}
+    }
     
     func updateRoutine(routine: Routine, index: Int) {
-        //Add Update Routine
+        
+        let routineDataDate: [Double] = routine.time.map { time in
+            return time.timeIntervalSince1970
+        }
+        
+        var newIsDone: [Bool] = routine.isDone
+        newIsDone[index].toggle()
+        
+        let newRoutine: RoutineData = RoutineData(id: routine.id, seniorId: routine.seniorId ?? "", type: routine.type, time: routineDataDate, activity: routine.activity ?? "", description: routine.description ?? "", medicine: routine.medicine ?? "", medicineAmount: routine.medicineAmount ?? "", medicineUnit: routine.medicineUnit?.rawValue ?? "", isDone: newIsDone)
+        
+        Task { try? await routineService.updateRoutine(routine: newRoutine)}
     }
+    
     func countProgress() {
         var totalProgress: Double = 0
         
