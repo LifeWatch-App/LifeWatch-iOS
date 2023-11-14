@@ -18,7 +18,7 @@ struct SignUpView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Image("asset")
+                Image("Login")
                     .resizable()
                     .scaledToFit()
                     .padding(.horizontal, 32)

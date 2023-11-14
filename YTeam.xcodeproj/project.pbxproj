@@ -113,6 +113,8 @@
 		8D33E9212AF73E4F00C9D3C1 /* HistoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9202AF73E4F00C9D3C1 /* HistoryCard.swift */; };
 		8D33E9232AF740A200C9D3C1 /* HistoryWeekPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9222AF740A200C9D3C1 /* HistoryWeekPicker.swift */; };
 		8D33E9252AF7A4C000C9D3C1 /* RoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9242AF7A4C000C9D3C1 /* RoutineViewModel.swift */; };
+		8D3F172C2B030DE70001537E /* OnBoardingInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3F172B2B030DE70001537E /* OnBoardingInviteView.swift */; };
+		8D3F172E2B032AD00001537E /* InviteSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3F172D2B032AD00001537E /* InviteSheetView.swift */; };
 		8D672F872AF517CF00C29E63 /* BatteryCircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D672F862AF517CF00C29E63 /* BatteryCircularProgressView.swift */; };
 		8D69AB8C2B01BCF50042D456 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69AB8B2B01BCF50042D456 /* OnBoardingView.swift */; };
 		8D73C3D42AF8F23B009AFD80 /* SeniorAllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3D32AF8F23B009AFD80 /* SeniorAllRoutineView.swift */; };
@@ -279,6 +281,8 @@
 		8D33E9202AF73E4F00C9D3C1 /* HistoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCard.swift; sourceTree = "<group>"; };
 		8D33E9222AF740A200C9D3C1 /* HistoryWeekPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryWeekPicker.swift; sourceTree = "<group>"; };
 		8D33E9242AF7A4C000C9D3C1 /* RoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewModel.swift; sourceTree = "<group>"; };
+		8D3F172B2B030DE70001537E /* OnBoardingInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingInviteView.swift; sourceTree = "<group>"; };
+		8D3F172D2B032AD00001537E /* InviteSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteSheetView.swift; sourceTree = "<group>"; };
 		8D672F862AF517CF00C29E63 /* BatteryCircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryCircularProgressView.swift; sourceTree = "<group>"; };
 		8D69AB8B2B01BCF50042D456 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		8D73C3D32AF8F23B009AFD80 /* SeniorAllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorAllRoutineView.swift; sourceTree = "<group>"; };
@@ -351,6 +355,7 @@
 				8D672F862AF517CF00C29E63 /* BatteryCircularProgressView.swift */,
 				8D21B0412AF7DBF300D23BF1 /* RoutineCircularProgressView.swift */,
 				8D21B0452AF7ED0B00D23BF1 /* ChangeSeniorOverlay.swift */,
+				8D3F172D2B032AD00001537E /* InviteSheetView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -712,6 +717,7 @@
 			isa = PBXGroup;
 			children = (
 				8D69AB8B2B01BCF50042D456 /* OnBoardingView.swift */,
+				8D3F172B2B030DE70001537E /* OnBoardingInviteView.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -882,6 +888,7 @@
 				7DB24EFA2AE51E9A009A4A6D /* Emergency.swift in Sources */,
 				4C6049C52AD7948F00E9F0BF /* MainViewModel.swift in Sources */,
 				8D33E91D2AF73A3B00C9D3C1 /* HeartRateView.swift in Sources */,
+				8D3F172E2B032AD00001537E /* InviteSheetView.swift in Sources */,
 				9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */,
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
 				7D2151B12AF72416001BB9BC /* HeartAnomaly.swift in Sources */,
@@ -895,6 +902,7 @@
 				4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */,
 				4C21A3E62ADF7ECA0044E966 /* SeniorView.swift in Sources */,
 				4CA792302ADFF9A1003B5EC9 /* CaregiverDashboardView.swift in Sources */,
+				8D3F172C2B030DE70001537E /* OnBoardingInviteView.swift in Sources */,
 				8D33E91B2AF73A3500C9D3C1 /* EmergencyView.swift in Sources */,
 				4CA7922C2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift in Sources */,
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
