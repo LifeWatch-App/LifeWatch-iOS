@@ -97,6 +97,15 @@ class RoutineViewModel: ObservableObject {
             return Routine(id: routine.id, type: routine.type, seniorId: routine.seniorId, time: routineTime, activity: routine.activity, description: routine.description, medicine: routine.medicine, medicineAmount: routine.medicineAmount, medicineUnit: medicineUnit, isDone: routine.isDone)
         }
         
+        if (self.routines.count > 1) {
+            self.routines.sort { (routine1, routine2) -> Bool in
+                let time1 = routine1.time[0]
+                let time2 = routine2.time[0]
+                
+                return time1 < time2
+            }
+        }
+        
         self.countProgress()
     }
     func updateSingleRoutine(routine: Routine) {
