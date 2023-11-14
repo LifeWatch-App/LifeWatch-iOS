@@ -10,7 +10,7 @@ import SwiftUI
 struct CaregiverDashboardView: View {
     @Environment(\.colorScheme) var colorScheme
     
-    @AppStorage("inviteModel") var inviteModal = true
+    @AppStorage("inviteModal") var inviteModal = true
     
     @StateObject var caregiverDashboardViewModel = CaregiverDashboardViewModel()
     @State var showChangeSenior = false
@@ -92,6 +92,9 @@ struct CaregiverDashboardView: View {
             }
             
             ChangeSeniorOverlay(invites: $caregiverDashboardViewModel.invites, selectedUserId: $caregiverDashboardViewModel.selectedInviteId, showInviteSheet: $showInviteSheet, showChangeSenior: $showChangeSenior)
+        }
+        .fullScreenCover(isPresented: $inviteModal) {
+            OnBoardingInviteView(caregiverDashboardViewModel: caregiverDashboardViewModel)
         }
     }
 }
