@@ -20,13 +20,13 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     private let batteryService = BatteryChargingService.shared
     @Published var batteryInfo: BatteryLevel?
     @Published var latestLocationInfo: LiveLocation?
+    @Published var selectedInviteId: String?
     @Published var idleInfo: [Idle] = []
+    @Published var heartBeatInfo: Heartbeat?
     private var cancellables = Set<AnyCancellable>()
-
     @Published var showWalkieTalkie: Bool = false
     @Published var routines: [Routine] = []
-    @Published var heartRate = 90
-    @Published var location = "Outside"
+//    @Published var heartRate = 90
     @Published var inviteEmail = ""
     
     private var routineData: [RoutineData] = []
@@ -35,9 +35,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     
     override init() {
         super.init()
-        batteryService.observeIdleSpecific()
-        batteryService.observeLiveLocationSpecific()
-        batteryService.observeBatteryStateLevelSpecific()
         setupSubscribers()
         // add dummy data
 //        routines = routinesDummyData
@@ -47,9 +44,39 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
         authService.$user
             .combineLatest(authService.$userData, authService.$invites)
             .sink { [weak self] user, userData, invites in
-                self?.user = user
-                self?.userData = userData
-                self?.invites = invites
+                guard let self = self else { return }
+                if self.user != user {
+                    self.user = user
+                }
+
+                if self.userData != userData {
+                    self.userData = userData
+                }
+
+                if self.invites != invites {
+                    self.invites = invites
+                }
+            }
+            .store(in: &cancellables)
+
+        authService.$selectedInviteId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] selectedInviteId in
+                guard let self = self else { return }
+                if self.selectedInviteId != selectedInviteId {
+                    self.selectedInviteId = selectedInviteId
+                }
+            }
+            .store(in: &cancellables)
+
+        $selectedInviteId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] selectedInviteId in
+                guard let self = self else { return }
+                self.batteryService.observeIdleSpecific()
+                self.batteryService.observeLiveLocationSpecific()
+                self.batteryService.observeBatteryStateLevelSpecific()
+                self.batteryService.observeHeartRateSpecific()
             }
             .store(in: &cancellables)
 
@@ -65,6 +92,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
+                print(documentChanges.first?.document.data())
                 self.idleInfo = self.loadInitialIdleLevel(documents: documentChanges)
             }
             .store(in: &cancellables)
@@ -73,10 +101,11 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
+                print(documentChanges.first?.document.data())
                 self.latestLocationInfo = self.loadLatestLiveLocation(documents: documentChanges)
             }
             .store(in: &cancellables)
-        
+      
         routineService.$routines
             .receive(on: DispatchQueue.main)
             .sink { [weak self] routines in
@@ -130,12 +159,20 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 return time1 < time2
             }
         }
+
+         batteryService.$heartRateDocumentChanges
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] documentChanges in
+                guard let self = self else { return }
+                self.heartBeatInfo = loadInitialHeartBeat(documents: documentChanges)
+            }
+            .store(in: &cancellables)
     }
-    
+
     func sendRequestToSenior() {
         AuthService.shared.sendRequestToSenior(email: inviteEmail)
     }
-    
+
     func signOut() {
         AuthService.shared.signOut()
     }
@@ -159,5 +196,9 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
         }
 
         return idles
+    }
+
+    private func loadInitialHeartBeat(documents: [DocumentChange]) -> Heartbeat? {
+        return try? documents.first?.document.data(as: Heartbeat.self)
     }
 }

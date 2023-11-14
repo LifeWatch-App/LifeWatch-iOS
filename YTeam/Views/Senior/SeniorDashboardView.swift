@@ -22,7 +22,7 @@ struct SeniorDashboardView: View {
                         if !invite.accepted! {
                             HStack() {
                                 VStack(alignment: .leading) {
-                                    Text("\(invite.caregiverData!.name!)")
+                                    Text("\(invite.caregiverData!.name ?? "Subroto")")
                                         .font(.title3)
                                         .fontWeight(.semibold)
                                     Text("Would like to join your care team")
@@ -243,7 +243,7 @@ struct Symtomps: View {
                         .frame(height: 50)
                     
                     VStack(alignment: .leading) {
-                        Text(symptom.name)
+                        Text(symptom.name ?? "Unknown")
                             .font(.title3)
                             .fontWeight(.semibold)
                         
@@ -257,7 +257,7 @@ struct Symtomps: View {
                     
                     HStack {
                         Image(systemName: "clock")
-                        Text(symptom.time, style: .time)
+                        Text(Date.unixToDate(unix: symptom.time ?? 0), style: .time)
                             .padding(.leading, -4)
                             .font(.subheadline)
                     }

@@ -65,7 +65,7 @@ struct AddSymptomView: View {
                 Section {
                     Button {
                         // add function here
-                        
+                        Task { try? await addSymptomViewModel.createSymptomDataRecord() }
                         dismiss()
                     } label: {
                         HStack {

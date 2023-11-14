@@ -35,11 +35,8 @@ class ProfileViewModel: ObservableObject {
     }
     
     func signOut() {
+        UserDefaults.standard.removeObject(forKey: "selectedSenior")
         AuthService.shared.signOut()
-    }
-    
-    func deleteUserData() {
-        AuthService.shared.deleteUserData()
     }
     
     func deleteAccountWithPassword() {

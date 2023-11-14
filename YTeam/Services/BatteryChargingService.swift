@@ -13,6 +13,8 @@ final class BatteryChargingService {
     @Published var batteryDocumentChanges = [DocumentChange]()
     @Published var idleDocumentChanges = [DocumentChange]()
     @Published var latestLocationDocumentChanges = [DocumentChange]()
+    @Published var heartRateDocumentChanges = [DocumentChange]()
+    @Published var symptomsDocumentChanges = [DocumentChange]()
 
     func fetchBatteryLevel() async throws -> [BatteryLevel] {
         let snapshot = try await FirestoreConstants.batteryLevelCollection.getDocuments()
@@ -28,6 +30,7 @@ final class BatteryChargingService {
 
     func createBatteryLevel(batteryLevel: Int) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
+//        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
         let batteryLevelRecord: BatteryLevel = BatteryLevel(seniorId: uid, iphoneBatteryLevel: batteryLevel.description, iphoneLastUpdatedAt: Date.now.description)
         do {
             let encodedData = try Firestore.Encoder().encode(batteryLevelRecord)
@@ -41,6 +44,7 @@ final class BatteryChargingService {
 
     func updateBatteryLevel(batteryLevel: BatteryLevel) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
+//        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
         guard let encodedData = try? Firestore.Encoder().encode(batteryLevel) else { return }
         let documents = try await FirestoreConstants.batteryLevelCollection.whereField("seniorId", isEqualTo: uid).getDocuments().documents.first
         try await documents?.reference.updateData(encodedData)
@@ -52,14 +56,18 @@ final class BatteryChargingService {
     }
 
     func updateChargingRecord(chargingRange: ChargingRange) async throws {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+//        guard let uid = Auth.auth().currentUser?.uid else { return }
+
+        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
         guard let encodedData = try? Firestore.Encoder().encode(chargingRange) else { return }
-        let documents = try await FirestoreConstants.chargesCollection.whereField("seniorId", isEqualTo: uid).getDocuments().documents.first
+        let documents = try await FirestoreConstants.chargesCollection.whereField("seniorId", isEqualTo: currentUid).getDocuments().documents.first
         try await documents?.reference.updateData(encodedData)
     }
 
     func deleteChargingRecord(startCharging: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
+
+//        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
 
         print(startCharging )
         let documents = try await FirestoreConstants.chargesCollection
@@ -75,8 +83,9 @@ final class BatteryChargingService {
     }
 
     func observeBatteryStateLevelSpecific() {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
-
+//        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
+        
         let query = FirestoreConstants.batteryLevelCollection
             .whereField("seniorID", isEqualTo: currentUid)
             .limit(to: 1)
@@ -88,7 +97,8 @@ final class BatteryChargingService {
     }
 
     func observeIdleSpecific() {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+//        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
 
         let query = FirestoreConstants.idlesCollection
             .whereField("seniorId", isEqualTo: currentUid)
@@ -100,7 +110,8 @@ final class BatteryChargingService {
     }
 
     func observeLiveLocationSpecific() {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+//        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
 
         let query = FirestoreConstants.liveLocationsCollection
             .whereField("seniorId", isEqualTo: currentUid)
@@ -110,6 +121,33 @@ final class BatteryChargingService {
         query.addSnapshotListener { querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
             self.latestLocationDocumentChanges = changes
+        }
+    }
+
+    func observeHeartRateSpecific() {
+        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
+
+        let query = FirestoreConstants.heartbeatCollection
+            .whereField("seniorId", isEqualTo: currentUid)
+            .order(by: "time", descending: true)
+            .limit(to: 1)
+
+        query.addSnapshotListener { querySnapshot, error in
+            guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
+            self.heartRateDocumentChanges = changes
+        }
+    }
+
+    func observeSyptoms() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+
+        let query = FirestoreConstants.symptomsCollection
+            .whereField("seniorId", isEqualTo: uid)
+            .order(by: "time", descending: true)
+
+        query.addSnapshotListener { querySnapshot, error in
+            guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
+            self.symptomsDocumentChanges = changes
         }
     }
 }

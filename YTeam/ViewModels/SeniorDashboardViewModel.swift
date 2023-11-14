@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import FirebaseAuth
 import FirebaseStorage
+import Firebase
 import AVFoundation
 
 class SeniorDashboardViewModel: ObservableObject {
@@ -16,13 +17,14 @@ class SeniorDashboardViewModel: ObservableObject {
     @Published var user: User?
     @Published var userData: UserData?
     private let service = AuthService.shared
+    private let batteryService = BatteryChargingService.shared
     private let sosService: SOSService = SOSService.shared
     private var cancellables = Set<AnyCancellable>()
-    
+
     @Published var showAddSymptom: Bool = false
     @Published var showSOS: Bool = false
     @Published var showWalkieTalkie: Bool = false
-    
+
     @Published var routines: [Routine] = []
     @Published var symptoms: [Symptom] = []
     
@@ -30,11 +32,13 @@ class SeniorDashboardViewModel: ObservableObject {
     private let routineService: RoutineService = RoutineService.shared
     
     init() {
-        setupSubscribers()
-        
+        setupSubscribers()        
         // add dummy data
 //        routines = routinesDummyData
-        symptoms = symptomsDummyData
+
+        batteryService.observeSyptoms()
+        //        symptoms = symptomsDummyData
+
     }
 
     private func setupSubscribers() {
@@ -100,21 +104,43 @@ class SeniorDashboardViewModel: ObservableObject {
                 return time1 < time2
             }
         }
+      
+        batteryService.$symptomsDocumentChanges
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] documentChanges in
+                print(documentChanges)
+                guard let self = self else { return }
+                self.symptoms.insert(contentsOf: self.loadInitialSymptoms(documents: documentChanges), at: 0)
+            }
+            .store(in: &cancellables)
     }
-    
+
     func sendSOS() throws {
         Task{ try? await sosService.sendSOS() }
     }
-    
+
     func acceptInvite(id: String) {
         AuthService.shared.acceptInvite(id: id)
     }
-    
+
     func denyInvite(id: String) {
         AuthService.shared.denyInvite(id: id)
     }
-    
+
     func signOut() {
         AuthService.shared.signOut()
+    }
+
+    private func loadInitialSymptoms(documents: [DocumentChange]) -> [Symptom] {
+        var symptoms: [Symptom] = []
+        for document in documents {
+            do {
+                let symptom = try document.document.data(as: Symptom.self)
+                symptoms.append(symptom)
+            } catch {
+                print("Error: \(error)")
+            }
+        }
+        return symptoms
     }
 }

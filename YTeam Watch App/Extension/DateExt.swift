@@ -69,8 +69,13 @@ extension Date {
         return dateFormatter.string(from: date)
     }
 
+    static func unixToDate(unix: Double) -> Date {
+        let date = Date(timeIntervalSince1970: unix)
+        return date
+    }
 
-    static func timeDifference(unix: Double) -> (String, Double) {
+
+    static func timeDifference(unix: Double) -> (timeString: String, timeDifference: Double) {
         let currentTime = Date().timeIntervalSince1970
         let timeDifference = currentTime - unix
         if timeDifference < 60 {

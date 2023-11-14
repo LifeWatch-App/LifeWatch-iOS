@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
+import Firebase
 
-struct Symptom : Identifiable {
-    var id = UUID()
-    var name: String = ""
+struct Symptom : Hashable, Codable, Identifiable {
+    @DocumentID var id: String?
+    var name: String?
+    var seniorId: String?
     var note: String?
-    var time: Date = Date()
+    var time: Double?
 }
 
 let symptomList: [String] = [
@@ -31,9 +34,9 @@ let symptomList: [String] = [
 ]
 
 // dummy data
-let symptomsDummyData: [Symptom] = [
-    Symptom(name: "Cough", time: Date()),
-    Symptom(name: "Fever", note: "39 degrees celcius", time: Date()),
-    Symptom(name: "Nausea", time: Date()),
-    Symptom(name: "Fever", note: "41 degrees celcius", time: Date()),
-]
+//let symptomsDummyData: [Symptom] = [
+//    Symptom(name: "Cough", time: Date()),
+//    Symptom(name: "Fever", note: "39 degrees celcius", time: Date()),
+//    Symptom(name: "Nausea", time: Date()),
+//    Symptom(name: "Fever", note: "41 degrees celcius", time: Date()),
+//]

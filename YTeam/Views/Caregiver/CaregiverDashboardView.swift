@@ -56,7 +56,11 @@ struct CaregiverDashboardView: View {
                             showChangeSenior.toggle()
                         } label: {
                             HStack {
-                                Text("Subroto")
+                                if caregiverDashboardViewModel.invites.isEmpty {
+                                    Text("Add a senior")
+                                } else {
+                                    Text(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto")
+                                }
                                 
                                 Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
                                     .font(.subheadline)
@@ -81,7 +85,7 @@ struct CaregiverDashboardView: View {
                 .navigationTitle("Dashboard")
             }
             
-            ChangeSeniorOverlay(showInviteSheet: $showInviteSheet, showChangeSenior: $showChangeSenior)
+            ChangeSeniorOverlay(invites: $caregiverDashboardViewModel.invites, selectedUserId: $caregiverDashboardViewModel.selectedInviteId, showInviteSheet: $showInviteSheet, showChangeSenior: $showChangeSenior)
         }
     }
 }
@@ -192,7 +196,7 @@ struct SeniorStatus: View {
                         .font(.subheadline)
                     
                     HStack {
-                        Text("\(caregiverDashboardViewModel.heartRate)")
+                        Text("\(Int(caregiverDashboardViewModel.heartBeatInfo?.bpm ?? 0))")
                             .font(.title)
                             .bold()
                         
@@ -200,6 +204,7 @@ struct SeniorStatus: View {
                             .foregroundStyle(.secondary)
                             .font(.subheadline)
                             .padding(.leading, -4)
+                        //                            .opacity((caregiverDashboardViewModel.heartBeatInfo != nil) ? 1 : 0)
                     }
                 }
                 .padding(12)
@@ -221,12 +226,18 @@ struct SeniorStatus: View {
                     
                     Text("Location")
                         .font(.subheadline)
-
-
-                    Text("\(caregiverDashboardViewModel.latestLocationInfo?.isOutside ?? false ? "Outside" : "Home")")
-                        .font(.title2)
-                        .bold()
-                        .padding(.bottom, 6)
+                    
+                    if (caregiverDashboardViewModel.latestLocationInfo != nil) {
+                        Text("\(caregiverDashboardViewModel.latestLocationInfo?.isOutside ?? false ? "Outside" : "Home")")
+                            .font(.title2)
+                            .bold()
+                            .padding(.bottom, 6)
+                    } else {
+                        Text("No Data")
+                            .font(.title2)
+                            .bold()
+                            .padding(.bottom, 6)
+                    }
                 }
                 .padding(12)
                 .background(colorScheme == .light ? .white : Color(.systemGray6))
@@ -246,41 +257,54 @@ struct SeniorStatus: View {
                         Spacer()
                     }
                     
-                    if (caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" }) != nil) {
-                        
-                        Text("Inactive for")
-                            .font(.subheadline)
-                        
-                        HStack {
-                            Text(Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).0)
-                                .font(.title)
-                                .bold()
+                    
+                    if caregiverDashboardViewModel.idleInfo.isEmpty {
+                        VStack(alignment: .leading) {
+                            Text("Inactivity")
+                                .font(.subheadline)
                             
-                            if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).1) <= 60 {
-                                Text("min")
-                                    .foregroundStyle(.secondary)
-                                    .font(.subheadline)
-                                    .padding(.leading, -4)
-                            } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).1) <= 3600 {
-                                Text("hours")
-                                    .foregroundStyle(.secondary)
-                                    .font(.subheadline)
-                                    .padding(.leading, -4)
-                            } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).1) >= 86400 {
-                                Text("days")
-                                    .foregroundStyle(.secondary)
-                                    .font(.subheadline)
-                                    .padding(.leading, -4)
-                            }
+                            Text("No Data")
+                                .font(.title2)
+                                .bold()
                         }
-                    } else {
-                        Text("Currently")
-                            .font(.subheadline)
                         
-                        Text("Active")
-                            .font(.title2)
-                            .bold()
-                            .padding(.bottom, 6)
+                    } else {
+                        if (caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" }) != nil) {
+                            
+                            Text("Inactive for")
+                                .font(.subheadline)
+                            
+                            HStack {
+                                Text(Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeString)
+                                    .font(.title)
+                                    .bold()
+                                
+                                if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 60 {
+                                    Text("min")
+                                        .foregroundStyle(.secondary)
+                                        .font(.subheadline)
+                                        .padding(.leading, -4)
+                                } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 3600 {
+                                    Text("hours")
+                                        .foregroundStyle(.secondary)
+                                        .font(.subheadline)
+                                        .padding(.leading, -4)
+                                } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) >= 86400 {
+                                    Text("days")
+                                        .foregroundStyle(.secondary)
+                                        .font(.subheadline)
+                                        .padding(.leading, -4)
+                                }
+                            }
+                        } else {
+                            Text("Currently")
+                                .font(.subheadline)
+                            
+                            Text("Active")
+                                .font(.title2)
+                                .bold()
+                                .padding(.bottom, 6)
+                        }
                     }
                 }
                 .padding(12)
@@ -288,90 +312,89 @@ struct SeniorStatus: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
             
-            if let batteryInfo = caregiverDashboardViewModel.batteryInfo {
-                HStack(spacing: 12) {
-                    HStack(spacing: 8) {
-                        ZStack {
-                            BatteryCircularProgressView(progress: (Double(batteryInfo.watchBatteryLevel ?? "0") ?? 0) / 100, charging: batteryInfo.watchBatteryState == "charging")
-                                .frame(width: 50)
-                            
-                            
-                            Image(systemName: "applewatch")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 14)
-                                .foregroundStyle(batteryInfo.watchBatteryState == "charging" ? Color("secondary-orange") : .accent, .white)
-                        }
-                        .padding(.horizontal, 4)
+            HStack(spacing: 12) {
+                HStack(spacing: 8) {
+                    ZStack {
+                        BatteryCircularProgressView(progress: (Double(caregiverDashboardViewModel.batteryInfo?.watchBatteryLevel ?? "0") ?? 0) / 100, charging: caregiverDashboardViewModel.batteryInfo?.watchBatteryState == "charging")
+                            .frame(width: 50)
                         
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Watch Battery")
-                                .font(.caption)
-                            
-                            HStack {
-                                if batteryInfo.watchBatteryState == "charging" {
-                                    Image(systemName: "bolt.fill")
-                                        .foregroundStyle(Color("secondary-orange"))
-                                }
-                                
-                                Text("\(Double(batteryInfo.watchBatteryLevel ?? "0") ?? 0, specifier: "%.0f")%")
-                                    .font(.title3)
-                                    .fontWeight(.semibold)
-                                    .padding(.leading, batteryInfo.watchBatteryState == "charging" ? -4 : 0)
-                            }
-                            .animation(.easeInOut, value: batteryInfo.watchBatteryState)
-                            .animation(.easeInOut, value: batteryInfo.watchBatteryLevel)
-                        }
                         
-                        Spacer()
+                        Image(systemName: "applewatch")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 14)
+                            .foregroundStyle(caregiverDashboardViewModel.batteryInfo?.watchBatteryState == "charging" ? Color("secondary-orange") : .accent, .white)
                     }
-                    .padding(.leading, 8)
-                    .padding(.vertical, 12)
-                    .frame(width: (Screen.width/2)-22)
-                    .background(colorScheme == .light ? .white : Color(.systemGray6))
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .padding(.horizontal, 4)
                     
-                    HStack(spacing: 8) {
-                        ZStack {
-                            BatteryCircularProgressView(progress: (Double(batteryInfo.iphoneBatteryLevel ?? "0") ?? 0) / 100, charging: batteryInfo.iphoneBatteryState == "charging")
-                                .frame(width: 50)
-                            
-                            Image(systemName: "iphone")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 14)
-                                .foregroundStyle(batteryInfo.iphoneBatteryState == "charging" ? Color("secondary-orange") : .accent, .white)
-                        }
-                        .padding(.horizontal, 4)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Watch Battery")
+                            .font(.caption)
                         
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("iPhone Battery")
-                                .font(.caption)
-                            
-                            HStack {
-                                if batteryInfo.iphoneBatteryState == "charging" {
-                                    Image(systemName: "bolt.fill")
-                                        .foregroundStyle(Color("secondary-orange"))
-                                }
-                                
-                                Text("\(Double(batteryInfo.iphoneBatteryLevel ?? "0") ?? 0, specifier: "%.0f")%")
-                                    .font(.title3)
-                                    .fontWeight(.semibold)
-                                    .padding(.leading, batteryInfo.iphoneBatteryState == "charging" ? -4 : 0)
+                        HStack {
+                            if caregiverDashboardViewModel.batteryInfo?.watchBatteryState == "charging" {
+                                Image(systemName: "bolt.fill")
+                                    .foregroundStyle(Color("secondary-orange"))
                             }
-                            .animation(.easeInOut, value: batteryInfo.iphoneBatteryState)
-                            .animation(.easeInOut, value: batteryInfo.iphoneBatteryLevel)
+                            
+                            Text("\(Double(caregiverDashboardViewModel.batteryInfo?.watchBatteryLevel ?? "No Data") ?? 0, specifier: "%.0f")%")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .padding(.leading, caregiverDashboardViewModel.batteryInfo?.watchBatteryState == "charging" ? -4 : 0)
                         }
-                        
-                        Spacer()
+                        .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo?.watchBatteryState)
+                        .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo?.watchBatteryLevel)
                     }
-                    .padding(.leading, 8)
-                    .padding(.vertical, 12)
-                    .frame(width: (Screen.width/2)-22)
-                    .background(colorScheme == .light ? .white : Color(.systemGray6))
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    
+                    Spacer()
                 }
+                .padding(.leading, 8)
+                .padding(.vertical, 12)
+                .frame(width: (Screen.width/2)-22)
+                .background(colorScheme == .light ? .white : Color(.systemGray6))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                
+                HStack(spacing: 8) {
+                    ZStack {
+                        BatteryCircularProgressView(progress: (Double(caregiverDashboardViewModel.batteryInfo?.iphoneBatteryLevel ?? "0") ?? 0) / 100, charging: caregiverDashboardViewModel.batteryInfo?.iphoneBatteryState == "charging")
+                            .frame(width: 50)
+                        
+                        Image(systemName: "iphone")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 14)
+                            .foregroundStyle(caregiverDashboardViewModel.batteryInfo?.iphoneBatteryState == "charging" ? Color("secondary-orange") : .accent, .white)
+                    }
+                    .padding(.horizontal, 4)
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("iPhone Battery")
+                            .font(.caption)
+                        
+                        HStack {
+                            if caregiverDashboardViewModel.batteryInfo?.iphoneBatteryState == "charging" {
+                                Image(systemName: "bolt.fill")
+                                    .foregroundStyle(Color("secondary-orange"))
+                            }
+                            
+                            Text("\(Double(caregiverDashboardViewModel.batteryInfo?.iphoneBatteryLevel ?? "No Data") ?? 0, specifier: "%.0f")%")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .padding(.leading, caregiverDashboardViewModel.batteryInfo?.iphoneBatteryState == "charging" ? -4 : 0)
+                        }
+                        .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo?.iphoneBatteryState)
+                        .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo?.iphoneBatteryLevel)
+                    }
+                    
+                    Spacer()
+                }
+                .padding(.leading, 8)
+                .padding(.vertical, 12)
+                .frame(width: (Screen.width/2)-22)
+                .background(colorScheme == .light ? .white : Color(.systemGray6))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
             }
+            
         }
     }
 }
