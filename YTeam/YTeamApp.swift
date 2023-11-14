@@ -62,6 +62,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 struct YTeamApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @AppStorage("currentOnBoarding") var currentOnBoarding = 1
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -69,6 +71,16 @@ struct YTeamApp: App {
                 .task {
                     try? await PTT.shared.setupChannelManager()
                 }
+            
+//            if currentOnBoarding < 5 {
+//                OnBoardingView()
+//            } else {
+//                ContentView()
+//                    .preferredColorScheme(.light)
+//                    .task {
+//                        try? await PTT.shared.setupChannelManager()
+//                    }
+//            }
         }
     }
 }
