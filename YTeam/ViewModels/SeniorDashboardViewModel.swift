@@ -17,7 +17,7 @@ class SeniorDashboardViewModel: ObservableObject {
     @Published var user: User?
     @Published var userData: UserData?
     private let service = AuthService.shared
-    private let batteryService = BatteryChargingService.shared
+    private let symptomService = SymptomService.shared
     private let sosService: SOSService = SOSService.shared
     private var cancellables = Set<AnyCancellable>()
 
@@ -30,7 +30,7 @@ class SeniorDashboardViewModel: ObservableObject {
 
     init() {
         setupSubscribers()
-        batteryService.observeSyptoms()
+        symptomService.observeSyptoms()
         routines = routinesDummyData
         //        symptoms = symptomsDummyData
     }
@@ -45,7 +45,7 @@ class SeniorDashboardViewModel: ObservableObject {
             }
             .store(in: &cancellables)
 
-        batteryService.$symptomsDocumentChanges
+       symptomService.$symptomsDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }

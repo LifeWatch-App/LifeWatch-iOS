@@ -17,7 +17,11 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var user: User?
     @Published var userData: UserData?
     let authService = AuthService.shared
-    let batteryService = BatteryChargingService.shared
+    private let batteryService = BatteryChargingService.shared
+    private let heartRateService = HeartRateService.shared
+    private let locationService = DashboardLocationService.shared
+    private let idleService = IdleService.shared
+    private let symptomService = SymptomService.shared
     @Published var batteryInfo: BatteryLevel?
     @Published var latestLocationInfo: LiveLocation?
     @Published var selectedInviteId: String?
@@ -69,15 +73,15 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .receive(on: DispatchQueue.main)
             .sink { [weak self] selectedInviteId in
                 guard let self = self else { return }
-                self.batteryService.observeIdleSpecific()
-                self.batteryService.observeLiveLocationSpecific()
+                self.idleService.observeIdleSpecific()
+                self.locationService.observeLiveLocationSpecific()
                 self.batteryService.observeBatteryStateLevelSpecific()
-                self.batteryService.observeHeartRateSpecific()
-                self.batteryService.observeLatestSyptoms()
+                self.heartRateService.observeHeartRateSpecific()
+                self.symptomService.observeLatestSyptoms()
             }
             .store(in: &cancellables)
 
-        batteryService.$symptomsLatestDocumentChanges
+        symptomService.$symptomsLatestDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
@@ -93,7 +97,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             }
             .store(in: &cancellables)
 
-        batteryService.$idleDocumentChanges
+        idleService.$idleDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
@@ -101,7 +105,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             }
             .store(in: &cancellables)
 
-        batteryService.$latestLocationDocumentChanges
+        locationService.$latestLocationDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
@@ -109,7 +113,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             }
             .store(in: &cancellables)
 
-        batteryService.$heartRateDocumentChanges
+        heartRateService.$heartRateDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }

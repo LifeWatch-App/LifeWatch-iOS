@@ -35,34 +35,20 @@ class HistoryViewModel: ObservableObject {
     @Published var totalChargingTime: String = ""
     @Published var avgHeartRate: Int = 0
     @Published var symptomsTest: [Symptom] = []
-    @Published var symptoms: [String : Int] = ["Headache": 0, "Fever": 0, "Fatigue": 0, "Nausea": 0, "Dizziness": 0, "Shortness of Breath": 0, "Indigestion": 0, "Constipation": 0, "Cough": 0, "Skin Rashes": 0, "Minor Injuries": 0, "Insomnia": 0, "Sore Throat": 0]
-    //
-    //    @Published var headache = 0
-    //    @Published var fever = 0
-    //    @Published var fatigue = 0
-    //    @Published var nausea = 0
-    //    @Published var dizziness = 0
-    //    @Published var shortnessOfBreath = 0
-    //    @Published var indigestion = 0
-    //    @Published var constipation = 0
-    //    @Published var cough = 0
-    //    @Published var skinRashes = 0
-    //    @Published var minorInjuries = 0
-    //    @Published var insomnia = 0
-    //    @Published var soreThroat = 0
 
-    var currentDay: Date = Date()
-
+    private var currentDay: Date = Date()
     private var inactivityDataTemp: [InactivityChart] = []
     private var heartbeatDataTemp: [HeartRateChart] = []
 
-    private let batteryService = BatteryChargingService.shared
-    private let fallService: FallService = FallService.shared
-    private let sosService: SOSService = SOSService.shared
+    private let fallService = FallService.shared
+    private let sosService = SOSService.shared
     private let authService = AuthService.shared
-    private let inactivityService: InactivityService = InactivityService.shared
-    private let heartAnomalyService: HeartAnomalyService = HeartAnomalyService.shared
-    private let heartbeatService: HeartbeatService = HeartbeatService.shared
+    private let inactivityService = InactivityService.shared
+    private let heartAnomalyService = HeartAnomalyService.shared
+    private let heartbeatService = HeartbeatService.shared
+    private let heartRateService = HeartRateService.shared
+    private let locationService = DashboardLocationService.shared
+    private let symptomService = SymptomService.shared
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -140,7 +126,7 @@ class HistoryViewModel: ObservableObject {
             }
             .store(in: &cancellables)
 
-        batteryService.$symptomsDocumentChanges
+        symptomService.$symptomsDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self else {return}
@@ -161,11 +147,9 @@ class HistoryViewModel: ObservableObject {
         $selectedUserId
             .receive(on: DispatchQueue.main)
             .sink { [weak self] id in
-                print("SelectedId", id)
-                print("From UserDefaults", UserDefaults.standard.string(forKey: "selectedSenior"))
                 self?.filteredSymptoms = [:]
                 self?.symptomsTest = []
-                self?.batteryService.observeSyptoms()
+                self?.symptomService.observeSyptoms()
                 self?.fetchCurrentWeek()
             }
             .store(in: &cancellables)
