@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class AddEditRoutineViewModel: ObservableObject {
     @Published var type = "Medicine"
@@ -24,6 +25,51 @@ class AddEditRoutineViewModel: ObservableObject {
         }
     }
     @Published var medicineUnit: MedicineUnit = .Tablet
+    
+    private var routine: RoutineData = RoutineData()
+    
+    func convertRoutineDataIntoRoutine() {
+        guard let seniorId = Auth.auth().currentUser?.uid else { return }
+                
+        var unixArray: [Double] = []
+        var unitMedicine: String
+        var isDoneIndex: Int = 0
+        var isDoneArray: [Bool] = []
+        var timeIndex: Int = 0
+        
+        while (timeIndex < self.timeAmount){
+            unixArray.append(self.times[timeIndex].timeIntervalSince1970)
+            timeIndex += 1
+        }
+        
+        switch (self.medicineUnit) {
+        case .Tablet:
+            unitMedicine = "Tablet"
+        case .Pill:
+            unitMedicine = "Pill"
+        case .Gram:
+            unitMedicine = "Gram"
+        case .Litre:
+            unitMedicine = "Litre"
+        case .Mililitre:
+            unitMedicine = "Mililitre"
+        case .CC:
+            unitMedicine = "CC"
+        }
+        
+        while (isDoneIndex < self.timeAmount) {
+            isDoneArray.append(false)
+            isDoneIndex += 1
+        }
+        
+        self.routine = RoutineData(id: UUID().uuidString, seniorId: seniorId, type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
+        
+        Task {await self.sendRoutine()}
+    }
+    
+    func sendRoutine() async {
+        Task {try? await RoutineService.shared.sendRoutine(routine: self.routine)}
+    }
 }
 
 enum MedicineUnit: String, CaseIterable, Identifiable {

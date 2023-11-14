@@ -85,6 +85,8 @@
 		7D0508E72AF9F6C800439E75 /* SOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0508E62AF9F6C800439E75 /* SOS.swift */; };
 		7D0508E92AF9FADA00439E75 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0508E82AF9FADA00439E75 /* AudioManager.swift */; };
 		7D0508ED2AF9FB5900439E75 /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7D0508EC2AF9FB5800439E75 /* alert.mp3 */; };
+		7D0508EF2AFC7A0100439E75 /* RoutineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0508EE2AFC7A0100439E75 /* RoutineService.swift */; };
+		7D0508F12AFC7A7800439E75 /* RoutineData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0508F02AFC7A7800439E75 /* RoutineData.swift */; };
 		7D2151AF2AF723D8001BB9BC /* HeartAnomalyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */; };
 		7D2151B12AF72416001BB9BC /* HeartAnomaly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151B02AF72416001BB9BC /* HeartAnomaly.swift */; };
 		7D2151B32AF8734C001BB9BC /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151B22AF8734C001BB9BC /* Heartbeat.swift */; };
@@ -252,6 +254,8 @@
 		7D0508E62AF9F6C800439E75 /* SOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOS.swift; sourceTree = "<group>"; };
 		7D0508E82AF9FADA00439E75 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		7D0508EC2AF9FB5800439E75 /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = alert.mp3; path = Shared/Sounds/alert.mp3; sourceTree = SOURCE_ROOT; };
+		7D0508EE2AFC7A0100439E75 /* RoutineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineService.swift; sourceTree = "<group>"; };
+		7D0508F02AFC7A7800439E75 /* RoutineData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineData.swift; sourceTree = "<group>"; };
 		7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomalyService.swift; sourceTree = "<group>"; };
 		7D2151B02AF72416001BB9BC /* HeartAnomaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomaly.swift; sourceTree = "<group>"; };
 		7D2151B22AF8734C001BB9BC /* Heartbeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
@@ -390,6 +394,7 @@
 				7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */,
 				4CCDD5592AF634BA00146330 /* PTTService.swift */,
 				7D2151B62AF8F1CA001BB9BC /* HeartbeatService.swift */,
+				7D0508EE2AFC7A0100439E75 /* RoutineService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -435,6 +440,7 @@
 				8DED839C2AF663C900AFB95B /* Routine.swift */,
 				8DED839E2AF664CD00AFB95B /* Symptom.swift */,
 				8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */,
+				7D0508F02AFC7A7800439E75 /* RoutineData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -916,6 +922,7 @@
 				8D73C3D42AF8F23B009AFD80 /* SeniorAllRoutineView.swift in Sources */,
 				8D33E91F2AF73A6100C9D3C1 /* InactivityView.swift in Sources */,
 				8D21B03A2AF7A4F200D23BF1 /* RoutineView.swift in Sources */,
+				7D0508EF2AFC7A0100439E75 /* RoutineService.swift in Sources */,
 				8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */,
 				4C0F8A3E2AE784CD002E8578 /* SignInWithAppleButton.swift in Sources */,
 				4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */,
@@ -939,6 +946,7 @@
 				9322F6102AEFA8A80013B0AB /* MKMapRep.swift in Sources */,
 				93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */,
 				8D672F872AF517CF00C29E63 /* BatteryCircularProgressView.swift in Sources */,
+				7D0508F12AFC7A7800439E75 /* RoutineData.swift in Sources */,
 				8D21B03C2AF7AD7500D23BF1 /* AddEditRoutineView.swift in Sources */,
 				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
 			);
