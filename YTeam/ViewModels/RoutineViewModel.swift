@@ -21,6 +21,9 @@ class RoutineViewModel: ObservableObject {
     private var routineData: [RoutineData] = []
     private var cancellables = Set<AnyCancellable>()
     
+    @Published var selectedUserId: String?
+    private let authService = AuthService.shared
+    
     private let routineService: RoutineService = RoutineService.shared
     
     init() {
@@ -31,6 +34,27 @@ class RoutineViewModel: ObservableObject {
     }
     
     func setupRoutineSubscribers() {
+        authService.$selectedInviteId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] id in
+                if self?.selectedUserId != id && id != nil {
+                    self?.selectedUserId = id
+                }
+            }
+            .store(in: &cancellables)
+
+        $selectedUserId
+            .combineLatest(authService.$userData)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] id, userData in
+                if id != nil && userData != nil {
+                    self?.routineData = []
+
+                    self?.routineService.observeAllRoutines(userData: userData)
+                }
+            }
+            .store(in: &cancellables)
+        
         routineService.$routines
             .receive(on: DispatchQueue.main)
             .sink { [weak self] routines in
