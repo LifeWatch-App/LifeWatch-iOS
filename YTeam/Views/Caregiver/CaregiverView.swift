@@ -31,6 +31,11 @@ struct CaregiverView: View {
                 .tabItem {
                     Label("History", systemImage: "chart.bar.fill")
                 }
+            
+            ConsultationView()
+                .tabItem {
+                    Label("AI Consultation", systemImage: "bubble.left.and.text.bubble.right.fill")
+                }
         }
     }
 }

@@ -125,7 +125,6 @@ struct SeniorStatus: View {
                     .scaledToFit()
                     .frame(width: 50)
 
-
                 VStack(alignment: .leading) {
                     HStack {
                         Text(caregiverDashboardViewModel.latestSymptomInfo == nil ? "Safe Condition" : "Symptoms Detected")
