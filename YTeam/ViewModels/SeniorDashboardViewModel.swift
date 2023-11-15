@@ -34,7 +34,6 @@ class SeniorDashboardViewModel: ObservableObject {
     init() {
         setupSubscribers()
         symptomService.observeSyptoms()
-        batteryService.observeSyptoms()
         // add dummy data
 //        routines = routinesDummyData
         //        symptoms = symptomsDummyData
