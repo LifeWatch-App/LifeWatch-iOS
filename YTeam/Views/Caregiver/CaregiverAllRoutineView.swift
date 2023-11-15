@@ -13,11 +13,12 @@ struct CaregiverAllRoutineView: View {
     @ObservedObject var caregiverDashboardViewModel: CaregiverDashboardViewModel
     
     var body: some View {
-        ScrollView {
-            VStack {
-                ForEach(caregiverDashboardViewModel.routines) { routine in
-                    ForEach(routine.time.indices, id: \.self) { i in
-                        
+        if caregiverDashboardViewModel.routines.count > 0 {
+            ScrollView {
+                VStack {
+                    ForEach(caregiverDashboardViewModel.routines) { routine in
+                        ForEach(routine.time.indices, id: \.self) { i in
+                            
                             HStack(spacing: 16) {
                                 VStack {
                                     Image(systemName: routine.type == "Medicine" ? "pill.fill" : "figure.run")
@@ -56,14 +57,22 @@ struct CaregiverAllRoutineView: View {
                             .background(colorScheme == .light ? .white : Color(.systemGray6))
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             .frame(width: Screen.width - 32)
-                        
+                            
+                        }
                     }
                 }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
+            .background(Color(.systemGroupedBackground))
+            .navigationTitle("Senior Routines")
+        } else {
+            ContentUnavailableView {
+                Label("Routines not Set", systemImage: "pills.fill")
+            } description: {
+                Text("To set your senior's routine and medicine schedule, go directly to the routine tab.")
+            }
+            .background(Color(.systemGroupedBackground))
         }
-        .background(Color(.systemGroupedBackground))
-        .navigationTitle("Senior Routines")
     }
 }
 
