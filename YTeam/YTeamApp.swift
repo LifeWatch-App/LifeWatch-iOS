@@ -66,21 +66,15 @@ struct YTeamApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .preferredColorScheme(.light)
-                .task {
-                    try? await PTT.shared.setupChannelManager()
-                }
-            
-//            if currentOnBoarding < 5 {
-//                OnBoardingView()
-//            } else {
-//                ContentView()
-//                    .preferredColorScheme(.light)
-//                    .task {
-//                        try? await PTT.shared.setupChannelManager()
-//                    }
-//            }
+            if currentOnBoarding < 5 {
+                OnBoardingView()
+            } else {
+                ContentView()
+                    .preferredColorScheme(.light)
+                    .task {
+                        try? await PTT.shared.setupChannelManager()
+                    }
+            }
         }
     }
 }

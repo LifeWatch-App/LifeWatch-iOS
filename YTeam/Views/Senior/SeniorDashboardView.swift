@@ -10,6 +10,8 @@ import SwiftUI
 struct SeniorDashboardView: View {
     @Environment(\.colorScheme) var colorScheme
     
+    @AppStorage("emailModal") var emailModal = true
+    
     @StateObject var seniorDashboardViewModel = SeniorDashboardViewModel()
     
     var body: some View {
@@ -73,6 +75,9 @@ struct SeniorDashboardView: View {
                 }
             }
             .navigationTitle("Dashboard")
+            .fullScreenCover(isPresented: $emailModal) {
+                OnBoardingEmailView()
+            }
         }
     }
 }
