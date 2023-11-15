@@ -12,7 +12,7 @@ class RoutineService {
     static let shared: RoutineService = RoutineService()
     
     @Published var routines: [RoutineData] = []
-    
+    @Published var deletedRoutine: [RoutineData] = []
 //    init() {
 //        Task{try? await observeAllRoutines()}
 //    }
@@ -42,6 +42,29 @@ class RoutineService {
             let routines = changes.compactMap({ try? $0.document.data(as: RoutineData.self) })
             self?.routines = routines
         }
+    }
+    
+    func observeAllDeletedRoutines(userData: UserData?) {
+        let uid: String?
+        if userData?.role == "caregiver" {
+            uid = UserDefaults.standard.string(forKey: "selectedSenior")
+        } else {
+            uid = Auth.auth().currentUser?.uid
+        }
+
+        let query = FirestoreConstants.routinesCollection
+            .whereField("seniorId", isEqualTo: uid ?? "")
+        
+        query.addSnapshotListener { [weak self] snapshot, _ in
+            guard let changes = snapshot?.documentChanges.filter({ $0.type == .removed }) else { return }
+            let routines = changes.compactMap({ try? $0.document.data(as: RoutineData.self) })
+            print("Routines", routines)
+            self?.deletedRoutine = routines
+        }
+    }
+    
+    func removeDeletedRoutines() {
+        self.deletedRoutine = []
     }
     
     @MainActor
