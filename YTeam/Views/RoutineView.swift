@@ -100,10 +100,10 @@ struct RoutineView: View {
                                             Spacer()
                                             
                                             Button {
-                                                // change done status here
-                                                
+                                                // change done status here - single
+                                                routineViewModel.updateSingleRoutine(routine: routine)
                                             } label: {
-                                                Image(systemName: "circle")
+                                                Image(systemName: routine.isDone[0] ? "checkmark.circle.fill" : "circle")
                                                     .resizable()
                                                     .scaledToFit()
                                                     .frame(width: 45)
@@ -137,7 +137,7 @@ struct RoutineView: View {
                                                     .font(.title3)
                                                     .fontWeight(.semibold)
                                                 
-                                                Text("1 remaining")
+                                                Text("\(routine.isDone.filter {$0 == false}.count) remaining")
                                                     .font(.subheadline)
                                             }
                                             
@@ -161,7 +161,7 @@ struct RoutineView: View {
                                                 VStack {
                                                     Button {
                                                         // change done status here
-                                                        
+                                                        routineViewModel.updateRoutine(routine: routine, index: i)
                                                     } label: {
                                                         Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
                                                             .resizable()

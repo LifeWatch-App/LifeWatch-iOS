@@ -8,15 +8,18 @@
 import Foundation
 
 struct Routine: Identifiable {
-    var id = UUID()
-    var type = ""
-    var time: [Date] = [Date(), Date(), Date()]
+    var id: String = ""
+    var type: String  = ""
+    var seniorId: String?
+//    var time: [Date] = [Date(), Date(), Date()]
+    var time: [Date] = []
     var activity: String?
     var description: String?
     var medicine: String?
     var medicineAmount: String?
     var medicineUnit: MedicineUnit?
-    var isDone: [Bool] = [false, false, false]
+    var isDone: [Bool] = []
+//    var isDone: [Bool] = [false, false, false]
 }
 
 // dummy data
