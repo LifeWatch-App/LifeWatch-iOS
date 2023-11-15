@@ -242,10 +242,11 @@ struct Symtomps: View {
             
             ForEach(seniorDashboardViewModel.symptoms) { symptom in
                 HStack(spacing: 16) {
-                    Image("safe")
+                    Image(symptom.name ?? "Unknown")
                         .resizable()
                         .scaledToFit()
                         .frame(height: 50)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                     
                     VStack(alignment: .leading) {
                         Text(symptom.name ?? "Unknown")

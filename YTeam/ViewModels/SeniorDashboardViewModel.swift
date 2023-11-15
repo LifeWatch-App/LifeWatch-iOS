@@ -65,6 +65,14 @@ class SeniorDashboardViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+        
+        symptomService.$symptomsDocumentChangesToday
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] documentChanges in
+                guard let self = self else { return }
+                self.symptoms.insert(contentsOf: self.loadInitialSymptoms(documents: documentChanges), at: 0)
+            }
+            .store(in: &cancellables)
     }
     
     func convertRoutineDataToRoutine() {
