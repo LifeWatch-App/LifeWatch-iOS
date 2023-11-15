@@ -9,8 +9,9 @@ import SwiftUI
 
 struct ChangeSeniorOverlay: View {
     @Environment(\.colorScheme) var colorScheme
-    @Binding var invites: [Invite]
-    @Binding var selectedUserId: String?
+    @EnvironmentObject var vm: CaregiverDashboardViewModel
+//    @Binding var invites: [Invite]
+//    @Binding var selectedUserId: String?
     @Binding var showInviteSheet: Bool
     @Binding var showChangeSenior: Bool
     let service = AuthService.shared
@@ -28,11 +29,13 @@ struct ChangeSeniorOverlay: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 16) {
                                 // Foreach seniornya
-                                ForEach(invites) { invite in
+                                ForEach(vm.invites) { invite in
                                     if invite.accepted ?? false {
                                         Button {
-                                            if selectedUserId != invite.seniorId {
-                                                selectedUserId = invite.seniorId
+                                            if vm.selectedInviteId != invite.seniorId {
+                                                //CHANGES AUTHSERVICESENIORID HERE
+                                                vm.authService.selectedInviteId = invite.seniorId
+                                                /*electedUserId = invite.seniorId*/
                                                 UserDefaults.standard.set(invite.seniorId, forKey: "selectedSenior")
                                                 print(UserDefaults.standard.object(forKey: "selectedSenior"))
                                             }
@@ -52,7 +55,7 @@ struct ChangeSeniorOverlay: View {
                                                     }
 
                                                     // if selected
-                                                    if selectedUserId == invite.seniorId {
+                                                    if vm.selectedInviteId == invite.seniorId {
                                                         Image(systemName: "checkmark.circle.fill")
                                                             .foregroundStyle(.white, Color("secondary-green"))
                                                     }

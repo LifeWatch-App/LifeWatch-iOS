@@ -87,8 +87,6 @@ final class MapViewModel: NSObject, ObservableObject {
             documentData.addressArray = documentData.locationName?.components(separatedBy: ",") ?? []
             liveLocations.append(documentData)
         }
-
-        print("LiveLocs", liveLocations)
         return liveLocations
     }
 
@@ -99,7 +97,7 @@ final class MapViewModel: NSObject, ObservableObject {
             return nil
         }
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        return MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+        return MKCoordinateRegion(center: coordinate, latitudinalMeters: 400, longitudinalMeters: 400)
     }
 }
 

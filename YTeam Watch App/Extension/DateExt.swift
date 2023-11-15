@@ -74,6 +74,10 @@ extension Date {
         return date
     }
 
+    static func dateToUnix(date: Date) -> Double {
+        return date.timeIntervalSince1970
+    }
+
 
     static func timeDifference(unix: Double) -> (timeString: String, timeDifference: Double) {
         let currentTime = Date().timeIntervalSince1970

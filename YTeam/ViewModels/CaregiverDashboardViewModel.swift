@@ -16,17 +16,22 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var invites: [Invite] = []
     @Published var user: User?
     @Published var userData: UserData?
-    private let authService = AuthService.shared 
+    let authService = AuthService.shared
     private let batteryService = BatteryChargingService.shared
+    private let heartRateService = HeartRateService.shared
+    private let locationService = DashboardLocationService.shared
+    private let idleService = IdleService.shared
+    private let symptomService = SymptomService.shared
     @Published var batteryInfo: BatteryLevel?
     @Published var latestLocationInfo: LiveLocation?
     @Published var selectedInviteId: String?
     @Published var idleInfo: [Idle] = []
     @Published var heartBeatInfo: Heartbeat?
+    @Published var latestSymptomInfo: Symptom?
     private var cancellables = Set<AnyCancellable>()
     @Published var showWalkieTalkie: Bool = false
     @Published var routines: [Routine] = []
-//    @Published var heartRate = 90
+    //    @Published var heartRate = 90
     @Published var inviteEmail = ""
     
     private var routineData: [RoutineData] = []
@@ -73,10 +78,19 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .receive(on: DispatchQueue.main)
             .sink { [weak self] selectedInviteId in
                 guard let self = self else { return }
-                self.batteryService.observeIdleSpecific()
-                self.batteryService.observeLiveLocationSpecific()
+                self.idleService.observeIdleSpecific()
+                self.locationService.observeLiveLocationSpecific()
                 self.batteryService.observeBatteryStateLevelSpecific()
-                self.batteryService.observeHeartRateSpecific()
+                self.heartRateService.observeHeartRateSpecific()
+                self.symptomService.observeLatestSyptoms()
+            }
+            .store(in: &cancellables)
+
+        symptomService.$symptomsLatestDocumentChanges
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] documentChanges in
+                guard let self = self else { return }
+                self.latestSymptomInfo = self.loadLatestSymptom(documents: documentChanges)
             }
             .store(in: &cancellables)
 
@@ -88,20 +102,18 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             }
             .store(in: &cancellables)
 
-        batteryService.$idleDocumentChanges
+        idleService.$idleDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
-                print(documentChanges.first?.document.data())
                 self.idleInfo = self.loadInitialIdleLevel(documents: documentChanges)
             }
             .store(in: &cancellables)
 
-        batteryService.$latestLocationDocumentChanges
+        locationService.$latestLocationDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
-                print(documentChanges.first?.document.data())
                 self.latestLocationInfo = self.loadLatestLiveLocation(documents: documentChanges)
             }
             .store(in: &cancellables)
@@ -160,7 +172,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             }
         }
 
-         batteryService.$heartRateDocumentChanges
+        heartRateService.$heartRateDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
@@ -179,6 +191,10 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
 
     private func loadLatestLiveLocation(documents: [DocumentChange]) -> LiveLocation? {
         return try? documents.first?.document.data(as: LiveLocation.self)
+    }
+
+    private func loadLatestSymptom(documents: [DocumentChange]) -> Symptom? {
+        return try? documents.first?.document.data(as: Symptom.self)
     }
 
     private func loadInitialBatteryLevel(documents: [DocumentChange]) -> BatteryLevel? {

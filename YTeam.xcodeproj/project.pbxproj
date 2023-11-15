@@ -146,6 +146,10 @@
 		9322F6142AEFB0DE0013B0AB /* MarkerAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9322F6132AEFB0DE0013B0AB /* MarkerAnnotation.swift */; };
 		9322F6162AF002130013B0AB /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9322F6152AF002130013B0AB /* LocationService.swift */; };
 		9322F6182AF1F2C60013B0AB /* CLPlacemarkExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9322F6172AF1F2C60013B0AB /* CLPlacemarkExt.swift */; };
+		93614CD92B030183003350F1 /* DashboardLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93614CD82B030183003350F1 /* DashboardLocationService.swift */; };
+		93614CDB2B030197003350F1 /* HeartRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93614CDA2B030197003350F1 /* HeartRateService.swift */; };
+		93614CDE2B0301B6003350F1 /* IdleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93614CDD2B0301B6003350F1 /* IdleService.swift */; };
+		93614CE02B0301C4003350F1 /* SymptomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93614CDF2B0301C4003350F1 /* SymptomService.swift */; };
 		93B898EE2AE616C3005E1678 /* BatteryLevelRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */; };
 		93B898FA2AE76DB6005E1678 /* BatteryLevelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898F92AE76DB6005E1678 /* BatteryLevelViewModel.swift */; };
 		93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */; };
@@ -315,6 +319,10 @@
 		9322F6132AEFB0DE0013B0AB /* MarkerAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerAnnotation.swift; sourceTree = "<group>"; };
 		9322F6152AF002130013B0AB /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		9322F6172AF1F2C60013B0AB /* CLPlacemarkExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLPlacemarkExt.swift; sourceTree = "<group>"; };
+		93614CD82B030183003350F1 /* DashboardLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardLocationService.swift; sourceTree = "<group>"; };
+		93614CDA2B030197003350F1 /* HeartRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateService.swift; sourceTree = "<group>"; };
+		93614CDD2B0301B6003350F1 /* IdleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleService.swift; sourceTree = "<group>"; };
+		93614CDF2B0301C4003350F1 /* SymptomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomService.swift; sourceTree = "<group>"; };
 		93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryLevelRecord.swift; sourceTree = "<group>"; };
 		93B898F92AE76DB6005E1678 /* BatteryLevelViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryLevelViewModel.swift; sourceTree = "<group>"; };
 		93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryLevel.swift; sourceTree = "<group>"; };
@@ -401,6 +409,10 @@
 				7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */,
 				4CCDD5592AF634BA00146330 /* PTTService.swift */,
 				7D2151B62AF8F1CA001BB9BC /* HeartbeatService.swift */,
+				93614CD82B030183003350F1 /* DashboardLocationService.swift */,
+				93614CDA2B030197003350F1 /* HeartRateService.swift */,
+				93614CDD2B0301B6003350F1 /* IdleService.swift */,
+				93614CDF2B0301C4003350F1 /* SymptomService.swift */,
 				7D0508EE2AFC7A0100439E75 /* RoutineService.swift */,
 			);
 			path = Services;
@@ -899,6 +911,7 @@
 				8D33E91D2AF73A3B00C9D3C1 /* HeartRateView.swift in Sources */,
 				8D3F172E2B032AD00001537E /* InviteSheetView.swift in Sources */,
 				9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */,
+				93614CDB2B030197003350F1 /* HeartRateService.swift in Sources */,
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
 				7D2151B12AF72416001BB9BC /* HeartAnomaly.swift in Sources */,
 				4CB0157F2AD4E5F60023C71E /* LoginView.swift in Sources */,
@@ -922,6 +935,7 @@
 				7DB4E0CC2AEA063100270F2C /* AudioPlayerManager.swift in Sources */,
 				8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */,
 				7DB24EF62AE51E79009A4A6D /* SOS.swift in Sources */,
+				93614CD92B030183003350F1 /* DashboardLocationService.swift in Sources */,
 				8D33E9232AF740A200C9D3C1 /* HistoryWeekPicker.swift in Sources */,
 				93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
@@ -932,6 +946,7 @@
 				4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */,
 				7D02E7A02ADFB35D00923AFB /* Charge.swift in Sources */,
 				8D73C3D42AF8F23B009AFD80 /* SeniorAllRoutineView.swift in Sources */,
+				93614CE02B0301C4003350F1 /* SymptomService.swift in Sources */,
 				8D33E91F2AF73A6100C9D3C1 /* InactivityView.swift in Sources */,
 				8D21B03A2AF7A4F200D23BF1 /* RoutineView.swift in Sources */,
 				7D0508EF2AFC7A0100439E75 /* RoutineService.swift in Sources */,
@@ -947,6 +962,7 @@
 				7D02E7982ADE892500923AFB /* Fall.swift in Sources */,
 				93D4FA5E2AF4A160000850CE /* CardShape.swift in Sources */,
 				7D9D41DA2AE62EA200818908 /* InactivityService.swift in Sources */,
+				93614CDE2B0301B6003350F1 /* IdleService.swift in Sources */,
 				4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */,
 				4CB9AE582AEA0E26008F4381 /* ProfileView.swift in Sources */,
 				7D2151B32AF8734C001BB9BC /* Heartbeat.swift in Sources */,
