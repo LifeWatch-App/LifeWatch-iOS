@@ -27,6 +27,7 @@ final class LocationService {
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
             self.documentChangesHomeLocation = changes
         }
+        
     }
 
     func observeLiveLocationSpecific() {

@@ -70,7 +70,6 @@ struct YTeamApp: App {
                 OnBoardingView()
             } else {
                 ContentView()
-                    .preferredColorScheme(.light)
                     .task {
                         try? await PTT.shared.setupChannelManager()
                     }

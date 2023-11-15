@@ -13,6 +13,7 @@ import MapKit
 
 final class MapViewModel: NSObject, ObservableObject {
     @Published var mapRegion: MKCoordinateRegion?
+    @Published var selectedUserId: String?
     @Published var mapRegion2: MKCoordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 39.23165776, longitude: -122.03069996), latitudinalMeters: 50, longitudinalMeters: 50)
     @Published var lastSeenLocation: CLLocationCoordinate2D?
     @Published var allLocations: [LiveLocation] = []
@@ -21,23 +22,53 @@ final class MapViewModel: NSObject, ObservableObject {
     @Published var shouldSelect: Bool = false
     @Published var selectedPlacemark: CLLocationCoordinate2D?
     var cancellables = Set<AnyCancellable>()
-    private let service = LocationService()
+    private let service = LocationService.shared
+    private let authService = AuthService.shared
 
     override init() {
         super.init()
-        service.observeHomeLocationSpecific()
-        service.observeLiveLocationSpecific()
-        service.observeAllLiveLocation()
         setupSubscribers()
     }
 
     private func setupSubscribers() {
+
+        authService.$selectedInviteId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] id in
+                if self?.selectedUserId != id && id != nil {
+                    self?.selectedUserId = id
+                }
+            }
+            .store(in: &cancellables)
+
+        $selectedUserId
+            .combineLatest(authService.$userData)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] id, userData in
+                if id != nil && userData != nil {
+                    print("Entered here man")
+                    self?.allLocations = []
+                    self?.recenter = false
+                    self?.zoomOut = false
+                    self?.shouldSelect = false
+                    self?.lastSeenLocation = nil
+                    self?.selectedPlacemark = nil
+                    self?.mapRegion = nil
+                    self?.service.observeHomeLocationSpecific()
+                    self?.service.observeLiveLocationSpecific()
+                    self?.service.observeAllLiveLocation()
+                }
+            }
+            .store(in: &cancellables)
+
+
         service.$documentChangesHomeLocation
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 print(documentChanges)
                 guard let self = self else { return }
                 withAnimation {
+                    print(documentChanges)
                     self.mapRegion = self.loadLatestHomeLocation(documents: documentChanges)
                 }
             }
