@@ -34,6 +34,7 @@ struct FallNotificationView: View {
             Button {
                 fallManager.cancelFallStatus()
                 coreMotionManager.cancelFallStatus()
+                coreMotionManager.startAccelerometer()
                 self.presentationMode.wrappedValue.dismiss()
                 self.pressedCancel = true
             } label: {
@@ -55,6 +56,7 @@ struct FallNotificationView: View {
             self.presentationMode.wrappedValue.dismiss()
             if (!pressedCancel) {
                 fallManager.sendFall()
+                coreMotionManager.startAccelerometer()
             }
             self.pressedCancel = false
         }
