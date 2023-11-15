@@ -123,8 +123,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .receive(on: DispatchQueue.main)
             .sink { [weak self] routines in
                 guard let self else { return }
-                print("Routine Data", self.routineData)
-                print("Updated Single Data", routines)
                 for (_, routine) in routines.enumerated() {
                     if let concurrentIndex = self.routineData.firstIndex(where: {$0.id == routine.id}) {
                         self.routineData[concurrentIndex] = routine

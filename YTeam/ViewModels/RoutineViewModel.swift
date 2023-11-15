@@ -21,22 +21,46 @@ class RoutineViewModel: ObservableObject {
     private var routineData: [RoutineData] = []
     private var cancellables = Set<AnyCancellable>()
     
+    @Published var selectedUserId: String?
+    private let authService = AuthService.shared
+    
     private let routineService: RoutineService = RoutineService.shared
     
     init() {
         setupRoutineSubscribers()
         fetchCurrentWeek()
-//        routines = routinesDummyData
+        //        routines = routinesDummyData
         countProgress()
     }
     
     func setupRoutineSubscribers() {
+        authService.$selectedInviteId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] id in
+                if self?.selectedUserId != id && id != nil {
+                    self?.selectedUserId = id
+                }
+            }
+            .store(in: &cancellables)
+        
+        $selectedUserId
+            .combineLatest(authService.$userData)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] id, userData in
+                if id != nil && userData != nil {
+                    self?.routineData = []
+                    
+                    self?.routineService.observeAllRoutines(userData: userData)
+                    self?.routineService.observeAllDeletedRoutines(userData: userData)
+                }
+            }
+            .store(in: &cancellables)
+        
         routineService.$routines
             .receive(on: DispatchQueue.main)
             .sink { [weak self] routines in
                 guard let self else { return }
-                print("Routine Data", self.routineData)
-                print("Updated Single Data", routines)
+
                 for (_, routine) in routines.enumerated() {
                     if let concurrentIndex = self.routineData.firstIndex(where: {$0.id == routine.id}) {
                         self.routineData[concurrentIndex] = routine
@@ -45,6 +69,21 @@ class RoutineViewModel: ObservableObject {
                     }
                     self.fetchCurrentWeek()
                 }
+                
+            }
+            .store(in: &cancellables)
+        
+        routineService.$deletedRoutine
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] routines in
+                guard let self else { return }
+                guard routines.count > 0 else {return}
+                print(routines)
+                if let index = self.routineData.firstIndex(where: { $0.id == routines[0].id }) {
+                    self.routineData.remove(at: index)
+                }
+                routineService.removeDeletedRoutines()
+                self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
     }
@@ -53,16 +92,16 @@ class RoutineViewModel: ObservableObject {
         currentWeek = []
         
         let calendar = Calendar.current
-
+        
         let week = calendar.dateInterval(of: .weekOfMonth, for: self.currentDay)
-
+        
         guard let firstWeekDay = week?.start else {
             return
         }
-
+        
         (0...6).forEach { day in
             if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
-//                weekday = calendar.date(byAdding: .hour, value: 7, to: weekday) ?? Date()
+                //                weekday = calendar.date(byAdding: .hour, value: 7, to: weekday) ?? Date()
                 currentWeek.append(weekday)
             }
         }
@@ -108,7 +147,7 @@ class RoutineViewModel: ObservableObject {
         
         self.countProgress()
     }
-    func updateSingleRoutine(routine: Routine) {
+    func updateSingleRoutineCheck(routine: Routine) {
         let routineDataDate: [Double] = routine.time.map { time in
             return time.timeIntervalSince1970
         }
@@ -116,14 +155,12 @@ class RoutineViewModel: ObservableObject {
         var newIsDone: [Bool] = routine.isDone
         newIsDone[0].toggle()
         
-        print("Single Update Routine", newIsDone)
-        
         let newRoutine: RoutineData = RoutineData(id: routine.id, seniorId: routine.seniorId ?? "", type: routine.type, time: routineDataDate, activity: routine.activity ?? "", description: routine.description ?? "", medicine: routine.medicine ?? "", medicineAmount: routine.medicineAmount ?? "", medicineUnit: routine.medicineUnit?.rawValue ?? "", isDone: newIsDone)
         
         Task { try? await routineService.updateRoutine(routine: newRoutine)}
     }
     
-    func updateRoutine(routine: Routine, index: Int) {
+    func updateRoutineCheck(routine: Routine, index: Int) {
         
         let routineDataDate: [Double] = routine.time.map { time in
             return time.timeIntervalSince1970
@@ -168,7 +205,7 @@ class RoutineViewModel: ObservableObject {
     
     func isToday(date: Date) -> Bool {
         let calendar = Calendar.current
-
+        
         return calendar.isDate(currentDay, inSameDayAs: date)
     }
     
