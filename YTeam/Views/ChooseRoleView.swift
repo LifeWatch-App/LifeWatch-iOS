@@ -50,7 +50,7 @@ struct ChooseRoleView: View {
                     HStack(spacing: 16) {
                         VStack {
                             Spacer()
-                            Image("asset")
+                            Image("Senior")
                                 .resizable()
                                 .scaledToFit()
                                 .padding(.bottom, -1)
@@ -107,7 +107,7 @@ struct ChooseRoleView: View {
                     HStack(spacing: 16) {
                         VStack {
                             Spacer()
-                            Image("asset")
+                            Image("Caregiver")
                                 .resizable()
                                 .scaledToFit()
                                 .padding(.bottom, -1)
