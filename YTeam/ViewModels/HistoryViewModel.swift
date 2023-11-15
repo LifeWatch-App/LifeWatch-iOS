@@ -10,7 +10,8 @@ import FirebaseAuth
 import Firebase
 import Combine
 
-class HistoryViewModel: ObservableObject {
+@MainActor
+final class HistoryViewModel: ObservableObject {
     @Published var falls: [Fall] = []
     @Published var sos: [SOS] = []
     @Published var idles: [Idle] = []
@@ -39,21 +40,20 @@ class HistoryViewModel: ObservableObject {
     private var currentDay: Date = Date()
     private var inactivityDataTemp: [InactivityChart] = []
     private var heartbeatDataTemp: [HeartRateChart] = []
+    private let authService = AuthService.shared
+
 
     private let fallService = FallService.shared
     private let sosService = SOSService.shared
-    private let authService = AuthService.shared
     private let inactivityService = InactivityService.shared
     private let heartAnomalyService = HeartAnomalyService.shared
     private let heartbeatService = HeartbeatService.shared
-    private let heartRateService = HeartRateService.shared
-    private let locationService = DashboardLocationService.shared
     private let symptomService = SymptomService.shared
 
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        setupEmergencySubscriber()
+        setupSubscribers()
     }
 
     /// Subscribes to the FallService to check for changes, and updates `loading, loggedIn, fallsCount, falls, and groupedFalls`.
@@ -65,76 +65,7 @@ class HistoryViewModel: ObservableObject {
     /// - Parameters:
     ///     - None
     /// - Returns: If user is logged in, return `sorted falls only if there are the senior's falls`.
-    func setupEmergencySubscriber() {
-        fallService.$falls
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] fall in
-                guard let self else { return }
-
-                self.falls.append(contentsOf: fall)
-                //self.fetchCurrentWeek()
-            }
-            .store(in: &cancellables)
-
-        sosService.$sos
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] sos in
-                guard let self else {return}
-
-                self.sos.append(contentsOf: sos)
-                //self.fetchCurrentWeek()
-            }
-            .store(in: &cancellables)
-
-        inactivityService.$idles
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] idle in
-                guard let self else {return}
-
-                self.idles.append(contentsOf: idle)
-                //self.fetchCurrentWeek()
-            }
-            .store(in: &cancellables)
-
-        inactivityService.$charges
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] charge in
-                guard let self else {return}
-
-                self.charges.append(contentsOf: charge)
-                //self.fetchCurrentWeek()
-            }
-            .store(in: &cancellables)
-
-        heartAnomalyService.$heartAnomalies
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] anomaly in
-                guard let self else {return}
-
-                self.heartAnomalies.append(contentsOf: anomaly)
-                //self.fetchCurrentWeek()
-            }
-            .store(in: &cancellables)
-
-        heartbeatService.$heartbeats
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] heartbeat in
-                guard let self else {return}
-
-                self.heartbeats.append(contentsOf: heartbeat)
-                //self.fetchCurrentWeek()
-            }
-            .store(in: &cancellables)
-
-        symptomService.$symptomsDocumentChanges
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] documentChanges in
-                guard let self else {return}
-                self.symptomsTest = self.loadInitialSymptoms(documents: documentChanges)
-                //self.fetchCurrentWeek()
-            }
-            .store(in: &cancellables)
-
+    func setupSubscribers() {
         authService.$selectedInviteId
             .receive(on: DispatchQueue.main)
             .sink { [weak self] id in
@@ -145,12 +76,95 @@ class HistoryViewModel: ObservableObject {
             .store(in: &cancellables)
 
         $selectedUserId
+            .combineLatest(authService.$userData)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] id in
-                self?.filteredSymptoms = [:]
-                self?.symptomsTest = []
-                self?.symptomService.observeSyptoms()
-                self?.fetchCurrentWeek()
+            .sink { [weak self] id, userData in
+                if id != nil && userData != nil {
+                    self?.symptomsTest = []
+                    self?.idles = []
+                    self?.charges = []
+                    self?.falls = []
+                    self?.sos = []
+                    self?.heartbeats = []
+                    self?.heartAnomalies = []
+
+                    self?.inactivityService.observeAllInactivity(userData: userData)
+                    self?.sosService.observeAllSOS(userData: userData)
+                    self?.symptomService.observeSymptoms(userData: userData)
+                    self?.fallService.observeAllFalls(userData: userData)
+                    self?.heartAnomalyService.observeAllAnomalies(userData: userData)
+                    self?.heartbeatService.observeAllHeartbeats(userData: userData)
+                    self?.fetchCurrentWeek()
+                }
+            }
+            .store(in: &cancellables)
+
+        fallService.$falls
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] fall in
+                guard let self else { return }
+
+                self.falls.append(contentsOf: fall)
+                self.fetchCurrentWeek()
+            }
+            .store(in: &cancellables)
+
+        sosService.$sos
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] sos in
+                guard let self else {return}
+
+                self.sos.append(contentsOf: sos)
+                self.fetchCurrentWeek()
+            }
+            .store(in: &cancellables)
+
+        inactivityService.$idles
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] idle in
+                guard let self else {return}
+                print("Idle", idle)
+                self.idles.append(contentsOf: idle)
+                self.fetchCurrentWeek()
+            }
+            .store(in: &cancellables)
+
+        inactivityService.$charges
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] charge in
+                guard let self else {return}
+                print("Charge", charge)
+                self.charges.append(contentsOf: charge)
+                self.fetchCurrentWeek()
+            }
+            .store(in: &cancellables)
+
+        heartAnomalyService.$heartAnomalies
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] anomaly in
+                guard let self else {return}
+
+                self.heartAnomalies = anomaly
+                self.fetchCurrentWeek()
+            }
+            .store(in: &cancellables)
+
+        heartbeatService.$heartbeats
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] heartbeat in
+                guard let self else {return}
+
+                self.heartbeats = heartbeat
+                self.fetchCurrentWeek()
+            }
+            .store(in: &cancellables)
+
+        symptomService.$symptomsDocumentChanges
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] documentChanges in
+                guard let self else {return}
+                self.symptomsTest.append(contentsOf: self.loadInitialSymptoms(documents: documentChanges))
+                self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
     }
@@ -171,7 +185,6 @@ class HistoryViewModel: ObservableObject {
     }
 
     func updateSymptoms() {
-        print(symptomsTest.count)
         self.filteredSymptoms = [:]
         let unixRanges = currentWeek.map({ Date.dateToUnix(date: $0) })
         guard let upperUnixRange = unixRanges.first, let lowerUnixRange = unixRanges.last else { return }
@@ -487,6 +500,8 @@ class HistoryViewModel: ObservableObject {
         currentWeek = []
 
         let calendar = Calendar.current
+
+        print("CurrentDay", self.currentDay)
 
         let week = calendar.dateInterval(of: .weekOfMonth, for: self.currentDay)
 

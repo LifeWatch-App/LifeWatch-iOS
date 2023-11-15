@@ -19,7 +19,9 @@ struct MainView: View {
     }
     var body: some View {
         if authVM.userAuth?.userID != nil {
-            CombinedView()
+            TestChargingView()
+//            IdleDetectionView()
+//            CombinedView()
                 .environmentObject(authVM)
                 .environmentObject(fallDetector)
                 .environmentObject(motionDetector)

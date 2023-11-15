@@ -70,14 +70,15 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .store(in: &cancellables)
 
         $selectedInviteId
+            .combineLatest(authService.$userData)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] selectedInviteId in
+            .sink { [weak self] selectedInviteId, userData in
                 guard let self = self else { return }
                 self.idleService.observeIdleSpecific()
                 self.locationService.observeLiveLocationSpecific()
                 self.batteryService.observeBatteryStateLevelSpecific()
-                self.heartRateService.observeHeartRateSpecific()
-                self.symptomService.observeLatestSyptoms()
+                self.heartRateService.observeHeartRateSpecific(userData: userData)
+                self.symptomService.observeLatestSyptoms(userData: userData)
             }
             .store(in: &cancellables)
 

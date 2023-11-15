@@ -12,7 +12,7 @@ final class HeartRateService {
     @Published var heartRateDocumentChanges = [DocumentChange]()
     static let shared = HeartRateService()
 
-    func observeHeartRateSpecific() {
+    func observeHeartRateSpecific(userData: UserData?) {
         guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
 
         let query = FirestoreConstants.heartbeatCollection

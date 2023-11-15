@@ -13,9 +13,9 @@ class HeartAnomalyService {
     
     @Published var heartAnomalies: [HeartAnomaly] = []
     
-    init() {
-        Task{try? await observeAllAnomalies()}
-    }
+//    init() {
+//        Task{try? await observeAllAnomalies()}
+//    }
     
     /// Observes all falls by adding a snapshot listener to the firebase and updates the `heartAnomalies` properties only if user is `logged in`.
     ///
@@ -26,12 +26,18 @@ class HeartAnomalyService {
     /// - Parameters:
     ///     - None
     /// - Returns: If user is logged in, add a snapshot listener to the database and filter it based on the UID.
-    @MainActor
-    func observeAllAnomalies() async throws {
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        
+    func observeAllAnomalies(userData: UserData?) {
+        let uid: String?
+        if userData?.role == "caregiver" {
+            uid = UserDefaults.standard.string(forKey: "selectedSenior")
+        } else {
+            uid = Auth.auth().currentUser?.uid
+        }
+
+        guard let uid else { return }
+
         let query = FirestoreConstants.heartAnomalyCollection
-                                    .whereField("seniorId", isEqualTo: userId)
+                                    .whereField("seniorId", isEqualTo: uid)
         
         query.addSnapshotListener { [weak self] snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }

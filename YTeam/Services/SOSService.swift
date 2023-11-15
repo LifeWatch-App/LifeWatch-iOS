@@ -12,10 +12,10 @@ class SOSService {
     static let shared: SOSService = SOSService()
     
     @Published var sos: [SOS] = []
-    
-    init() {
-        Task{try? await observeAllSOS()}
-    }
+
+//    init() {
+//        Task{try? await observeAllSOS()}
+//    }
     
     /// Sends SOS to Firebase.
     ///
@@ -26,7 +26,6 @@ class SOSService {
     /// - Parameters:
     ///     - None
     /// - Returns: If user is logged in, add a snapshot listener to the database and filter it based on the UID.
-    @MainActor
     func sendSOS() async throws {
         guard let userId = Auth.auth().currentUser?.uid else { return }
         
@@ -47,12 +46,18 @@ class SOSService {
     /// - Parameters:
     ///     - None
     /// - Returns: If user is logged in, add a snapshot listener to the database and filter it based on the UID.
-    @MainActor
-    func observeAllSOS() async throws {
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        
+    func observeAllSOS(userData: UserData?) {
+        let uid: String?
+        if userData?.role == "caregiver" {
+            uid = UserDefaults.standard.string(forKey: "selectedSenior")
+        } else {
+            uid = Auth.auth().currentUser?.uid
+        }
+
+        guard let uid else { return }
+
         let query = FirestoreConstants.sosCollection
-                                    .whereField("seniorId", isEqualTo: userId)
+                                    .whereField("seniorId", isEqualTo: uid)
     
         query.addSnapshotListener { [weak self] snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }

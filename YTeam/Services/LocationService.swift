@@ -17,7 +17,6 @@ final class LocationService {
 
 
     func observeHomeLocationSpecific() {
-//        guard let currentUid = Auth.auth().currentUser?.uid else { return }
         guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
 
         let query = FirestoreConstants.homeLocationCollection
@@ -31,7 +30,6 @@ final class LocationService {
     }
 
     func observeLiveLocationSpecific() {
-//        guard let currentUid = Auth.auth().currentUser?.uid else { return }
         guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
 
         let query = FirestoreConstants.liveLocationsCollection
@@ -46,7 +44,6 @@ final class LocationService {
     }
 
     func observeAllLiveLocation() {
-//        guard let currentUid = Auth.auth().currentUser?.uid else { return }
         guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
 
         let query = FirestoreConstants.liveLocationsCollection

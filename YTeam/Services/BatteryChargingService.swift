@@ -6,12 +6,16 @@
 //
 
 import Foundation
+import Combine
 import Firebase
 
 final class BatteryChargingService {
     static let shared = BatteryChargingService()
     @Published var batteryDocumentChanges = [DocumentChange]()
-
+    @Published var userData: UserData?
+    private let authService = AuthService.shared
+    private var cancellables = Set<AnyCancellable>()
+    
     func fetchBatteryLevel() async throws -> [BatteryLevel] {
         let snapshot = try await FirestoreConstants.batteryLevelCollection.getDocuments()
         let batteryLevels = snapshot.documents.compactMap({ try? $0.data(as: BatteryLevel.self) })
@@ -26,7 +30,6 @@ final class BatteryChargingService {
     
     func createBatteryLevel(batteryLevel: Int) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        //        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
         let batteryLevelRecord: BatteryLevel = BatteryLevel(seniorId: uid, iphoneBatteryLevel: batteryLevel.description, iphoneLastUpdatedAt: Date.now.description)
         do {
             let encodedData = try Firestore.Encoder().encode(batteryLevelRecord)
@@ -40,7 +43,6 @@ final class BatteryChargingService {
     
     func updateBatteryLevel(batteryLevel: BatteryLevel) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        //        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
         guard let encodedData = try? Firestore.Encoder().encode(batteryLevel) else { return }
         let documents = try await FirestoreConstants.batteryLevelCollection.whereField("seniorId", isEqualTo: uid).getDocuments().documents.first
         try await documents?.reference.updateData(encodedData)
@@ -52,20 +54,14 @@ final class BatteryChargingService {
     }
     
     func updateChargingRecord(chargingRange: ChargingRange) async throws {
-        //        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         guard let encodedData = try? Firestore.Encoder().encode(chargingRange) else { return }
-        let documents = try await FirestoreConstants.chargesCollection.whereField("seniorId", isEqualTo: currentUid).getDocuments().documents.first
+        let documents = try await FirestoreConstants.chargesCollection.whereField("seniorId", isEqualTo: uid).getDocuments().documents.first
         try await documents?.reference.updateData(encodedData)
     }
     
     func deleteChargingRecord(startCharging: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        //        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
-        
-        print(startCharging )
         let documents = try await FirestoreConstants.chargesCollection
             .whereField("seniorId", isEqualTo: uid)
             .whereField("startCharging", isEqualTo: startCharging)
@@ -79,11 +75,9 @@ final class BatteryChargingService {
     }
     
     func observeBatteryStateLevelSpecific() {
-        //        guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
-        
+        guard let uid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
         let query = FirestoreConstants.batteryLevelCollection
-            .whereField("seniorID", isEqualTo: currentUid)
+            .whereField("seniorID", isEqualTo: uid)
             .limit(to: 1)
         
         query.addSnapshotListener { querySnapshot, error in

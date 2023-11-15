@@ -386,16 +386,16 @@
 		4C4730282AD8D2520025F089 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				93B898FD2AE76DD0005E1678 /* BatteryChargingService.swift */,
 				4CA232B42ADE2112003874D2 /* WatchConnectorService.swift */,
 				4C4730292AD8DC750025F089 /* AuthService.swift */,
 				7D02E7952ADE88BF00923AFB /* FallService.swift */,
 				7DB24EF72AE51E81009A4A6D /* SOSService.swift */,
 				7D9D41D92AE62EA200818908 /* InactivityService.swift */,
-				9322F6152AF002130013B0AB /* LocationService.swift */,
 				7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */,
 				4CCDD5592AF634BA00146330 /* PTTService.swift */,
 				7D2151B62AF8F1CA001BB9BC /* HeartbeatService.swift */,
+				9322F6152AF002130013B0AB /* LocationService.swift */,
+				93B898FD2AE76DD0005E1678 /* BatteryChargingService.swift */,
 				93614CD82B030183003350F1 /* DashboardLocationService.swift */,
 				93614CDA2B030197003350F1 /* HeartRateService.swift */,
 				93614CDD2B0301B6003350F1 /* IdleService.swift */,
