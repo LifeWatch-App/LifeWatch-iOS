@@ -15,6 +15,7 @@ class AddEditRoutineViewModel: ObservableObject {
     @Published var activity = ""
     @Published var description = ""
     @Published var medicine = ""
+    @Published var routineId = ""
     @Published var medicineAmount = "" {
         didSet {
             let filtered = medicineAmount.filter { $0.isNumber }
@@ -27,8 +28,10 @@ class AddEditRoutineViewModel: ObservableObject {
     @Published var medicineUnit: MedicineUnit = .Tablet
     
     private var routine: RoutineData = RoutineData()
+    private let routineService: RoutineService = RoutineService.shared
     
-    func convertRoutineDataIntoRoutine() {
+    func convertRoutineDataIntoRoutine(editOrAdd: String) {
+        print("Edit or Add: ", editOrAdd)
         guard let seniorId = Auth.auth().currentUser?.uid else { return }
                 
         var unixArray: [Double] = []
@@ -62,13 +65,27 @@ class AddEditRoutineViewModel: ObservableObject {
             isDoneIndex += 1
         }
         
-        self.routine = RoutineData(id: UUID().uuidString, seniorId: seniorId, type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
         
-        Task {await self.sendRoutine()}
+        
+        if (editOrAdd == "add") {
+            self.routine = RoutineData(id: UUID().uuidString, seniorId: seniorId, type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
+            
+            Task {await self.sendRoutine()}
+        }
+        
+        if (editOrAdd == "edit") {
+            self.routine = RoutineData(id: routineId, seniorId: seniorId, type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
+            
+            Task {await self.updateRoutine()}
+        }
     }
     
     func sendRoutine() async {
-        Task {try? await RoutineService.shared.sendRoutine(routine: self.routine)}
+        Task {try? await self.routineService.sendRoutine(routine: self.routine)}
+    }
+    
+    func updateRoutine() async {
+        Task {try? await self.routineService.updateRoutine(routine: self.routine)}
     }
 }
 

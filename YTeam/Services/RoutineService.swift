@@ -35,7 +35,7 @@ class RoutineService {
         }
 
         let query = FirestoreConstants.routinesCollection
-                                    .whereField("seniorId", isEqualTo: uid)
+            .whereField("seniorId", isEqualTo: uid ?? "")
         
         query.addSnapshotListener { [weak self] snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added || $0.type == .modified }) else { return }
@@ -55,9 +55,12 @@ class RoutineService {
     
     @MainActor
     func updateRoutine(routine: RoutineData) async throws {
-        print("Called")
+        print("This is called", routine)
+        print(Date(timeIntervalSince1970: routine.time[0]))
+        print("Routine ID: ", routine.id)
         guard let encodedData = try? Firestore.Encoder().encode(routine) else { return }
         let documents = try await FirestoreConstants.routinesCollection.whereField("id", isEqualTo: routine.id).getDocuments().documents.first
+        print("documents", documents)
         try await documents?.reference.updateData(encodedData)
     }
 }

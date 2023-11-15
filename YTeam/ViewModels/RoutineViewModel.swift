@@ -59,8 +59,6 @@ class RoutineViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] routines in
                 guard let self else { return }
-                print("Routine Data", self.routineData)
-                print("Updated Single Data", routines)
                 for (_, routine) in routines.enumerated() {
                     if let concurrentIndex = self.routineData.firstIndex(where: {$0.id == routine.id}) {
                         self.routineData[concurrentIndex] = routine
@@ -132,7 +130,7 @@ class RoutineViewModel: ObservableObject {
         
         self.countProgress()
     }
-    func updateSingleRoutine(routine: Routine) {
+    func updateSingleRoutineCheck(routine: Routine) {
         let routineDataDate: [Double] = routine.time.map { time in
             return time.timeIntervalSince1970
         }
@@ -140,14 +138,12 @@ class RoutineViewModel: ObservableObject {
         var newIsDone: [Bool] = routine.isDone
         newIsDone[0].toggle()
         
-        print("Single Update Routine", newIsDone)
-        
         let newRoutine: RoutineData = RoutineData(id: routine.id, seniorId: routine.seniorId ?? "", type: routine.type, time: routineDataDate, activity: routine.activity ?? "", description: routine.description ?? "", medicine: routine.medicine ?? "", medicineAmount: routine.medicineAmount ?? "", medicineUnit: routine.medicineUnit?.rawValue ?? "", isDone: newIsDone)
         
         Task { try? await routineService.updateRoutine(routine: newRoutine)}
     }
     
-    func updateRoutine(routine: Routine, index: Int) {
+    func updateRoutineCheck(routine: Routine, index: Int) {
         
         let routineDataDate: [Double] = routine.time.map { time in
             return time.timeIntervalSince1970
