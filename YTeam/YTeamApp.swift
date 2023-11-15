@@ -66,7 +66,7 @@ struct YTeamApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if currentOnBoarding < 5 {
+            if currentOnBoarding < 6 {
                 OnBoardingView()
             } else {
                 ContentView()

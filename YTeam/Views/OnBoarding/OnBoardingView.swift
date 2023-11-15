@@ -12,13 +12,15 @@ struct OnBoardingView: View {
     
     var body: some View {
         if currentOnBoarding == 1 {
-            OnBoardingTemplate(image: "OnBoarding-1", title: "Welcome", description: "Lorem ipsum dolor sit amet.")
+            OnBoardingTemplate(image: "OnBoarding-1", title: "Welcome", description: "We're honored to support you let's make caring seamless!")
         } else if currentOnBoarding == 2 {
-            OnBoardingTemplate(image: "OnBoarding-2", title: "Emergency", description: "Lorem ipsum dolor sit amet.")
+            OnBoardingTemplate(image: "OnBoarding-2", title: "Emergency", description: "Peace of mind at your fingertips! Our emergency features is designed to keep seniors safe and sound.")
         } else if currentOnBoarding == 3 {
-            OnBoardingTemplate(image: "OnBoarding-3", title: "Routine", description: "Lorem ipsum dolor sit amet.")
+            OnBoardingTemplate(image: "OnBoarding-3", title: "Routine", description: "Every routine, effortlessly managed. Elevate their day with our senior-friendly reminder feature.")
+        } else if currentOnBoarding == 4 {
+            OnBoardingTemplate(image: "OnBoarding-4", title: "AI Consultation", description: "Virtual healthcare, personalized for you. Explore the convenience of AI consultations in our app.")
         } else {
-            OnBoardingTemplate(image: "OnBoarding-4", title: "AI Consultation", description: "Lorem ipsum dolor sit amet.")
+            OnBoardingTemplate(image: "OnBoarding-4", title: "Notification", description: "Alert message to the member family has been successfully sent.")
         }
     }
 }
@@ -47,7 +49,7 @@ struct OnBoardingTemplate: View {
                 Spacer()
                 
                 Button("Skip") {
-                    currentOnBoarding = 5
+                    currentOnBoarding = 6
                 }
                 .fontWeight(.semibold)
             }
@@ -100,7 +102,7 @@ struct OnBoardingTemplate: View {
                 HStack {
                     Spacer()
                     
-                    Text(currentOnBoarding < 4 ? "Next" : "Lets Get Started!")
+                    Text(currentOnBoarding < 5 ? "Next" : "Lets Get Started!")
                         .font(.headline)
                         .foregroundStyle(.accent)
                     

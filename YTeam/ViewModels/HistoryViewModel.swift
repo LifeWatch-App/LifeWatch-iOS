@@ -704,6 +704,10 @@ final class HistoryViewModel: ObservableObject {
                     heartRate.avgHeartRate = data.avgHeartRate
                 }
             }
+            if heartRate.avgHeartRate == 0 {
+                heartRate.day = tempDate
+                heartRate.avgHeartRate = 0
+            }
             self.heartRateData.append(heartRate)
 
             tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate) ?? Date()

@@ -22,7 +22,7 @@ struct RoutineCircularProgressView: View {
             } else {
                 Circle()
                     .stroke(
-                        .accent.opacity(0.25),
+                        Color("secondary-blue"),
                         lineWidth: 4
                     )
                 Circle()
