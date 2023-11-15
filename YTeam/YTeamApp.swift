@@ -62,19 +62,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 struct YTeamApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    @AppStorage("currentOnBoarding") var currentOnBoarding = 1
-    
     var body: some Scene {
         WindowGroup {
-            if currentOnBoarding < 5 {
-                OnBoardingView()
-            } else {
-                ContentView()
-                    .preferredColorScheme(.light)
-                    .task {
-                        try? await PTT.shared.setupChannelManager()
-                    }
-            }
+            ContentView()
+                .preferredColorScheme(.light)
+                .task {
+                    try? await PTT.shared.setupChannelManager()
+                }
         }
     }
 }

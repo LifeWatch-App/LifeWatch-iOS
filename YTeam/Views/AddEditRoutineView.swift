@@ -90,7 +90,6 @@ struct AddEditRoutineView: View {
                 Section {
                     Button {
                         // add function here
-                        self.addEditRoutineViewModel.convertRoutineDataIntoRoutine()
                         
                         dismiss()
                     } label: {

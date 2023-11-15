@@ -23,7 +23,6 @@ struct FirestoreConstants {
     static let heartAnomalyCollection = Firestore.firestore().collection("heartAnomaly")
     static let heartbeatCollection = Firestore.firestore().collection("heartbeat")
     static let pttCollection = Firestore.firestore().collection("ptt")
-    static let routinesCollection = Firestore.firestore().collection("routines")
     static let symptomsCollection = Firestore.firestore().collection("symptoms")
 }
 

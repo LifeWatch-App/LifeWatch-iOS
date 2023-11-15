@@ -33,16 +33,11 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var routines: [Routine] = []
     //    @Published var heartRate = 90
     @Published var inviteEmail = ""
-    
-    private var routineData: [RoutineData] = []
-    
-    private let routineService: RoutineService = RoutineService.shared
-    
+
     override init() {
         super.init()
         setupSubscribers()
-        // add dummy data
-//        routines = routinesDummyData
+        routines = routinesDummyData
     }
 
     private func setupSubscribers() {
@@ -117,60 +112,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 self.latestLocationInfo = self.loadLatestLiveLocation(documents: documentChanges)
             }
             .store(in: &cancellables)
-      
-        routineService.$routines
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] routines in
-                guard let self else { return }
-                print("Routine Data", self.routineData)
-                print("Updated Single Data", routines)
-                for (_, routine) in routines.enumerated() {
-                    if let concurrentIndex = self.routineData.firstIndex(where: {$0.id == routine.id}) {
-                        self.routineData[concurrentIndex] = routine
-                    } else {
-                        self.routineData.append(routine)
-                    }
-                    self.convertRoutineDataToRoutine()
-                }
-            }
-            .store(in: &cancellables)
-    }
-    
-    func convertRoutineDataToRoutine() {
-        self.routines = self.routineData.map { routine in
-            var medicineUnit: MedicineUnit
-            var routineTime: [Date] = []
-            
-            for time in routine.time {
-                routineTime.append( Date(timeIntervalSince1970: time))
-            }
-            
-            switch (routine.medicineUnit) {
-            case "CC":
-                medicineUnit = .CC
-            case "Pill":
-                medicineUnit = .Pill
-            case "Gram":
-                medicineUnit = .Gram
-            case "Litre":
-                medicineUnit = .Litre
-            case "Mililitre":
-                medicineUnit = .Mililitre
-            default:
-                medicineUnit = .Tablet
-            }
-            
-            return Routine(id: routine.id, type: routine.type, seniorId: routine.seniorId, time: routineTime, activity: routine.activity, description: routine.description, medicine: routine.medicine, medicineAmount: routine.medicineAmount, medicineUnit: medicineUnit, isDone: routine.isDone)
-        }
-        
-        if (self.routines.count > 1) {
-            self.routines.sort { (routine1, routine2) -> Bool in
-                let time1 = routine1.time[0]
-                let time2 = routine2.time[0]
-                
-                return time1 < time2
-            }
-        }
 
         heartRateService.$heartRateDocumentChanges
             .receive(on: DispatchQueue.main)

@@ -24,7 +24,7 @@ struct LoginPage: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Image("Login")
+                Image("asset")
                     .resizable()
                     .scaledToFit()
                     .padding(.horizontal, 32)
