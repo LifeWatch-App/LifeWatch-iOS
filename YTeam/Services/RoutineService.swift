@@ -55,12 +55,17 @@ class RoutineService {
     
     @MainActor
     func updateRoutine(routine: RoutineData) async throws {
-        print("This is called", routine)
-        print(Date(timeIntervalSince1970: routine.time[0]))
-        print("Routine ID: ", routine.id)
         guard let encodedData = try? Firestore.Encoder().encode(routine) else { return }
         let documents = try await FirestoreConstants.routinesCollection.whereField("id", isEqualTo: routine.id).getDocuments().documents.first
-        print("documents", documents)
+        
         try await documents?.reference.updateData(encodedData)
+    }
+    
+    @MainActor
+    func deleteRoutine(routine: RoutineData) async throws {
+        guard (try? Firestore.Encoder().encode(routine)) != nil else { return }
+        let documents = try await FirestoreConstants.routinesCollection.whereField("id", isEqualTo: routine.id).getDocuments().documents.first
+        
+        try await documents?.reference.delete()
     }
 }

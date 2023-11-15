@@ -59,6 +59,7 @@ class RoutineViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] routines in
                 guard let self else { return }
+                print("Called", routines)
                 for (_, routine) in routines.enumerated() {
                     if let concurrentIndex = self.routineData.firstIndex(where: {$0.id == routine.id}) {
                         self.routineData[concurrentIndex] = routine

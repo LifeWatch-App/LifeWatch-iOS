@@ -112,6 +112,12 @@ class AddEditRoutineViewModel: ObservableObject {
             
             Task {await self.updateRoutine()}
         }
+        
+        if (editOrAdd == "delete") {
+            self.routine = RoutineData(id: routineId, seniorId: seniorId ?? "", type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
+            
+            Task {await self.deleteRoutine()}
+        }
     }
     
     func sendRoutine() async {
@@ -120,6 +126,10 @@ class AddEditRoutineViewModel: ObservableObject {
     
     func updateRoutine() async {
         Task {try? await self.routineService.updateRoutine(routine: self.routine)}
+    }
+    
+    func deleteRoutine() async {
+        Task {try? await self.routineService.deleteRoutine(routine: self.routine)}
     }
 }
 
