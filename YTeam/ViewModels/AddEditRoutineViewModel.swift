@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import Combine
 
 class AddEditRoutineViewModel: ObservableObject {
     @Published var type = "Medicine"
@@ -26,14 +27,47 @@ class AddEditRoutineViewModel: ObservableObject {
         }
     }
     @Published var medicineUnit: MedicineUnit = .Tablet
+    @Published var selectedUserId: String?
     
+    private var routineService: RoutineService = RoutineService.shared
     private var routine: RoutineData = RoutineData()
-    private let routineService: RoutineService = RoutineService.shared
+    private var cancellables = Set<AnyCancellable>()
+    private var user: UserData?
+    private let authService = AuthService.shared
+    init() {
+        setupAuth()
+    }
+    
+    func setupAuth() {
+        authService.$selectedInviteId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] id in
+                if self?.selectedUserId != id && id != nil {
+                    self?.selectedUserId = id
+                }
+            }
+            .store(in: &cancellables)
+
+        $selectedUserId
+            .combineLatest(authService.$userData)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] id, userData in
+                if id != nil && userData != nil {
+                    self?.user = userData
+                }
+            }
+            .store(in: &cancellables)
+    }
     
     func convertRoutineDataIntoRoutine(editOrAdd: String) {
-        print("Edit or Add: ", editOrAdd)
-        guard let seniorId = Auth.auth().currentUser?.uid else { return }
-                
+        
+        let seniorId: String?
+        if user?.role == "caregiver" {
+            seniorId = UserDefaults.standard.string(forKey: "selectedSenior")
+        } else {
+            seniorId = Auth.auth().currentUser?.uid
+        }
+        
         var unixArray: [Double] = []
         var unitMedicine: String
         var isDoneIndex: Int = 0
@@ -68,13 +102,13 @@ class AddEditRoutineViewModel: ObservableObject {
         
         
         if (editOrAdd == "add") {
-            self.routine = RoutineData(id: UUID().uuidString, seniorId: seniorId, type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
+            self.routine = RoutineData(id: UUID().uuidString, seniorId: seniorId ?? "", type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
             
             Task {await self.sendRoutine()}
         }
         
         if (editOrAdd == "edit") {
-            self.routine = RoutineData(id: routineId, seniorId: seniorId, type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
+            self.routine = RoutineData(id: routineId, seniorId: seniorId ?? "", type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
             
             Task {await self.updateRoutine()}
         }
