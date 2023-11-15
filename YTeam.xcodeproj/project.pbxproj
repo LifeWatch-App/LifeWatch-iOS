@@ -124,6 +124,13 @@
 		8D73C3D62AF8FC23009AFD80 /* CaregiverAllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3D52AF8FC23009AFD80 /* CaregiverAllRoutineView.swift */; };
 		8D73C3D82AF908B7009AFD80 /* AddSymptomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3D72AF908B7009AFD80 /* AddSymptomViewModel.swift */; };
 		8D73C3DC2AF915B7009AFD80 /* AddEditRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3DB2AF915B7009AFD80 /* AddEditRoutineViewModel.swift */; };
+		8D7465882B046F6B00A48F71 /* ConsultationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7465872B046F6B00A48F71 /* ConsultationView.swift */; };
+		8D74658B2B04729500A48F71 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 8D74658A2B04729500A48F71 /* Alamofire */; };
+		8D74658D2B0472C700A48F71 /* ConsultationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74658C2B0472C700A48F71 /* ConsultationViewModel.swift */; };
+		8D74658F2B0472EF00A48F71 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74658E2B0472EF00A48F71 /* OpenAIService.swift */; };
+		8D7465912B04732D00A48F71 /* OpenAIAPIKeyConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7465902B04732D00A48F71 /* OpenAIAPIKeyConstant.swift */; };
+		8D7465932B04736600A48F71 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7465922B04736600A48F71 /* ChatBubble.swift */; };
+		8D7465952B04739B00A48F71 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7465942B04739B00A48F71 /* ChatMessage.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8D8FB6B62AEA03C90081CD50 /* HeartRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
@@ -299,6 +306,12 @@
 		8D73C3D52AF8FC23009AFD80 /* CaregiverAllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverAllRoutineView.swift; sourceTree = "<group>"; };
 		8D73C3D72AF908B7009AFD80 /* AddSymptomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSymptomViewModel.swift; sourceTree = "<group>"; };
 		8D73C3DB2AF915B7009AFD80 /* AddEditRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditRoutineViewModel.swift; sourceTree = "<group>"; };
+		8D7465872B046F6B00A48F71 /* ConsultationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultationView.swift; sourceTree = "<group>"; };
+		8D74658C2B0472C700A48F71 /* ConsultationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultationViewModel.swift; sourceTree = "<group>"; };
+		8D74658E2B0472EF00A48F71 /* OpenAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
+		8D7465902B04732D00A48F71 /* OpenAIAPIKeyConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIAPIKeyConstant.swift; sourceTree = "<group>"; };
+		8D7465922B04736600A48F71 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
+		8D7465942B04739B00A48F71 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateChart.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
@@ -341,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C6049A52AD78F4D00E9F0BF /* FirebaseAnalytics in Frameworks */,
+				8D74658B2B04729500A48F71 /* Alamofire in Frameworks */,
 				4C6049A72AD7917A00E9F0BF /* FirebaseAuth in Frameworks */,
 				4CA792322ADFFFC2003B5EC9 /* FirebaseMessaging in Frameworks */,
 				4C6049CB2AD79DDA00E9F0BF /* FirebaseFirestore in Frameworks */,
@@ -370,6 +384,7 @@
 				8D21B0412AF7DBF300D23BF1 /* RoutineCircularProgressView.swift */,
 				8D21B0452AF7ED0B00D23BF1 /* ChangeSeniorOverlay.swift */,
 				8D3F172D2B032AD00001537E /* InviteSheetView.swift */,
+				8D7465922B04736600A48F71 /* ChatBubble.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -392,6 +407,7 @@
 				4C21A3E32ADF7B930044E966 /* CaregiverView.swift */,
 				4CA7922F2ADFF9A1003B5EC9 /* CaregiverDashboardView.swift */,
 				8D73C3D52AF8FC23009AFD80 /* CaregiverAllRoutineView.swift */,
+				8D7465872B046F6B00A48F71 /* ConsultationView.swift */,
 			);
 			path = Caregiver;
 			sourceTree = "<group>";
@@ -414,6 +430,7 @@
 				93614CDD2B0301B6003350F1 /* IdleService.swift */,
 				93614CDF2B0301C4003350F1 /* SymptomService.swift */,
 				7D0508EE2AFC7A0100439E75 /* RoutineService.swift */,
+				8D74658E2B0472EF00A48F71 /* OpenAIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -434,6 +451,7 @@
 				8D73C3D72AF908B7009AFD80 /* AddSymptomViewModel.swift */,
 				4CF962C72AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift */,
 				8D73C3DB2AF915B7009AFD80 /* AddEditRoutineViewModel.swift */,
+				8D74658C2B0472C700A48F71 /* ConsultationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -460,6 +478,7 @@
 				8DED839E2AF664CD00AFB95B /* Symptom.swift */,
 				8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */,
 				7D0508F02AFC7A7800439E75 /* RoutineData.swift */,
+				8D7465942B04739B00A48F71 /* ChatMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -691,6 +710,7 @@
 			isa = PBXGroup;
 			children = (
 				7D02E7932ADE889500923AFB /* FirestoreConstants.swift */,
+				8D7465902B04732D00A48F71 /* OpenAIAPIKeyConstant.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -785,6 +805,7 @@
 				4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */,
 				4CA792312ADFFFC2003B5EC9 /* FirebaseMessaging */,
 				4CCBF35F2AF38CBC005A2C24 /* FirebaseStorage */,
+				8D74658A2B04729500A48F71 /* Alamofire */,
 			);
 			productName = YTeam;
 			productReference = 4CB015562AD4DBBC0023C71E /* Careific.app */;
@@ -839,6 +860,7 @@
 			mainGroup = 4CB0154D2AD4DBBC0023C71E;
 			packageReferences = (
 				4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				8D7465892B04729500A48F71 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 4CB015572AD4DBBC0023C71E /* Products */;
 			projectDirPath = "";
@@ -899,6 +921,7 @@
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
 				93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */,
 				8D21B0422AF7DBF300D23BF1 /* RoutineCircularProgressView.swift in Sources */,
+				8D7465932B04736600A48F71 /* ChatBubble.swift in Sources */,
 				8DED839F2AF664CD00AFB95B /* Symptom.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
 				4CA7922E2ADFB67B003B5EC9 /* SeniorDashboardView.swift in Sources */,
@@ -919,6 +942,7 @@
 				9322F6162AF002130013B0AB /* LocationService.swift in Sources */,
 				9322F6142AEFB0DE0013B0AB /* MarkerAnnotation.swift in Sources */,
 				4CA7922A2ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift in Sources */,
+				8D7465882B046F6B00A48F71 /* ConsultationView.swift in Sources */,
 				7D2151B72AF8F1CA001BB9BC /* HeartbeatService.swift in Sources */,
 				4C7076332AEF925D00271E9E /* PTT.swift in Sources */,
 				4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */,
@@ -926,6 +950,7 @@
 				4CA792302ADFF9A1003B5EC9 /* CaregiverDashboardView.swift in Sources */,
 				8D3F172C2B030DE70001537E /* OnBoardingInviteView.swift in Sources */,
 				8D33E91B2AF73A3500C9D3C1 /* EmergencyView.swift in Sources */,
+				8D74658F2B0472EF00A48F71 /* OpenAIService.swift in Sources */,
 				4CA7922C2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift in Sources */,
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
 				7D2151AF2AF723D8001BB9BC /* HeartAnomalyService.swift in Sources */,
@@ -948,6 +973,7 @@
 				8D73C3D42AF8F23B009AFD80 /* SeniorAllRoutineView.swift in Sources */,
 				93614CE02B0301C4003350F1 /* SymptomService.swift in Sources */,
 				8D33E91F2AF73A6100C9D3C1 /* InactivityView.swift in Sources */,
+				8D74658D2B0472C700A48F71 /* ConsultationViewModel.swift in Sources */,
 				8D21B03A2AF7A4F200D23BF1 /* RoutineView.swift in Sources */,
 				7D0508EF2AFC7A0100439E75 /* RoutineService.swift in Sources */,
 				8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */,
@@ -962,6 +988,7 @@
 				7D02E7982ADE892500923AFB /* Fall.swift in Sources */,
 				93D4FA5E2AF4A160000850CE /* CardShape.swift in Sources */,
 				7D9D41DA2AE62EA200818908 /* InactivityService.swift in Sources */,
+				8D7465952B04739B00A48F71 /* ChatMessage.swift in Sources */,
 				93614CDE2B0301B6003350F1 /* IdleService.swift in Sources */,
 				4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */,
 				4CB9AE582AEA0E26008F4381 /* ProfileView.swift in Sources */,
@@ -977,6 +1004,7 @@
 				7D0508F12AFC7A7800439E75 /* RoutineData.swift in Sources */,
 				8D21B03C2AF7AD7500D23BF1 /* AddEditRoutineView.swift in Sources */,
 				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
+				8D7465912B04732D00A48F71 /* OpenAIAPIKeyConstant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1162,7 +1190,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -1174,13 +1202,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.Careific.watchkitapp;
 				PRODUCT_NAME = "Careific Watch App";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
@@ -1202,7 +1230,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -1214,13 +1242,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kenny.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.Careific.watchkitapp;
 				PRODUCT_NAME = "Careific Watch App";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
@@ -1244,7 +1272,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -1263,7 +1291,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.Careific;
 				PRODUCT_NAME = Careific;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -1284,7 +1312,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = Y545JRBLJ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -1303,7 +1331,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenny.Careific;
 				PRODUCT_NAME = Careific;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -1355,6 +1383,14 @@
 				minimumVersion = 10.16.0;
 			};
 		};
+		8D7465892B04729500A48F71 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1387,6 +1423,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		8D74658A2B04729500A48F71 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D7465892B04729500A48F71 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		9318D39B2ADCD92B00245AFF /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

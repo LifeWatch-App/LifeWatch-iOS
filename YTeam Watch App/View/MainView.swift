@@ -17,6 +17,7 @@ struct MainView: View {
     private var fallDetected: Bool {
         return fallDetector.fall || motionDetector.fall
     }
+    
     var body: some View {
         if authVM.userAuth?.userID != nil {
             TestChargingView()

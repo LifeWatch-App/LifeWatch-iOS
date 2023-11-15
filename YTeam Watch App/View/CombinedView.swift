@@ -30,6 +30,7 @@ struct CombinedView: View {
                     Text(chargingVM.batteryCharging.description)
                     
                     VStack {
+                        SOSView()
                         PairView(
                             leftText: "Latitude:",
                             rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)

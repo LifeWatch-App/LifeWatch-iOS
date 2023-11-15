@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SOSView: View {
     @ObservedObject var sosManager: SOSManager = SOSManager()
-    @ObservedObject var audioPlayerManager: AudioPlayerManager = AudioPlayerManager()
+    private var audioPlayerManager: AudioPlayerManager = AudioPlayerManager.shared
     @State var SOS: Bool = false
     var body: some View {
         Button {
