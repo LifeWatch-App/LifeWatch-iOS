@@ -92,6 +92,9 @@ struct OnBoardingTemplate: View {
                 Circle()
                     .frame(width: 8)
                     .foregroundColor(currentOnBoarding == 4 ? .white : .gray)
+                Circle()
+                    .frame(width: 8)
+                    .foregroundColor(currentOnBoarding == 5 ? .white : .gray)
             }
             .padding(.top, 8)
             .padding(.bottom, 32)
