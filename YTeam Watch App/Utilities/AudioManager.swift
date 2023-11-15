@@ -9,6 +9,7 @@ import Foundation
 import AVFoundation
 
 class AudioPlayerManager: NSObject, AVAudioPlayerDelegate, ObservableObject {
+    static let shared: AudioPlayerManager = AudioPlayerManager()
     private var audioPlayer: AVAudioPlayer = AVAudioPlayer()
     
     func playAlert(){
@@ -31,14 +32,11 @@ class AudioPlayerManager: NSObject, AVAudioPlayerDelegate, ObservableObject {
         self.audioPlayer.volume = 1
         self.audioPlayer.numberOfLoops = 10
         
-        if (!self.audioPlayer.isPlaying) {
-            self.audioPlayer.play()
-        }
+        self.audioPlayer.play()
+        
     }
     
     func stopAlert() {
-        if (self.audioPlayer.isPlaying) {
-            self.audioPlayer.stop()
-        }
+        self.audioPlayer.stop()
     }
 }
