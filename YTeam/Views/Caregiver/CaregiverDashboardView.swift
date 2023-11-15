@@ -10,6 +10,8 @@ import SwiftUI
 struct CaregiverDashboardView: View {
     @Environment(\.colorScheme) var colorScheme
 
+    @AppStorage("inviteModal") var inviteModal = true
+    
     @StateObject var caregiverDashboardViewModel = CaregiverDashboardViewModel()
     @State var showChangeSenior = false
     @State var showInviteSheet = false
@@ -53,13 +55,21 @@ struct CaregiverDashboardView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Button {
-                            showChangeSenior.toggle()
+                            if caregiverDashboardViewModel.invites.isEmpty {
+                                showInviteSheet.toggle()
+                            } else {
+                                showChangeSenior.toggle()
+                            }
                         } label: {
                             HStack {
                                 if caregiverDashboardViewModel.invites.isEmpty {
                                     Text("Add a senior")
                                 } else {
                                     Text(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto")
+                                    
+                                    Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
+                                        .font(.subheadline)
+                                        .padding(.leading, -2)
                                 }
 
                                 Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
@@ -131,10 +141,9 @@ struct InviteSheetView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
             .padding(.top, 8)
-        }
-        .navigationTitle("Request access to your senior")
-        .presentationDetents([.medium])
-        .padding()
+            .fullScreenCover(isPresented: $inviteModal) {
+                OnBoardingInviteView(caregiverDashboardViewModel: caregiverDashboardViewModel)
+            }
     }
 }
 
