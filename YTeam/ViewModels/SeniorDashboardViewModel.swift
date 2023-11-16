@@ -56,8 +56,6 @@ class SeniorDashboardViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] routines in
                 guard let self else { return }
-                print("Routine Data", self.routineData)
-                print("Updated Single Data", routines)
                 for (_, routine) in routines.enumerated() {
                     if let concurrentIndex = self.routineData.firstIndex(where: {$0.id == routine.id}) {
                         self.routineData[concurrentIndex] = routine
@@ -66,6 +64,27 @@ class SeniorDashboardViewModel: ObservableObject {
                     }
                     self.convertRoutineDataToRoutine()
                 }
+            }
+            .store(in: &cancellables)
+        
+        routineService.$deletedRoutine
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] routines in
+                guard let self else { return }
+                guard routines.count > 0 else {return}
+                if let index = self.routineData.firstIndex(where: { $0.id == routines[0].id }) {
+                    self.routineData.remove(at: index)
+                }
+                routineService.removeDeletedRoutines()
+                self.convertRoutineDataToRoutine()
+            }
+            .store(in: &cancellables)
+        
+        symptomService.$symptomsDocumentChangesToday
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] documentChanges in
+                guard let self = self else { return }
+                self.symptoms.insert(contentsOf: self.loadInitialSymptoms(documents: documentChanges), at: 0)
             }
             .store(in: &cancellables)
     }

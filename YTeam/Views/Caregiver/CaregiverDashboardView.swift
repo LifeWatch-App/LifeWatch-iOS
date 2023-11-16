@@ -66,10 +66,6 @@ struct CaregiverDashboardView: View {
                                     Text("Add a senior")
                                 } else {
                                     Text(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto")
-                                    
-                                    Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
-                                        .font(.subheadline)
-                                        .padding(.leading, -2)
                                 }
                             }
                             .font(.headline)
@@ -116,9 +112,10 @@ struct SeniorStatus: View {
             }
 
             HStack(spacing: 12) {
-                Image(caregiverDashboardViewModel.latestSymptomInfo == nil ? "safe" : "symptom-detected")
+                Image(caregiverDashboardViewModel.latestSymptomInfo == nil ? "safe" : caregiverDashboardViewModel.latestSymptomInfo?.name ?? "Unknown")
                     .resizable()
                     .scaledToFit()
+                    .cornerRadius(100)
                     .frame(width: 50)
 
                 VStack(alignment: .leading) {

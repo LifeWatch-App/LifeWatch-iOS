@@ -123,8 +123,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .receive(on: DispatchQueue.main)
             .sink { [weak self] routines in
                 guard let self else { return }
-                print("Routine Data", self.routineData)
-                print("Updated Single Data", routines)
                 for (_, routine) in routines.enumerated() {
                     if let concurrentIndex = self.routineData.firstIndex(where: {$0.id == routine.id}) {
                         self.routineData[concurrentIndex] = routine
@@ -133,6 +131,20 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                     }
                     self.convertRoutineDataToRoutine()
                 }
+            }
+            .store(in: &cancellables)
+        
+        routineService.$deletedRoutine
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] routines in
+                guard let self else { return }
+                guard routines.count > 0 else {return}
+                print(routines)
+                if let index = self.routineData.firstIndex(where: { $0.id == routines[0].id }) {
+                    self.routineData.remove(at: index)
+                }
+                routineService.removeDeletedRoutines()
+                self.convertRoutineDataToRoutine()
             }
             .store(in: &cancellables)
     }
