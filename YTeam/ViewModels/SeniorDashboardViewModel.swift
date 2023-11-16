@@ -31,9 +31,12 @@ class SeniorDashboardViewModel: ObservableObject {
     private var routineData: [RoutineData] = []
     private let routineService: RoutineService = RoutineService.shared
     
+    @Published var allRoutineDone = false
+    
     init() {
         setupSubscribers()
         symptomService.observeSymptomsToday()
+        
         // add dummy data
 //        routines = routinesDummyData
         //        symptoms = symptomsDummyData
@@ -113,6 +116,8 @@ class SeniorDashboardViewModel: ObservableObject {
             return Routine(id: routine.id, type: routine.type, time: routineTime, activity: routine.activity, description: routine.description, medicine: routine.medicine, medicineAmount: routine.medicineAmount, medicineUnit: medicineUnit, isDone: routine.isDone)
         }
         
+        checkAllDone()
+        
         if (self.routines.count > 1) {
             self.routines.sort { (routine1, routine2) -> Bool in
                 let time1 = routine1.time[0]
@@ -159,5 +164,18 @@ class SeniorDashboardViewModel: ObservableObject {
             }
         }
         return symptoms
+    }
+    
+    func checkAllDone() {
+        var doneTemp = true
+        
+        routines.forEach { routine in
+            if !routine.isDone.allSatisfy({ $0 == true }) {
+                print("routine all satisfy: \(!routine.isDone.allSatisfy({ $0 == true }))")
+                doneTemp = false
+            }
+        }
+        
+        allRoutineDone = doneTemp
     }
 }

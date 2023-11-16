@@ -18,8 +18,6 @@ struct SeniorDashboardView: View {
         NavigationStack {
             ScrollView {
                 VStack{
-                    ButtonCards(seniorDashboardViewModel: seniorDashboardViewModel)
-                    
                     ForEach(seniorDashboardViewModel.invites, id: \.id) { invite in
                         if !invite.accepted! {
                             HStack() {
@@ -51,8 +49,9 @@ struct SeniorDashboardView: View {
                             .background(colorScheme == .light ? .white : Color(.systemGray6))
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                         }
-                        
                     }
+                    
+                    ButtonCards(seniorDashboardViewModel: seniorDashboardViewModel)
                     
                     UpcomingActivity(seniorDashboardViewModel: seniorDashboardViewModel)
                     
@@ -77,6 +76,9 @@ struct SeniorDashboardView: View {
             .navigationTitle("Dashboard")
             .fullScreenCover(isPresented: $emailModal) {
                 OnBoardingEmailView()
+            }
+            .onAppear {
+                seniorDashboardViewModel.checkAllDone()
             }
         }
     }
@@ -169,43 +171,65 @@ struct UpcomingActivity: View {
             
             VStack(spacing: 20) {
                 // Ambil 3 dengan waktu terdekat yang belum done
-                ForEach(seniorDashboardViewModel.routines.prefix(2)) { routine in
-                    ForEach(routine.time.indices, id: \.self) { i in
-                        if (!routine.isDone[i]) {
-                            HStack(spacing: 16) {
-                                VStack {
-                                    Image(systemName: routine.type == "Medicine" ? "pill.fill" : "figure.run")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 40)
-                                        .foregroundStyle(.white)
-                                }
-                                .padding(12)
-                                .frame(width: 52, height: 52)
-                                .background(.blue)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
-                                        .font(.headline)
-                                    Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
-                                    HStack {
-                                        Image(systemName: "clock")
-                                        Text(routine.time[i], style: .time)
-                                            .padding(.leading, -4)
+                if seniorDashboardViewModel.routines.count > 0 {
+                    if seniorDashboardViewModel.allRoutineDone {
+                        HStack {
+                            Spacer()
+                            
+                            Text("You have completed all of the routines today.")
+                                .multilineTextAlignment(.center)
+                            
+                            Spacer()
+                        }
+                    } else {
+                        ForEach(seniorDashboardViewModel.routines.prefix(2)) { routine in
+                            ForEach(routine.time.indices, id: \.self) { i in
+                                if (!routine.isDone[i]) {
+                                    HStack(spacing: 16) {
+                                        VStack {
+                                            Image(systemName: routine.type == "Medicine" ? "pill.fill" : "figure.run")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 40)
+                                                .foregroundStyle(.white)
+                                        }
+                                        .padding(12)
+                                        .frame(width: 52, height: 52)
+                                        .background(.blue)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                        
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
+                                                .font(.headline)
+                                            Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
+                                            HStack {
+                                                Image(systemName: "clock")
+                                                Text(routine.time[i], style: .time)
+                                                    .padding(.leading, -4)
+                                            }
+                                            .foregroundColor(.secondary)
+                                        }
+                                        
+                                        Spacer()
+                                        
+                                        Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 40)
+                                            .foregroundStyle(.accent)
                                     }
-                                    .foregroundColor(.secondary)
                                 }
-                                
-                                Spacer()
-                                
-                                Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 40)
-                                    .foregroundStyle(.accent)
                             }
                         }
+                    }
+                } else {
+                    HStack {
+                        Spacer()
+                        
+                        Text("Routines not Set.")
+                            .multilineTextAlignment(.center)
+                        
+                        Spacer()
                     }
                 }
             }
@@ -240,35 +264,47 @@ struct Symtomps: View {
                 }
             }
             
-            ForEach(seniorDashboardViewModel.symptoms) { symptom in
-                HStack(spacing: 16) {
-                    Image(symptom.name ?? "Unknown")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 50)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                    
-                    VStack(alignment: .leading) {
-                        Text(symptom.name ?? "Unknown")
-                            .font(.title3)
-                            .fontWeight(.semibold)
+            if seniorDashboardViewModel.symptoms.count > 0 {
+                ForEach(seniorDashboardViewModel.symptoms) { symptom in
+                    HStack(spacing: 16) {
+                        Image("safe")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 50)
                         
-                        if let note = symptom.note {
-                            Text(note)
+                        VStack(alignment: .leading) {
+                            Text(symptom.name ?? "Unknown")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                            
+                            if let note = symptom.note {
+                                Text(note)
+                                    .font(.subheadline)
+                            }
+                        }
+                        
+                        Spacer()
+                        
+                        HStack {
+                            Image(systemName: "clock")
+                            Text(Date.unixToDate(unix: symptom.time ?? 0), style: .time)
+                                .padding(.leading, -4)
                                 .font(.subheadline)
                         }
+                        .foregroundColor(.secondary)
+                        .padding(.leading, 4)
                     }
-                    
+                    .padding()
+                    .background(colorScheme == .light ? .white : Color(.systemGray6))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+            } else {
+                HStack {
                     Spacer()
                     
-                    HStack {
-                        Image(systemName: "clock")
-                        Text(Date.unixToDate(unix: symptom.time ?? 0), style: .time)
-                            .padding(.leading, -4)
-                            .font(.subheadline)
-                    }
-                    .foregroundColor(.secondary)
-                    .padding(.leading, 4)
+                    Text("No symptoms today.")
+                    
+                    Spacer()
                 }
                 .padding()
                 .background(colorScheme == .light ? .white : Color(.systemGray6))
@@ -280,5 +316,5 @@ struct Symtomps: View {
 
 #Preview {
     SeniorDashboardView()
-    //        .preferredColorScheme(.dark)
+//            .preferredColorScheme(.dark)
 }

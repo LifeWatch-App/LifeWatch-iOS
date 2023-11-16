@@ -67,9 +67,13 @@ struct RoutineView: View {
                                             .frame(width: 28)
                                             .foregroundStyle(.white, .accent)
                                         
-                                        RoundedRectangle(cornerRadius: 100)
-                                            .fill(.secondary.opacity(0.5))
-                                            .frame(width: 2)
+                                        if routine != routineViewModel.routines.last {
+                                            RoundedRectangle(cornerRadius: 100)
+                                                .fill(.secondary.opacity(0.5))
+                                                .frame(width: 2)
+                                        } else {
+                                            Spacer()
+                                        }
                                     }
                                     
                                     HStack {
@@ -118,16 +122,22 @@ struct RoutineView: View {
                                 }
                             } else {
                                 HStack(spacing: 8) {
-                                    VStack {
-                                        Image(systemName: routine.type == "Medicine" ? "pill.circle.fill" : "figure.run.circle.fill")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 28)
-                                            .foregroundStyle(.white, .accent)
-                                        
-                                        RoundedRectangle(cornerRadius: 100)
-                                            .fill(.secondary.opacity(0.5))
-                                            .frame(width: 2)
+                                    if routine != routineViewModel.routines.last {
+                                        VStack {
+                                            Image(systemName: routine.type == "Medicine" ? "pill.circle.fill" : "figure.run.circle.fill")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 28)
+                                                .foregroundStyle(.white, .accent)
+                                            
+                                            if routine != routineViewModel.routines.last {
+                                                RoundedRectangle(cornerRadius: 100)
+                                                    .fill(.secondary.opacity(0.5))
+                                                    .frame(width: 2)
+                                            } else {
+                                                Spacer()
+                                            }
+                                        }
                                     }
                                     
                                     VStack(alignment: .leading) {

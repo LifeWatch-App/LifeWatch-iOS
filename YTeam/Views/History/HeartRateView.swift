@@ -56,9 +56,9 @@ struct HeartRateView: View {
                                     )
                                     .clipShape(RoundedRectangle(cornerRadius: 2))
                                     
-                                    PointMark(x: .value("Date", $0.day, unit: .day), y: .value("Avg. Heart Rate", $0.avgHeartRate)
-                                    )
-                                    .clipShape(RoundedRectangle(cornerRadius: 2))
+//                                    PointMark(x: .value("Date", $0.day, unit: .day), y: .value("Avg. Heart Rate", $0.avgHeartRate)
+//                                    )
+//                                    .clipShape(RoundedRectangle(cornerRadius: 2))
                                 }
                                 
                                 if let rawSelectedDate {
