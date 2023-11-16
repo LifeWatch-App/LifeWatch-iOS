@@ -29,8 +29,8 @@ class RoutineViewModel: ObservableObject {
     init() {
         setupRoutineSubscribers()
         fetchCurrentWeek()
-        //        routines = routinesDummyData
-        countProgress()
+        //                routines = routinesDummyData
+        //        countProgress()
     }
     
     func setupRoutineSubscribers() {
@@ -60,7 +60,7 @@ class RoutineViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] routines in
                 guard let self else { return }
-
+                
                 for (_, routine) in routines.enumerated() {
                     if let concurrentIndex = self.routineData.firstIndex(where: {$0.id == routine.id}) {
                         self.routineData[concurrentIndex] = routine
@@ -118,6 +118,8 @@ class RoutineViewModel: ObservableObject {
                 routineTime.append( Date(timeIntervalSince1970: time))
             }
             
+            print(routineTime)
+            
             switch (routine.medicineUnit) {
             case "CC":
                 medicineUnit = .CC
@@ -145,8 +147,15 @@ class RoutineViewModel: ObservableObject {
             }
         }
         
+        self.routines = self.routines.filter { routine in
+            routine.time.contains(where: { time in
+                currentWeek.first! <= time && time <= currentWeek.last!
+            })
+        }
+        
         self.countProgress()
     }
+    
     func updateSingleRoutineCheck(routine: Routine) {
         let routineDataDate: [Double] = routine.time.map { time in
             return time.timeIntervalSince1970
@@ -192,6 +201,7 @@ class RoutineViewModel: ObservableObject {
         
         progressCount = (progressCount / totalProgress)
     }
+    
     
     func changeWeek(type: ChangeWeek) {
         if type == .next {
