@@ -133,6 +133,20 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 }
             }
             .store(in: &cancellables)
+        
+        routineService.$deletedRoutine
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] routines in
+                guard let self else { return }
+                guard routines.count > 0 else {return}
+                print(routines)
+                if let index = self.routineData.firstIndex(where: { $0.id == routines[0].id }) {
+                    self.routineData.remove(at: index)
+                }
+                routineService.removeDeletedRoutines()
+                self.convertRoutineDataToRoutine()
+            }
+            .store(in: &cancellables)
     }
     
     func convertRoutineDataToRoutine() {

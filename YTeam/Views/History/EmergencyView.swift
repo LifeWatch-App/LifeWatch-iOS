@@ -17,7 +17,7 @@ struct EmergencyView: View {
             } else {
                 VStack {
                     HistoryWeekPicker(historyViewModel: historyViewModel)
-                    
+                    ScrollView {
                     HStack{
                         DetectedFallCard(fallCount: $historyViewModel.fallsCount)
                         SOSCard(sosCount: $historyViewModel.sosCount)
@@ -42,6 +42,7 @@ struct EmergencyView: View {
                             }
                         }
                     }
+                }
                 }
                 
                 Spacer()

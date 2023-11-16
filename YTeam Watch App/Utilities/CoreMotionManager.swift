@@ -135,7 +135,7 @@ class CoreMotionManager: ObservableObject {
                     print("Delta Y: \(abs(self.accY - self.lastY))");
                     print("Delta Z: \(abs(self.accZ - self.lastZ))");
                     
-                    if (abs(self.accX - self.lastX) >= 1 || abs(self.accY - self.lastY) >= 1 || abs(self.accZ - self.lastZ) >= 1) {
+                    if (abs(self.accX - self.lastX) >= 1.4 || abs(self.accY - self.lastY) >= 1.4 || abs(self.accZ - self.lastZ) >= 1.4) {
                         print("You fell")
                         timer.invalidate()
                         self.stopAccelerometer()
