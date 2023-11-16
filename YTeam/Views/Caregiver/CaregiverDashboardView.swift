@@ -371,7 +371,7 @@ struct UpcomingRoutines: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Upcoming Routines")
+                Text("Senior's Routine")
                     .font(.headline)
                     .foregroundStyle(.secondary)
                 
@@ -440,7 +440,7 @@ struct UpcomingRoutines: View {
                 HStack {
                     Spacer()
                     
-                    Text("Your senior has completed all of the routines today.")
+                    Text("Routines not Set.")
                         .multilineTextAlignment(.center)
                     
                     Spacer()
