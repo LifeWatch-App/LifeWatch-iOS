@@ -64,6 +64,19 @@ class SeniorDashboardViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
+        routineService.$deletedRoutine
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] routines in
+                guard let self else { return }
+                guard routines.count > 0 else {return}
+                if let index = self.routineData.firstIndex(where: { $0.id == routines[0].id }) {
+                    self.routineData.remove(at: index)
+                }
+                routineService.removeDeletedRoutines()
+                self.convertRoutineDataToRoutine()
+            }
+            .store(in: &cancellables)
+        
         symptomService.$symptomsDocumentChangesToday
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in

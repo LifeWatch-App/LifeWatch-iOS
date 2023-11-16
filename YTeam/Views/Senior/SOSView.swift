@@ -14,7 +14,7 @@ struct SOSView: View {
     @ObservedObject var audioManager: AudioPlayerManager = AudioPlayerManager()
     
     @State var timeRemaining = 10
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         ZStack {
@@ -92,6 +92,7 @@ struct SOSView: View {
                     Spacer()
                     
                     Button {
+                        audioManager.stopAlert()
                         dismiss()
                     } label: {
                         HStack {
@@ -118,8 +119,9 @@ struct SOSView: View {
             if timeRemaining > 0 {
                 timeRemaining -= 1
             } else if timeRemaining == 0 {
-//                Task{ try? seniorDashboardViewModel.sendSOS()}
-//                audioManager.playAlert()
+                Task{ try? seniorDashboardViewModel.sendSOS()}
+                audioManager.playAlert()
+                timer.upstream.connect().cancel()
             }
         }
     }
