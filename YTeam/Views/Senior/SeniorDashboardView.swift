@@ -212,8 +212,6 @@ struct UpcomingActivity: View {
                                         Spacer()
                                         
                                         Button {
-                                            print("Routine: ", routine)
-                                            print("Index: ", i)
                                             routineViewModel.updateRoutineCheck(routine: routine, index: i)
                                         } label: {
                                             Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
