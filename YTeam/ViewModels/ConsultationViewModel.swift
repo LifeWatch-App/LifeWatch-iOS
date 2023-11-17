@@ -9,8 +9,7 @@ import Foundation
 import Combine
 
 class ConsultationViewModel: ObservableObject {
-//    @Published var messages: [Message] = [Message(id: UUID(), role: .system, content: "You are a medical assistant, you will help me understand about medical topics. You don't have enough information about other topics to give advice.", createdAt: Date())]
-    @Published var messages: [Message] = []
+    @Published var messages: [Message] = [Message(id: UUID(), role: .system, content: "You are a medical assistant, you will help me understand about medical topics. You don't have enough information about other topics to give advice and will not give any advice for other topics.", createdAt: Date())]
     @Published var messageText: String = ""
     
     func sendMessage() {
