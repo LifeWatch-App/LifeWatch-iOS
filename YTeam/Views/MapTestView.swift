@@ -11,7 +11,8 @@ import MapKit
 struct MapTestView: View {
     @Environment(\.colorScheme) var colorScheme
     
-    @StateObject private var mapVM = MapViewModel()
+//    @StateObject private var mapVM = MapViewModel()
+    @ObservedObject var mapVM: MapViewModel
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -31,7 +32,6 @@ struct MapTestView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .padding(20)
                             .opacity(mapVM.homeSetMode ? 1 : 0)
-
 
                         Button {
                             mapVM.is3DMap.toggle()
@@ -158,5 +158,5 @@ struct MapTestView: View {
 }
 
 #Preview {
-    MapTestView()
+    MapTestView(mapVM: MapViewModel())
 }
