@@ -36,7 +36,7 @@ struct InactivityView: View {
                 ProgressView()
             } else {
                 HistoryWeekPicker(historyViewModel: historyViewModel)
-                
+                ScrollView {
                 VStack {
                     VStack(alignment: .leading) {
                         Text("Total Inactivity This Week")
@@ -112,6 +112,7 @@ struct InactivityView: View {
                     }
                     .frame(height: 200)
                 }
+            }
                 .padding()
                 .background(colorScheme == .light ? .white : Color(.systemGray6))
                 .clipShape(RoundedRectangle(cornerRadius: 16))
