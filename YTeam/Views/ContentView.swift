@@ -22,7 +22,7 @@ struct ContentView: View {
                 }
             }
         }
-        .transition(.slide)
+        .transition(.opacity)
         .task {
             AuthService.shared.listenToAuthState()
         }
