@@ -22,21 +22,21 @@ struct MainView: View {
         if authVM.userAuth?.userID != nil {
 //            TestChargingView()
 //            IdleDetectionView()
-            Text("Logged in")
-                .environmentObject(authVM)
-//            CombinedView()
+//            Text("Logged in")
 //                .environmentObject(authVM)
-//                .environmentObject(heartManager)
-//                .sheet(isPresented: $motionDetector.fall) {
-//                    FallNotificationView()
-//                        .environmentObject(fallDetector)
-//                        .environmentObject(motionDetector)
-//                }
-//                .sheet(isPresented: $fallDetector.fall) {
-//                    FallNotificationView()
-//                        .environmentObject(fallDetector)
-//                        .environmentObject(motionDetector)
-//                }
+            CombinedView()
+                .environmentObject(authVM)
+                .environmentObject(heartManager)
+                .sheet(isPresented: $motionDetector.fall) {
+                    FallNotificationView()
+                        .environmentObject(fallDetector)
+                        .environmentObject(motionDetector)
+                }
+                .sheet(isPresented: $fallDetector.fall) {
+                    FallNotificationView()
+                        .environmentObject(fallDetector)
+                        .environmentObject(motionDetector)
+                }
             
         } else if authVM.userAuth?.userID == nil {
             Text("Not authenticated and logged in")
