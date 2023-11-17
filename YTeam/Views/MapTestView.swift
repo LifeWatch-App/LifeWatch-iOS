@@ -16,27 +16,60 @@ struct MapTestView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             if mapVM.lastSeenLocation != nil && mapVM.mapRegion != nil {
+                ZStack(alignment: .top){
+                    MKMapRep(mapVM: mapVM)
+                        .ignoresSafeArea(edges: .top)
 
-                MKMapRep(mapVM: mapVM)
-                    .ignoresSafeArea()
+                    ZStack(alignment: .topLeading) {
+
+                        Spacer()
+                        Text("Set pin on a location")
+                            .font(.headline)
+                            .frame(maxWidth: UIScreen.main.bounds.width)
+                            .padding(20)
+                            .background(.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .padding(20)
+                            .opacity(mapVM.homeSetMode ? 1 : 0)
+
+
+                        Button {
+                            mapVM.is3DMap.toggle()
+                            mapVM.shouldChangeMap = true
+                        } label: {
+                            Text("3D")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding(10)
+                                .background(mapVM.is3DMap ? Color.green : Color.blue)
+                                .clipShape(Circle())
+                                .opacity(mapVM.homeSetMode ? 0 : 1)
+                        }
+                        .padding(.leading, 20)
+                        .padding(.top, 20)
+
+                    }
+                }
+
 
                 VStack(alignment: .trailing, spacing: 12) {
                     Button {
-                        mapVM.recenter = true
+
+                        mapVM.homeSetMode.toggle()
+
                     } label: {
                         HStack(spacing: 4) {
                             Image(systemName: "house.fill")
                                 .font(.headline)
-                            Text("Re-center")
+                            Text("Set Boundary")
                         }
                         .foregroundStyle(.white)
                         .fontWeight(.semibold)
                     }
-                    .padding(12)
-                    .background(Color.blue)
-                    .clipShape(RoundedRectangle(cornerRadius: 100))
-                    .padding(.trailing)
-
+                    .padding(10)
+                    .background(mapVM.homeSetMode ? Color.green : Color.blue)
+                    .clipShape(RoundedRectangle(cornerRadius: 30))
+                    
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(mapVM.allLocations, id: \.self) { location in
@@ -91,8 +124,10 @@ struct MapTestView: View {
                                 .padding(.top, 8)
                                 .onTapGesture {
                                     if let latitude = location.latitude, let longitude = location.longitude {
-                                        mapVM.shouldSelect = true
-                                        mapVM.selectedPlacemark = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                                        withAnimation {
+                                            mapVM.shouldSelect = true
+                                            mapVM.selectedPlacemark = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                                        }
                                     }
                                 }
                             }

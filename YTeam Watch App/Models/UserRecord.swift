@@ -9,6 +9,4 @@ import Foundation
 
 struct UserRecord: Codable {
     var userID: String?
-    var userData: UserData?
-    var invites: [Invite] = []
 }

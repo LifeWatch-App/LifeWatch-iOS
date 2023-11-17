@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 
 struct LiveLocation: Hashable, Codable {
+    @DocumentID var id: String?
     var seniorId: String?
     var locationName: String?
     var longitude: Double?
