@@ -11,7 +11,6 @@ struct Routine: Identifiable, Equatable {
     var id: String = ""
     var type: String  = ""
     var seniorId: String?
-//    var time: [Date] = [Date(), Date(), Date()]
     var time: [Date] = []
     var activity: String?
     var description: String?
@@ -19,9 +18,10 @@ struct Routine: Identifiable, Equatable {
     var medicineAmount: String?
     var medicineUnit: MedicineUnit?
     var isDone: [Bool] = []
-//    var isDone: [Bool] = [false, false, false]
 }
 
+//    var isDone: [Bool] = [false, false, false]
+//    var time: [Date] = [Date(), Date(), Date()]
 // dummy data
 let routinesDummyData: [Routine] = [
     Routine(type: "Medicine", time: [Date(), Date()], medicine: "OBH Combi", medicineAmount: "200", medicineUnit: .Mililitre, isDone: [true, false]),

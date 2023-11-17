@@ -113,7 +113,7 @@ class SeniorDashboardViewModel: ObservableObject {
                 medicineUnit = .Tablet
             }
             
-            return Routine(id: routine.id, type: routine.type, time: routineTime, activity: routine.activity, description: routine.description, medicine: routine.medicine, medicineAmount: routine.medicineAmount, medicineUnit: medicineUnit, isDone: routine.isDone)
+            return Routine(id: routine.id, type: routine.type, seniorId: routine.seniorId, time: routineTime, activity: routine.activity, description: routine.description, medicine: routine.medicine, medicineAmount: routine.medicineAmount, medicineUnit: medicineUnit, isDone: routine.isDone)
         }
         
         checkAllDone()

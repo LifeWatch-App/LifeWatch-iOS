@@ -13,7 +13,6 @@ struct SeniorDashboardView: View {
     @AppStorage("emailModal") var emailModal = true
     
     @StateObject var seniorDashboardViewModel = SeniorDashboardViewModel()
-    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -151,7 +150,7 @@ struct UpcomingActivity: View {
     @Environment(\.colorScheme) var colorScheme
     
     @ObservedObject var seniorDashboardViewModel: SeniorDashboardViewModel
-    
+    @StateObject var routineViewModel: RoutineViewModel = RoutineViewModel()
     var body: some View {
         VStack {
             HStack {
@@ -212,11 +211,15 @@ struct UpcomingActivity: View {
                                         
                                         Spacer()
                                         
-                                        Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 40)
-                                            .foregroundStyle(.accent)
+                                        Button {
+                                            routineViewModel.updateRoutineCheck(routine: routine, index: i)
+                                        } label: {
+                                            Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 40)
+                                                .foregroundStyle(.accent)
+                                        }
                                     }
                                 }
                             }
