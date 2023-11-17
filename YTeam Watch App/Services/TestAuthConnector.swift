@@ -12,16 +12,18 @@ final class TestAuthConnector: NSObject, WCSessionDelegate {
     var session: WCSession
     @Published var userRecord: UserRecord?
     private let decoder = JSONDecoder()
+    @Published var status = ""
 
     init(session: WCSession = .default) {
         self.session = session
         super.init()
         self.session.delegate = self
         session.activate()
+        status = "iphone detectedd"
     }
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        //
+        status = "iphone detecteddddd"
     }
 
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
