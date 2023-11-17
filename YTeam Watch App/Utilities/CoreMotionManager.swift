@@ -7,6 +7,8 @@
 
 import Foundation
 import CoreMotion
+import WatchConnectivity
+import WatchKit
 
 class CoreMotionManager: ObservableObject {
     
@@ -135,14 +137,35 @@ class CoreMotionManager: ObservableObject {
                     print("Delta Y: \(abs(self.accY - self.lastY))");
                     print("Delta Z: \(abs(self.accZ - self.lastZ))");
                     
-                    if (abs(self.accX - self.lastX) >= 1.4 || abs(self.accY - self.lastY) >= 1.4 || abs(self.accZ - self.lastZ) >= 1.4) {
+                    if (abs(self.accX - self.lastX) >= 1.8 || abs(self.accY - self.lastY) >= 1.8 || abs(self.accZ - self.lastZ) >= 1.8) {
                         print("You fell")
                         timer.invalidate()
                         self.stopAccelerometer()
                         self.fall = true
+                        self.triggerHapticFeedback()
                     }
                 }
             }
+        }
+    }
+    
+    /// Triggers `haptic feedback`.
+    ///
+    /// ```
+    /// CoreMotionManager().triggerHapticFeedback().
+    /// ```
+    ///
+    /// - Parameters:
+    ///     - None
+    /// - Returns: Void. Disables fall
+    func triggerHapticFeedback() {
+        if WCSession.default.isReachable {
+            WCSession.default.sendMessage(["hapticFeedback": true], replyHandler: nil, errorHandler: { error in
+                print("Error sending haptic feedback message: \(error.localizedDescription)")
+            })
+        } else {
+            // If the watch is not reachable, use local haptic feedback
+            WKInterfaceDevice.current().play(.notification)
         }
     }
     

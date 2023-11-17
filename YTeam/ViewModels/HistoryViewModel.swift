@@ -226,6 +226,10 @@ final class HistoryViewModel: ObservableObject {
                     return a.time > b.time
                 } else if let a = a as? SOS, let b = b as? Fall {
                     return a.time > b.time
+                } else if let a = a as? Fall, let b = b as? Fall {
+                    return a.time > b.time
+                } else if let a = a as? SOS, let b = b as? SOS {
+                    return a.time > b.time
                 } else {
                     return false
                 }
@@ -323,6 +327,10 @@ final class HistoryViewModel: ObservableObject {
                     return a.startTime ?? 0 > b.startCharging ?? 0
                 } else if let a = a as? Charge, let b = b as? Idle {
                     return a.startCharging ?? 0 > b.startTime ?? 0
+                } else if let a = a as? Idle, let b = b as? Idle {
+                    return a.startTime ?? 0 > b.startTime ?? 0
+                } else if let a = a as? Charge, let b = b as? Charge {
+                    return a.startCharging ?? 0 > b.startCharging ?? 0
                 } else {
                     return false
                 }
