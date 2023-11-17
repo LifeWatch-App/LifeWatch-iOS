@@ -14,12 +14,14 @@ import MapKit
 final class MapViewModel: NSObject, ObservableObject {
     @Published var mapRegion: MKCoordinateRegion?
     @Published var selectedUserId: String?
-    @Published var mapRegion2: MKCoordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 39.23165776, longitude: -122.03069996), latitudinalMeters: 50, longitudinalMeters: 50)
+    @Published var is3DMap = false
+    @Published var shouldChangeMap = false
     @Published var lastSeenLocation: CLLocationCoordinate2D?
     @Published var allLocations: [LiveLocation] = []
     @Published var recenter: Bool = false
     @Published var zoomOut: Bool = false
     @Published var shouldSelect: Bool = false
+    @Published var homeSetMode: Bool = false
     @Published var selectedPlacemark: CLLocationCoordinate2D?
     var cancellables = Set<AnyCancellable>()
     private let service = LocationService.shared
@@ -51,8 +53,10 @@ final class MapViewModel: NSObject, ObservableObject {
                     self?.recenter = false
                     self?.zoomOut = false
                     self?.shouldSelect = false
+                    self?.homeSetMode = false
+                    self?.shouldChangeMap = false
+                    self?.is3DMap = false
                     self?.lastSeenLocation = nil
-                    self?.selectedPlacemark = nil
                     self?.mapRegion = nil
                     self?.service.observeHomeLocationSpecific()
                     self?.service.observeLiveLocationSpecific()
@@ -121,6 +125,22 @@ final class MapViewModel: NSObject, ObservableObject {
         return liveLocations
     }
 
+    @objc func getCoordinatePressOnMap(sender: UITapGestureRecognizer) {
+        guard let mapView = sender.view as? MKMapView else {
+            print("Error: Unable to get mapView from sender")
+            return
+        }
+
+        let touchLocation = sender.location(in: mapView)
+        let locationCoordinate = mapView.convert(touchLocation, toCoordinateFrom: mapView)
+        print("Tapped at lat: \(locationCoordinate.latitude) long: \(locationCoordinate.longitude)")
+
+        if homeSetMode {
+            Task { try? await service.setHomeLocation(location: locationCoordinate) }
+            homeSetMode = false
+        }
+    }
+
     private func loadLatestHomeLocation(documents: [DocumentChange]) -> MKCoordinateRegion? {
         let document = documents.first?.document
         guard let longitude = document?.get("longitude") as? Double, let latitude = document?.get("latitude") as? Double else {
@@ -167,5 +187,6 @@ extension MapViewModel: MKMapViewDelegate {
 
         return nil
     }
+    
 }
 

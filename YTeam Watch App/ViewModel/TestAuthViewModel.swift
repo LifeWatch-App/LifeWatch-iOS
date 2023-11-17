@@ -22,12 +22,7 @@ final class TestAuthViewModel: ObservableObject {
         service.$userRecord
             .receive(on: DispatchQueue.main)
             .sink { [weak self] record in
-                if let record {
-                    self?.userAuth = record
-                } else {
-                    guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
-                    self?.userAuth = try? self?.decoder.decode(UserRecord.self, from: data)
-                }
+                self?.userAuth = record
             }
             .store(in: &cancellables)
     }

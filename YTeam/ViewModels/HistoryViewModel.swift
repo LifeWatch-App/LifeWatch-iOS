@@ -144,7 +144,7 @@ final class HistoryViewModel: ObservableObject {
             .sink { [weak self] anomaly in
                 guard let self else {return}
 
-                self.heartAnomalies = anomaly
+                self.heartAnomalies.append(contentsOf: anomaly)
                 self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
@@ -154,7 +154,7 @@ final class HistoryViewModel: ObservableObject {
             .sink { [weak self] heartbeat in
                 guard let self else {return}
 
-                self.heartbeats = heartbeat
+                self.heartbeats.append(contentsOf: heartbeat)
                 self.fetchCurrentWeek()
             }
             .store(in: &cancellables)

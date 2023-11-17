@@ -144,6 +144,7 @@
 		93614CDB2B030197003350F1 /* HeartRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93614CDA2B030197003350F1 /* HeartRateService.swift */; };
 		93614CDE2B0301B6003350F1 /* IdleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93614CDD2B0301B6003350F1 /* IdleService.swift */; };
 		93614CE02B0301C4003350F1 /* SymptomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93614CDF2B0301C4003350F1 /* SymptomService.swift */; };
+		93614CE22B04F48A003350F1 /* HomeLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93614CE12B04F48A003350F1 /* HomeLocation.swift */; };
 		93B898EE2AE616C3005E1678 /* BatteryLevelRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */; };
 		93B898FA2AE76DB6005E1678 /* BatteryLevelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898F92AE76DB6005E1678 /* BatteryLevelViewModel.swift */; };
 		93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */; };
@@ -311,6 +312,7 @@
 		93614CDA2B030197003350F1 /* HeartRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateService.swift; sourceTree = "<group>"; };
 		93614CDD2B0301B6003350F1 /* IdleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleService.swift; sourceTree = "<group>"; };
 		93614CDF2B0301C4003350F1 /* SymptomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomService.swift; sourceTree = "<group>"; };
+		93614CE12B04F48A003350F1 /* HomeLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLocation.swift; sourceTree = "<group>"; };
 		93B898ED2AE616C3005E1678 /* BatteryLevelRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryLevelRecord.swift; sourceTree = "<group>"; };
 		93B898F92AE76DB6005E1678 /* BatteryLevelViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryLevelViewModel.swift; sourceTree = "<group>"; };
 		93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryLevel.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 				8DED839C2AF663C900AFB95B /* Routine.swift */,
 				8DED839E2AF664CD00AFB95B /* Symptom.swift */,
 				8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */,
+				93614CE12B04F48A003350F1 /* HomeLocation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -873,6 +876,7 @@
 				93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */,
 				8D21B0422AF7DBF300D23BF1 /* RoutineCircularProgressView.swift in Sources */,
 				8DED839F2AF664CD00AFB95B /* Symptom.swift in Sources */,
+				93614CE22B04F48A003350F1 /* HomeLocation.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
 				4CA7922E2ADFB67B003B5EC9 /* SeniorDashboardView.swift in Sources */,
 				8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */,

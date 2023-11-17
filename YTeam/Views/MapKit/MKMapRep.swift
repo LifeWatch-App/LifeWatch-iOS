@@ -24,52 +24,69 @@ struct MKMapRep: UIViewRepresentable {
 
         let coordinateRegion = MKCoordinateRegion(center: lastSeenLocation, latitudinalMeters: 50, longitudinalMeters: 50)
         mapView.setRegion(coordinateRegion, animated: true)
-        //            let circle = MKCircle(center: mapRegion.center, radius: 1000)
-        //            mapView.setVisibleMapRect(circle.boundingMapRect, edgePadding: .init(top: 30, left: 50, bottom: 20, right: 50), animated: true)
-        //
-        //            mapView.addOverlay(circle)
-        //
-        //            let markerAnnotation = MarkerAnnotation(title: "Senior's Home Location", coordinate: mapRegion.center)
-        //            let lastSeenAnnotation = MarkerAnnotation(title: "Last Seen location", coordinate: lastSeenLocation)
-        //
-        //            mapView.addAnnotations([markerAnnotation, lastSeenAnnotation])
-
+        let gestureRecognizer = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.getCoordinatePressOnMap(sender:)))
+        mapView.addGestureRecognizer(gestureRecognizer)
+        mapView.mapType = .standard
         return mapView
     }
+
 
     func makeCoordinator() -> MapViewModel {
         return mapVM
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        let mapVM = context.coordinator
+        let coordinator = context.coordinator
 
-        DispatchQueue.main.async {
-            if mapVM.recenter {
-                zoomRecenterHomeLocation(mapView: uiView, context: context)
-                context.coordinator.recenter = false
+        if coordinator.shouldSelect, coordinator.selectedPlacemark != nil {
+            zoomLocation(mapView: uiView, context: context)
+            //            coordinator.selectedPlacemark = nil
+            coordinator.shouldSelect = false
+        }
+
+        if let lastSeenLocation = coordinator.lastSeenLocation {
+            updateLiveLocationAnnotation(mapView: uiView, location: lastSeenLocation)
+        }
+
+        if let mapRegion = coordinator.mapRegion {
+            updateHomeLocationAnnotation(mapView: uiView, location: mapRegion.center)
+            updateRegionCircle(mapView: uiView, location: mapRegion.center)
+        }
+
+        if coordinator.shouldChangeMap {
+            changeView(mapView: uiView, context: context)
+            coordinator.shouldChangeMap = false
+        }
+    }
+
+
+    private func changeView(mapView: MKMapView, context: Context) {
+        if context.coordinator.selectedPlacemark != nil {
+            guard let lastSeenLocation = context.coordinator.selectedPlacemark else { return }
+            if context.coordinator.is3DMap {
+                let camera = MKMapCamera()
+                camera.centerCoordinate = lastSeenLocation
+                camera.pitch = 80
+                camera.altitude = 100
+                camera.heading = 45.0
+                mapView.setCamera(camera, animated: true)
+            } else {
+                let coordinateRegion = MKCoordinateRegion(center: lastSeenLocation, latitudinalMeters: 50, longitudinalMeters: 50)
+                mapView.setRegion(coordinateRegion, animated: true)
             }
-
-            if mapVM.shouldSelect && mapVM.selectedPlacemark != nil {
-                zoomLocation(mapView: uiView, context: context)
-                context.coordinator.selectedPlacemark = nil
-                context.coordinator.shouldSelect = false
+        } else {
+            guard let lastSeenLocation = context.coordinator.lastSeenLocation else { return }
+            if context.coordinator.is3DMap {
+                let camera = MKMapCamera()
+                camera.centerCoordinate = lastSeenLocation
+                camera.pitch = 80
+                camera.altitude = 100
+                camera.heading = 45.0
+                mapView.setCamera(camera, animated: true)
+            } else {
+                let coordinateRegion = MKCoordinateRegion(center: lastSeenLocation, latitudinalMeters: 50, longitudinalMeters: 50)
+                mapView.setRegion(coordinateRegion, animated: true)
             }
-
-            mapVM.$lastSeenLocation
-                .receive(on: DispatchQueue.main)
-                .sink { newCoordinate in
-                    self.updateLiveLocationAnnotation(mapView: uiView, context: context)
-                }
-                .store(in: &context.coordinator.cancellables)
-
-            mapVM.$mapRegion
-                .receive(on: DispatchQueue.main)
-                .sink { newCoordinate in
-                    self.updateHomeLocationAnnotation(mapView: uiView, context: context)
-                    self.updateRegionCircle(mapView: uiView, context: context)
-                }
-                .store(in: &context.coordinator.cancellables)
         }
     }
 
@@ -92,51 +109,40 @@ struct MKMapRep: UIViewRepresentable {
         }
     }
 
-    private func updateLiveLocationAnnotation(mapView: MKMapView, context: Context) {
-        for annotation in mapView.annotations {
-            if annotation.title == "Last Seen Location" {
-                mapView.removeAnnotation(annotation)
-            }
-        }
-        guard let lastSeenLocation = context.coordinator.lastSeenLocation else { return }
-        let coordinateRegion = MKCoordinateRegion(center: lastSeenLocation, latitudinalMeters: 50, longitudinalMeters: 50)
-        let lastSeenAnnotation = MarkerAnnotation(title: "Last Seen Location", coordinate: lastSeenLocation)
-
+    private func updateLiveLocationAnnotation(mapView: MKMapView, location: CLLocationCoordinate2D) {
+        removeAnnotations(withTitle: "Last Seen Location", from: mapView)
+        let lastSeenAnnotation = MarkerAnnotation(title: "Last Seen Location", coordinate: location)
         mapView.addAnnotation(lastSeenAnnotation)
-
-        //        mapView.setRegion(coordinateRegion, animated: true)
     }
 
-    private func updateHomeLocationAnnotation(mapView: MKMapView, context: Context) {
-        for annotation in mapView.annotations {
-            if annotation.title == "Senior's Home Location" {
-                mapView.removeAnnotation(annotation)
-            }
-        }
-        guard let setHomeLocation = context.coordinator.mapRegion else { return }
-        let lastSeenAnnotation = MarkerAnnotation(title: "Senior's Home Location", coordinate: setHomeLocation.center)
-        withAnimation {
-            mapView.addAnnotation(lastSeenAnnotation)
-        }
+    private func updateHomeLocationAnnotation(mapView: MKMapView, location: CLLocationCoordinate2D) {
+        removeAnnotations(withTitle: "Senior's Home Location", from: mapView)
+        let homeLocationAnnotation = MarkerAnnotation(title: "Senior's Home Location", coordinate: location)
+        mapView.addAnnotation(homeLocationAnnotation)
     }
 
-    private func updateRegionCircle(mapView: MKMapView, context: Context) {
-        for overlay in mapView.overlays {
-            mapView.removeOverlay(overlay)
-        }
-
-        guard let mapRegionCenter = context.coordinator.mapRegion?.center else { return }
-        let circle = MKCircle(center: mapRegionCenter, radius: 200)
-        //        mapView.setVisibleMapRect(circle.boundingMapRect, edgePadding: .init(top: 30, left: 50, bottom: 20, right: 50), animated: true)
+    private func updateRegionCircle(mapView: MKMapView, location: CLLocationCoordinate2D) {
+        removeOverlays(from: mapView)
+        let circle = MKCircle(center: location, radius: 200)
         mapView.addOverlay(circle)
     }
+
+    private func removeAnnotations(withTitle title: String, from mapView: MKMapView) {
+        let annotations = mapView.annotations.filter { $0.title == title }
+        mapView.removeAnnotations(annotations)
+    }
+
+    private func removeOverlays(from mapView: MKMapView) {
+        mapView.removeOverlays(mapView.overlays)
+    }
+
+
 
     private func zoomRecenterHomeLocation(mapView: MKMapView, context: Context) {
         guard let location = context.coordinator.mapRegion else {
             print("Print mapRegion not available")
             return
         }
-        print("Zoom", location)
         mapView.setRegion(location, animated: true)
     }
 
@@ -146,9 +152,17 @@ struct MKMapRep: UIViewRepresentable {
             return
         }
 
-        //        let region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.04, longitudeDelta: 0.04))
-        let region = MKCoordinateRegion(center: location, latitudinalMeters: 50, longitudinalMeters: 50)
-        mapView.setRegion(region, animated: true)
+        if context.coordinator.is3DMap == false {
+            let region = MKCoordinateRegion(center: location, latitudinalMeters: 50, longitudinalMeters: 50)
+            mapView.setRegion(region, animated: true)
+        } else {
+            let camera = MKMapCamera()
+            camera.centerCoordinate = location
+            camera.pitch = 80
+            camera.altitude = 100
+            camera.heading = 45.0
+            mapView.setCamera(camera, animated: true)
+        }
     }
 
     private func zoomOutRecenterLiveLocation(mapView: MKMapView, context: Context) {
@@ -156,7 +170,6 @@ struct MKMapRep: UIViewRepresentable {
             print("Print mapRegion not available")
             return
         }
-        print("Zoom", location)
         let region = MKCoordinateRegion(center: location, latitudinalMeters: 50, longitudinalMeters: 50)
         mapView.setRegion(region, animated: true)
     }

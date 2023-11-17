@@ -40,11 +40,11 @@ struct CombinedView: View {
                         )
                     }
                     
-                    VStack {
-                        Button("Set Current Location as Home") {
-                            locationVM.shouldSet = true
-                        }
-                    }
+//                    VStack {
+//                        Button("Set Current Location as Home") {
+//                            locationVM.shouldSet = true
+//                        }
+//                    }
                 }
                 .padding()
             }

@@ -41,59 +41,59 @@ final class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDele
     }
 
     func setupSubcribers() {
-        $shouldSet
-            .combineLatest($lastSeenLocation)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] shouldSet, lastSeenLocation in
-                guard let userIData = UserDefaults.standard.object(forKey: "user-auth") else { return }
-                guard let userID = try? JSONDecoder().decode(UserRecord.self, from: userIData as! Data).userID else { return }
-                guard let notNillLocation = lastSeenLocation else { return }
-
-                if shouldSet == true {
-                    self?.service.fetchCompletion(endPoint: MultipleEndPoints.homeLocations, httpMethod: .get) { (result: Result<FirebaseRecords<HomeLocationRecord>, Error>) in
-                        switch result {
-                        case .success(let homeLocationRecords):
-                            if !homeLocationRecords.documents.isEmpty {
-                                if let specificHomeRecord = homeLocationRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID }) {
-
-                                    guard let specificHomeRecordDocumentName = specificHomeRecord.name else { return }
-                                    let components = specificHomeRecordDocumentName.components(separatedBy: "/")
-                                    guard let specificHomeRecordDocumentID = components.last else { return }
-                                    let homeLocationRecord = HomeLocationRecord(seniorId: Description(stringValue: userID), longitude: Description(doubleValue: lastSeenLocation?.coordinate.longitude), latitude: Description(doubleValue: lastSeenLocation?.coordinate.latitude), radius: Description(doubleValue: 200), lastUpdatedAt: Description(doubleValue: Date.now.timeIntervalSince1970))
-
-                                    self?.setHomeLocation = lastSeenLocation
-                                    self?.shouldSet = false
-                                    self?.service.setCompletion(endPoint: SingleEndpoints.homeLocations(homeLocationsDocumentID: specificHomeRecordDocumentID), fields: homeLocationRecord, httpMethod: .patch) { error in
-                                        print("Error: \(error?.localizedDescription ?? "No Error")")
-                                    }
-
-                                } else {
-                                    let homeLocationRecord = HomeLocationRecord(seniorId: Description(stringValue: userID), longitude: Description(doubleValue: self?.lastSeenLocation?.coordinate.longitude), latitude: Description(doubleValue: self?.lastSeenLocation?.coordinate.latitude), radius: Description(doubleValue: 200), lastUpdatedAt: Description(doubleValue: Date.now.timeIntervalSince1970))
-
-                                    self?.setHomeLocation = notNillLocation
-                                    self?.shouldSet = false
-                                    self?.service.setCompletion(endPoint: MultipleEndPoints.homeLocations, fields: homeLocationRecord, httpMethod: .post) { error in
-                                        print("Error: \(error?.localizedDescription ?? "No Error")")
-                                    }
-
-                                }
-
-                            } else {
-                                let homeLocationRecord = HomeLocationRecord(seniorId: Description(stringValue: userID), longitude: Description(doubleValue: self?.lastSeenLocation?.coordinate.longitude), latitude: Description(doubleValue: self?.lastSeenLocation?.coordinate.latitude), radius: Description(doubleValue: 200), lastUpdatedAt: Description(doubleValue: Date.now.timeIntervalSince1970))
-
-                                self?.setHomeLocation = notNillLocation
-                                self?.shouldSet = false
-                                self?.service.setCompletion(endPoint: MultipleEndPoints.homeLocations, fields: homeLocationRecord, httpMethod: .post) { error in
-                                    print("Error: \(error?.localizedDescription ?? "No Error")")
-                                }
-                            }
-                        case .failure(let error):
-                            print("Error fetching homeLocationRecords: \(error)")
-                        }
-                    }
-                }
-            }
-            .store(in: &cancellables)
+        //        $shouldSet
+        //            .combineLatest($lastSeenLocation)
+        //            .receive(on: DispatchQueue.main)
+        //            .sink { [weak self] shouldSet, lastSeenLocation in
+        //                guard let userIData = UserDefaults.standard.object(forKey: "user-auth") else { return }
+        //                guard let userID = try? JSONDecoder().decode(UserRecord.self, from: userIData as! Data).userID else { return }
+        //                guard let notNillLocation = lastSeenLocation else { return }
+        //
+        //                if shouldSet == true {
+        //                    self?.service.fetchCompletion(endPoint: MultipleEndPoints.homeLocations, httpMethod: .get) { (result: Result<FirebaseRecords<HomeLocationRecord>, Error>) in
+        //                        switch result {
+        //                        case .success(let homeLocationRecords):
+        //                            if !homeLocationRecords.documents.isEmpty {
+        //                                if let specificHomeRecord = homeLocationRecords.documents.first(where: { $0.fields?.seniorId?.stringValue == userID }) {
+        //
+        //                                    guard let specificHomeRecordDocumentName = specificHomeRecord.name else { return }
+        //                                    let components = specificHomeRecordDocumentName.components(separatedBy: "/")
+        //                                    guard let specificHomeRecordDocumentID = components.last else { return }
+        //                                    let homeLocationRecord = HomeLocationRecord(seniorId: Description(stringValue: userID), longitude: Description(doubleValue: lastSeenLocation?.coordinate.longitude), latitude: Description(doubleValue: lastSeenLocation?.coordinate.latitude), radius: Description(doubleValue: 200), lastUpdatedAt: Description(doubleValue: Date.now.timeIntervalSince1970))
+        //
+        //                                    self?.setHomeLocation = lastSeenLocation
+        //                                    self?.shouldSet = false
+        //                                    self?.service.setCompletion(endPoint: SingleEndpoints.homeLocations(homeLocationsDocumentID: specificHomeRecordDocumentID), fields: homeLocationRecord, httpMethod: .patch) { error in
+        //                                        print("Error: \(error?.localizedDescription ?? "No Error")")
+        //                                    }
+        //
+        //                                } else {
+        //                                    let homeLocationRecord = HomeLocationRecord(seniorId: Description(stringValue: userID), longitude: Description(doubleValue: self?.lastSeenLocation?.coordinate.longitude), latitude: Description(doubleValue: self?.lastSeenLocation?.coordinate.latitude), radius: Description(doubleValue: 200), lastUpdatedAt: Description(doubleValue: Date.now.timeIntervalSince1970))
+        //
+        //                                    self?.setHomeLocation = notNillLocation
+        //                                    self?.shouldSet = false
+        //                                    self?.service.setCompletion(endPoint: MultipleEndPoints.homeLocations, fields: homeLocationRecord, httpMethod: .post) { error in
+        //                                        print("Error: \(error?.localizedDescription ?? "No Error")")
+        //                                    }
+        //
+        //                                }
+        //
+        //                            } else {
+        //                                let homeLocationRecord = HomeLocationRecord(seniorId: Description(stringValue: userID), longitude: Description(doubleValue: self?.lastSeenLocation?.coordinate.longitude), latitude: Description(doubleValue: self?.lastSeenLocation?.coordinate.latitude), radius: Description(doubleValue: 200), lastUpdatedAt: Description(doubleValue: Date.now.timeIntervalSince1970))
+        //
+        //                                self?.setHomeLocation = notNillLocation
+        //                                self?.shouldSet = false
+        //                                self?.service.setCompletion(endPoint: MultipleEndPoints.homeLocations, fields: homeLocationRecord, httpMethod: .post) { error in
+        //                                    print("Error: \(error?.localizedDescription ?? "No Error")")
+        //                                }
+        //                            }
+        //                        case .failure(let error):
+        //                            print("Error fetching homeLocationRecords: \(error)")
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            .store(in: &cancellables)
 
         $lastSeenLocation
             .receive(on: DispatchQueue.main)
@@ -167,47 +167,47 @@ final class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDele
             }
 
             if isFirstTimeUpdateLocation && setHomeLocation != nil {
-//                print("Entered here")
-//                guard let lastSeenLocation else {
-//                    print("Not found lastseenLocation")
-//                    return
-//                }
-//
-//                guard let currentPlacemark = self.currentPlacemark else {
-//                    print("Place mark is nil")
-//                    return
-//                }
-//                print("Current placemark", currentPlacemark)
-//                let isWithinRegion = checkLocationWithinHomeRadius(coordinate: lastSeenLocation.coordinate)
-//                let liveLocationRecord = LiveLocationRecord(seniorId: Description(stringValue: userID), locationName: Description(stringValue: currentPlacemark.formattedAddress ?? "Unknown Address"), longitude: Description(doubleValue: lastSeenLocation.coordinate.longitude), latitude: Description(doubleValue: lastSeenLocation.coordinate.latitude), isOutside: Description(booleanValue: isWithinRegion), createdAt: Description(doubleValue: Date.now.timeIntervalSince1970))
-//
-//                self.service.setCompletion(endPoint: MultipleEndPoints.liveLocations, fields: liveLocationRecord, httpMethod: .post) { error in
-//                    print("Error: \(error?.localizedDescription ?? "No Error")")
-//                    DispatchQueue.main.async {
-//                        self.isFirstTimeUpdateLocation = false
-//                    }
-//                }
+                print("Entered here")
+                guard let lastSeenLocation else {
+                    print("Not found lastseenLocation")
+                    return
+                }
+
+                guard let currentPlacemark = self.currentPlacemark else {
+                    print("Place mark is nil")
+                    return
+                }
+                print("Current placemark", currentPlacemark)
+                let isWithinRegion = checkLocationWithinHomeRadius(coordinate: lastSeenLocation.coordinate)
+                let liveLocationRecord = LiveLocationRecord(seniorId: Description(stringValue: userID), locationName: Description(stringValue: currentPlacemark.formattedAddress ?? "Unknown Address"), longitude: Description(doubleValue: lastSeenLocation.coordinate.longitude), latitude: Description(doubleValue: lastSeenLocation.coordinate.latitude), isOutside: Description(booleanValue: isWithinRegion), createdAt: Description(doubleValue: Date.now.timeIntervalSince1970))
+
+                self.service.setCompletion(endPoint: MultipleEndPoints.liveLocations, fields: liveLocationRecord, httpMethod: .post) { error in
+                    print("Error: \(error?.localizedDescription ?? "No Error")")
+                    DispatchQueue.main.async {
+                        self.isFirstTimeUpdateLocation = false
+                    }
+                }
 
             } else if !isFirstTimeUpdateLocation && setHomeLocation != nil {
-//                if locationUpdateTimer == nil {
-//                    DispatchQueue.main.async {
-//                        self.locationUpdateTimer = Timer.scheduledTimer(withTimeInterval: 3600, repeats: true) { [weak self] _ in
-//                            guard let lastSeenLocation = self?.lastSeenLocation else { return }
-//                            let isWithinRegion = self?.checkLocationWithinHomeRadius(coordinate: lastSeenLocation.coordinate)
-//                            guard let currentPlacemark = self?.currentPlacemark else { return }
-//                            let liveLocationRecord = LiveLocationRecord(seniorId: Description(stringValue: userID), locationName: Description(stringValue: currentPlacemark.formattedAddress ?? "Unknown Address"), longitude: Description(doubleValue: lastSeenLocation.coordinate.longitude), latitude: Description(doubleValue: lastSeenLocation.coordinate.latitude), isOutside: Description(booleanValue: isWithinRegion), createdAt: Description(doubleValue: Date.now.timeIntervalSince1970))
-//
-//                            self?.service.setCompletion(endPoint: MultipleEndPoints.liveLocations, fields: liveLocationRecord, httpMethod: .post, completion: { error in
-//                                if let error {
-//                                    print("Error: \(error.localizedDescription)")
-//                                } else {
-//                                    print("Success creating live location record from timer")
-//                                }
-//                            })
-//
-//                        }
-//                    }
-//                }
+                //                if locationUpdateTimer == nil {
+                //                    DispatchQueue.main.async {
+                //                        self.locationUpdateTimer = Timer.scheduledTimer(withTimeInterval: 3600, repeats: true) { [weak self] _ in
+                //                            guard let lastSeenLocation = self?.lastSeenLocation else { return }
+                //                            let isWithinRegion = self?.checkLocationWithinHomeRadius(coordinate: lastSeenLocation.coordinate)
+                //                            guard let currentPlacemark = self?.currentPlacemark else { return }
+                //                            let liveLocationRecord = LiveLocationRecord(seniorId: Description(stringValue: userID), locationName: Description(stringValue: currentPlacemark.formattedAddress ?? "Unknown Address"), longitude: Description(doubleValue: lastSeenLocation.coordinate.longitude), latitude: Description(doubleValue: lastSeenLocation.coordinate.latitude), isOutside: Description(booleanValue: isWithinRegion), createdAt: Description(doubleValue: Date.now.timeIntervalSince1970))
+                //
+                //                            self?.service.setCompletion(endPoint: MultipleEndPoints.liveLocations, fields: liveLocationRecord, httpMethod: .post, completion: { error in
+                //                                if let error {
+                //                                    print("Error: \(error.localizedDescription)")
+                //                                } else {
+                //                                    print("Success creating live location record from timer")
+                //                                }
+                //                            })
+                //
+                //                        }
+                //                    }
+                //                }
             }
 
             guard let lastSeenLocation = self.lastSeenLocation, setHomeLocation != nil else { return }

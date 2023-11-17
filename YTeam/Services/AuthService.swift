@@ -111,8 +111,6 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     }
     
     func signOut() {
-        print("sign out")
-        
         self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
             "fcmToken": NSNull(),
             "pttToken": NSNull()
@@ -122,12 +120,14 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
             } else {
                 print("Tokens successfully cleared")
             }
-            
-            self.userData = nil
-            self.user = nil
+
             if self.invitesListener != nil {
                 self.invitesListener!.remove()
             }
+
+            self.userData = nil
+            self.user = nil
+
             do {
                 try Auth.auth().signOut()
             } catch let signOutError as NSError {
