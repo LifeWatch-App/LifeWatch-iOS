@@ -9,26 +9,26 @@ import Foundation
 import Combine
 
 class ConsultationViewModel: ObservableObject {
-    @Published var chatMessages: [ChatMessage] = []
+//    @Published var messages: [Message] = [Message(id: UUID(), role: .system, content: "You are a medical assistant, you will help me understand about medical topics. You don't have enough information about other topics to give advice.", createdAt: Date())]
+    @Published var messages: [Message] = []
     @Published var messageText: String = ""
-
-    @Published var cancellables = Set<AnyCancellable>()
     
     func sendMessage() {
-        let myMessage = ChatMessage(id: UUID().uuidString, content: messageText, dateCreated: Date(), sender: .me)
-        chatMessages.append(myMessage)
-        
-        OpenAIService.shared.sendMessage(message: messageText).sink { completion in
-            
-        } receiveValue: { response in
-            guard let textResponse = response.choices.first?.text.trimmingCharacters(in: .whitespacesAndNewlines.union(.init(charactersIn: "\""))) else { return }
-            
-            let gptMessage = ChatMessage(id: response.id, content: textResponse, dateCreated: Date(), sender: .gpt)
-            
-            self.chatMessages.append(gptMessage)
-        }
-        .store(in: &cancellables)
-        
+        let newMessage = Message(id: UUID(), role: .user, content: messageText, createdAt: Date())
+        messages.append(newMessage)
         messageText = ""
+        
+        Task {
+            let response = await OpenAIService.shared.sendMessage(messages: messages)
+            guard let receivedOpenAIMessage = response?.choices.first?.message else {
+                print("Had no received message")
+                return
+            }
+            
+            let receivedMessage = Message(id: UUID(), role: receivedOpenAIMessage.role, content: receivedOpenAIMessage.content, createdAt: Date())
+            await MainActor.run {
+                messages.append(receivedMessage)
+            }
+        }
     }
 }

@@ -6,48 +6,61 @@
 //
 
 import Alamofire
-import Combine
+import Foundation
 
 class OpenAIService {
     static let shared = OpenAIService()
     
-    let baseUrl = "https://api.openai.com/v1/"
+    let baseUrl = "https://api.openai.com/v1/chat/completions"
     
-    func sendMessage(message: String) -> AnyPublisher<OpenAICompletionsResponse, Error> {
-        let body = OpenAICompletionsBody(model: "gpt-3.5-turbo-instruct", prompt: message, temperature: 0.5, max_tokens: 256)
+    func sendMessage(messages: [Message]) async -> OpenAIChatResponse? {
+        let openAIMessages = messages.map({OpenAIChatMessage(role: $0.role, content: $0.content)})
         
+        let body = OpenAIChatBody(model: "gpt-3.5-turbo", messages: openAIMessages)
+
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(OpenAIAPIConstantConstant.openAIAPIKey)"
+            "Authorization": "Bearer \(OpenAIAPIConstant.openAIAPIKey)",
+            "Content-Type": "application/json"
         ]
         
-        return Future { [weak self] promise in
-            guard let self = self else { return }
+        do {
+            let response = try await AF.request(baseUrl, method: .post, parameters: body, encoder: .json, headers: headers).serializingDecodable(OpenAIChatResponse.self).value
             
-            AF.request(self.baseUrl + "completions", method: .post, parameters: body, encoder: .json, headers: headers).responseDecodable(of: OpenAICompletionsResponse.self) { response in
-                switch response.result {
-                case .success(let result):
-                    promise(.success(result))
-                case .failure(let error):
-                    promise(.failure(error))
-                }
-            }
+            return response
+        } catch {
+            print("Error sending request: \(error)")
+            return nil
         }
-        .eraseToAnyPublisher()
     }
 }
 
-struct OpenAICompletionsBody: Encodable {
+struct OpenAIChatBody: Encodable {
     let model: String
-    let prompt: String
-    let temperature: Float?
-    let max_tokens: Int
+    let messages: [OpenAIChatMessage]
 }
 
-struct OpenAICompletionsResponse: Decodable {
-    let id: String
-    let choices: [OpenAICompletionChoices]
+struct OpenAIChatMessage: Codable {
+    let role: SenderRole
+    let content: String
 }
 
-struct OpenAICompletionChoices: Decodable {
-    let text: String
+enum SenderRole: String, Codable {
+    case system
+    case user
+    case assistant
+}
+
+struct OpenAIChatResponse: Decodable {
+    let choices: [OpenAIChatChoice]
+}
+
+struct OpenAIChatChoice: Decodable {
+    let message: OpenAIChatMessage
+}
+
+struct Message: Decodable {
+    let id: UUID
+    let role: SenderRole
+    let content: String
+    let createdAt: Date
 }
