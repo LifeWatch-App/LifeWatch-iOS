@@ -27,6 +27,7 @@ class RoutineService {
     ///     - None
     /// - Returns: If user is logged in, add a snapshot listener to the database and filter it based on the UID.
     func observeAllRoutines(userData: UserData?) {
+        print("UserData: ", userData)
         let uid: String?
         if userData?.role == "caregiver" {
             uid = UserDefaults.standard.string(forKey: "selectedSenior")

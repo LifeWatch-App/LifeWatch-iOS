@@ -49,12 +49,15 @@ class RoutineViewModel: ObservableObject {
             .sink { [weak self] id, userData in
                 if id != nil && userData != nil {
                     self?.routineData = []
+                    self?.routines = []
                     
                     self?.routineService.observeAllRoutines(userData: userData)
                     self?.routineService.observeAllDeletedRoutines(userData: userData)
                 }
+                self?.fetchCurrentWeek()
             }
             .store(in: &cancellables)
+        
         
         routineService.$routines
             .receive(on: DispatchQueue.main)

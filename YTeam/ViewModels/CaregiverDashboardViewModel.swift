@@ -84,6 +84,12 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 self.batteryService.observeBatteryStateLevelSpecific()
                 self.heartRateService.observeHeartRateSpecific(userData: userData)
                 self.symptomService.observeLatestSyptoms(userData: userData)
+                
+                self.routineData = []
+                self.routines = []
+                
+                self.routineService.observeAllRoutines(userData: userData)
+                self.routineService.observeAllDeletedRoutines(userData: userData)
             }
             .store(in: &cancellables)
 
