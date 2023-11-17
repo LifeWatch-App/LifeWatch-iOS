@@ -60,7 +60,6 @@
 		7D02E7642ADD023E00923AFB /* ChargingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E74E2ADD023E00923AFB /* ChargingViewModel.swift */; };
 		7D02E7652ADD023E00923AFB /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7502ADD023E00923AFB /* DataService.swift */; };
 		7D02E7662ADD023E00923AFB /* FallDetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7522ADD023E00923AFB /* FallDetectionManager.swift */; };
-		7D02E7672ADD023E00923AFB /* WatchConnectorManageWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7532ADD023E00923AFB /* WatchConnectorManageWatch.swift */; };
 		7D02E7682ADD023E00923AFB /* CalendarExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7552ADD023E00923AFB /* CalendarExt.swift */; };
 		7D02E7692ADD023E00923AFB /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7562ADD023E00923AFB /* DateExt.swift */; };
 		7D02E76A2ADD023E00923AFB /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7582ADD023E00923AFB /* APIConstants.swift */; };
@@ -247,7 +246,6 @@
 		7D02E74E2ADD023E00923AFB /* ChargingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargingViewModel.swift; sourceTree = "<group>"; };
 		7D02E7502ADD023E00923AFB /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		7D02E7522ADD023E00923AFB /* FallDetectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallDetectionManager.swift; sourceTree = "<group>"; };
-		7D02E7532ADD023E00923AFB /* WatchConnectorManageWatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchConnectorManageWatch.swift; sourceTree = "<group>"; };
 		7D02E7552ADD023E00923AFB /* CalendarExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarExt.swift; sourceTree = "<group>"; };
 		7D02E7562ADD023E00923AFB /* DateExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
 		7D02E7582ADD023E00923AFB /* APIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
@@ -639,7 +637,6 @@
 			isa = PBXGroup;
 			children = (
 				7D02E7522ADD023E00923AFB /* FallDetectionManager.swift */,
-				7D02E7532ADD023E00923AFB /* WatchConnectorManageWatch.swift */,
 				7D04164A2AEF5EBC00C4CBA7 /* HeartManager.swift */,
 				7D02E77A2ADD39D800923AFB /* CoreMotionManager.swift */,
 				7D0508E42AF9F60D00439E75 /* SOSManager.swift */,
@@ -1025,7 +1022,6 @@
 				4CA2329D2ADE1F15003874D2 /* MainView.swift in Sources */,
 				7D02E76B2ADD023E00923AFB /* APIEnums.swift in Sources */,
 				7D02E76A2ADD023E00923AFB /* APIConstants.swift in Sources */,
-				7D02E7672ADD023E00923AFB /* WatchConnectorManageWatch.swift in Sources */,
 				93D4FA612AF78F0F000850CE /* ColorExt.swift in Sources */,
 				4CA232992ADE1EF1003874D2 /* Invite.swift in Sources */,
 				7D02E7622ADD023E00923AFB /* LocationVIewModel.swift in Sources */,

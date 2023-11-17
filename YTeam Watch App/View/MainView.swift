@@ -22,6 +22,8 @@ struct MainView: View {
         if authVM.userAuth?.userID != nil {
 //            TestChargingView()
 //            IdleDetectionView()
+//            Text("Logged in")
+//                .environmentObject(authVM)
             CombinedView()
                 .environmentObject(authVM)
                 .environmentObject(heartManager)
@@ -37,7 +39,7 @@ struct MainView: View {
                 }
             
         } else if authVM.userAuth?.userID == nil {
-            Text("Not authenticated and not logged in")
+            Text("Not authenticated and logged in")
         }
     }
 }

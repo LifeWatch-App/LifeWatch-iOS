@@ -35,7 +35,6 @@ class MainViewModel: ObservableObject {
     }
 
     func handleAuthWatch(userID: String?, userData: UserData?) {
-        print("Handle Auth Watch called UserID: \(userID) userData: \(userData)")
         let encoder = JSONEncoder()
         let userRecord = UserRecord(userID: userID)
         print("User Record", userRecord)

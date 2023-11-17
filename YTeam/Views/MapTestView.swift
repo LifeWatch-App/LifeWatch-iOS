@@ -66,10 +66,11 @@ struct MapTestView: View {
                         .foregroundStyle(.white)
                         .fontWeight(.semibold)
                     }
-                    .padding(10)
+                    .padding(12)
                     .background(mapVM.homeSetMode ? Color.green : Color.blue)
-                    .clipShape(RoundedRectangle(cornerRadius: 30))
-                    
+                    .clipShape(RoundedRectangle(cornerRadius: 100))
+                    .padding(.trailing)
+
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(mapVM.allLocations, id: \.self) { location in
@@ -121,7 +122,7 @@ struct MapTestView: View {
                                     RoundedRectangle(cornerRadius: 8)
                                         .fill(.accent) // Set the bottom background color to white
                                 )
-                                .padding(.top, 8)
+                                .padding(.vertical, 8)
                                 .onTapGesture {
                                     if let latitude = location.latitude, let longitude = location.longitude {
                                         withAnimation {
