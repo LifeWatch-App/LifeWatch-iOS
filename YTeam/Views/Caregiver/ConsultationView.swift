@@ -17,8 +17,7 @@ struct ConsultationView: View {
             VStack {
                 ScrollView {
                     LazyVStack {
-                        ForEach(consultationViewModel.chatMessages, id: \.id) { message in
-//                        ForEach(ChatMessage.sampleMessages, id: \.id) { message in
+                        ForEach(consultationViewModel.messages.filter({$0.role != .system}), id: \.id) { message in
                             messageView(message: message)
                         }
                     }
@@ -29,7 +28,7 @@ struct ConsultationView: View {
                     TextField("Enter a message", text: $consultationViewModel.messageText)
                         .padding()
                         .background(colorScheme == .light ? .white : Color(.systemGray6))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                     
                     Button {
                         consultationViewModel.sendMessage()
@@ -38,10 +37,10 @@ struct ConsultationView: View {
                             .foregroundStyle(.white)
                             .padding()
                             .background(.blue)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                 }
-                .padding([.horizontal, .bottom])
+                .padding(.horizontal)
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("AI Health Consultation")
@@ -59,18 +58,18 @@ struct ConsultationView: View {
         }
     }
     
-    func messageView(message: ChatMessage) -> some View {
+    func messageView(message: Message) -> some View {
         HStack {
-            if message.sender == .me {
+            if message.role == .user {
                 Spacer()
                 
                 Text(message.content)
                     .foregroundStyle(.white)
                     .padding()
                     .background(.blue)
-                    .clipShape(ChatBubble(sender: message.sender))
+                    .clipShape(ChatBubble(sender: message.role))
                     .frame(maxWidth: UIScreen.main.bounds.width / 1.4, alignment: .trailing)
-            } else if message.sender == .gpt {
+            } else if message.role == .assistant {
                 HStack(alignment: .bottom){
                     Image("Robot")
                         .resizable()
@@ -79,7 +78,7 @@ struct ConsultationView: View {
                     Text(message.content)
                         .padding()
                         .background(colorScheme == .light ? .white : Color(.systemGray6))
-                        .clipShape(ChatBubble(sender: message.sender))
+                        .clipShape(ChatBubble(sender: message.role))
                         .frame(maxWidth: UIScreen.main.bounds.width / 1.5, alignment: .leading)
                 }
                 

@@ -129,7 +129,6 @@
 		8D74658F2B0472EF00A48F71 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74658E2B0472EF00A48F71 /* OpenAIService.swift */; };
 		8D7465912B04732D00A48F71 /* OpenAIAPIKeyConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7465902B04732D00A48F71 /* OpenAIAPIKeyConstant.swift */; };
 		8D7465932B04736600A48F71 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7465922B04736600A48F71 /* ChatBubble.swift */; };
-		8D7465952B04739B00A48F71 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7465942B04739B00A48F71 /* ChatMessage.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8D8FB6B62AEA03C90081CD50 /* HeartRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
@@ -310,7 +309,6 @@
 		8D74658E2B0472EF00A48F71 /* OpenAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
 		8D7465902B04732D00A48F71 /* OpenAIAPIKeyConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIAPIKeyConstant.swift; sourceTree = "<group>"; };
 		8D7465922B04736600A48F71 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
-		8D7465942B04739B00A48F71 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateChart.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
@@ -479,7 +477,6 @@
 				8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */,
 				93614CE12B04F48A003350F1 /* HomeLocation.swift */,
 				7D0508F02AFC7A7800439E75 /* RoutineData.swift */,
-				8D7465942B04739B00A48F71 /* ChatMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -989,7 +986,6 @@
 				7D02E7982ADE892500923AFB /* Fall.swift in Sources */,
 				93D4FA5E2AF4A160000850CE /* CardShape.swift in Sources */,
 				7D9D41DA2AE62EA200818908 /* InactivityService.swift in Sources */,
-				8D7465952B04739B00A48F71 /* ChatMessage.swift in Sources */,
 				93614CDE2B0301B6003350F1 /* IdleService.swift in Sources */,
 				4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */,
 				4CB9AE582AEA0E26008F4381 /* ProfileView.swift in Sources */,

@@ -7,8 +7,10 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct ChatBubble: Shape {
-    let sender: MessageSender
+    let sender: SenderRole
     
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath(
@@ -16,7 +18,7 @@ struct ChatBubble: Shape {
             byRoundingCorners: [
                 .topRight,
                 .topLeft,
-                sender == .me ? .bottomLeft : .bottomRight
+                sender == .user ? .bottomLeft : .bottomRight
             ],
             cornerRadii: CGSize(width: 16, height: 16))
         
@@ -25,5 +27,5 @@ struct ChatBubble: Shape {
 }
 
 #Preview {
-    ChatBubble(sender: .me)
+    ChatBubble(sender: .user)
 }
