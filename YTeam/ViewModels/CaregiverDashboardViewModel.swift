@@ -124,7 +124,15 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 self.latestLocationInfo = self.loadLatestLiveLocation(documents: documentChanges)
             }
             .store(in: &cancellables)
-      
+
+        heartRateService.$heartRateDocumentChanges
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] documentChanges in
+                guard let self = self else { return }
+                self.heartBeatInfo = loadInitialHeartBeat(documents: documentChanges)
+            }
+            .store(in: &cancellables)
+
         routineService.$routines
             .receive(on: DispatchQueue.main)
             .sink { [weak self] routines in
@@ -190,14 +198,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 return time1 < time2
             }
         }
-
-        heartRateService.$heartRateDocumentChanges
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] documentChanges in
-                guard let self = self else { return }
-                self.heartBeatInfo = loadInitialHeartBeat(documents: documentChanges)
-            }
-            .store(in: &cancellables)
     }
 
     func sendRequestToSenior() {
