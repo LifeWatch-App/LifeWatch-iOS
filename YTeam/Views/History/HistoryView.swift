@@ -38,23 +38,34 @@ struct HistoryView: View {
                         }
                         
                         VStack(spacing: 16) {
-                            ForEach(historyViewModel.filteredSymptoms.sorted { $0.value > $1.value }.prefix(3), id: \.key) { key, value in
+                            if historyViewModel.filteredSymptoms.count > 0 {
+                                ForEach(historyViewModel.filteredSymptoms.sorted { $0.value > $1.value }.prefix(3), id: \.key) { key, value in
+                                    HStack {
+                                        Image("\(key)")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 32)
+                                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                                        
+                                        Text("\(key)")
+                                            .font(.headline)
+                                            .padding(.leading, 4)
+                                        
+                                        Spacer()
+                                        
+                                        Text("\(value)")
+                                            .font(.title3)
+                                            .bold()
+                                    }
+                                }
+                            } else {
                                 HStack {
-                                    Image("\(key)")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 32)
-                                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                                    
-                                    Text("\(key)")
-                                        .font(.headline)
-                                        .padding(.leading, 4)
-                                    
                                     Spacer()
                                     
-                                    Text("\(value)")
-                                        .font(.title3)
-                                        .bold()
+                                    Text("No symptoms")
+                                        .font(.headline)
+                                    
+                                    Spacer()
                                 }
                             }
                         }
@@ -154,9 +165,9 @@ struct HistoryView: View {
                                     )
                                     .clipShape(RoundedRectangle(cornerRadius: 2))
                                     
-                                    PointMark(x: .value("Date", $0.day, unit: .day), y: .value("Avg. Heart Rate", $0.avgHeartRate)
-                                    )
-                                    .clipShape(RoundedRectangle(cornerRadius: 2))
+//                                    PointMark(x: .value("Date", $0.day, unit: .day), y: .value("Avg. Heart Rate", $0.avgHeartRate)
+//                                    )
+//                                    .clipShape(RoundedRectangle(cornerRadius: 2))
                                 }
                             }
                             .chartLegend(.hidden)

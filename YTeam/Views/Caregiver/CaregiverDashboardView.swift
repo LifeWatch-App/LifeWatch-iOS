@@ -9,7 +9,9 @@ import SwiftUI
 
 struct CaregiverDashboardView: View {
     @Environment(\.colorScheme) var colorScheme
-
+    
+    @AppStorage("inviteModal") var inviteModal = true
+    
     @StateObject var caregiverDashboardViewModel = CaregiverDashboardViewModel()
     @State var showChangeSenior = false
     @State var showInviteSheet = false
@@ -53,7 +55,11 @@ struct CaregiverDashboardView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Button {
-                            showChangeSenior.toggle()
+                            if caregiverDashboardViewModel.invites.isEmpty {
+                                showInviteSheet.toggle()
+                            } else {
+                                showChangeSenior.toggle()
+                            }
                         } label: {
                             HStack {
                                 if caregiverDashboardViewModel.invites.isEmpty {
@@ -61,10 +67,6 @@ struct CaregiverDashboardView: View {
                                 } else {
                                     Text(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto")
                                 }
-
-                                Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
-                                    .font(.subheadline)
-                                    .padding(.leading, -2)
                             }
                             .font(.headline)
                         }
@@ -88,53 +90,9 @@ struct CaregiverDashboardView: View {
             ChangeSeniorOverlay(showInviteSheet: $showInviteSheet, showChangeSenior: $showChangeSenior)
                 .environmentObject(caregiverDashboardViewModel)
         }
-    }
-}
-
-struct InviteSheetView: View {
-    @ObservedObject var caregiverDashboardViewModel: CaregiverDashboardViewModel
-    @Environment(\.dismiss) var dismiss
-
-    var body: some View {
-        VStack {
-            VStack(alignment: .leading) {
-                Text("Request access to your senior")
-                    .font(.system(size: 32))
-                    .bold()
-                    .padding(.bottom, 8)
-                Text("Enter your senior's email address")
-                TextField("Email", text: $caregiverDashboardViewModel.inviteEmail)
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color(.systemGray3), lineWidth: 1)
-                    )
-                    .keyboardType(.emailAddress)
-                    .autocapitalization(.none)
-            }
-            .padding(.vertical, 12)
-
-            Button {
-                caregiverDashboardViewModel.sendRequestToSenior()
-                caregiverDashboardViewModel.inviteEmail = ""
-                dismiss()
-            } label: {
-                HStack {
-                    Spacer()
-                    Text("Send Request")
-                        .fontWeight(.semibold)
-                        .padding()
-                    Spacer()
-                }
-                .background(.accent)
-                .foregroundStyle(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-            }
-            .padding(.top, 8)
+        .fullScreenCover(isPresented: $inviteModal) {
+            OnBoardingInviteView(caregiverDashboardViewModel: caregiverDashboardViewModel)
         }
-        .navigationTitle("Request access to your senior")
-        .presentationDetents([.medium])
-        .padding()
     }
 }
 
@@ -154,11 +112,11 @@ struct SeniorStatus: View {
             }
 
             HStack(spacing: 12) {
-                Image(caregiverDashboardViewModel.latestSymptomInfo == nil ? "safe" : "symptom-detected")
+                Image(caregiverDashboardViewModel.latestSymptomInfo == nil ? "safe" : caregiverDashboardViewModel.latestSymptomInfo?.name ?? "Unknown")
                     .resizable()
                     .scaledToFit()
+                    .cornerRadius(100)
                     .frame(width: 50)
-
 
                 VStack(alignment: .leading) {
                     HStack {
@@ -410,12 +368,12 @@ struct UpcomingRoutines: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Upcoming Routines")
+                Text("Senior's Routine")
                     .font(.headline)
                     .foregroundStyle(.secondary)
-
+                
                 Spacer()
-
+                
                 NavigationLink {
                     CaregiverAllRoutineView(caregiverDashboardViewModel: caregiverDashboardViewModel)
                 } label: {
@@ -424,56 +382,71 @@ struct UpcomingRoutines: View {
                 }
             }
             .padding(.horizontal)
-
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top) {
-                    ForEach(caregiverDashboardViewModel.routines) { routine in
-                        ForEach(routine.time.indices, id: \.self) { i in
-                            HStack(spacing: 16) {
-                                VStack {
-                                    Image(systemName: routine.type == "Medicine" ? "pill.fill" : "figure.run")
+            
+            if caregiverDashboardViewModel.routines.count > 0 {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(alignment: .top) {
+                        ForEach(caregiverDashboardViewModel.routines) { routine in
+                            ForEach(routine.time.indices, id: \.self) { i in
+                                HStack(spacing: 16) {
+                                    VStack {
+                                        Image(systemName: routine.type == "Medicine" ? "pill.fill" : "figure.run")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 40, height: 40)
+                                            .foregroundStyle(.white)
+                                    }
+                                    .padding(12)
+                                    .background(.blue)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
+                                            .font(.headline)
+                                        Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
+                                            .font(.subheadline)
+                                        HStack {
+                                            Image(systemName: "clock")
+                                            Text(routine.time[i], style: .time)
+                                                .padding(.leading, -4)
+                                        }
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "xmark.circle.fill")
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(width: 40, height: 40)
-                                        .foregroundStyle(.white)
+                                        .frame(width: 40)
+                                        .foregroundStyle(.white, routine.isDone[i] ? Color("secondary-green") : Color("emergency-pink"))
                                 }
-                                .padding(12)
-                                .background(.blue)
+                                .padding()
+                                .background(colorScheme == .light ? .white : Color(.systemGray6))
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
-
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
-                                        .font(.headline)
-                                    Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
-                                        .font(.subheadline)
-                                    HStack {
-                                        Image(systemName: "clock")
-                                        Text(routine.time[i], style: .time)
-                                            .padding(.leading, -4)
-                                    }
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                                }
-
-                                Spacer()
-
-                                Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "xmark.circle.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 40)
-                                    .foregroundStyle(.white, routine.isDone[i] ? Color("secondary-green") : Color("emergency-pink"))
+                                .frame(width: Screen.width - 32)
                             }
-                            .padding()
-                            .background(colorScheme == .light ? .white : Color(.systemGray6))
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            .frame(width: Screen.width - 32)
                         }
                     }
+                    .padding(.horizontal)
+                    .scrollTargetLayout()
                 }
+                .scrollTargetBehavior(.viewAligned)
+            } else {
+                HStack {
+                    Spacer()
+                    
+                    Text("Routines not Set.")
+                        .multilineTextAlignment(.center)
+                    
+                    Spacer()
+                }
+                .padding()
+                .background(colorScheme == .light ? .white : Color(.systemGray6))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
                 .padding(.horizontal)
-                .scrollTargetLayout()
             }
-            .scrollTargetBehavior(.viewAligned)
         }
     }
 }

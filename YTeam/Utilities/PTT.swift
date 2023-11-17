@@ -15,7 +15,7 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     static let shared = PTT()
     var channelManager: PTChannelManager? = nil
     var channelUUID = UUID(uuidString: "33041937-05b2-464a-98ad-3910cbe0d09e")
-    var channelDescriptor = PTChannelDescriptor(name: "Awesome Crew", image: UIImage())
+    var channelDescriptor = PTChannelDescriptor(name: "Care Team", image: UIImage())
     var recorder : AVAudioRecorder!
     var audioPlayer : AVAudioPlayer!
     var isTransmiting = false

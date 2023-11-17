@@ -23,7 +23,7 @@ struct ChooseRoleView: View {
                         .frame(height: 140)
                         
                         HStack {
-                            Text("As a senior, ...")
+                            Text("Imagine our app as your own personal helper. You can use it to keep an eye on your health, talk to your caregiver, and do lots of things to make your life simpler.")
                             Spacer()
                         }
                         .padding(.bottom, 8)
@@ -50,7 +50,7 @@ struct ChooseRoleView: View {
                     HStack(spacing: 16) {
                         VStack {
                             Spacer()
-                            Image("asset")
+                            Image("Senior")
                                 .resizable()
                                 .scaledToFit()
                                 .padding(.bottom, -1)
@@ -80,7 +80,7 @@ struct ChooseRoleView: View {
                         .frame(height: 140)
                         
                         HStack {
-                            Text("As a caregiver, ...")
+                            Text("Our app is here to support you in your caregiving role. You can use it to organize and access helpful tools to make your caregiving responsibilities more manageable.")
                             Spacer()
                         }
                         .padding(.bottom, 8)
@@ -107,7 +107,7 @@ struct ChooseRoleView: View {
                     HStack(spacing: 16) {
                         VStack {
                             Spacer()
-                            Image("asset")
+                            Image("Caregiver")
                                 .resizable()
                                 .scaledToFit()
                                 .padding(.bottom, -1)

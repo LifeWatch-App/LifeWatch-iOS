@@ -9,6 +9,8 @@ import SwiftUI
 import MapKit
 
 struct MapTestView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @StateObject private var mapVM = MapViewModel()
 
     var body: some View {
@@ -50,13 +52,13 @@ struct MapTestView: View {
                 }
 
 
-                VStack(alignment: .trailing, spacing: 20) {
+                VStack(alignment: .trailing, spacing: 12) {
                     Button {
 
                         mapVM.homeSetMode.toggle()
 
                     } label: {
-                        HStack(spacing: 5) {
+                        HStack(spacing: 4) {
                             Image(systemName: "house.fill")
                                 .font(.headline)
                             Text("Set Boundary")
@@ -82,7 +84,6 @@ struct MapTestView: View {
 
                                                 Text(location.addressArray?[1].trimmingCharacters(in: .whitespaces) ?? "None")
                                                     .font(.body)
-                                                    .foregroundStyle(.black.opacity(0.8))
                                                     .lineLimit(1)
                                             } else {
                                                 Text("Address Not Found")
@@ -96,30 +97,31 @@ struct MapTestView: View {
                                             .padding(.horizontal, 1)
                                             .background(.gray.opacity(0.2))
 
-                                        HStack(spacing: 5) {
+                                        HStack(spacing: 4) {
                                             Image(systemName: "clock")
                                                 .font(.headline)
-                                                .foregroundStyle(.gray)
+                                                .foregroundStyle(.secondary)
 
                                             if let createdAtTime = location.createdAt {
                                                 Text("\(Date.unixToTime(unix: createdAtTime))")
                                                     .font(.headline)
-                                                    .foregroundStyle(.gray)
+                                                    .foregroundStyle(.secondary)
                                             }
                                         }
                                     }
                                 }
-                                .frame(maxHeight: UIScreen.main.bounds.width * 0.15)
+                                .frame(maxHeight: 70)
                                 .padding(20)
                                 .background(
                                     CardShape()
-                                        .fill(Color.white)
+                                        .fill(colorScheme == .light ? Color.white : Color(.systemGray6))
                                         .padding(.top, 10) // Add a blue border
                                 )
                                 .background(
                                     RoundedRectangle(cornerRadius: 8)
-                                        .fill(Color.blue) // Set the bottom background color to white
+                                        .fill(.accent) // Set the bottom background color to white
                                 )
+                                .padding(.top, 8)
                                 .onTapGesture {
                                     if let latitude = location.latitude, let longitude = location.longitude {
                                         withAnimation {
@@ -130,10 +132,10 @@ struct MapTestView: View {
                                 }
                             }
                         }
+                        .padding(.horizontal)
                     }
                     .scrollIndicators(.hidden)
                 }
-                .padding(.horizontal, 15)
 
             } else if mapVM.mapRegion == nil {
                 ContentUnavailableView {

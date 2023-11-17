@@ -90,7 +90,11 @@ struct AddEditRoutineView: View {
                 Section {
                     Button {
                         // add function here
-                        
+                        if (routine == nil) {
+                            self.addEditRoutineViewModel.convertRoutineDataIntoRoutine(editOrAdd: "add")
+                        } else if (routine != nil) {
+                            self.addEditRoutineViewModel.convertRoutineDataIntoRoutine(editOrAdd: "edit")
+                        }
                         dismiss()
                     } label: {
                         HStack {
@@ -110,7 +114,7 @@ struct AddEditRoutineView: View {
                     Section {
                         Button {
                             // add function here
-                            
+                            self.addEditRoutineViewModel.convertRoutineDataIntoRoutine(editOrAdd: "delete")
                             dismiss()
                         } label: {
                             HStack {
@@ -145,6 +149,7 @@ struct AddEditRoutineView: View {
                     addEditRoutineViewModel.medicine = routine.medicine ?? ""
                     addEditRoutineViewModel.medicineAmount = routine.medicineAmount ?? ""
                     addEditRoutineViewModel.medicineUnit = routine.medicineUnit ?? .Tablet
+                    addEditRoutineViewModel.routineId = routine.id 
                     
                     for (index, time) in routine.time.enumerated() {
                         addEditRoutineViewModel.times[index] = time

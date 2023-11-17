@@ -85,6 +85,8 @@
 		7D0508E72AF9F6C800439E75 /* SOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0508E62AF9F6C800439E75 /* SOS.swift */; };
 		7D0508E92AF9FADA00439E75 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0508E82AF9FADA00439E75 /* AudioManager.swift */; };
 		7D0508ED2AF9FB5900439E75 /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7D0508EC2AF9FB5800439E75 /* alert.mp3 */; };
+		7D0508EF2AFC7A0100439E75 /* RoutineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0508EE2AFC7A0100439E75 /* RoutineService.swift */; };
+		7D0508F12AFC7A7800439E75 /* RoutineData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0508F02AFC7A7800439E75 /* RoutineData.swift */; };
 		7D2151AF2AF723D8001BB9BC /* HeartAnomalyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */; };
 		7D2151B12AF72416001BB9BC /* HeartAnomaly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151B02AF72416001BB9BC /* HeartAnomaly.swift */; };
 		7D2151B32AF8734C001BB9BC /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2151B22AF8734C001BB9BC /* Heartbeat.swift */; };
@@ -113,11 +115,22 @@
 		8D33E9212AF73E4F00C9D3C1 /* HistoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9202AF73E4F00C9D3C1 /* HistoryCard.swift */; };
 		8D33E9232AF740A200C9D3C1 /* HistoryWeekPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9222AF740A200C9D3C1 /* HistoryWeekPicker.swift */; };
 		8D33E9252AF7A4C000C9D3C1 /* RoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33E9242AF7A4C000C9D3C1 /* RoutineViewModel.swift */; };
+		8D3F172C2B030DE70001537E /* OnBoardingInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3F172B2B030DE70001537E /* OnBoardingInviteView.swift */; };
+		8D3F172E2B032AD00001537E /* InviteSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3F172D2B032AD00001537E /* InviteSheetView.swift */; };
+		8D3F17302B038B300001537E /* OnBoardingEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3F172F2B038B300001537E /* OnBoardingEmailView.swift */; };
 		8D672F872AF517CF00C29E63 /* BatteryCircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D672F862AF517CF00C29E63 /* BatteryCircularProgressView.swift */; };
+		8D69AB8C2B01BCF50042D456 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69AB8B2B01BCF50042D456 /* OnBoardingView.swift */; };
 		8D73C3D42AF8F23B009AFD80 /* SeniorAllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3D32AF8F23B009AFD80 /* SeniorAllRoutineView.swift */; };
 		8D73C3D62AF8FC23009AFD80 /* CaregiverAllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3D52AF8FC23009AFD80 /* CaregiverAllRoutineView.swift */; };
 		8D73C3D82AF908B7009AFD80 /* AddSymptomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3D72AF908B7009AFD80 /* AddSymptomViewModel.swift */; };
 		8D73C3DC2AF915B7009AFD80 /* AddEditRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73C3DB2AF915B7009AFD80 /* AddEditRoutineViewModel.swift */; };
+		8D7465882B046F6B00A48F71 /* ConsultationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7465872B046F6B00A48F71 /* ConsultationView.swift */; };
+		8D74658B2B04729500A48F71 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 8D74658A2B04729500A48F71 /* Alamofire */; };
+		8D74658D2B0472C700A48F71 /* ConsultationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74658C2B0472C700A48F71 /* ConsultationViewModel.swift */; };
+		8D74658F2B0472EF00A48F71 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D74658E2B0472EF00A48F71 /* OpenAIService.swift */; };
+		8D7465912B04732D00A48F71 /* OpenAIAPIKeyConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7465902B04732D00A48F71 /* OpenAIAPIKeyConstant.swift */; };
+		8D7465932B04736600A48F71 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7465922B04736600A48F71 /* ChatBubble.swift */; };
+		8D7465952B04739B00A48F71 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7465942B04739B00A48F71 /* ChatMessage.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8D8FB6B62AEA03C90081CD50 /* HeartRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
@@ -256,6 +269,8 @@
 		7D0508E62AF9F6C800439E75 /* SOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOS.swift; sourceTree = "<group>"; };
 		7D0508E82AF9FADA00439E75 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		7D0508EC2AF9FB5800439E75 /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = alert.mp3; path = Shared/Sounds/alert.mp3; sourceTree = SOURCE_ROOT; };
+		7D0508EE2AFC7A0100439E75 /* RoutineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineService.swift; sourceTree = "<group>"; };
+		7D0508F02AFC7A7800439E75 /* RoutineData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineData.swift; sourceTree = "<group>"; };
 		7D2151AE2AF723D8001BB9BC /* HeartAnomalyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomalyService.swift; sourceTree = "<group>"; };
 		7D2151B02AF72416001BB9BC /* HeartAnomaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomaly.swift; sourceTree = "<group>"; };
 		7D2151B22AF8734C001BB9BC /* Heartbeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
@@ -283,11 +298,21 @@
 		8D33E9202AF73E4F00C9D3C1 /* HistoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCard.swift; sourceTree = "<group>"; };
 		8D33E9222AF740A200C9D3C1 /* HistoryWeekPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryWeekPicker.swift; sourceTree = "<group>"; };
 		8D33E9242AF7A4C000C9D3C1 /* RoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewModel.swift; sourceTree = "<group>"; };
+		8D3F172B2B030DE70001537E /* OnBoardingInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingInviteView.swift; sourceTree = "<group>"; };
+		8D3F172D2B032AD00001537E /* InviteSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteSheetView.swift; sourceTree = "<group>"; };
+		8D3F172F2B038B300001537E /* OnBoardingEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingEmailView.swift; sourceTree = "<group>"; };
 		8D672F862AF517CF00C29E63 /* BatteryCircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryCircularProgressView.swift; sourceTree = "<group>"; };
+		8D69AB8B2B01BCF50042D456 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		8D73C3D32AF8F23B009AFD80 /* SeniorAllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorAllRoutineView.swift; sourceTree = "<group>"; };
 		8D73C3D52AF8FC23009AFD80 /* CaregiverAllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverAllRoutineView.swift; sourceTree = "<group>"; };
 		8D73C3D72AF908B7009AFD80 /* AddSymptomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSymptomViewModel.swift; sourceTree = "<group>"; };
 		8D73C3DB2AF915B7009AFD80 /* AddEditRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditRoutineViewModel.swift; sourceTree = "<group>"; };
+		8D7465872B046F6B00A48F71 /* ConsultationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultationView.swift; sourceTree = "<group>"; };
+		8D74658C2B0472C700A48F71 /* ConsultationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultationViewModel.swift; sourceTree = "<group>"; };
+		8D74658E2B0472EF00A48F71 /* OpenAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
+		8D7465902B04732D00A48F71 /* OpenAIAPIKeyConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIAPIKeyConstant.swift; sourceTree = "<group>"; };
+		8D7465922B04736600A48F71 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
+		8D7465942B04739B00A48F71 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateChart.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
@@ -331,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C6049A52AD78F4D00E9F0BF /* FirebaseAnalytics in Frameworks */,
+				8D74658B2B04729500A48F71 /* Alamofire in Frameworks */,
 				4C6049A72AD7917A00E9F0BF /* FirebaseAuth in Frameworks */,
 				4CA792322ADFFFC2003B5EC9 /* FirebaseMessaging in Frameworks */,
 				4C6049CB2AD79DDA00E9F0BF /* FirebaseFirestore in Frameworks */,
@@ -359,6 +385,8 @@
 				8D672F862AF517CF00C29E63 /* BatteryCircularProgressView.swift */,
 				8D21B0412AF7DBF300D23BF1 /* RoutineCircularProgressView.swift */,
 				8D21B0452AF7ED0B00D23BF1 /* ChangeSeniorOverlay.swift */,
+				8D3F172D2B032AD00001537E /* InviteSheetView.swift */,
+				8D7465922B04736600A48F71 /* ChatBubble.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -381,6 +409,7 @@
 				4C21A3E32ADF7B930044E966 /* CaregiverView.swift */,
 				4CA7922F2ADFF9A1003B5EC9 /* CaregiverDashboardView.swift */,
 				8D73C3D52AF8FC23009AFD80 /* CaregiverAllRoutineView.swift */,
+				8D7465872B046F6B00A48F71 /* ConsultationView.swift */,
 			);
 			path = Caregiver;
 			sourceTree = "<group>";
@@ -402,6 +431,8 @@
 				93614CDA2B030197003350F1 /* HeartRateService.swift */,
 				93614CDD2B0301B6003350F1 /* IdleService.swift */,
 				93614CDF2B0301C4003350F1 /* SymptomService.swift */,
+				7D0508EE2AFC7A0100439E75 /* RoutineService.swift */,
+				8D74658E2B0472EF00A48F71 /* OpenAIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -422,6 +453,7 @@
 				8D73C3D72AF908B7009AFD80 /* AddSymptomViewModel.swift */,
 				4CF962C72AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift */,
 				8D73C3DB2AF915B7009AFD80 /* AddEditRoutineViewModel.swift */,
+				8D74658C2B0472C700A48F71 /* ConsultationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -448,6 +480,8 @@
 				8DED839E2AF664CD00AFB95B /* Symptom.swift */,
 				8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */,
 				93614CE12B04F48A003350F1 /* HomeLocation.swift */,
+				7D0508F02AFC7A7800439E75 /* RoutineData.swift */,
+				8D7465942B04739B00A48F71 /* ChatMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -531,6 +565,7 @@
 		4CB0157D2AD4E5A20023C71E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8D69AB8A2B01BCA60042D456 /* OnBoarding */,
 				9322F60E2AEFA89A0013B0AB /* MapKit */,
 				4C0F8A3C2AE784AF002E8578 /* Components */,
 				4C21A3E82ADF7ED60044E966 /* Caregiver */,
@@ -678,6 +713,7 @@
 			isa = PBXGroup;
 			children = (
 				7D02E7932ADE889500923AFB /* FirestoreConstants.swift */,
+				8D7465902B04732D00A48F71 /* OpenAIAPIKeyConstant.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -718,6 +754,16 @@
 				8D33E9222AF740A200C9D3C1 /* HistoryWeekPicker.swift */,
 			);
 			path = History;
+			sourceTree = "<group>";
+		};
+		8D69AB8A2B01BCA60042D456 /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				8D69AB8B2B01BCF50042D456 /* OnBoardingView.swift */,
+				8D3F172B2B030DE70001537E /* OnBoardingInviteView.swift */,
+				8D3F172F2B038B300001537E /* OnBoardingEmailView.swift */,
+			);
+			path = OnBoarding;
 			sourceTree = "<group>";
 		};
 		9322F60E2AEFA89A0013B0AB /* MapKit */ = {
@@ -762,6 +808,7 @@
 				4C6049CF2AD7C6E000E9F0BF /* FirebaseFirestoreSwift */,
 				4CA792312ADFFFC2003B5EC9 /* FirebaseMessaging */,
 				4CCBF35F2AF38CBC005A2C24 /* FirebaseStorage */,
+				8D74658A2B04729500A48F71 /* Alamofire */,
 			);
 			productName = YTeam;
 			productReference = 4CB015562AD4DBBC0023C71E /* Careific.app */;
@@ -816,6 +863,7 @@
 			mainGroup = 4CB0154D2AD4DBBC0023C71E;
 			packageReferences = (
 				4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				8D7465892B04729500A48F71 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 4CB015572AD4DBBC0023C71E /* Products */;
 			projectDirPath = "";
@@ -862,6 +910,7 @@
 				8D73C3DC2AF915B7009AFD80 /* AddEditRoutineViewModel.swift in Sources */,
 				9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */,
 				7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */,
+				8D69AB8C2B01BCF50042D456 /* OnBoardingView.swift in Sources */,
 				8D33E9192AF73A2F00C9D3C1 /* SymptomView.swift in Sources */,
 				93B898FA2AE76DB6005E1678 /* BatteryLevelViewModel.swift in Sources */,
 				8DED83962AF5398C00AFB95B /* SOSView.swift in Sources */,
@@ -875,6 +924,7 @@
 				7D02E7792ADD038700923AFB /* DateExt.swift in Sources */,
 				93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */,
 				8D21B0422AF7DBF300D23BF1 /* RoutineCircularProgressView.swift in Sources */,
+				8D7465932B04736600A48F71 /* ChatBubble.swift in Sources */,
 				8DED839F2AF664CD00AFB95B /* Symptom.swift in Sources */,
 				93614CE22B04F48A003350F1 /* HomeLocation.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
@@ -886,6 +936,7 @@
 				7DB24EFA2AE51E9A009A4A6D /* Emergency.swift in Sources */,
 				4C6049C52AD7948F00E9F0BF /* MainViewModel.swift in Sources */,
 				8D33E91D2AF73A3B00C9D3C1 /* HeartRateView.swift in Sources */,
+				8D3F172E2B032AD00001537E /* InviteSheetView.swift in Sources */,
 				9318D38D2ADCD1C800245AFF /* TestChargingView.swift in Sources */,
 				93614CDB2B030197003350F1 /* HeartRateService.swift in Sources */,
 				4CB0155C2AD4DBBC0023C71E /* ContentView.swift in Sources */,
@@ -895,12 +946,15 @@
 				9322F6162AF002130013B0AB /* LocationService.swift in Sources */,
 				9322F6142AEFB0DE0013B0AB /* MarkerAnnotation.swift in Sources */,
 				4CA7922A2ADF92D0003B5EC9 /* CaregiverDashboardViewModel.swift in Sources */,
+				8D7465882B046F6B00A48F71 /* ConsultationView.swift in Sources */,
 				7D2151B72AF8F1CA001BB9BC /* HeartbeatService.swift in Sources */,
 				4C7076332AEF925D00271E9E /* PTT.swift in Sources */,
 				4CA232B52ADE2112003874D2 /* WatchConnectorService.swift in Sources */,
 				4C21A3E62ADF7ECA0044E966 /* SeniorView.swift in Sources */,
 				4CA792302ADFF9A1003B5EC9 /* CaregiverDashboardView.swift in Sources */,
+				8D3F172C2B030DE70001537E /* OnBoardingInviteView.swift in Sources */,
 				8D33E91B2AF73A3500C9D3C1 /* EmergencyView.swift in Sources */,
+				8D74658F2B0472EF00A48F71 /* OpenAIService.swift in Sources */,
 				4CA7922C2ADF92DB003B5EC9 /* SeniorDashboardViewModel.swift in Sources */,
 				4C6049C72AD7968700E9F0BF /* MainView.swift in Sources */,
 				7D2151AF2AF723D8001BB9BC /* HeartAnomalyService.swift in Sources */,
@@ -914,6 +968,7 @@
 				8D33E9232AF740A200C9D3C1 /* HistoryWeekPicker.swift in Sources */,
 				93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
+				8D3F17302B038B300001537E /* OnBoardingEmailView.swift in Sources */,
 				4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */,
 				9322F6122AEFA9250013B0AB /* MapViewModel.swift in Sources */,
 				93D4FA5C2AF3F430000850CE /* LiveLocation.swift in Sources */,
@@ -922,7 +977,9 @@
 				8D73C3D42AF8F23B009AFD80 /* SeniorAllRoutineView.swift in Sources */,
 				93614CE02B0301C4003350F1 /* SymptomService.swift in Sources */,
 				8D33E91F2AF73A6100C9D3C1 /* InactivityView.swift in Sources */,
+				8D74658D2B0472C700A48F71 /* ConsultationViewModel.swift in Sources */,
 				8D21B03A2AF7A4F200D23BF1 /* RoutineView.swift in Sources */,
+				7D0508EF2AFC7A0100439E75 /* RoutineService.swift in Sources */,
 				8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */,
 				4C0F8A3E2AE784CD002E8578 /* SignInWithAppleButton.swift in Sources */,
 				4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */,
@@ -935,6 +992,7 @@
 				7D02E7982ADE892500923AFB /* Fall.swift in Sources */,
 				93D4FA5E2AF4A160000850CE /* CardShape.swift in Sources */,
 				7D9D41DA2AE62EA200818908 /* InactivityService.swift in Sources */,
+				8D7465952B04739B00A48F71 /* ChatMessage.swift in Sources */,
 				93614CDE2B0301B6003350F1 /* IdleService.swift in Sources */,
 				4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */,
 				4CB9AE582AEA0E26008F4381 /* ProfileView.swift in Sources */,
@@ -947,8 +1005,10 @@
 				9322F6102AEFA8A80013B0AB /* MKMapRep.swift in Sources */,
 				93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */,
 				8D672F872AF517CF00C29E63 /* BatteryCircularProgressView.swift in Sources */,
+				7D0508F12AFC7A7800439E75 /* RoutineData.swift in Sources */,
 				8D21B03C2AF7AD7500D23BF1 /* AddEditRoutineView.swift in Sources */,
 				8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */,
+				8D7465912B04732D00A48F71 /* OpenAIAPIKeyConstant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1139,11 +1199,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Careific;
-				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "You can see your own heartbeat status.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "Careific processes your heartbeat data for your knowledge about your own heart status.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSFallDetectionUsageDescription = "A notification will be sent to your care team if a fall has been detected";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "You can see your own heartbeat status";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Careific processes your heartbeat data for your knowledge about your own heart status";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Your heart rate history will be shared with your care team";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be shared with your care team";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1178,11 +1239,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Careific;
-				INFOPLIST_KEY_NSFallDetectionUsageDescription = "";
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "You can see your own heartbeat status.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "Careific processes your heartbeat data for your knowledge about your own heart status.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSFallDetectionUsageDescription = "A notification will be sent to your care team if a fall has been detected";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "You can see your own heartbeat status";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Careific processes your heartbeat data for your knowledge about your own heart status";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Your heart rate history will be shared with your care team";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be shared with your care team";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1219,7 +1281,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Careific;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = PTT;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be shared with your care team";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Your location will be shared with your care team";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for the wakie-talkie feature";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1233,6 +1297,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
 				PRODUCT_NAME = Careific;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1256,7 +1321,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Careific;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = PTT;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be shared with your care team";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Your location will be shared with your care team";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for the wakie-talkie feature";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1270,6 +1337,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
 				PRODUCT_NAME = Careific;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1319,6 +1387,14 @@
 				minimumVersion = 10.16.0;
 			};
 		};
+		8D7465892B04729500A48F71 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1351,6 +1427,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		8D74658A2B04729500A48F71 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D7465892B04729500A48F71 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		9318D39B2ADCD92B00245AFF /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
