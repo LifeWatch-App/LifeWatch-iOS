@@ -11,7 +11,6 @@ import MapKit
 struct MapTestView: View {
     @Environment(\.colorScheme) var colorScheme
     
-//    @StateObject private var mapVM = MapViewModel()
     @ObservedObject var mapVM: MapViewModel
 
     var body: some View {
@@ -21,16 +20,16 @@ struct MapTestView: View {
                     MKMapRep(mapVM: mapVM)
                         .ignoresSafeArea(edges: .top)
 
-                    ZStack(alignment: .topLeading) {
+                    ZStack(alignment: .topTrailing) {
 
                         Spacer()
                         Text("Set pin on a location")
                             .font(.headline)
                             .frame(maxWidth: UIScreen.main.bounds.width)
-                            .padding(20)
+                            .padding()
                             .background(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
-                            .padding(20)
+                            .padding()
                             .opacity(mapVM.homeSetMode ? 1 : 0)
 
                         Button {
@@ -45,9 +44,7 @@ struct MapTestView: View {
                                 .clipShape(Circle())
                                 .opacity(mapVM.homeSetMode ? 0 : 1)
                         }
-                        .padding(.leading, 20)
-                        .padding(.top, 20)
-
+                        .padding(.trailing)
                     }
                 }
 

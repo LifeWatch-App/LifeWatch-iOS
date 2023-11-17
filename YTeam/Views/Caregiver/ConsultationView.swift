@@ -41,6 +41,7 @@ struct ConsultationView: View {
                     }
                 }
                 .padding(.horizontal)
+                .padding(.bottom, 4)
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("AI Health Consultation")
