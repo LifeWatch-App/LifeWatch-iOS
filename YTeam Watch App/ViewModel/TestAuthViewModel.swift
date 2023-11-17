@@ -10,7 +10,6 @@ import Combine
 
 final class TestAuthViewModel: ObservableObject {
     @Published private(set) var userAuth: UserRecord?
-    @Published var status: String?
     private let service = TestAuthConnector()
     private let decoder = JSONDecoder()
     private var cancellables = Set<AnyCancellable>()
@@ -24,13 +23,6 @@ final class TestAuthViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] record in
                 self?.userAuth = record
-            }
-            .store(in: &cancellables)
-
-        service.$status
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] status in
-                self?.status = status
             }
             .store(in: &cancellables)
     }

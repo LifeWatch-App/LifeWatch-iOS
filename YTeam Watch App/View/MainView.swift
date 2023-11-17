@@ -39,7 +39,7 @@ struct MainView: View {
 //                }
             
         } else if authVM.userAuth?.userID == nil {
-            Text(authVM.status ?? "")
+            Text("Not authenticated and logged in")
         }
     }
 }
