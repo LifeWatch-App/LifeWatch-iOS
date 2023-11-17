@@ -24,7 +24,8 @@ class SeniorDashboardViewModel: ObservableObject {
     @Published var showAddSymptom: Bool = false
     @Published var showSOS: Bool = false
     @Published var showWalkieTalkie: Bool = false
-
+    @Published var selectedInviteId: String?
+    
     @Published var routines: [Routine] = []
     @Published var symptoms: [Symptom] = []
     
@@ -49,6 +50,29 @@ class SeniorDashboardViewModel: ObservableObject {
                 self?.user = user
                 self?.userData = userData
                 self?.invites = invites
+            }
+            .store(in: &cancellables)
+        
+        service.$selectedInviteId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] selectedInviteId in
+                guard let self = self else { return }
+                if self.selectedInviteId != selectedInviteId {
+                    self.selectedInviteId = selectedInviteId
+                }
+            }
+            .store(in: &cancellables)
+
+        $selectedInviteId
+            .combineLatest(service.$userData)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] selectedInviteId, userData in
+                guard let self = self else { return }
+                self.routineData = []
+                self.routines = []
+                
+                self.routineService.observeAllRoutines(userData: userData)
+                self.routineService.observeAllDeletedRoutines(userData: userData)
             }
             .store(in: &cancellables)
         
