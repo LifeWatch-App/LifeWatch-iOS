@@ -34,6 +34,8 @@ struct ChangeSeniorOverlay: View {
                                                 vm.authService.selectedInviteId = invite.seniorId
                                                 UserDefaults.standard.set(invite.seniorId, forKey: "selectedSenior")
                                                 print(UserDefaults.standard.object(forKey: "selectedSenior"))
+                                                
+                                                showChangeSenior = false
                                             }
                                         } label: {
                                             VStack {
@@ -85,6 +87,7 @@ struct ChangeSeniorOverlay: View {
                                             .font(.callout)
                                     }
                                     .onTapGesture {
+                                        showChangeSenior = false
                                         showInviteSheet = true
                                     }
                                 }

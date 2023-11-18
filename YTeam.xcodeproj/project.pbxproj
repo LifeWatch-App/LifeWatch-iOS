@@ -450,6 +450,7 @@
 				4CF962C72AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift */,
 				8D73C3DB2AF915B7009AFD80 /* AddEditRoutineViewModel.swift */,
 				8D74658C2B0472C700A48F71 /* ConsultationViewModel.swift */,
+				9322F6112AEFA9250013B0AB /* MapViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -764,7 +765,6 @@
 			isa = PBXGroup;
 			children = (
 				9322F60F2AEFA8A80013B0AB /* MKMapRep.swift */,
-				9322F6112AEFA9250013B0AB /* MapViewModel.swift */,
 				9322F6132AEFB0DE0013B0AB /* MarkerAnnotation.swift */,
 			);
 			path = MapKit;

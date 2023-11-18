@@ -26,6 +26,8 @@ struct CaregiverDashboardView: View {
                                 .padding(.horizontal)
 
                             UpcomingRoutines(caregiverDashboardViewModel: caregiverDashboardViewModel)
+                            
+                            MapPreview()
                         }
                     }
 
@@ -88,7 +90,7 @@ struct CaregiverDashboardView: View {
                 .sheet(isPresented: $showInviteSheet) {
                     InviteSheetView(caregiverDashboardViewModel: caregiverDashboardViewModel)
                 }
-                .navigationTitle("Dashboard")
+                .navigationTitle("Tracker")
             }
 
             ChangeSeniorOverlay(showInviteSheet: $showInviteSheet, showChangeSenior: $showChangeSenior)
@@ -148,128 +150,134 @@ struct SeniorStatus: View {
                     HStack {
                         VStack {
                             Image(systemName: "heart.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
                                 .foregroundStyle(.white)
                         }
-                        .padding(8)
+                        .padding(12)
                         .background(.blue)
                         .clipShape(RoundedRectangle(cornerRadius: 4))
+                        
+                        VStack(alignment: .leading) {
+                            Text("Heart Rate")
+                                .font(.subheadline)
+                            
+                            HStack {
+                                Text("\(Int(caregiverDashboardViewModel.heartBeatInfo?.bpm ?? 0))")
+                                    .font(.title2)
+                                    .bold()
+                                
+                                Text("bpm")
+                                    .foregroundStyle(.secondary)
+                                    .font(.subheadline)
+                                    .padding(.leading, -4)
+                            }
+                        }
 
                         Spacer()
-                    }
-
-                    Text("Heart Rate")
-                        .font(.subheadline)
-
-                    HStack {
-                        Text("\(Int(caregiverDashboardViewModel.heartBeatInfo?.bpm ?? 0))")
-                            .font(.title)
-                            .bold()
-
-                        Text("bpm")
-                            .foregroundStyle(.secondary)
-                            .font(.subheadline)
-                            .padding(.leading, -4)
-                        //                            .opacity((caregiverDashboardViewModel.heartBeatInfo != nil) ? 1 : 0)
                     }
                 }
                 .padding(12)
                 .background(colorScheme == .light ? .white : Color(.systemGray6))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
-                VStack(alignment: .leading) {
-                    HStack {
-                        VStack {
-                            Image(systemName: "location.fill")
-                                .foregroundStyle(.white)
-                        }
-                        .padding(8)
-                        .background(.blue)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
-
-                        Spacer()
-                    }
-
-                    Text("Location")
-                        .font(.subheadline)
-
-                    if (caregiverDashboardViewModel.latestLocationInfo != nil) {
-                        Text("\(caregiverDashboardViewModel.latestLocationInfo?.isOutside ?? false ? "Outside" : "Home")")
-                            .font(.title2)
-                            .bold()
-                            .padding(.bottom, 6)
-                    } else {
-                        Text("No Data")
-                            .font(.title2)
-                            .bold()
-                            .padding(.bottom, 6)
-                    }
-                }
-                .padding(12)
-                .background(colorScheme == .light ? .white : Color(.systemGray6))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+//                VStack(alignment: .leading) {
+//                    HStack {
+//                        VStack {
+//                            Image(systemName: "location.fill")
+//                                .foregroundStyle(.white)
+//                        }
+//                        .padding(8)
+//                        .background(.blue)
+//                        .clipShape(RoundedRectangle(cornerRadius: 4))
+//
+//                        Spacer()
+//                    }
+//
+//                    Text("Location")
+//                        .font(.subheadline)
+//
+//                    if (caregiverDashboardViewModel.latestLocationInfo != nil) {
+//                        Text("\(caregiverDashboardViewModel.latestLocationInfo?.isOutside ?? false ? "Outside" : "Home")")
+//                            .font(.title2)
+//                            .bold()
+//                            .padding(.bottom, 6)
+//                    } else {
+//                        Text("No Data")
+//                            .font(.title2)
+//                            .bold()
+//                            .padding(.bottom, 6)
+//                    }
+//                }
+//                .padding(12)
+//                .background(colorScheme == .light ? .white : Color(.systemGray6))
+//                .clipShape(RoundedRectangle(cornerRadius: 8))
 
                 VStack(alignment: .leading) {
                     HStack {
                         VStack {
                             Image(systemName: (caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" }) != nil) ? "figure.walk" : "moon.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
                                 .foregroundStyle(.white)
                                 .padding(.horizontal, (caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" }) != nil) ? 2 : 0)
                         }
-                        .padding(8)
+                        .padding(12)
                         .background(.blue)
                         .clipShape(RoundedRectangle(cornerRadius: 4))
+                        
+                        if caregiverDashboardViewModel.idleInfo.isEmpty {
+                            VStack(alignment: .leading) {
+                                Text("Inactivity")
+                                    .font(.subheadline)
+
+                                Text("No Data")
+                                    .font(.title2)
+                                    .bold()
+                            }
+
+                        } else {
+                            if (caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" }) != nil) {
+
+                                Text("Inactive for")
+                                    .font(.subheadline)
+
+                                HStack {
+                                    Text(Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeString)
+                                        .font(.title2)
+                                        .bold()
+
+                                    if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 60 {
+                                        Text("min")
+                                            .foregroundStyle(.secondary)
+                                            .font(.subheadline)
+                                            .padding(.leading, -4)
+                                    } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 3600 {
+                                        Text("hours")
+                                            .foregroundStyle(.secondary)
+                                            .font(.subheadline)
+                                            .padding(.leading, -4)
+                                    } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) >= 86400 {
+                                        Text("days")
+                                            .foregroundStyle(.secondary)
+                                            .font(.subheadline)
+                                            .padding(.leading, -4)
+                                    }
+                                }
+                            } else {
+                                Text("Currently")
+                                    .font(.subheadline)
+
+                                Text("Active")
+                                    .font(.title2)
+                                    .bold()
+                                    .padding(.bottom, 6)
+                            }
+                        }
 
                         Spacer()
-                    }
-
-
-                    if caregiverDashboardViewModel.idleInfo.isEmpty {
-                        VStack(alignment: .leading) {
-                            Text("Inactivity")
-                                .font(.subheadline)
-
-                            Text("No Data")
-                                .font(.title2)
-                                .bold()
-                        }
-
-                    } else {
-                        if (caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" }) != nil) {
-
-                            Text("Inactive for")
-                                .font(.subheadline)
-
-                            HStack {
-                                Text(Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeString)
-                                    .font(.title)
-                                    .bold()
-
-                                if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 60 {
-                                    Text("min")
-                                        .foregroundStyle(.secondary)
-                                        .font(.subheadline)
-                                        .padding(.leading, -4)
-                                } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 3600 {
-                                    Text("hours")
-                                        .foregroundStyle(.secondary)
-                                        .font(.subheadline)
-                                        .padding(.leading, -4)
-                                } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) >= 86400 {
-                                    Text("days")
-                                        .foregroundStyle(.secondary)
-                                        .font(.subheadline)
-                                        .padding(.leading, -4)
-                                }
-                            }
-                        } else {
-                            Text("Currently")
-                                .font(.subheadline)
-
-                            Text("Active")
-                                .font(.title2)
-                                .bold()
-                                .padding(.bottom, 6)
-                        }
                     }
                 }
                 .padding(12)
@@ -443,6 +451,75 @@ struct UpcomingRoutines: View {
                     
                     Text("Routines not Set.")
                         .multilineTextAlignment(.center)
+                    
+                    Spacer()
+                }
+                .padding()
+                .background(colorScheme == .light ? .white : Color(.systemGray6))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .padding(.horizontal)
+            }
+        }
+    }
+}
+
+struct MapPreview: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    @StateObject var mapVM = MapViewModel()
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("Senior's Location")
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+                
+                Spacer()
+                
+                NavigationLink {
+                    MapTestView(mapVM: mapVM)
+                } label: {
+                    Text("Details")
+                        .font(.headline)
+                }
+            }
+            .padding(.horizontal)
+            
+            if mapVM.lastSeenLocation != nil && mapVM.mapRegion != nil {
+                MKMapRep(mapVM: mapVM)
+                    .frame(height: 150)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .padding(.horizontal)
+            } else if mapVM.mapRegion == nil {
+                HStack {
+                    Spacer()
+                    
+                    VStack {
+                        Text("Home Location not Available")
+                            .font(.headline)
+                            .multilineTextAlignment(.center)
+                        Text("Ask your senior to set their home location.")
+                            .font(.subheadline)
+                    }
+                    
+                    Spacer()
+                }
+                .padding()
+                .background(colorScheme == .light ? .white : Color(.systemGray6))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .padding(.horizontal)
+            } else {
+                HStack {
+                    Spacer()
+                    
+                    VStack {
+                        Text("Location not Available")
+                            .font(.headline)
+                            .multilineTextAlignment(.center)
+                        Text("Ask your senior to turn on their location.")
+                            .font(.subheadline)
+                    }
                     
                     Spacer()
                 }

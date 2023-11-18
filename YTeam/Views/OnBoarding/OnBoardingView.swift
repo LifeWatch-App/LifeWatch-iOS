@@ -21,7 +21,7 @@ struct OnBoardingView: View {
             } else if currentOnBoarding == 4 {
                 OnBoardingTemplate(currentOnBoarding: $currentOnBoarding, image: "OnBoarding-4", title: "AI Consultation", description: "Virtual healthcare, personalized for you. Explore the convenience of AI consultations in our app.")
             } else {
-                OnBoardingTemplate(currentOnBoarding: $currentOnBoarding, image: "OnBoarding-4", title: "Notification", description: "Alert message to the member family has been successfully sent.")
+                OnBoardingTemplate(currentOnBoarding: $currentOnBoarding, image: "OnBoarding-5", title: "Walkie-Talkie", description: "Seamless, instant communication with background-enabled push-to-talk functionality for efficiency.")
             }
         }
         .transition(.opacity)

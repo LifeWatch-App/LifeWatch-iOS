@@ -13,6 +13,17 @@ struct InviteSheetView: View {
     
     var body: some View {
         VStack {
+            HStack {
+                Button("cancel") {
+                    dismiss()
+                }
+                .foregroundStyle(.accent)
+                
+                Spacer()
+            }
+            
+            Spacer()
+            
             VStack(alignment: .leading) {
                 Text("Request access to your senior")
                     .font(.system(size: 32))
@@ -47,6 +58,8 @@ struct InviteSheetView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
             .padding(.top, 8)
+            
+            Spacer()
         }
         .presentationDetents([.medium])
         .padding()

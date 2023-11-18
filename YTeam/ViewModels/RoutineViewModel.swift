@@ -16,6 +16,7 @@ class RoutineViewModel: ObservableObject {
     @Published var currentDay: Date = Date()
     
     @Published var routines: [Routine] = []
+    @Published var dailyRoutines: [Routine] = []
     @Published var progressCount: Double = 0
     
     private var routineData: [RoutineData] = []
@@ -112,6 +113,10 @@ class RoutineViewModel: ObservableObject {
         self.convertRoutineDataToRoutine()
     }
     
+    func dailyRoutineData() {
+        
+    }
+    
     func convertRoutineDataToRoutine() {
         self.routines = self.routineData.map { routine in
             var medicineUnit: MedicineUnit
@@ -204,7 +209,6 @@ class RoutineViewModel: ObservableObject {
         
         progressCount = (progressCount / totalProgress)
     }
-    
     
     func changeWeek(type: ChangeWeek) {
         if type == .next {
