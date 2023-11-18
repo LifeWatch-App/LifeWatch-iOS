@@ -33,6 +33,8 @@ struct OnBoardingView: View {
 }
 
 struct OnBoardingTemplate: View {
+    @AppStorage("onBoardingDone") var onBoardingDone = false
+    
     @Binding var currentOnBoarding: Int
     
     let image: String
@@ -55,6 +57,7 @@ struct OnBoardingTemplate: View {
                 
                 Button("Skip") {
                     withAnimation {
+                        onBoardingDone = true
                         currentOnBoarding = 6
                     }
                 }
@@ -109,6 +112,9 @@ struct OnBoardingTemplate: View {
             Button {
                 withAnimation {
                     currentOnBoarding += 1
+                }
+                if currentOnBoarding == 6 {
+                    onBoardingDone = true
                 }
             } label: {
                 HStack {

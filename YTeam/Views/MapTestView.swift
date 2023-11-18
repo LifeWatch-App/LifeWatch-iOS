@@ -22,14 +22,14 @@ struct MapTestView: View {
 
                     ZStack(alignment: .topTrailing) {
 
-                        Spacer()
+//                        Spacer()
                         Text("Set pin on a location")
                             .font(.headline)
                             .frame(maxWidth: UIScreen.main.bounds.width)
                             .padding()
                             .background(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
-                            .padding()
+                            .padding(.horizontal)
                             .opacity(mapVM.homeSetMode ? 1 : 0)
 
                         Button {
@@ -134,6 +134,7 @@ struct MapTestView: View {
                     }
                     .scrollIndicators(.hidden)
                 }
+                .navigationBarTitleDisplayMode(.inline)
 
             } else if mapVM.mapRegion == nil {
                 ContentUnavailableView {

@@ -63,11 +63,12 @@ struct YTeamApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     @State var currentOnBoarding = 1
+    @AppStorage("onBoardingDone") var onBoardingDone = false
     
     var body: some Scene {
         WindowGroup {
             ZStack {
-                if currentOnBoarding < 6 {
+                if currentOnBoarding < 6 && !onBoardingDone {
                     OnBoardingView(currentOnBoarding: $currentOnBoarding)
                 } else {
                     ContentView()
