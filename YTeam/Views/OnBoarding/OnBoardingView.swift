@@ -8,29 +8,32 @@
 import SwiftUI
 
 struct OnBoardingView: View {
-    @AppStorage("currentOnBoarding") var currentOnBoarding = 1
+    @Binding var currentOnBoarding: Int
     
     var body: some View {
-        if currentOnBoarding == 1 {
-            OnBoardingTemplate(image: "OnBoarding-1", title: "Welcome", description: "We're honored to support you let's make caring seamless!")
-        } else if currentOnBoarding == 2 {
-            OnBoardingTemplate(image: "OnBoarding-2", title: "Emergency", description: "Peace of mind at your fingertips! Our emergency features is designed to keep seniors safe and sound.")
-        } else if currentOnBoarding == 3 {
-            OnBoardingTemplate(image: "OnBoarding-3", title: "Routine", description: "Every routine, effortlessly managed. Elevate their day with our senior-friendly reminder feature.")
-        } else if currentOnBoarding == 4 {
-            OnBoardingTemplate(image: "OnBoarding-4", title: "AI Consultation", description: "Virtual healthcare, personalized for you. Explore the convenience of AI consultations in our app.")
-        } else {
-            OnBoardingTemplate(image: "OnBoarding-5", title: "Walkie-Talkie", description: "Seamless, instant communication with  background-enabled push-to-talk functionality for efficiency.")
+        ZStack {
+            if currentOnBoarding == 1 {
+                OnBoardingTemplate(currentOnBoarding: $currentOnBoarding, image: "OnBoarding-1", title: "Welcome", description: "We're honored to support you let's make caring seamless!")
+            } else if currentOnBoarding == 2 {
+                OnBoardingTemplate(currentOnBoarding: $currentOnBoarding, image: "OnBoarding-2", title: "Emergency", description: "Peace of mind at your fingertips! Our emergency features is designed to keep seniors safe and sound.")
+            } else if currentOnBoarding == 3 {
+                OnBoardingTemplate(currentOnBoarding: $currentOnBoarding, image: "OnBoarding-3", title: "Routine", description: "Every routine, effortlessly managed. Elevate their day with our senior-friendly reminder feature.")
+            } else if currentOnBoarding == 4 {
+                OnBoardingTemplate(currentOnBoarding: $currentOnBoarding, image: "OnBoarding-4", title: "AI Consultation", description: "Virtual healthcare, personalized for you. Explore the convenience of AI consultations in our app.")
+            } else {
+                OnBoardingTemplate(currentOnBoarding: $currentOnBoarding, image: "OnBoarding-5", title: "Walkie-Talkie", description: "Seamless, instant communication with background-enabled push-to-talk functionality for efficiency.")
+            }
         }
+        .transition(.opacity)
     }
 }
 
 #Preview {
-    OnBoardingView()
+    OnBoardingView(currentOnBoarding: .constant(1))
 }
 
 struct OnBoardingTemplate: View {
-    @AppStorage("currentOnBoarding") var currentOnBoarding = 1
+    @Binding var currentOnBoarding: Int
     
     let image: String
     let title: String
@@ -41,7 +44,9 @@ struct OnBoardingTemplate: View {
             HStack {
                 if currentOnBoarding > 1 {
                     Button("Back") {
-                        currentOnBoarding -= 1
+                        withAnimation {
+                            currentOnBoarding -= 1
+                        }
                     }
                     .fontWeight(.semibold)
                 }
@@ -49,7 +54,9 @@ struct OnBoardingTemplate: View {
                 Spacer()
                 
                 Button("Skip") {
-                    currentOnBoarding = 6
+                    withAnimation {
+                        currentOnBoarding = 6
+                    }
                 }
                 .fontWeight(.semibold)
             }
@@ -100,7 +107,9 @@ struct OnBoardingTemplate: View {
             .padding(.bottom, 32)
             
             Button {
-                currentOnBoarding += 1
+                withAnimation {
+                    currentOnBoarding += 1
+                }
             } label: {
                 HStack {
                     Spacer()
