@@ -77,7 +77,7 @@ final class BatteryChargingService {
     func observeBatteryStateLevelSpecific() {
         guard let uid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
         let query = FirestoreConstants.batteryLevelCollection
-            .whereField("seniorID", isEqualTo: uid)
+            .whereField("seniorId", isEqualTo: uid)
             .limit(to: 1)
         
         query.addSnapshotListener { querySnapshot, error in

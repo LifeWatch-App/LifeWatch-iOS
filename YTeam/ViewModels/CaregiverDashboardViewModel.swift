@@ -106,6 +106,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
                 self.batteryInfo = self.loadInitialBatteryLevel(documents: documentChanges)
+                print("BatteryInfo", self.batteryInfo)
             }
             .store(in: &cancellables)
 
@@ -217,6 +218,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     }
 
     private func loadInitialBatteryLevel(documents: [DocumentChange]) -> BatteryLevel? {
+        print("Document Data", documents.first?.document.data())
         return try? documents.first?.document.data(as: BatteryLevel.self)
     }
 

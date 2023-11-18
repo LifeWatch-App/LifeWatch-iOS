@@ -10,9 +10,10 @@ import SwiftUI
 struct CaregiverView: View {
     @ObservedObject var mainViewModel: MainViewModel
     @State var showChangeSenior = false
+    @ObservedObject var batteryVM: BatteryLevelStateViewModel
     var body: some View {
         TabView {
-            CaregiverDashboardView()
+            CaregiverDashboardView(batteryVM: batteryVM)
                 .tabItem {
                     Label("Dashboard", systemImage: "list.clipboard.fill")
                 }
@@ -41,5 +42,5 @@ struct CaregiverView: View {
 }
 
 #Preview {
-    CaregiverView(mainViewModel: MainViewModel())
+    CaregiverView(mainViewModel: MainViewModel(), batteryVM: BatteryLevelStateViewModel())
 }

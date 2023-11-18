@@ -15,6 +15,7 @@ struct CaregiverDashboardView: View {
     @StateObject var caregiverDashboardViewModel = CaregiverDashboardViewModel()
     @State var showChangeSenior = false
     @State var showInviteSheet = false
+    @ObservedObject var batteryVM: BatteryLevelStateViewModel
 
     var body: some View {
         ZStack {
@@ -78,7 +79,7 @@ struct CaregiverDashboardView: View {
 
                     ToolbarItem(placement: .topBarTrailing) {
                         NavigationLink {
-                            ProfileView()
+                            ProfileView(batteryVM: batteryVM)
                         } label: {
                             Image(systemName: "person.crop.circle")
                                 .font(.title)
@@ -455,8 +456,8 @@ struct UpcomingRoutines: View {
     }
 }
 
-#Preview {
-    CaregiverDashboardView()
-    //        .preferredColorScheme(.dark)
-}
+//#Preview {
+//    CaregiverDashboardView(batteryVM: batteryV)
+//    //        .preferredColorScheme(.dark)
+//}
 

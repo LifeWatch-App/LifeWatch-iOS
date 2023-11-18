@@ -13,6 +13,8 @@ struct SeniorDashboardView: View {
     @AppStorage("emailModal") var emailModal = true
     
     @StateObject var seniorDashboardViewModel = SeniorDashboardViewModel()
+    @ObservedObject var batteryVM: BatteryLevelStateViewModel
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -65,7 +67,7 @@ struct SeniorDashboardView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
-                        ProfileView()
+                        ProfileView(batteryVM: batteryVM)
                     } label: {
                         Image(systemName: "person.crop.circle")
                             .font(.title)
@@ -318,6 +320,6 @@ struct Symtomps: View {
 }
 
 #Preview {
-    SeniorDashboardView()
+    SeniorDashboardView(batteryVM: BatteryLevelStateViewModel())
 //            .preferredColorScheme(.dark)
 }
