@@ -26,7 +26,7 @@ class RoutineViewModel: ObservableObject {
     private let authService = AuthService.shared
     
     private let routineService: RoutineService = RoutineService.shared
-    
+
     init() {
         setupRoutineSubscribers()
         fetchCurrentWeek()
@@ -104,17 +104,16 @@ class RoutineViewModel: ObservableObject {
         }
         
         (0...6).forEach { day in
-            if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
-                //                weekday = calendar.date(byAdding: .hour, value: 7, to: weekday) ?? Date()
+            if var weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
+                weekday = calendar.date(byAdding: .hour, value: 18, to: weekday) ?? Date()
                 currentWeek.append(weekday)
             }
         }
         
-        self.convertRoutineDataToRoutine()
-    }
-    
-    func dailyRoutineData() {
+        currentWeek[currentWeek.count-1] = calendar.date(bySettingHour: 18, minute: 0, second: 0, of: currentWeek.last!) ?? currentWeek.last!
         
+        print("Last Week: ", currentWeek)
+        self.convertRoutineDataToRoutine()
     }
     
     func convertRoutineDataToRoutine() {
@@ -162,6 +161,23 @@ class RoutineViewModel: ObservableObject {
         }
         
         self.countProgress()
+        self.dailyRoutineData()
+    }
+    
+    func dailyRoutineData() {
+        //Routines time itu array unix second [13294701293874, 309741098234932704]
+        dailyRoutines = []
+        
+        print("Routines: ", self.routines)
+        for routine in self.routines {
+            for time in routine.time {
+                if isToday(date: time) {
+                    print("Daily Routine Data Time", time)
+                    dailyRoutines.append(routine)
+                }
+            }
+        }
+        
     }
     
     func updateSingleRoutineCheck(routine: Routine) {
@@ -211,6 +227,7 @@ class RoutineViewModel: ObservableObject {
     }
     
     func changeWeek(type: ChangeWeek) {
+        
         if type == .next {
             currentDay = Calendar.current.date(byAdding: .day, value: 7, to: currentDay) ?? Date()
         } else {

@@ -73,7 +73,7 @@ class RoutineService {
         let routinesCollection = FirestoreConstants.routinesCollection
         
         guard let encodedRoutineData = try? Firestore.Encoder().encode(routine) else { return }
-        
+        print("Ad")
         try? await routinesCollection.document().setData(encodedRoutineData)
     }
     

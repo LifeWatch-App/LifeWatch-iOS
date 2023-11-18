@@ -13,6 +13,7 @@ struct RoutineView: View {
     @StateObject var routineViewModel = RoutineViewModel()
     @State var routine: Routine = Routine()
     
+    private var lastDate: Date = Calendar.current.startOfDay(for: Date()).addingTimeInterval(24 * 60 * 60 - 1)
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -24,23 +25,24 @@ struct RoutineView: View {
                             ForEach(routineViewModel.currentWeek, id: \.self) { day in
                                 Button {
                                     routineViewModel.currentDay = day
+                                    routineViewModel.dailyRoutineData()
                                 } label: {
                                     VStack {
                                         ZStack {
-                                            RoutineCircularProgressView(progress: routineViewModel.progressCount, disabled: day > Date())
+                                            RoutineCircularProgressView(progress: routineViewModel.progressCount, disabled: day > lastDate)
                                                 .frame(width: 40)
                                             
                                             Text("\(routineViewModel.extractDate(date: day, format: "d"))")
                                                 .fontWeight(.semibold)
-                                                .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : day > Date() ? .secondary : Color(.label))
+                                                .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : day > lastDate ? .secondary : Color(.label))
                                         }
                                         
                                         Text("\(routineViewModel.extractDate(date: day, format: "E"))")
                                             .font(.subheadline)
-                                            .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : day > Date() ? .secondary : Color(.label))
+                                            .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : day > lastDate ? .secondary : Color(.label))
                                     }
                                 }
-                                .disabled(day > Date())
+                                .disabled(day > lastDate)
                             }
                         }
                         .frame(height: 70)
@@ -48,7 +50,7 @@ struct RoutineView: View {
                     }
                     .padding(.bottom, 4)
                     
-                    if routineViewModel.routines.count > 0 {
+                    if routineViewModel.dailyRoutines.count > 0 {
                         HStack {
                             Text("\(routineViewModel.extractDate(date: routineViewModel.currentDay, format: "dd MMM yyyy"))")
                                 .font(.title3)
@@ -57,7 +59,7 @@ struct RoutineView: View {
                         }
                         
                         // foreach routine here
-                        ForEach(routineViewModel.routines) { routine in
+                        ForEach(routineViewModel.dailyRoutines) { routine in
                             if routine.time.count == 1 {
                                 HStack(spacing: 8) {
                                     VStack {
@@ -120,6 +122,7 @@ struct RoutineView: View {
                                     .background(colorScheme == .light ? .white : Color(.systemGray6))
                                     .clipShape(RoundedRectangle(cornerRadius: 12))
                                 }
+                                .padding(.bottom, 4)
                             } else {
                                 HStack(spacing: 8) {
                                     if routine != routineViewModel.routines.last {
