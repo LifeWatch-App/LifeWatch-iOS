@@ -17,7 +17,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     @Published var user: User?
     @Published var userData: UserData?
     @Published var invites: [Invite] = []
-    @Published var isLoading = false
+    @Published var isLoading = true
     @Published var loginProviders: [String] = []
     @Published var selectedInviteId: String?
     @Published var isDeleteAppleAccount = false
@@ -28,7 +28,14 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
             guard let self = self else {
                 return
             }
-            self.user = user
+            withAnimation {
+                self.user = user
+            }
+            if user == nil {
+                withAnimation {
+                    self.isLoading = false
+                }
+            }
         }
     }
     
@@ -111,6 +118,10 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     }
     
     func signOut() {
+        withAnimation {
+            self.isLoading = true
+        }
+        
         self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
             "fcmToken": NSNull(),
             "pttToken": NSNull()
@@ -130,6 +141,10 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
 
             do {
                 try Auth.auth().signOut()
+                
+                withAnimation {
+                    self.isLoading = false
+                }
             } catch let signOutError as NSError {
                 print("Error signing out: %@", signOutError)
             }
