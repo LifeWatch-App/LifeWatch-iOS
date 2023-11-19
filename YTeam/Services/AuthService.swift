@@ -21,7 +21,10 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     @Published var loginProviders: [String] = []
     @Published var selectedInviteId: String?
     @Published var isDeleteAppleAccount = false
+    @Published var loginMessage = ""
+    @Published var signUpMessage = ""
     var invitesListener: ListenerRegistration?
+    
     
     func listenToAuthState() {
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
@@ -45,11 +48,13 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         }
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if error != nil {
-                print(error?.localizedDescription ?? "")
+                print("login error", error?.localizedDescription ?? "")
                 withAnimation {
                     self.isLoading = false
                 }
+                self.loginMessage = error?.localizedDescription ?? ""
             } else {
+                self.loginMessage = ""
                 print("Login Success")
             }
             
@@ -70,13 +75,14 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error != nil {
-                print(error?.localizedDescription ?? "")
+                print("sign up error", error?.localizedDescription ?? "")
                 withAnimation {
                     self.isLoading = false
                 }
-                
+                self.signUpMessage = error?.localizedDescription ?? ""
             } else {
                 print("success")
+                self.signUpMessage = ""
                 
                 // Get the FCM token form user defaults
                 guard let fcmToken = UserDefaults.standard.value(forKey: "fcmToken") else{
