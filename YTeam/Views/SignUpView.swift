@@ -75,7 +75,7 @@ struct SignUpView: View {
                     .padding(.bottom, 8)
                     
                     Text(signUpViewModel.signUpMessage)
-                        .foregroundStyle(.emergencyPink)
+                        .foregroundStyle(.red)
                     
                     Button {
                         signUpViewModel.signUp()
