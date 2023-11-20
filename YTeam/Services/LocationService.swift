@@ -33,9 +33,9 @@ final class LocationService {
             .whereField("seniorId", isEqualTo: currentUid)
             .limit(to: 1)
 
-        locationListener.append(query.addSnapshotListener { querySnapshot, error in
+        locationListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.documentChangesHomeLocation = changes
+            self?.documentChangesHomeLocation = changes
         })
 
     }
@@ -54,9 +54,9 @@ final class LocationService {
             .order(by: "createdAt", descending: true)
             .limit(to: 1)
 
-        locationListener.append(query.addSnapshotListener { querySnapshot, error in
+        locationListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.documentChangesLiveLocation = changes
+            self?.documentChangesLiveLocation = changes
         })
     }
 
@@ -73,10 +73,10 @@ final class LocationService {
             .whereField("createdAt", isLessThanOrEqualTo: endOfDay.timeIntervalSince1970)
             .order(by: "createdAt", descending: true)
 
-        locationListener.append(query.addSnapshotListener { querySnapshot, error in
+        locationListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
             print("Document changes: \(changes)")
-            self.documentChangesAllLiveLocation = changes
+            self?.documentChangesAllLiveLocation = changes
         })
     }
 

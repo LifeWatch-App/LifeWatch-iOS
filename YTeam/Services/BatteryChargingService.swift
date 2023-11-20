@@ -88,9 +88,9 @@ final class BatteryChargingService {
             .whereField("seniorId", isEqualTo: uid)
             .limit(to: 1)
         
-        batteryListener.append(query.addSnapshotListener { querySnapshot, error in
+        batteryListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.batteryDocumentChanges = changes
+            self?.batteryDocumentChanges = changes
         })
     }
 }

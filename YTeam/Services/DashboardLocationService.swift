@@ -32,9 +32,9 @@ final class DashboardLocationService {
             .order(by: "createdAt", descending: true)
             .limit(to: 1)
 
-        locationListener.append(query.addSnapshotListener { querySnapshot, error in
+        locationListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.latestLocationDocumentChanges = changes
+            self?.latestLocationDocumentChanges = changes
         })
     }
 }

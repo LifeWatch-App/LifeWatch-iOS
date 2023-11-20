@@ -29,9 +29,9 @@ final class HeartRateService {
             .order(by: "time", descending: true)
             .limit(to: 1)
 
-        heartRateListener.append(query.addSnapshotListener { querySnapshot, error in
+        heartRateListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.heartRateDocumentChanges = changes
+            self?.heartRateDocumentChanges = changes
         })
     }
 }

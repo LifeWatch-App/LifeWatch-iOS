@@ -39,9 +39,9 @@ final class IdleService {
         let query = FirestoreConstants.idlesCollection
             .whereField("seniorId", isEqualTo: uid)
 
-        query.addSnapshotListener { querySnapshot, error in
+        query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.idleDocumentChanges = changes
+            self?.idleDocumentChanges = changes
         }
     }
 }
