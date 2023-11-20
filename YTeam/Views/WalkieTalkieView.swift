@@ -22,11 +22,11 @@ struct WalkieTalkieView: View {
             
             ZStack {
                 Circle()
-                    .stroke(.white, lineWidth: 2)
+                    .stroke(walkieTalkieViewModel.isPlaying! || hasPressed ? Color(UIColor.lightGray) : .white, lineWidth: 2)
                     .frame(width: Screen.width / 1.2)
                 
                 Circle()
-                    .fill(walkieTalkieViewModel.isPlaying! ? .gray : .white)
+                    .fill(walkieTalkieViewModel.isPlaying! || hasPressed ? Color(UIColor.lightGray) : .white)
                     .frame(width: Screen.width / 1.3)
                 
                 Image(systemName: "flipphone")
@@ -48,12 +48,13 @@ struct WalkieTalkieView: View {
             }, perform: {})
             
             VStack(spacing: 4) {
-                Text(walkieTalkieViewModel.isPlaying! ? "Senior is speaking" : walkieTalkieViewModel.status!)
+                Text(walkieTalkieViewModel.isPlaying! ? "\(walkieTalkieViewModel.speakerName)..." : walkieTalkieViewModel.status!)
                     .font(.title3)
+                    .multilineTextAlignment(.center)
                 
                 Spacer()
             }
-            .padding(.top, 200)
+            .padding(.top, 190)
             .padding(.horizontal)
             
             VStack {
@@ -73,9 +74,36 @@ struct WalkieTalkieView: View {
                 
                 Spacer()
             }
+            
+            VStack(spacing: 4) {
+                Spacer()
+                Button {
+                    walkieTalkieViewModel.leaveChannel()
+                    dismiss()
+                } label: {
+                    VStack {
+                        Text("Leave Channel")
+                            .bold()
+                            .foregroundStyle(.red)
+                        Text("(you will not receive incoming transmissions)")
+                            .font(.subheadline)
+                            .foregroundStyle(.red)
+                    }
+                    .padding(12)
+                    .background(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .padding(.vertical, 8)
+                    .padding(.horizontal)
+                }
+            }
+            .padding(.bottom, 100)
+            .padding(.horizontal)
         }
         .foregroundStyle(.white)
         .frame(width: Screen.width, height: Screen.height)
+        .onAppear {
+            walkieTalkieViewModel.joinChannel()
+        }
     }
 }
 
