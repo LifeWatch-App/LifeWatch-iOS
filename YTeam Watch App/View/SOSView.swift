@@ -65,10 +65,6 @@ struct SOSView: View {
             .onReceive(timer) { _ in
                 if timeRemaining > 0 {
                     timeRemaining -= 1
-                } else if timeRemaining == 0 {
-                    sosManager.sendSOS()
-                    audioPlayerManager.playAlert()
-                    timer.upstream.connect().cancel()
                 }
             }
         } else {
@@ -111,6 +107,11 @@ struct SOSView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .background(Color("emergency-pink"))
+            .onAppear{
+                sosManager.sendSOS()
+                audioPlayerManager.playAlert()
+                timer.upstream.connect().cancel()
+            }
         }
     }
 }
