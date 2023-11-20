@@ -18,7 +18,6 @@ class RoutineViewModel: ObservableObject {
     @Published var routines: [Routine] = []
     @Published var dailyRoutines: [Routine] = []
     @Published var progressCount: [Double] = [0, 0, 0, 0, 0, 0, 0]
-//    @Published var progressCount: Double = 0
     
     private var routineData: [RoutineData] = []
     private var cancellables = Set<AnyCancellable>()
@@ -106,7 +105,7 @@ class RoutineViewModel: ObservableObject {
         }
         
         (0...6).forEach { day in
-            if var weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
+            if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
 //                weekday = calendar.date(byAdding: .hour, value: 18, to: weekday) ?? Date()
                 currentWeek.append(weekday)
             }
@@ -116,6 +115,8 @@ class RoutineViewModel: ObservableObject {
         
         print("Last Week: ", currentWeek)
         self.convertRoutineDataToRoutine()
+        
+        countProgress()
     }
     
     func convertRoutineDataToRoutine() {
@@ -164,7 +165,6 @@ class RoutineViewModel: ObservableObject {
     }
     
     func dailyRoutineData() {
-        //Routines time itu array unix second [13294701293874, 309741098234932704]
         dailyRoutines = []
         
         print("Routines: ", self.routines)
@@ -200,27 +200,9 @@ class RoutineViewModel: ObservableObject {
             }
 
             progressCount[index] = (progressCount[index] / totalProgress)
-            
-            print("Progress \(index): \(progressCount[index])")
         }
         
         print("Progress count:", progressCount)
-        
-//        routines.forEach { routine in
-//            routine.isDone.forEach { done in
-//                if done == true {
-//                    progressCount += 1
-//                }
-//                totalProgress += 1
-//            }
-//        }
-//        
-//        if totalProgress == 0 {
-//            totalProgress += 1
-//        }
-//        
-//        progressCount = (progressCount / totalProgress)
-//        print("Progress Count: ", progressCount)
     }
     
     func updateSingleRoutineCheck(routine: Routine) {
@@ -234,8 +216,6 @@ class RoutineViewModel: ObservableObject {
         let newRoutine: RoutineData = RoutineData(id: routine.id, seniorId: routine.seniorId ?? "", type: routine.type, time: routineDataDate, activity: routine.activity ?? "", description: routine.description ?? "", medicine: routine.medicine ?? "", medicineAmount: routine.medicineAmount ?? "", medicineUnit: routine.medicineUnit?.rawValue ?? "", isDone: newIsDone)
         
         Task { try? await routineService.updateRoutine(routine: newRoutine)}
-        
-        countProgress()
     }
     
     func updateRoutineCheck(routine: Routine, index: Int) {
@@ -250,8 +230,6 @@ class RoutineViewModel: ObservableObject {
         let newRoutine: RoutineData = RoutineData(id: routine.id, seniorId: routine.seniorId ?? "", type: routine.type, time: routineDataDate, activity: routine.activity ?? "", description: routine.description ?? "", medicine: routine.medicine ?? "", medicineAmount: routine.medicineAmount ?? "", medicineUnit: routine.medicineUnit?.rawValue ?? "", isDone: newIsDone)
         
         Task { try? await routineService.updateRoutine(routine: newRoutine)}
-        
-        countProgress()
     }
     
     func changeWeek(type: ChangeWeek) {

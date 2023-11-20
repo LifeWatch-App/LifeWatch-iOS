@@ -12,7 +12,7 @@ import FirebaseAuth
 import AVFoundation
 import FirebaseStorage
 
-class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDelegate  {
+class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published var invites: [Invite] = []
     @Published var user: User?
     @Published var userData: UserData?
