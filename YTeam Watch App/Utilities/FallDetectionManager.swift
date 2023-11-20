@@ -13,12 +13,13 @@ import UserNotifications
 class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject {
     @Published var authorized: Bool = false
     @Published var fall: Bool = false
+    @Published var notificationSent: Bool = false
     
     let fallDetector = CMFallDetectionManager()
     
     private let service = DataService.shared
     private let decoder: JSONDecoder = JSONDecoder()
-    
+    static var shared: FallDetectionManager = FallDetectionManager()
     override init() {
         super.init()
         self.assignDelegate()
