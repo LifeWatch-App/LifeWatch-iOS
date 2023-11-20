@@ -29,7 +29,9 @@ struct CombinedView: View {
             VStack {
                 VStack(spacing: 15) {
                     VStack {
-                        Text("\(heartManager.heartRate) BPM")
+                        Text("\(heartManager.heartRate)")
+                            .font(.title2)
+                        Text("BPM")
                         Spacer()
                         Button{
                             sosManager.showSOS.toggle()
