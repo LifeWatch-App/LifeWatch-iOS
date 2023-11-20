@@ -46,13 +46,14 @@ struct MKMapRep: UIViewRepresentable {
             }
         }
 
-        if let lastSeenLocation = coordinator.lastSeenLocation {
-            updateLiveLocationAnnotation(mapView: uiView, location: lastSeenLocation)
-        }
-
         if let mapRegion = coordinator.mapRegion {
             updateHomeLocationAnnotation(mapView: uiView, location: mapRegion.center)
             updateRegionCircle(mapView: uiView, location: mapRegion.center)
+        }
+
+        if let lastSeenLocation = coordinator.lastSeenLocation {
+            updateLiveLocationAnnotation(mapView: uiView, location: lastSeenLocation)
+            updateRegionCircle(mapView: uiView, location: context.coordinator.mapRegion!.center)
         }
 
         if coordinator.shouldChangeMap {

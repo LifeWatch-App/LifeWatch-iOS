@@ -100,11 +100,12 @@ struct MapTestView: View {
                                 .background(
                                     CardShape()
                                         .fill(colorScheme == .light ? Color.white : Color(.systemGray6))
-                                        .padding(.top, 10) // Add a blue border
+                                        .padding(.top, 10)
                                 )
                                 .background(
                                     RoundedRectangle(cornerRadius: 8)
-                                        .fill(.accent) // Set the bottom background color to white
+                                    //Check if location within homeradius
+                                        .fill(location.isOutside ?? false ? Color.red : .accent)
                                 )
                                 .padding(.vertical, 8)
                                 .onTapGesture {

@@ -65,7 +65,7 @@ final class BatteryLevelStateViewModel: ObservableObject {
     }
 
     func setupSubscribers() {
-        batterySubscription = Timer.publish(every: 5, on: .main, in: .common)
+        batterySubscription = Timer.publish(every: 30, on: .main, in: .common)
             .autoconnect()
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
