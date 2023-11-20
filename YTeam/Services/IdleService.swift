@@ -15,6 +15,15 @@ final class IdleService {
     @Published var userData: UserData?
     private let authService = AuthService.shared
     private var cancellables = Set<AnyCancellable>()
+    private var idleListener: [ListenerRegistration] = []
+
+
+    func deinitializerFunction() {
+        idleListener.forEach({ $0.remove() })
+        idleListener = []
+        idleDocumentChanges = []
+    }
+
 
     func observeIdleSpecific() {
         let uid: String?
@@ -30,9 +39,9 @@ final class IdleService {
         let query = FirestoreConstants.idlesCollection
             .whereField("seniorId", isEqualTo: uid)
 
-        query.addSnapshotListener { querySnapshot, error in
+        query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.idleDocumentChanges = changes
+            self?.idleDocumentChanges = changes
         }
     }
 }

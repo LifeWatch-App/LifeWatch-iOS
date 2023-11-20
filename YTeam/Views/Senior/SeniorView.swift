@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SeniorView: View {
     @ObservedObject var mainViewModel: MainViewModel
-    
+    @EnvironmentObject var batteryLevelViewModel: BatteryLevelStateViewModel
+
     var body: some View {
         TabView {
             SeniorDashboardView()
@@ -26,6 +27,13 @@ struct SeniorView: View {
                 .tabItem {
                     Label("History", systemImage: "chart.bar.fill")
                 }
+        }
+        .onReceive(mainViewModel.$userData) { userData in
+            if let userData = userData, userData.role == "senior" {
+                Task {
+                    batteryLevelViewModel.setupSubscribers()
+                }
+            }
         }
     }
 }

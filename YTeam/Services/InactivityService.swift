@@ -10,10 +10,19 @@ import Firebase
 
 class InactivityService {
     static let shared: InactivityService = InactivityService()
-    
+
     @Published var idles: [Idle] = []
     @Published var charges: [Charge] = []
-    
+
+    private var inactivityListener: [ListenerRegistration] = []
+
+    func deinitializerFunction() {
+        inactivityListener.forEach({ $0.remove() })
+        inactivityListener = []
+        idles = []
+        charges = []
+    }
+
 //    init() {
 //        Task{try? await observeAllIdles()}
 //        Task{try? await observeAllCharges()}
@@ -41,11 +50,11 @@ class InactivityService {
         let query = FirestoreConstants.idlesCollection
                                     .whereField("seniorId", isEqualTo: uid)
         
-        query.addSnapshotListener { [weak self] snapshot, _ in
+        inactivityListener.append(query.addSnapshotListener { [weak self] snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added || $0.type == .modified }) else { return }
             let idles = changes.compactMap({ try? $0.document.data(as: Idle.self) })
             self?.idles = idles
-        }
+        })
     }
 
     func observeAllCharges(userData: UserData?) {
@@ -62,12 +71,12 @@ class InactivityService {
         let query = FirestoreConstants.chargesCollection
                                     .whereField("seniorId", isEqualTo: uid)
 
-        query.addSnapshotListener { [weak self] snapshot, _ in
+        inactivityListener.append(query.addSnapshotListener { [weak self] snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added || $0.type == .modified }) else { return }
             let charges = changes.compactMap({ try? $0.document.data(as: Charge.self) })
             print("Charges ", charges)
             self?.charges = charges
-        }
+        })
     }
 
     func observeAllInactivity(userData: UserData?) {

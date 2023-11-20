@@ -68,9 +68,10 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .receive(on: DispatchQueue.main)
             .sink { [weak self] selectedInviteId in
                 guard let self = self else { return }
-                if self.selectedInviteId != selectedInviteId {
-                    self.selectedInviteId = selectedInviteId
-                }
+//                if self.selectedInviteId != selectedInviteId {
+//                    self.selectedInviteId = selectedInviteId
+//                }
+                self.selectedInviteId = selectedInviteId
             }
             .store(in: &cancellables)
 

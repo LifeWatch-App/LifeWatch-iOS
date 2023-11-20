@@ -12,7 +12,14 @@ class FallService {
     static let shared: FallService = FallService()
     
     @Published var falls: [Fall] = []
-    
+    private var fallsListener: [ListenerRegistration] = []
+
+    func deinitializerFunction() {
+        fallsListener.forEach({ $0.remove() })
+        fallsListener = []
+        falls = []
+    }
+
 //    init() {
 //        Task{try? await observeAllFalls()}
 //    }
@@ -39,11 +46,11 @@ class FallService {
         let query = FirestoreConstants.fallsCollection
                                     .whereField("seniorId", isEqualTo: uid)
     
-        query.addSnapshotListener { [weak self] snapshot, _ in
+        fallsListener.append(query.addSnapshotListener { [weak self] snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
             let falls = changes.compactMap({ try? $0.document.data(as: Fall.self) })
             self?.falls = falls
-        }
+        })
     }
     
 }

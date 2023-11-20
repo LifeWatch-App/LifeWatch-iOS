@@ -33,24 +33,36 @@ class ProfileViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+
     func signOut() {
         UserDefaults.standard.removeObject(forKey: "selectedSenior")
+        FallService.shared.deinitializerFunction()
+        SOSService.shared.deinitializerFunction()
+        InactivityService.shared.deinitializerFunction()
+        HeartAnomalyService.shared.deinitializerFunction()
+        HeartbeatService.shared.deinitializerFunction()
+        LocationService.shared.deinitializerFunction()
+        BatteryChargingService.shared.deinitializerFunction()
+        DashboardLocationService.shared.deinitializerFunction()
+        HeartRateService.shared.deinitializerFunction()
+        IdleService.shared.deinitializerFunction()
+        RoutineService.shared.deinitializerFunction()
+        SymptomService.shared.deinitializerFunction()
         AuthService.shared.signOut()
     }
-    
+
     func deleteAccountWithPassword() {
         AuthService.shared.deleteAccountWithPassword(password: password)
     }
-    
+
     func deleteAccountWithApple() {
         AuthService.shared.deleteAccountWithApple()
     }
-    
+
     func acceptInvite(id: String) {
         AuthService.shared.acceptInvite(id: id)
     }
-    
+
     func denyInvite(id: String) {
         AuthService.shared.denyInvite(id: id)
     }

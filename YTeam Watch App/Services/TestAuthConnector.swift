@@ -28,8 +28,6 @@ final class TestAuthConnector: NSObject, WCSessionDelegate {
             do {
                 let userRecordData = try JSONDecoder().decode(UserRecord.self, from: data)
 
-                print("Gotten user record", userRecordData)
-
                 if let userRecord = UserDefaults.standard.data(forKey: "user-auth") {
                     let decodedUserRecord = try? self.decoder.decode(UserRecord.self, from: userRecord)
                     guard decodedUserRecord?.userID != nil, userRecordData.userID != nil else {
@@ -37,8 +35,6 @@ final class TestAuthConnector: NSObject, WCSessionDelegate {
                         UserDefaults.standard.removeObject(forKey: "user-auth")
                         return
                     }
-
-                    print("Decoded user record", decodedUserRecord)
 
                     if decodedUserRecord?.userID == userRecordData.userID {
                         self.userRecord = decodedUserRecord

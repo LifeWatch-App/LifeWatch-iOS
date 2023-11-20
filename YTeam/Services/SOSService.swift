@@ -12,6 +12,13 @@ class SOSService {
     static let shared: SOSService = SOSService()
     
     @Published var sos: [SOS] = []
+    private var sosListener: [ListenerRegistration] = []
+
+    func deinitializerFunction() {
+        sosListener.forEach({ $0.remove() })
+        sosListener = []
+        sos = []
+    }
 
 //    init() {
 //        Task{try? await observeAllSOS()}
@@ -59,10 +66,10 @@ class SOSService {
         let query = FirestoreConstants.sosCollection
                                     .whereField("seniorId", isEqualTo: uid)
     
-        query.addSnapshotListener { [weak self] snapshot, _ in
+        sosListener.append(query.addSnapshotListener { [weak self] snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
             let sos = changes.compactMap({ try? $0.document.data(as: SOS.self) })
             self?.sos = sos
-        }
+        })
     }
 }

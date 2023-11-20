@@ -15,7 +15,16 @@ final class LocationService {
     @Published var documentChangesHomeLocation = [DocumentChange]()
     @Published var documentChangesLiveLocation = [DocumentChange]()
     @Published var documentChangesAllLiveLocation = [DocumentChange]()
+    private var locationListener: [ListenerRegistration] = []
 
+
+    func deinitializerFunction() {
+        locationListener.forEach({ $0.remove() })
+        locationListener = []
+        documentChangesHomeLocation = []
+        documentChangesLiveLocation = []
+        documentChangesAllLiveLocation = []
+    }
 
     func observeHomeLocationSpecific() {
         guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
@@ -24,39 +33,51 @@ final class LocationService {
             .whereField("seniorId", isEqualTo: currentUid)
             .limit(to: 1)
 
-        query.addSnapshotListener { querySnapshot, error in
+        locationListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.documentChangesHomeLocation = changes
-        }
+            self?.documentChangesHomeLocation = changes
+        })
 
     }
 
     func observeLiveLocationSpecific() {
         guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: currentDate)
+        let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
 
         let query = FirestoreConstants.liveLocationsCollection
             .whereField("seniorId", isEqualTo: currentUid)
+            .whereField("createdAt", isGreaterThanOrEqualTo: startOfDay.timeIntervalSince1970)
+            .whereField("createdAt", isLessThanOrEqualTo: endOfDay.timeIntervalSince1970)
             .order(by: "createdAt", descending: true)
             .limit(to: 1)
 
-        query.addSnapshotListener { querySnapshot, error in
+        locationListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.documentChangesLiveLocation = changes
-        }
+            self?.documentChangesLiveLocation = changes
+        })
     }
 
     func observeAllLiveLocation() {
         guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: currentDate)
+        let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
 
         let query = FirestoreConstants.liveLocationsCollection
             .whereField("seniorId", isEqualTo: currentUid)
+            .whereField("createdAt", isGreaterThanOrEqualTo: startOfDay.timeIntervalSince1970)
+            .whereField("createdAt", isLessThanOrEqualTo: endOfDay.timeIntervalSince1970)
             .order(by: "createdAt", descending: true)
 
-        query.addSnapshotListener { querySnapshot, error in
+        locationListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
             print("Document changes: \(changes)")
-            self.documentChangesAllLiveLocation = changes
-        }
+            self?.documentChangesAllLiveLocation = changes
+        })
     }
 
     func fetchHomeLocation() async throws -> HomeLocation? {

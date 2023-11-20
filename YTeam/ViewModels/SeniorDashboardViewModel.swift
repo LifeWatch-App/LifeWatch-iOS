@@ -35,12 +35,26 @@ class SeniorDashboardViewModel: ObservableObject {
     @Published var allRoutineDone = false
     
     init() {
-        setupSubscribers()
+        print("init called here")
         symptomService.observeSymptomsToday()
-        
+        routineService.observeAllRoutines(userData: userData)
+        routineService.observeAllDeletedRoutines(userData: userData)
+        setupSubscribers()
+
         // add dummy data
 //        routines = routinesDummyData
         //        symptoms = symptomsDummyData
+    }
+
+    deinit {
+        print("deinit")
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+        self.cancellables = []
+        self.routines = []
+        self.symptoms = []
+        self.routineData = []
     }
 
     private func setupSubscribers() {
@@ -63,18 +77,30 @@ class SeniorDashboardViewModel: ObservableObject {
             }
             .store(in: &cancellables)
 
-        $selectedInviteId
-            .combineLatest(service.$userData)
+        symptomService.$symptomsDocumentChangesToday
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] selectedInviteId, userData in
+            .sink { [weak self] documentChanges in
                 guard let self = self else { return }
-                self.routineData = []
-                self.routines = []
-                
-                self.routineService.observeAllRoutines(userData: userData)
-                self.routineService.observeAllDeletedRoutines(userData: userData)
+                print("Called document changes", documentChanges.count)
+                for document in documentChanges {
+                    print("SymptomData", document.document.data())
+                }
+                self.symptoms.insert(contentsOf: self.loadInitialSymptoms(documents: documentChanges), at: 0)
             }
             .store(in: &cancellables)
+
+//        $selectedInviteId
+//            .combineLatest(service.$userData)
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] selectedInviteId, userData in
+//                guard let self = self else { return }
+//                self.routineData = []
+//                self.routines = []
+//                
+//                self.routineService.observeAllRoutines(userData: userData)
+//                self.routineService.observeAllDeletedRoutines(userData: userData)
+//            }
+//            .store(in: &cancellables)
         
         routineService.$routines
             .receive(on: DispatchQueue.main)
@@ -101,14 +127,6 @@ class SeniorDashboardViewModel: ObservableObject {
                 }
                 routineService.removeDeletedRoutines()
                 self.convertRoutineDataToRoutine()
-            }
-            .store(in: &cancellables)
-        
-        symptomService.$symptomsDocumentChangesToday
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] documentChanges in
-                guard let self = self else { return }
-                self.symptoms.insert(contentsOf: self.loadInitialSymptoms(documents: documentChanges), at: 0)
             }
             .store(in: &cancellables)
     }
@@ -150,15 +168,6 @@ class SeniorDashboardViewModel: ObservableObject {
                 return time1 < time2
             }
         }
-      
-        symptomService.$symptomsDocumentChangesToday
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] documentChanges in
-                print(documentChanges)
-                guard let self = self else { return }
-                self.symptoms.insert(contentsOf: self.loadInitialSymptoms(documents: documentChanges), at: 0)
-            }
-            .store(in: &cancellables)
     }
 
     func sendSOS() throws {
@@ -180,12 +189,8 @@ class SeniorDashboardViewModel: ObservableObject {
     private func loadInitialSymptoms(documents: [DocumentChange]) -> [Symptom] {
         var symptoms: [Symptom] = []
         for document in documents {
-            do {
-                let symptom = try document.document.data(as: Symptom.self)
-                symptoms.append(symptom)
-            } catch {
-                print("Error: \(error)")
-            }
+            guard let symptom = try? document.document.data(as: Symptom.self) else { return [] }
+            symptoms.append(symptom)
         }
         return symptoms
     }

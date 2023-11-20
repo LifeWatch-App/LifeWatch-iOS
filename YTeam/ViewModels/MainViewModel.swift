@@ -59,6 +59,7 @@ class MainViewModel: ObservableObject {
     }
 
     func addInvitesListener() {
+        print("Invites Listener called")
         AuthService.shared.addInvitesListener()
     }
 }

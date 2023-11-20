@@ -13,11 +13,18 @@ final class SymptomService {
     static let shared = SymptomService()
     @Published var symptomsDocumentChanges = [DocumentChange]()
     @Published var symptomsDocumentChangesToday = [DocumentChange]()
+    private var symptomsListener: [ListenerRegistration] = []
     @Published var symptomsLatestDocumentChanges = [DocumentChange]()
     @Published var userData: UserData?
     private let authService = AuthService.shared
-    private var cancellables = Set<AnyCancellable>()
     
+    func deinitializerFunction() {
+        symptomsListener.forEach({ $0.remove() })
+        symptomsListener = []
+        symptomsDocumentChanges = []
+        symptomsDocumentChangesToday = []
+        symptomsLatestDocumentChanges = []
+    }
 
     func observeSymptoms(userData: UserData?) {
         let uid: String?
@@ -33,13 +40,14 @@ final class SymptomService {
             .whereField("seniorId", isEqualTo: uid)
             .order(by: "time", descending: true)
         
-        query.addSnapshotListener { querySnapshot, error in
+        symptomsListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.symptomsDocumentChanges = changes
-        }
+            self?.symptomsDocumentChanges = changes
+        })
     }
     
     func observeSymptomsToday() {
+        print("Called function here")
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let currentDate = Date()
         let calendar = Calendar.current
@@ -52,10 +60,11 @@ final class SymptomService {
             .whereField("time", isLessThanOrEqualTo: endOfDay.timeIntervalSince1970)
             .order(by: "time", descending: true)
         
-        query.addSnapshotListener { querySnapshot, error in
+        symptomsListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.symptomsDocumentChangesToday = changes
-        }
+            self?.symptomsDocumentChangesToday = changes
+            print("DocumentData", self?.symptomsDocumentChangesToday.count)
+        })
     }
     
     func observeLatestSyptoms(userData: UserData?) {
@@ -79,9 +88,9 @@ final class SymptomService {
             .order(by: "time", descending: true)
             .limit(to: 1)
         
-        query.addSnapshotListener { querySnapshot, error in
+        symptomsListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
-            self.symptomsLatestDocumentChanges = changes
-        }
+            self?.symptomsLatestDocumentChanges = changes
+        })
     }
 }

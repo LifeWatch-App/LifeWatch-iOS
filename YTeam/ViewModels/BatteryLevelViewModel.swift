@@ -65,7 +65,7 @@ final class BatteryLevelStateViewModel: ObservableObject {
     }
 
     func setupSubscribers() {
-        batterySubscription = Timer.publish(every: 5, on: .main, in: .common)
+        batterySubscription = Timer.publish(every: 30, on: .main, in: .common)
             .autoconnect()
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
@@ -106,7 +106,7 @@ final class BatteryLevelStateViewModel: ObservableObject {
                                 print("Can't find specific battery record")
                                 return }
 
-                            let batteryLevelRecord: BatteryLevel = BatteryLevel(seniorId: userID, watchBatteryLevel: specificBatteryRecord.watchBatteryLevel, iphoneBatteryLevel: specificBatteryRecord.iphoneBatteryLevel, watchLastUpdatedAt: specificBatteryRecord.watchLastUpdatedAt, iphoneLastUpdatedAt: Date.now.description, watchBatteryState: specificBatteryRecord.watchBatteryState, iphoneBatteryState: self.batteryCharging.description)
+                            let batteryLevelRecord: BatteryLevel = BatteryLevel(seniorId: userID, watchBatteryLevel: specificBatteryRecord.watchBatteryLevel, iphoneBatteryLevel: self.batteryLevel?.description, watchLastUpdatedAt: specificBatteryRecord.watchLastUpdatedAt, iphoneLastUpdatedAt: Date.now.description, watchBatteryState: specificBatteryRecord.watchBatteryState, iphoneBatteryState: self.batteryCharging.description)
 
                             try await Task.sleep(for: .seconds(2))
                             try await self.chargingService.updateBatteryLevel(batteryLevel: batteryLevelRecord)
@@ -115,6 +115,13 @@ final class BatteryLevelStateViewModel: ObservableObject {
                     }
                 }
             })
+    }
+
+    func cancelBatteryMonitoringIphone() {
+        if batterySubscription != nil {
+            batterySubscription?.cancel()
+            batterySubscription = nil
+        }
     }
 
 }

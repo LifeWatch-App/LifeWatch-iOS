@@ -10,7 +10,6 @@ import FirebaseAuth
 import Firebase
 import Combine
 
-@MainActor
 final class HistoryViewModel: ObservableObject {
     @Published var falls: [Fall] = []
     @Published var sos: [SOS] = []
@@ -202,7 +201,6 @@ final class HistoryViewModel: ObservableObject {
                 }
             }
         }
-        print(self.filteredSymptoms)
     }
 
 

@@ -12,7 +12,15 @@ class HeartAnomalyService {
     static let shared: HeartAnomalyService = HeartAnomalyService()
     
     @Published var heartAnomalies: [HeartAnomaly] = []
-    
+
+    private var heartAnomalyListener: [ListenerRegistration] = []
+
+    func deinitializerFunction() {
+        heartAnomalyListener.forEach({ $0.remove() })
+        heartAnomalyListener = []
+        heartAnomalies = []
+    }
+
 //    init() {
 //        Task{try? await observeAllAnomalies()}
 //    }
@@ -39,10 +47,10 @@ class HeartAnomalyService {
         let query = FirestoreConstants.heartAnomalyCollection
                                     .whereField("seniorId", isEqualTo: uid)
         
-        query.addSnapshotListener { [weak self] snapshot, _ in
+        heartAnomalyListener.append(query.addSnapshotListener { [weak self] snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
             let heartAnomalies = changes.compactMap({ try? $0.document.data(as: HeartAnomaly.self) })
             self?.heartAnomalies = heartAnomalies
-        }
+        })
     }
 }
