@@ -17,18 +17,28 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     @Published var user: User?
     @Published var userData: UserData?
     @Published var invites: [Invite] = []
-    @Published var isLoading = false
+    @Published var isLoading = true
     @Published var loginProviders: [String] = []
     @Published var selectedInviteId: String?
     @Published var isDeleteAppleAccount = false
+    @Published var loginMessage = ""
+    @Published var signUpMessage = ""
     var invitesListener: ListenerRegistration?
+    
     
     func listenToAuthState() {
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
             guard let self = self else {
                 return
             }
-            self.user = user
+            withAnimation {
+                self.user = user
+            }
+            if user == nil {
+                withAnimation {
+                    self.isLoading = false
+                }
+            }
         }
     }
     
@@ -38,11 +48,13 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         }
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if error != nil {
-                print(error?.localizedDescription ?? "")
+                print("login error", error?.localizedDescription ?? "")
                 withAnimation {
                     self.isLoading = false
                 }
+                self.loginMessage = error?.localizedDescription ?? ""
             } else {
+                self.loginMessage = ""
                 print("Login Success")
             }
             
@@ -63,13 +75,14 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error != nil {
-                print(error?.localizedDescription ?? "")
+                print("sign up error", error?.localizedDescription ?? "")
                 withAnimation {
                     self.isLoading = false
                 }
-                
+                self.signUpMessage = error?.localizedDescription ?? ""
             } else {
                 print("success")
+                self.signUpMessage = ""
                 
                 // Get the FCM token form user defaults
                 guard let fcmToken = UserDefaults.standard.value(forKey: "fcmToken") else{
@@ -111,6 +124,10 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     }
     
     func signOut() {
+        withAnimation {
+            self.isLoading = true
+        }
+        
         self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
             "fcmToken": NSNull(),
             "pttToken": NSNull()
@@ -120,16 +137,20 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
             } else {
                 print("Tokens successfully cleared")
             }
-
+            
             if self.invitesListener != nil {
                 self.invitesListener!.remove()
             }
-
+            
             self.userData = nil
             self.user = nil
-
+            
             do {
                 try Auth.auth().signOut()
+                
+                withAnimation {
+                    self.isLoading = false
+                }
             } catch let signOutError as NSError {
                 print("Error signing out: %@", signOutError)
             }
@@ -177,46 +198,44 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                         self.isLoading = false
                     }
                 } else {
-                    //                    guard let fcmToken = UserDefaults.standard.value(forKey: "fcmToken") else{
-                    //                        return
-                    //                    }
-                    //                    guard let pttToken = UserDefaults.standard.value(forKey: "pttToken") else{
-                    //                        return
-                    //                    }
-                    //                    self.db
-                    //                        .collection("users")
-                    //                        .document(AuthService.shared.user!.uid)
-                    //                        .setData([
-                    //                            "name": "Unknown Name",
-                    //                            "email": AuthService.shared.user!.email!,
-                    //                            "role": NSNull(),
-                    //                            "fcmToken": fcmToken,
-                    //                            "pttToken": pttToken
-                    //                        ]) { [weak self] err in
-                    //                            guard self != nil else { return }
-                    //                            if let err = err {
-                    //                                print("Error adding document: \(err)")
-                    //                                withAnimation {
-                    //                                    self!.isLoading = false
-                    //                                }
-                    //                            }
-                    //                            else {
-                    //                                print("Document added")
-                    //                                self!.userData = UserData(id: AuthService.shared.user!.uid, email: AuthService.shared.user!.email!, role: nil, fcmToken: fcmToken as! String, pttToken: pttToken as! String)
-                    //                                withAnimation {
-                    //                                    self!.isLoading = false
-                    //                                }
-                    //                            }
-                    //
-                    //                            self?.loginProviders = []
-                    //                            if let providerData = Auth.auth().currentUser?.providerData {
-                    //                                for item in providerData {
-                    //                                    self?.loginProviders.append(item.providerID)
-                    //                                }
-                    //                            }
-                    //                        }
-                    
-                    self.deleteUserData()
+                    guard let fcmToken = UserDefaults.standard.value(forKey: "fcmToken") else{
+                        return
+                    }
+                    guard let pttToken = UserDefaults.standard.value(forKey: "pttToken") else{
+                        return
+                    }
+                    self.db
+                        .collection("users")
+                        .document(AuthService.shared.user!.uid)
+                        .setData([
+                            "name": "Unknown",
+                            "email": AuthService.shared.user!.email!,
+                            "role": NSNull(),
+                            "fcmToken": fcmToken,
+                            "pttToken": pttToken
+                        ]) { [weak self] err in
+                            guard self != nil else { return }
+                            if let err = err {
+                                print("Error adding document: \(err)")
+                                withAnimation {
+                                    self!.isLoading = false
+                                }
+                            }
+                            else {
+                                print("Document added")
+                                self!.userData = UserData(id: AuthService.shared.user!.uid, email: AuthService.shared.user!.email!, role: nil, fcmToken: fcmToken as! String, pttToken: pttToken as! String)
+                                withAnimation {
+                                    self!.isLoading = false
+                                }
+                            }
+                            
+                            self?.loginProviders = []
+                            if let providerData = Auth.auth().currentUser?.providerData {
+                                for item in providerData {
+                                    self?.loginProviders.append(item.providerID)
+                                }
+                            }
+                        }
                 }
             }
         }
@@ -284,13 +303,13 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                 } else {
                                     invite?.caregiverData = try? querySnapshot?.data(as: UserData.self)
                                     self.invites.append(invite!)
-
+                                    
                                     if !self.invites.isEmpty {
                                         if let selectedSeniorId = UserDefaults.standard.string(forKey: "selectedSenior") {
                                             if self.selectedInviteId != selectedSeniorId {
                                                 self.selectedInviteId = selectedSeniorId
                                             }
-
+                                            
                                         } else {
                                             print("Called invites from empty")
                                             self.selectedInviteId = self.invites.first?.seniorId
@@ -475,7 +494,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                                 print("Error deleting user account: \(err)")
                                             } else {
                                                 print("User account deletion successful")
-
+                                                
                                             }
                                             
                                             withAnimation {

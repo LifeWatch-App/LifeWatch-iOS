@@ -14,12 +14,10 @@ struct ContentView: View {
         ZStack {
             if mainViewModel.isLoading {
                 ProgressView()
+            } else if mainViewModel.user != nil  {
+                MainView()
             } else {
-                if mainViewModel.user != nil {
-                    MainView()
-                } else {
-                    LoginView()
-                }
+                LoginView()
             }
         }
         .transition(.opacity)
