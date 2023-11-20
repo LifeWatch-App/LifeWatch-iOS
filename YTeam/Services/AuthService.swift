@@ -137,14 +137,14 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
             } else {
                 print("Tokens successfully cleared")
             }
-
+            
             if self.invitesListener != nil {
                 self.invitesListener!.remove()
             }
-
+            
             self.userData = nil
             self.user = nil
-
+            
             do {
                 try Auth.auth().signOut()
                 
@@ -198,46 +198,44 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                         self.isLoading = false
                     }
                 } else {
-                    //                    guard let fcmToken = UserDefaults.standard.value(forKey: "fcmToken") else{
-                    //                        return
-                    //                    }
-                    //                    guard let pttToken = UserDefaults.standard.value(forKey: "pttToken") else{
-                    //                        return
-                    //                    }
-                    //                    self.db
-                    //                        .collection("users")
-                    //                        .document(AuthService.shared.user!.uid)
-                    //                        .setData([
-                    //                            "name": "Unknown Name",
-                    //                            "email": AuthService.shared.user!.email!,
-                    //                            "role": NSNull(),
-                    //                            "fcmToken": fcmToken,
-                    //                            "pttToken": pttToken
-                    //                        ]) { [weak self] err in
-                    //                            guard self != nil else { return }
-                    //                            if let err = err {
-                    //                                print("Error adding document: \(err)")
-                    //                                withAnimation {
-                    //                                    self!.isLoading = false
-                    //                                }
-                    //                            }
-                    //                            else {
-                    //                                print("Document added")
-                    //                                self!.userData = UserData(id: AuthService.shared.user!.uid, email: AuthService.shared.user!.email!, role: nil, fcmToken: fcmToken as! String, pttToken: pttToken as! String)
-                    //                                withAnimation {
-                    //                                    self!.isLoading = false
-                    //                                }
-                    //                            }
-                    //
-                    //                            self?.loginProviders = []
-                    //                            if let providerData = Auth.auth().currentUser?.providerData {
-                    //                                for item in providerData {
-                    //                                    self?.loginProviders.append(item.providerID)
-                    //                                }
-                    //                            }
-                    //                        }
-                    
-                    self.deleteUserData()
+                    guard let fcmToken = UserDefaults.standard.value(forKey: "fcmToken") else{
+                        return
+                    }
+                    guard let pttToken = UserDefaults.standard.value(forKey: "pttToken") else{
+                        return
+                    }
+                    self.db
+                        .collection("users")
+                        .document(AuthService.shared.user!.uid)
+                        .setData([
+                            "name": "Unknown",
+                            "email": AuthService.shared.user!.email!,
+                            "role": NSNull(),
+                            "fcmToken": fcmToken,
+                            "pttToken": pttToken
+                        ]) { [weak self] err in
+                            guard self != nil else { return }
+                            if let err = err {
+                                print("Error adding document: \(err)")
+                                withAnimation {
+                                    self!.isLoading = false
+                                }
+                            }
+                            else {
+                                print("Document added")
+                                self!.userData = UserData(id: AuthService.shared.user!.uid, email: AuthService.shared.user!.email!, role: nil, fcmToken: fcmToken as! String, pttToken: pttToken as! String)
+                                withAnimation {
+                                    self!.isLoading = false
+                                }
+                            }
+                            
+                            self?.loginProviders = []
+                            if let providerData = Auth.auth().currentUser?.providerData {
+                                for item in providerData {
+                                    self?.loginProviders.append(item.providerID)
+                                }
+                            }
+                        }
                 }
             }
         }
@@ -305,13 +303,13 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                 } else {
                                     invite?.caregiverData = try? querySnapshot?.data(as: UserData.self)
                                     self.invites.append(invite!)
-
+                                    
                                     if !self.invites.isEmpty {
                                         if let selectedSeniorId = UserDefaults.standard.string(forKey: "selectedSenior") {
                                             if self.selectedInviteId != selectedSeniorId {
                                                 self.selectedInviteId = selectedSeniorId
                                             }
-
+                                            
                                         } else {
                                             self.selectedInviteId = self.invites.first?.seniorId
                                             UserDefaults.standard.set(self.invites.first?.seniorId, forKey: "selectedSenior")
@@ -495,7 +493,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                                 print("Error deleting user account: \(err)")
                                             } else {
                                                 print("User account deletion successful")
-
+                                                
                                             }
                                             
                                             withAnimation {
