@@ -315,8 +315,7 @@ struct SeniorStatus: View {
                                 .fontWeight(.semibold)
                                 .padding(.leading, caregiverDashboardViewModel.batteryInfo?.watchBatteryState == "charging" ? -4 : 0)
                         }
-                        .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo?.watchBatteryState)
-                        .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo?.watchBatteryLevel)
+                        .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo)
                     }
 
                     Spacer()

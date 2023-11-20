@@ -41,7 +41,9 @@ struct MKMapRep: UIViewRepresentable {
         if coordinator.shouldSelect, coordinator.selectedPlacemark != nil {
             zoomLocation(mapView: uiView, context: context)
             //            coordinator.selectedPlacemark = nil
-            coordinator.shouldSelect = false
+            DispatchQueue.main.async {
+                coordinator.shouldSelect = false
+            }
         }
 
         if let lastSeenLocation = coordinator.lastSeenLocation {
@@ -55,7 +57,9 @@ struct MKMapRep: UIViewRepresentable {
 
         if coordinator.shouldChangeMap {
             changeView(mapView: uiView, context: context)
-            coordinator.shouldChangeMap = false
+            DispatchQueue.main.async {
+                coordinator.shouldChangeMap = false
+            }
         }
     }
 

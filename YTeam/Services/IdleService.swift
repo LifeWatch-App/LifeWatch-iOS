@@ -15,6 +15,15 @@ final class IdleService {
     @Published var userData: UserData?
     private let authService = AuthService.shared
     private var cancellables = Set<AnyCancellable>()
+    private var idleListener: [ListenerRegistration] = []
+
+
+    func deinitializerFunction() {
+        idleListener.forEach({ $0.remove() })
+        idleListener = []
+        idleDocumentChanges = []
+    }
+
 
     func observeIdleSpecific() {
         let uid: String?

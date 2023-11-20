@@ -15,6 +15,14 @@ final class DashboardLocationService {
     @Published var userData: UserData?
     private let authService = AuthService.shared
     private var cancellables = Set<AnyCancellable>()
+    private var locationListener: [ListenerRegistration] = []
+
+
+    func deinitializerFunction() {
+        locationListener.forEach({ $0.remove() })
+        locationListener = []
+        latestLocationDocumentChanges = []
+    }
 
     func observeLiveLocationSpecific() {
         guard let uid =  UserDefaults.standard.string(forKey: "selectedSenior") else { return }
@@ -24,9 +32,9 @@ final class DashboardLocationService {
             .order(by: "createdAt", descending: true)
             .limit(to: 1)
 
-        query.addSnapshotListener { querySnapshot, error in
+        locationListener.append(query.addSnapshotListener { querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
             self.latestLocationDocumentChanges = changes
-        }
+        })
     }
 }

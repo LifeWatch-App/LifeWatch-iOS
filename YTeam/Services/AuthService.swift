@@ -292,6 +292,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                             }
 
                                         } else {
+                                            print("Called invites from empty")
                                             self.selectedInviteId = self.invites.first?.seniorId
                                             UserDefaults.standard.set(self.invites.first?.seniorId, forKey: "selectedSenior")
                                         }

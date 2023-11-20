@@ -11,13 +11,14 @@ import Firebase
 import Combine
 import MapKit
 
+
 final class MapViewModel: NSObject, ObservableObject {
     @Published var mapRegion: MKCoordinateRegion?
     @Published var selectedUserId: String?
-    @Published var is3DMap = false
-    @Published var shouldChangeMap = false
     @Published var lastSeenLocation: CLLocationCoordinate2D?
     @Published var allLocations: [LiveLocation] = []
+    @Published var is3DMap = false
+    @Published var shouldChangeMap = false
     @Published var recenter: Bool = false
     @Published var zoomOut: Bool = false
     @Published var shouldSelect: Bool = false
@@ -72,7 +73,6 @@ final class MapViewModel: NSObject, ObservableObject {
                 print(documentChanges)
                 guard let self = self else { return }
                 withAnimation {
-                    print(documentChanges)
                     self.mapRegion = self.loadLatestHomeLocation(documents: documentChanges)
                 }
             }
@@ -82,9 +82,7 @@ final class MapViewModel: NSObject, ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
-                withAnimation {
                     self.lastSeenLocation = self.loadLatestLiveLocation(documents: documentChanges)
-                }
             }
             .store(in: &cancellables)
 
@@ -93,9 +91,7 @@ final class MapViewModel: NSObject, ObservableObject {
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
                 print("Document Changes", documentChanges)
-                withAnimation {
                     self.allLocations.insert(contentsOf: self.loadLiveLocations(documents: documentChanges), at: 0)
-                }
             }
             .store(in: &cancellables)
     }

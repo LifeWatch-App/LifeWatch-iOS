@@ -15,7 +15,15 @@ final class BatteryChargingService {
     @Published var userData: UserData?
     private let authService = AuthService.shared
     private var cancellables = Set<AnyCancellable>()
-    
+    private var batteryListener: [ListenerRegistration] = []
+
+
+    func deinitializerFunction() {
+        batteryListener.forEach({ $0.remove() })
+        batteryListener = []
+        batteryDocumentChanges = []
+    }
+
     func fetchBatteryLevel() async throws -> [BatteryLevel] {
         let snapshot = try await FirestoreConstants.batteryLevelCollection.getDocuments()
         let batteryLevels = snapshot.documents.compactMap({ try? $0.data(as: BatteryLevel.self) })
@@ -77,12 +85,12 @@ final class BatteryChargingService {
     func observeBatteryStateLevelSpecific() {
         guard let uid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
         let query = FirestoreConstants.batteryLevelCollection
-            .whereField("seniorID", isEqualTo: uid)
+            .whereField("seniorId", isEqualTo: uid)
             .limit(to: 1)
         
-        query.addSnapshotListener { querySnapshot, error in
+        batteryListener.append(query.addSnapshotListener { querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
             self.batteryDocumentChanges = changes
-        }
+        })
     }
 }
