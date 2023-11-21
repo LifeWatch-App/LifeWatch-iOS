@@ -90,10 +90,30 @@ final class MapViewModel: NSObject, ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
-                print("Document Changes", documentChanges)
-                self.allLocations.insert(contentsOf: self.loadLiveLocations(documents: documentChanges), at: 0)
+                self.loadLiveLocations(documents: documentChanges)
             }
             .store(in: &cancellables)
+    }
+    
+    private func loadLiveLocations(documents: [DocumentChange]) {
+        var liveLocations: [LiveLocation] = []
+        
+        for document in documents {
+            guard var documentData = try? document.document.data(as: LiveLocation.self) else {
+                print("Unable to decode to LiveLocation")
+                return
+            }
+            documentData.addressArray = documentData.locationName?.components(separatedBy: ",") ?? []
+            liveLocations.append(documentData)
+        }
+        
+        for (_, location) in liveLocations.enumerated() {
+            if let concurrentIndex = self.allLocations.firstIndex(where: { $0.id == location.id }) {
+                self.allLocations[concurrentIndex] = location
+            } else {
+                self.allLocations.insert(contentsOf: liveLocations, at: 0)
+            }
+        }
     }
     
     private func loadLatestLiveLocation(documents: [DocumentChange]) -> CLLocationCoordinate2D? {
@@ -105,20 +125,6 @@ final class MapViewModel: NSObject, ObservableObject {
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         
         return coordinate
-    }
-    
-    private func loadLiveLocations(documents: [DocumentChange]) -> [LiveLocation] {
-        var liveLocations: [LiveLocation] = []
-        
-        for document in documents {
-            guard var documentData = try? document.document.data(as: LiveLocation.self) else {
-                print("Unable to decode to LiveLocation")
-                return []
-            }
-            documentData.addressArray = documentData.locationName?.components(separatedBy: ",") ?? []
-            liveLocations.append(documentData)
-        }
-        return liveLocations
     }
     
     @objc func getCoordinatePressOnMap(sender: UITapGestureRecognizer) {

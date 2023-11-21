@@ -26,10 +26,17 @@ final class DashboardLocationService {
 
     func observeLiveLocationSpecific() {
         guard let uid =  UserDefaults.standard.string(forKey: "selectedSenior") else { return }
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: currentDate)
+        let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
 
         let query = FirestoreConstants.liveLocationsCollection
             .whereField("seniorId", isEqualTo: uid)
+            .whereField("createdAt", isGreaterThanOrEqualTo: startOfDay.timeIntervalSince1970)
+            .whereField("createdAt", isLessThanOrEqualTo: endOfDay.timeIntervalSince1970)
             .order(by: "createdAt", descending: true)
+            .order(by: FieldPath.documentID(), descending: true)
             .limit(to: 1)
 
         locationListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in

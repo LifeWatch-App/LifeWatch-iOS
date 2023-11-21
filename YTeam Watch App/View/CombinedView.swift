@@ -27,16 +27,14 @@ struct CombinedView: View {
             ErrorView(errorText: "The app does not have location permissions. Please enable them in settings.")
         case .authorizedAlways, .authorizedWhenInUse:
             VStack {
-                VStack(spacing: 15) {
+                VStack {
                     VStack {
-                        Text("\(heartManager.heartRate)")
-                            .font(.title2)
-                        Text("BPM")
                         Spacer()
                         Button{
                             sosManager.showSOS.toggle()
                         } label: {
                             VStack(alignment: .leading) {
+                                Spacer()
                                 HStack(alignment: .center) {
                                     Text("SOS")
                                         .multilineTextAlignment(.leading)
@@ -48,6 +46,7 @@ struct CombinedView: View {
                                     Image(systemName: "light.beacon.max.fill")
                                         .font(.title2)
                                 }
+                                Spacer()
                             }
                             .padding()
                             .background(Color("emergency-pink"))
