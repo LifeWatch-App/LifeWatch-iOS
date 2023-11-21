@@ -154,7 +154,7 @@ struct UpcomingActivity: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Upcoming Routine")
+                Text("Upcoming Routines")
                     .font(.headline)
                     .foregroundStyle(.secondary)
                 
@@ -168,7 +168,7 @@ struct UpcomingActivity: View {
                 }
             }
             
-            VStack(spacing: 20) {
+            VStack(spacing: 8) {
                 // Ambil 3 dengan waktu terdekat yang belum done
                 if seniorDashboardViewModel.routines.count > 0 {
                     if seniorDashboardViewModel.allRoutineDone {
@@ -221,6 +221,9 @@ struct UpcomingActivity: View {
                                                 .foregroundStyle(.accent)
                                         }
                                     }
+                                    .padding()
+                                    .background(colorScheme == .light ? .white : Color(.systemGray6))
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
                                 }
                             }
                         }
@@ -236,9 +239,6 @@ struct UpcomingActivity: View {
                     }
                 }
             }
-            .padding()
-            .background(colorScheme == .light ? .white : Color(.systemGray6))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
         }
         .padding(.vertical)
     }
@@ -269,9 +269,10 @@ struct Symtomps: View {
             
             if seniorDashboardViewModel.symptoms.count > 0 {
                 ForEach(seniorDashboardViewModel.symptoms) { symptom in
-                    HStack(spacing: 16) {
-                        Image("safe")
+                    HStack(alignment: .center, spacing: 16) {
+                        Image(symptom.name ?? "safe")
                             .resizable()
+                            .cornerRadius(8)
                             .scaledToFit()
                             .frame(height: 50)
                         
@@ -280,8 +281,8 @@ struct Symtomps: View {
                                 .font(.title3)
                                 .fontWeight(.semibold)
                             
-                            if let note = symptom.note {
-                                Text(note)
+                            if symptom.note != "" {
+                                Text(symptom.note ?? "")
                                     .font(.subheadline)
                             }
                         }
