@@ -7,6 +7,8 @@
 
 import Foundation
 import HealthKit
+import WatchConnectivity
+import ClockKit
 
 @MainActor
 class HeartManager: ObservableObject {
@@ -183,18 +185,35 @@ class HeartManager: ObservableObject {
             if let error = error {
                 print("Error observing heart rate: \(error.localizedDescription)")
             } else {
-                self.updateHeartRate()
+                if self.shouldUpdateHeartRate() {
+                    self.updateHeartRate()
+                    self.updateLastUpdateTime()
+                }
             }
             completionHandler()
         }
 
-        self.healthStore.enableBackgroundDelivery(for: self.heartRateQuantityType, frequency: .immediate) { (success, error) in
+        self.healthStore.enableBackgroundDelivery(for: self.heartRateQuantityType, frequency: .hourly) { (success, error) in
             if !success {
                 print("Failed to enable background delivery for heart rate updates: \(error?.localizedDescription ?? "Unknown error")")
             }
         }
         
         self.healthStore.execute(observerQuery)
+    }
+    
+    private func shouldUpdateHeartRate() -> Bool {
+        let currentDate = Date()
+        guard let lastUpdateTime = UserDefaults.standard.value(forKey: "lastUpdateTime") as? Date else {
+            return true
+        }
+        let timeDifference = currentDate.timeIntervalSince(lastUpdateTime)
+        return timeDifference >= 3600
+    }
+    
+    private func updateLastUpdateTime() {
+        let currentDate = Date()
+        UserDefaults.standard.set(currentDate, forKey: "lastUpdateTime")
     }
     
     @MainActor
