@@ -37,9 +37,10 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var inviteEmail = ""
     
     @Published var analysisResult: [Message] = []
+    @Published var analysis: String = ""
+    @Published var isLoadingAnalysis: Bool = false
     
     private var routineData: [RoutineData] = []
-    
     private let routineService: RoutineService = RoutineService.shared
     
     override init() {
@@ -217,12 +218,18 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     
     func createAnalysis() {
         analysisResult = []
-        var messageText = ""
+        let prompt = "Hi"
         
-        let newMessage = Message(id: UUID(), role: .user, content: messageText, createdAt: Date())
+        let newMessage = Message(id: UUID(), role: .user, content: prompt, createdAt: Date())
         analysisResult.append(newMessage)
         
+        isLoadingAnalysis = true
+        
         Task {
+            defer {
+                isLoadingAnalysis = false
+            }
+            
             let response = await OpenAIService.shared.sendMessage(messages: analysisResult)
             guard let receivedOpenAIMessage = response?.choices.first?.message else {
                 print("Had no received message")
@@ -231,7 +238,10 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             
             let receivedMessage = Message(id: UUID(), role: receivedOpenAIMessage.role, content: receivedOpenAIMessage.content, createdAt: Date())
             await MainActor.run {
-                analysisResult.append(receivedMessage)
+                analysis = receivedMessage.content
+                
+                UserDefaults.standard.set(Date(), forKey: "SavedDateKey")
+                UserDefaults.standard.set(analysis, forKey: "SavedAnalysisKey")
             }
         }
     }

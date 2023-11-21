@@ -532,9 +532,6 @@ struct MapPreview: View {
 struct AnalysisResult: View {
     @Environment(\.colorScheme) var colorScheme
     
-    @AppStorage("lastAnalysis") var lastAnalysis = "Hello"
-    @AppStorage("lastAnalysisDate") var lastAnalysisDate = "Date()"
-    
     @ObservedObject var caregiverDashboardViewModel: CaregiverDashboardViewModel
     
     var body: some View {
@@ -554,20 +551,24 @@ struct AnalysisResult: View {
                     .frame(width: 24)
                 
                 HStack {
-                    Text(lastAnalysis)
+                    Text(caregiverDashboardViewModel.analysis != "" ? caregiverDashboardViewModel.analysis : "Hi, I am an AI medical counselor who will help you analyze your senior's condition. Right now, I am not able to analyze it due to the incomplete data, but I will try to give you an analysis tomorrow.")
                         .font(.subheadline)
                     
                     Spacer()
                 }
-                .padding()
+                .padding(12)
                 .background(colorScheme == .light ? .white : Color(.systemGray6))
                 .clipShape(ChatBubbleTopLeft())
             }
         }
         .padding(.horizontal)
-        .onAppear(perform: {
+        .onAppear {
+            caregiverDashboardViewModel.analysis = UserDefaults.standard.string(forKey: "SavedAnalysisKey") ?? ""
             
-        })
+            if (UserDefaults.standard.object(forKey: "SavedDateKey") as? Date ?? Date()) < Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date() {
+                caregiverDashboardViewModel.createAnalysis()
+            }
+        }
     }
 }
 
