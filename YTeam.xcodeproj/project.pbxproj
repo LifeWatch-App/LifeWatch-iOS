@@ -102,6 +102,7 @@
 		7DB4E0CC2AEA063100270F2C /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */; };
 		7DB4E0CF2AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
 		7DB4E0D02AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
+		8D0340132B0C55BD0016E27F /* ChatBubbleTopLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0340122B0C55BD0016E27F /* ChatBubbleTopLeft.swift */; };
 		8D21B03A2AF7A4F200D23BF1 /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */; };
 		8D21B03C2AF7AD7500D23BF1 /* AddEditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03B2AF7AD7500D23BF1 /* AddEditRoutineView.swift */; };
 		8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */; };
@@ -283,6 +284,7 @@
 		7DB2E5FE2AF32F2F00CAD5A6 /* HeartAnomaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomaly.swift; sourceTree = "<group>"; };
 		7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
 		7DB4E0CE2AEA080E00270F2C /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
+		8D0340122B0C55BD0016E27F /* ChatBubbleTopLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleTopLeft.swift; sourceTree = "<group>"; };
 		8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
 		8D21B03B2AF7AD7500D23BF1 /* AddEditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditRoutineView.swift; sourceTree = "<group>"; };
 		8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSymptomView.swift; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 				8D21B0452AF7ED0B00D23BF1 /* ChangeSeniorOverlay.swift */,
 				8D3F172D2B032AD00001537E /* InviteSheetView.swift */,
 				8D7465922B04736600A48F71 /* ChatBubble.swift */,
+				8D0340122B0C55BD0016E27F /* ChatBubbleTopLeft.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -961,6 +964,7 @@
 				8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */,
 				7DB24EF62AE51E79009A4A6D /* SOS.swift in Sources */,
 				93614CD92B030183003350F1 /* DashboardLocationService.swift in Sources */,
+				8D0340132B0C55BD0016E27F /* ChatBubbleTopLeft.swift in Sources */,
 				8D33E9232AF740A200C9D3C1 /* HistoryWeekPicker.swift in Sources */,
 				93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,

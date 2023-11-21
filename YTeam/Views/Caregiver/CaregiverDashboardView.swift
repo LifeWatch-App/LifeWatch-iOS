@@ -37,6 +37,8 @@ struct CaregiverDashboardView: View {
                                         .padding(.leading, 25)
                                 }
                             }
+                            
+                            AnalysisResult(caregiverDashboardViewModel: caregiverDashboardViewModel)
                         }
                     }
 
@@ -209,38 +211,6 @@ struct SeniorStatus: View {
                 .padding(12)
                 .background(colorScheme == .light ? .white : Color(.systemGray6))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-
-//                VStack(alignment: .leading) {
-//                    HStack {
-//                        VStack {
-//                            Image(systemName: "location.fill")
-//                                .foregroundStyle(.white)
-//                        }
-//                        .padding(8)
-//                        .background(.blue)
-//                        .clipShape(RoundedRectangle(cornerRadius: 4))
-//
-//                        Spacer()
-//                    }
-//
-//                    Text("Location")
-//                        .font(.subheadline)
-//
-//                    if (caregiverDashboardViewModel.latestLocationInfo != nil) {
-//                        Text("\(caregiverDashboardViewModel.latestLocationInfo?.isOutside ?? false ? "Outside" : "Home")")
-//                            .font(.title2)
-//                            .bold()
-//                            .padding(.bottom, 6)
-//                    } else {
-//                        Text("No Data")
-//                            .font(.title2)
-//                            .bold()
-//                            .padding(.bottom, 6)
-//                    }
-//                }
-//                .padding(12)
-//                .background(colorScheme == .light ? .white : Color(.systemGray6))
-//                .clipShape(RoundedRectangle(cornerRadius: 8))
 
                 VStack(alignment: .leading) {
                     HStack {
@@ -556,6 +526,48 @@ struct MapPreview: View {
                 .padding(.horizontal)
             }
         }
+    }
+}
+
+struct AnalysisResult: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    @AppStorage("lastAnalysis") var lastAnalysis = "Hello"
+    @AppStorage("lastAnalysisDate") var lastAnalysisDate = "Date()"
+    
+    @ObservedObject var caregiverDashboardViewModel: CaregiverDashboardViewModel
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("AI Analysis Result")
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+                
+                Spacer()
+            }
+            
+            HStack(alignment: .top) {
+                Image("Robot")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24)
+                
+                HStack {
+                    Text(lastAnalysis)
+                        .font(.subheadline)
+                    
+                    Spacer()
+                }
+                .padding()
+                .background(colorScheme == .light ? .white : Color(.systemGray6))
+                .clipShape(ChatBubbleTopLeft())
+            }
+        }
+        .padding(.horizontal)
+        .onAppear(perform: {
+            
+        })
     }
 }
 

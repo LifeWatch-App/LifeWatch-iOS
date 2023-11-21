@@ -34,8 +34,9 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var isPlaying: Bool = false
     @Published var speakerName: String = ""
     @Published var routines: [Routine] = []
-    //    @Published var heartRate = 90
     @Published var inviteEmail = ""
+    
+    @Published var analysisResult: [Message] = []
     
     private var routineData: [RoutineData] = []
     
@@ -213,6 +214,28 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             }
         }
     }
+    
+    func createAnalysis() {
+        analysisResult = []
+        var messageText = ""
+        
+        let newMessage = Message(id: UUID(), role: .user, content: messageText, createdAt: Date())
+        analysisResult.append(newMessage)
+        
+        Task {
+            let response = await OpenAIService.shared.sendMessage(messages: analysisResult)
+            guard let receivedOpenAIMessage = response?.choices.first?.message else {
+                print("Had no received message")
+                return
+            }
+            
+            let receivedMessage = Message(id: UUID(), role: receivedOpenAIMessage.role, content: receivedOpenAIMessage.content, createdAt: Date())
+            await MainActor.run {
+                analysisResult.append(receivedMessage)
+            }
+        }
+    }
+    
 
     func sendRequestToSenior() {
         AuthService.shared.sendRequestToSenior(email: inviteEmail)
