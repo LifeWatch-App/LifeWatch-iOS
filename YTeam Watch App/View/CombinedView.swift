@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CombinedView: View {
-    @StateObject private var heartManager = HeartManager()
+//    @StateObject private var heartManager = HeartManager()
     @StateObject private var locationVM = LocationViewModel()
-//    @StateObject private var idleVM = IdleDetectionViewModel()
-//    @StateObject private var chargingVM = ChargingViewModel()
+    @StateObject private var idleVM = IdleDetectionViewModel()
+    @StateObject private var chargingVM = ChargingViewModel()
     @EnvironmentObject private var authVM: TestAuthViewModel
     
     @State var sosManager: SOSManager = SOSManager.shared
@@ -29,8 +29,8 @@ struct CombinedView: View {
             VStack {
                 VStack(spacing: 15) {
                     VStack {
-                        Text("\(heartManager.heartRate)")
-                            .font(.title2)
+//                        Text("\(heartManager.heartRate)")
+//                            .font(.title2)
                         Text("BPM")
                         Spacer()
                         Button{
@@ -58,21 +58,13 @@ struct CombinedView: View {
                             SOSView()
                         })
                         .buttonStyle(PlainButtonStyle())
-//                        PairView(
-//                            leftText: "Latitude:",
-//                            rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)
-//                        )
-//                        PairView(
-//                            leftText: "Longitude:",
-//                            rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)
-//                        )
                     }
                 }
                 .padding()
             }
-//            .onReceive(idleVM.timer) { _ in
-//                idleVM.checkPosition()
-//            }
+            .onReceive(idleVM.timer) { _ in
+                idleVM.checkPosition()
+            }
         default:
             Text("Unexpected status")
         }
