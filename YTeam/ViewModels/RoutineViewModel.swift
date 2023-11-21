@@ -17,7 +17,7 @@ class RoutineViewModel: ObservableObject {
     
     @Published var routines: [Routine] = []
     @Published var dailyRoutines: [Routine] = []
-    @Published var progressCount: Double = 0
+    @Published var progressCount: [Double] = [0, 0, 0, 0, 0, 0, 0]
     
     private var routineData: [RoutineData] = []
     private var cancellables = Set<AnyCancellable>()
@@ -26,12 +26,13 @@ class RoutineViewModel: ObservableObject {
     private let authService = AuthService.shared
     
     private let routineService: RoutineService = RoutineService.shared
-    
+
     init() {
         setupRoutineSubscribers()
         fetchCurrentWeek()
         //                routines = routinesDummyData
-        //        countProgress()
+        
+//        countProgress()
     }
     
     func setupRoutineSubscribers() {
@@ -105,16 +106,17 @@ class RoutineViewModel: ObservableObject {
         
         (0...6).forEach { day in
             if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
-                //                weekday = calendar.date(byAdding: .hour, value: 7, to: weekday) ?? Date()
+//                weekday = calendar.date(byAdding: .hour, value: 18, to: weekday) ?? Date()
                 currentWeek.append(weekday)
             }
         }
         
-        self.convertRoutineDataToRoutine()
-    }
-    
-    func dailyRoutineData() {
+        currentWeek[currentWeek.count-1] = calendar.date(bySettingHour: 18, minute: 0, second: 0, of: currentWeek.last!) ?? currentWeek.last!
         
+        print("Last Week: ", currentWeek)
+        self.convertRoutineDataToRoutine()
+        
+        countProgress()
     }
     
     func convertRoutineDataToRoutine() {
@@ -125,8 +127,6 @@ class RoutineViewModel: ObservableObject {
             for time in routine.time {
                 routineTime.append( Date(timeIntervalSince1970: time))
             }
-            
-            print(routineTime)
             
             switch (routine.medicineUnit) {
             case "CC":
@@ -160,8 +160,47 @@ class RoutineViewModel: ObservableObject {
                 currentWeek.first! <= time && time <= currentWeek.last!
             })
         }
+
+        self.dailyRoutineData()
+    }
+    
+    func dailyRoutineData() {
+        dailyRoutines = []
         
-        self.countProgress()
+        print("Routines: ", self.routines)
+        for routine in self.routines {
+            if isToday(date: routine.time.first ?? Date()) {
+                print("Daily Routine Data Time", time)
+                dailyRoutines.append(routine)
+            }
+        }
+    }
+    
+    func countProgress() {
+        progressCount = [0, 0, 0, 0, 0, 0, 0]
+        
+        for (index, day) in currentWeek.enumerated() {
+            var totalProgress: Double = 0
+            
+            routines.forEach { routine in
+                if isSameDate(date1: routine.time.first ?? Date(), date2: day) {
+                    routine.isDone.forEach { done in
+                        if done == true {
+                            progressCount[index] += 1
+                        }
+                        totalProgress += 1
+                    }
+                }
+            }
+            
+            if totalProgress == 0 {
+                totalProgress += 1
+            }
+
+            progressCount[index] = (progressCount[index] / totalProgress)
+        }
+        
+        print("Progress count:", progressCount)
     }
     
     func updateSingleRoutineCheck(routine: Routine) {
@@ -191,26 +230,8 @@ class RoutineViewModel: ObservableObject {
         Task { try? await routineService.updateRoutine(routine: newRoutine)}
     }
     
-    func countProgress() {
-        var totalProgress: Double = 0
-        
-        routines.forEach { routine in
-            routine.isDone.forEach { done in
-                if done == true {
-                    progressCount += 1
-                }
-                totalProgress += 1
-            }
-        }
-        
-        if totalProgress == 0 {
-            totalProgress += 1
-        }
-        
-        progressCount = (progressCount / totalProgress)
-    }
-    
     func changeWeek(type: ChangeWeek) {
+        
         if type == .next {
             currentDay = Calendar.current.date(byAdding: .day, value: 7, to: currentDay) ?? Date()
         } else {
@@ -224,6 +245,12 @@ class RoutineViewModel: ObservableObject {
         let calendar = Calendar.current
         
         return calendar.isDate(currentDay, inSameDayAs: date)
+    }
+    
+    func isSameDate(date1: Date, date2: Date) -> Bool {
+        let calendar = Calendar.current
+        
+        return calendar.isDate(date1, inSameDayAs: date2)
     }
     
     func extractDate(date: Date, format: String) -> String {

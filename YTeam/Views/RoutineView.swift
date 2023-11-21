@@ -13,6 +13,8 @@ struct RoutineView: View {
     @StateObject var routineViewModel = RoutineViewModel()
     @State var routine: Routine = Routine()
     
+    private var lastDate: Date = Calendar.current.startOfDay(for: Date()).addingTimeInterval(24 * 60 * 60 - 1)
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -21,34 +23,38 @@ struct RoutineView: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 12) {
-                            ForEach(routineViewModel.currentWeek, id: \.self) { day in
+                            ForEach(routineViewModel.currentWeek.indices, id: \.self) { i in
                                 Button {
-                                    routineViewModel.currentDay = day
+                                    routineViewModel.currentDay = routineViewModel.currentWeek[i]
+                                    routineViewModel.dailyRoutineData()
                                 } label: {
                                     VStack {
                                         ZStack {
-                                            RoutineCircularProgressView(progress: routineViewModel.progressCount, disabled: day > Date())
+                                            RoutineCircularProgressView(progress: routineViewModel.progressCount[i], disabled: routineViewModel.currentWeek[i] > lastDate)
                                                 .frame(width: 40)
                                             
-                                            Text("\(routineViewModel.extractDate(date: day, format: "d"))")
+                                            Text("\(routineViewModel.extractDate(date: routineViewModel.currentWeek[i], format: "d"))")
                                                 .fontWeight(.semibold)
-                                                .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : day > Date() ? .secondary : Color(.label))
+                                                .foregroundStyle(routineViewModel.isToday(date: routineViewModel.currentWeek[i]) ? .accent : routineViewModel.currentWeek[i] > lastDate ? .secondary : Color(.label))
                                         }
                                         
-                                        Text("\(routineViewModel.extractDate(date: day, format: "E"))")
+                                        Text("\(routineViewModel.extractDate(date: routineViewModel.currentWeek[i], format: "E"))")
                                             .font(.subheadline)
-                                            .foregroundStyle(routineViewModel.isToday(date: day) ? .accent : day > Date() ? .secondary : Color(.label))
+                                            .foregroundStyle(routineViewModel.isToday(date: routineViewModel.currentWeek[i]) ? .accent : routineViewModel.currentWeek[i] > lastDate ? .secondary : Color(.label))
                                     }
                                 }
-                                .disabled(day > Date())
+                                .disabled(routineViewModel.currentWeek[i] > lastDate)
                             }
                         }
                         .frame(height: 70)
                         .padding(.leading, 4)
                     }
                     .padding(.bottom, 4)
+                    .onAppear {
+                        routineViewModel.countProgress()
+                    }
                     
-                    if routineViewModel.routines.count > 0 {
+                    if routineViewModel.dailyRoutines.count > 0 {
                         HStack {
                             Text("\(routineViewModel.extractDate(date: routineViewModel.currentDay, format: "dd MMM yyyy"))")
                                 .font(.title3)
@@ -57,7 +63,7 @@ struct RoutineView: View {
                         }
                         
                         // foreach routine here
-                        ForEach(routineViewModel.routines) { routine in
+                        ForEach(routineViewModel.dailyRoutines) { routine in
                             if routine.time.count == 1 {
                                 HStack(spacing: 8) {
                                     VStack {
@@ -106,6 +112,7 @@ struct RoutineView: View {
                                             Button {
                                                 // change done status here - single
                                                 routineViewModel.updateSingleRoutineCheck(routine: routine)
+//                                                routineViewModel.countProgress()
                                             } label: {
                                                 Image(systemName: routine.isDone[0] ? "checkmark.circle.fill" : "circle")
                                                     .resizable()
@@ -120,23 +127,22 @@ struct RoutineView: View {
                                     .background(colorScheme == .light ? .white : Color(.systemGray6))
                                     .clipShape(RoundedRectangle(cornerRadius: 12))
                                 }
+                                .padding(.bottom, 4)
                             } else {
                                 HStack(spacing: 8) {
-                                    if routine != routineViewModel.routines.last {
-                                        VStack {
-                                            Image(systemName: routine.type == "Medicine" ? "pill.circle.fill" : "figure.run.circle.fill")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 28)
-                                                .foregroundStyle(.white, .accent)
-                                            
-                                            if routine != routineViewModel.routines.last {
-                                                RoundedRectangle(cornerRadius: 100)
-                                                    .fill(.secondary.opacity(0.5))
-                                                    .frame(width: 2)
-                                            } else {
-                                                Spacer()
-                                            }
+                                    VStack {
+                                        Image(systemName: routine.type == "Medicine" ? "pill.circle.fill" : "figure.run.circle.fill")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 28)
+                                            .foregroundStyle(.white, .accent)
+                                        
+                                        if routine != routineViewModel.routines.last {
+                                            RoundedRectangle(cornerRadius: 100)
+                                                .fill(.secondary.opacity(0.5))
+                                                .frame(width: 2)
+                                        } else {
+                                            Spacer()
                                         }
                                     }
                                     
@@ -204,7 +210,7 @@ struct RoutineView: View {
                         ContentUnavailableView {
                             Label("Routines not Set", systemImage: "pills.fill")
                         } description: {
-                            Text("Add a daily medicine or activity schedule by clicking the plus button.")
+                            Text(routineViewModel.isToday(date: Date()) ? "Add a daily medicine or activity schedule by clicking the plus button." : "Routines for this day were not set.")
                         }
                         .padding(.top, 64)
                     }
@@ -226,8 +232,9 @@ struct RoutineView: View {
                         Image(systemName: "plus")
                             .font(.title3)
                             .bold()
-                            .foregroundStyle(.accent)
+                            .foregroundStyle(routineViewModel.isToday(date: Date()) ? .accent : .secondary)
                     }
+                    .disabled(!routineViewModel.isToday(date: Date()))
                 }
             }
             .navigationTitle("Routines")

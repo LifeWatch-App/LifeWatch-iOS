@@ -20,6 +20,21 @@ struct ConsultationView: View {
                         ForEach(consultationViewModel.messages.filter({$0.role != .system}), id: \.id) { message in
                             messageView(message: message)
                         }
+                        
+                        if consultationViewModel.isLoading {
+                            HStack(alignment: .bottom){
+                                Image("Robot")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 28)
+                                ProgressView()
+                                    .padding()
+                                    .background(colorScheme == .light ? .white : Color(.systemGray6))
+                                    .clipShape(ChatBubble(sender: .assistant))
+                                
+                                Spacer()
+                            }
+                        }
                     }
                     .padding()
                 }
@@ -36,9 +51,10 @@ struct ConsultationView: View {
                         Text("Send")
                             .foregroundStyle(.white)
                             .padding()
-                            .background(.blue)
+                            .background(!consultationViewModel.isLoading ? .accent : .secondary)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
+                    .disabled(consultationViewModel.isLoading)
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 4)
@@ -46,16 +62,16 @@ struct ConsultationView: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle("AI Health Consultation")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        EmptyView()
-                    } label: {
-                        Image(systemName: "clock.arrow.circlepath")
-                            .font(.headline)
-                    }
-                }
-            }
+//            .toolbar {
+//                ToolbarItem(placement: .topBarTrailing) {
+//                    NavigationLink {
+//                        EmptyView()
+//                    } label: {
+//                        Image(systemName: "clock.arrow.circlepath")
+//                            .font(.headline)
+//                    }
+//                }
+//            }
         }
     }
     

@@ -181,7 +181,7 @@ struct UpcomingActivity: View {
                             Spacer()
                         }
                     } else {
-                        ForEach(seniorDashboardViewModel.routines.prefix(2)) { routine in
+                        ForEach(seniorDashboardViewModel.routines.prefix(3)) { routine in
                             ForEach(routine.time.indices, id: \.self) { i in
                                 if (!routine.isDone[i]) {
                                     HStack(spacing: 16) {

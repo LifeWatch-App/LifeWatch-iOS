@@ -44,11 +44,11 @@ struct SeniorAllRoutineView: View {
                                 
                                 Spacer()
                                 
-                                Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle.fill")
+                                Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 40)
-                                    .foregroundStyle(.white, .accent)
+                                    .foregroundStyle(.accent)
                             }
                             .padding()
                             .background(colorScheme == .light ? .white : Color(.systemGray6))
