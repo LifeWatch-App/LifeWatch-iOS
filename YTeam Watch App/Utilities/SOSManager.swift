@@ -8,8 +8,11 @@
 import Foundation
 
 class SOSManager: ObservableObject {
+    @Published var showSOS: Bool = false
     private var decoder: JSONDecoder = JSONDecoder()
     private let service = DataService.shared
+    
+    static var shared: SOSManager = SOSManager()
     
     func sendSOS() {
         guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }

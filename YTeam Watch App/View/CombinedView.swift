@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct CombinedView: View {
+    @StateObject private var heartManager = HeartManager()
     @StateObject private var locationVM = LocationViewModel()
     @StateObject private var idleVM = IdleDetectionViewModel()
     @StateObject private var chargingVM = ChargingViewModel()
     @EnvironmentObject private var authVM: TestAuthViewModel
     
+    @State var sosManager: SOSManager = SOSManager.shared
     var body: some View {
         
         switch locationVM.authorizationStatus {
@@ -26,19 +28,44 @@ struct CombinedView: View {
         case .authorizedAlways, .authorizedWhenInUse:
             VStack {
                 VStack(spacing: 15) {
-                    Text("\(chargingVM.batteryLevel?.description ?? "Not able to fetch") %")
-                    Text(chargingVM.batteryCharging.description)
-                    
                     VStack {
-                        SOSView()
-                        PairView(
-                            leftText: "Latitude:",
-                            rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)
-                        )
-                        PairView(
-                            leftText: "Longitude:",
-                            rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)
-                        )
+                        Text("\(heartManager.heartRate)")
+                            .font(.title2)
+                        Text("BPM")
+                        Spacer()
+                        Button{
+                            sosManager.showSOS.toggle()
+                        } label: {
+                            VStack(alignment: .leading) {
+                                HStack(alignment: .center) {
+                                    Text("SOS")
+                                        .multilineTextAlignment(.leading)
+                                        .font(.title)
+                                        .bold()
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "light.beacon.max.fill")
+                                        .font(.title2)
+                                }
+                            }
+                            .padding()
+                            .background(Color("emergency-pink"))
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .padding(.top, 8)
+                        }
+                        .fullScreenCover(isPresented: $sosManager.showSOS, content: {
+                            SOSView()
+                        })
+                        .buttonStyle(PlainButtonStyle())
+//                        PairView(
+//                            leftText: "Latitude:",
+//                            rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)
+//                        )
+//                        PairView(
+//                            leftText: "Longitude:",
+//                            rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)
+//                        )
                     }
                     
 //                    VStack {
