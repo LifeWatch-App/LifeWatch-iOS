@@ -50,7 +50,7 @@ struct ProfileView: View {
                             .foregroundStyle(.white)
                             .padding(.trailing, 4)
                             
-                            Text("Walkie Talkie")
+                            Text("Walkie-Talkie")
                                 .fontWeight(.semibold)
                             
                             Spacer()

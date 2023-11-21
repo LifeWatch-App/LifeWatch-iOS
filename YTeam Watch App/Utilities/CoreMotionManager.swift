@@ -29,11 +29,11 @@ class CoreMotionManager: ObservableObject {
     
     private var timer: Timer?
     
-//    init() {
+    init() {
 //        self.checkAccelerometerAvailability()
 //        self.setAccelerometerInterval(accelerometerInterval: self.accelerometerInterval)
 //        self.startAccelerometer()
-//    }
+    }
     
     
     /// Check the watch's `availability of accelerometer`.
@@ -137,7 +137,7 @@ class CoreMotionManager: ObservableObject {
                     print("Delta Y: \(abs(self.accY - self.lastY))");
                     print("Delta Z: \(abs(self.accZ - self.lastZ))");
                     
-                    if (abs(self.accX - self.lastX) >= 1.8 || abs(self.accY - self.lastY) >= 1.8 || abs(self.accZ - self.lastZ) >= 1.8) {
+                    if (abs(self.accX - self.lastX) >= 1 || abs(self.accY - self.lastY) >= 1 || abs(self.accZ - self.lastZ) >= 1) {
                         print("You fell")
                         timer.invalidate()
                         self.stopAccelerometer()

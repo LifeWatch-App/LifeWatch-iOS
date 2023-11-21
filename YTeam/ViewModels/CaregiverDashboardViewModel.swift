@@ -23,6 +23,9 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var heartBeatInfo: Heartbeat?
     @Published var latestSymptomInfo: Symptom?
     @Published var showWalkieTalkie: Bool = false
+    @Published var isJoined: Bool = false
+    @Published var isPlaying: Bool = false
+    @Published var speakerName: String = ""
     @Published var routines: [Routine] = []
     @Published var inviteEmail = ""
     let authService = AuthService.shared
@@ -154,6 +157,16 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 }
                 routineService.removeDeletedRoutines()
                 self.convertRoutineDataToRoutine()
+            }
+            .store(in: &cancellables)
+        
+        PTT.shared.$isJoined
+            .receive(on: DispatchQueue.main)
+            .combineLatest(PTT.shared.$speakerName, PTT.shared.$isPlaying)
+            .sink { [weak self] isJoined, speakerName, isPlaying in
+                self?.isJoined = isJoined
+                self?.speakerName = speakerName
+                self?.isPlaying = isPlaying
             }
             .store(in: &cancellables)
     }

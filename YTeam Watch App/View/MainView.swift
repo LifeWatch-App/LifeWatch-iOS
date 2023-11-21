@@ -26,17 +26,25 @@ struct MainView: View {
 //                .environmentObject(authVM)
             CombinedView()
                 .environmentObject(authVM)
-//                .environmentObject(heartManager)
-//                .sheet(isPresented: $motionDetector.fall) {
-//                    FallNotificationView()
-//                        .environmentObject(fallDetector)
-//                        .environmentObject(motionDetector)
-//                }
-//                .sheet(isPresented: $fallDetector.fall) {
-//                    FallNotificationView()
-//                        .environmentObject(fallDetector)
-//                        .environmentObject(motionDetector)
-//                }
+                .environmentObject(heartManager)
+                .sheet(isPresented: $motionDetector.fall) {
+                    FallNotificationView()
+                        .environmentObject(fallDetector)
+                        .environmentObject(motionDetector)
+                        .toolbar(.hidden, for: .navigationBar)
+                }
+                .sheet(isPresented: $fallDetector.fall) {
+                    FallNotificationView()
+                        .environmentObject(fallDetector)
+                        .environmentObject(motionDetector)
+                        .toolbar(.hidden, for: .navigationBar)
+                }
+                .sheet(isPresented: $fallDetector.notificationSent) {
+                    FallNotificationSentView()
+                        .environmentObject(fallDetector)
+                        .environmentObject(motionDetector)
+                        .toolbar(.hidden, for: .navigationBar)
+                }
             
         } else if authVM.userAuth?.userID == nil {
             Text("Not authenticated and logged in")

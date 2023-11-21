@@ -20,6 +20,8 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     var audioPlayer : AVAudioPlayer!
     var isTransmiting = false
     @Published var isPlaying = false
+    @Published var isJoined = false
+    @Published var speakerName = ""
     var speaker = PTParticipant(name: "-", image: UIImage())
     @Published var status = "Hold to Talk"
     
@@ -28,11 +30,21 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     }
     
     func channelManager(_ channelManager: PTChannelManager, didJoinChannel channelUUID: UUID, reason: PTChannelJoinReason) {
-        
+        DispatchQueue.main.async{
+            self.isJoined = true
+        }
     }
     
     func channelManager(_ channelManager: PTChannelManager, didLeaveChannel channelUUID: UUID, reason: PTChannelLeaveReason) {
-        
+        DispatchQueue.main.async{
+            self.isJoined = false
+            self.isTransmiting = false
+            self.isPlaying = false
+            self.isJoined = false
+            self.speakerName = ""
+            self.speaker = PTParticipant(name: "-", image: UIImage())
+            self.status = "Hold to Talk"
+        }
     }
     
     func channelManager(_ channelManager: PTChannelManager, channelUUID: UUID, didBeginTransmittingFrom source: PTChannelTransmitRequestSource) {
@@ -40,7 +52,7 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
         try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
         isTransmiting = true
         DispatchQueue.main.async{
-            self.status = "Connecting... Please Keep Holding The Button"
+            self.status = "Connecting...\nPlease Keep Holding The Button"
           }
     }
     
@@ -68,6 +80,7 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
         print("payload received from: \(activeSpeaker)")
         DispatchQueue.main.async{
             self.isPlaying = true
+            self.speakerName = activeSpeaker
           }
         speaker = PTParticipant(name: activeSpeaker, image: UIImage())
         try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
@@ -180,6 +193,12 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
                 self.isTransmiting = false
             }
         }
+    }
+    
+    
+    func leaveChannel() {
+        print("leaveChannel")
+        channelManager?.leaveChannel(channelUUID: channelUUID!)
     }
     
     

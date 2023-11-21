@@ -63,7 +63,7 @@ struct LoginPage: View {
                     
                     
                     Text(loginViewModel.loginMessage)
-                        .foregroundStyle(.emergencyPink)
+                        .foregroundStyle(.red)
                     
                     Button {
                         loginViewModel.login()
