@@ -31,11 +31,19 @@ struct MainView: View {
                     FallNotificationView()
                         .environmentObject(fallDetector)
                         .environmentObject(motionDetector)
+                        .toolbar(.hidden, for: .navigationBar)
                 }
                 .sheet(isPresented: $fallDetector.fall) {
                     FallNotificationView()
                         .environmentObject(fallDetector)
                         .environmentObject(motionDetector)
+                        .toolbar(.hidden, for: .navigationBar)
+                }
+                .sheet(isPresented: $fallDetector.notificationSent) {
+                    FallNotificationSentView()
+                        .environmentObject(fallDetector)
+                        .environmentObject(motionDetector)
+                        .toolbar(.hidden, for: .navigationBar)
                 }
             
         } else if authVM.userAuth?.userID == nil {

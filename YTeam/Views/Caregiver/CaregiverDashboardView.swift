@@ -31,6 +31,23 @@ struct CaregiverDashboardView: View {
                         }
                     }
 
+                    if caregiverDashboardViewModel.isJoined {
+                        if caregiverDashboardViewModel.isPlaying {
+                            Text("\(caregiverDashboardViewModel.speakerName)...")
+                                .font(.subheadline)
+                                .multilineTextAlignment(.center)
+                                .foregroundStyle(.accent)
+                                .padding(.horizontal)
+                                .padding(.top, 8)
+                        }
+                    } else {
+                        Text("You are not in a channel\n(you won't receive incoming transmissions)")
+                            .font(.subheadline)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(.red)
+                            .padding(.horizontal)
+                            .padding(.top, 8)
+                    }
                     Button {
                         caregiverDashboardViewModel.showWalkieTalkie.toggle()
                     } label: {
@@ -38,7 +55,7 @@ struct CaregiverDashboardView: View {
                             Spacer()
 
                             Image(systemName: "flipphone")
-                            Text("Walkie Talkie")
+                            Text("Walkie-Talkie")
 
                             Spacer()
                         }
@@ -49,10 +66,10 @@ struct CaregiverDashboardView: View {
                         .padding(.vertical, 8)
                         .padding(.horizontal)
                     }
-                    .fullScreenCover(isPresented: $caregiverDashboardViewModel.showWalkieTalkie, content: {
-                        WalkieTalkieView()
-                    })
                 }
+                .fullScreenCover(isPresented: $caregiverDashboardViewModel.showWalkieTalkie, content: {
+                    WalkieTalkieView()
+                })
                 .background(colorScheme == .light ? Color(.systemGroupedBackground) : .black)
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
@@ -315,8 +332,7 @@ struct SeniorStatus: View {
                                 .fontWeight(.semibold)
                                 .padding(.leading, caregiverDashboardViewModel.batteryInfo?.watchBatteryState == "charging" ? -4 : 0)
                         }
-                        .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo?.watchBatteryState)
-                        .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo?.watchBatteryLevel)
+                        .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo)
                     }
 
                     Spacer()

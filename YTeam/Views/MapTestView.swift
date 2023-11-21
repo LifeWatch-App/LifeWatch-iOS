@@ -1,28 +1,18 @@
-//
-//  MapTestView.swift
-//  YTeam
-//
-//  Created by Kevin Sander Utomo on 30/10/23.
-//
-
 import SwiftUI
 import MapKit
 
 struct MapTestView: View {
     @Environment(\.colorScheme) var colorScheme
-    
     @ObservedObject var mapVM: MapViewModel
 
     var body: some View {
         ZStack(alignment: .bottom) {
             if mapVM.lastSeenLocation != nil && mapVM.mapRegion != nil {
-                ZStack(alignment: .top){
+                ZStack(alignment: .top) {
                     MKMapRep(mapVM: mapVM)
                         .ignoresSafeArea(edges: .top)
 
                     ZStack(alignment: .topTrailing) {
-
-//                        Spacer()
                         Text("Set pin on a location")
                             .font(.headline)
                             .frame(maxWidth: UIScreen.main.bounds.width)
@@ -48,12 +38,9 @@ struct MapTestView: View {
                     }
                 }
 
-
                 VStack(alignment: .trailing, spacing: 12) {
                     Button {
-
                         mapVM.homeSetMode.toggle()
-
                     } label: {
                         HStack(spacing: 4) {
                             Image(systemName: "house.fill")
@@ -113,11 +100,12 @@ struct MapTestView: View {
                                 .background(
                                     CardShape()
                                         .fill(colorScheme == .light ? Color.white : Color(.systemGray6))
-                                        .padding(.top, 10) // Add a blue border
+                                        .padding(.top, 10)
                                 )
                                 .background(
                                     RoundedRectangle(cornerRadius: 8)
-                                        .fill(.accent) // Set the bottom background color to white
+                                    //Check if location within homeradius
+                                        .fill(location.isOutside ?? false ? Color.red : .accent)
                                 )
                                 .padding(.vertical, 8)
                                 .onTapGesture {
@@ -152,9 +140,18 @@ struct MapTestView: View {
                 .background(Color(.systemGroupedBackground))
             }
         }
+        .onAppear {
+            resetMapState()
+        }
+    }
+
+    private func resetMapState() {
+        mapVM.is3DMap = false
+        mapVM.shouldChangeMap = false
+        mapVM.recenter = false
+        mapVM.zoomOut = false
+        mapVM.shouldSelect = false
+        mapVM.homeSetMode = false
     }
 }
 
-#Preview {
-    MapTestView(mapVM: MapViewModel())
-}

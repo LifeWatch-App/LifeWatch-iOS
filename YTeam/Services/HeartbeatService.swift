@@ -12,7 +12,14 @@ class HeartbeatService {
     static let shared: HeartbeatService = HeartbeatService()
     
     @Published var heartbeats: [Heartbeat] = []
-    
+    private var heartBeatsListener: [ListenerRegistration] = []
+
+    func deinitializerFunction() {
+        heartBeatsListener.forEach({ $0.remove() })
+        heartBeatsListener = []
+        heartbeats = []
+    }
+
 //    init() {
 //        Task{try? await observeAllHeartbeats()}
 //    }
@@ -26,7 +33,6 @@ class HeartbeatService {
     /// - Parameters:
     ///     - None
     /// - Returns: If user is logged in, add a snapshot listener to the database and filter it based on the UID.
-    @MainActor
     func observeAllHeartbeats(userData: UserData?) {
         let uid: String?
         if userData?.role == "caregiver" {
@@ -40,10 +46,10 @@ class HeartbeatService {
         let query = FirestoreConstants.heartbeatCollection
                                     .whereField("seniorId", isEqualTo: uid)
         
-        query.addSnapshotListener { [weak self] snapshot, _ in
+        heartBeatsListener.append(query.addSnapshotListener { [weak self] snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
             let heartbeats = changes.compactMap({ try? $0.document.data(as: Heartbeat.self) })
             self?.heartbeats = heartbeats
-        }
+        })
     }
 }

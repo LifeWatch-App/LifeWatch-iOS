@@ -10,13 +10,20 @@ import Firebase
 
 class RoutineService {
     static let shared: RoutineService = RoutineService()
-    
+    private var routinesListener: [ListenerRegistration] = []
     @Published var routines: [RoutineData] = []
     @Published var deletedRoutine: [RoutineData] = []
 //    init() {
 //        Task{try? await observeAllRoutines()}
 //    }
-    
+
+    func deinitializerFunction() {
+        routinesListener.forEach({ $0.remove() })
+        routinesListener = []
+        routines = []
+        deletedRoutine = []
+    }
+
     /// Observes all falls by adding a snapshot listener to the firebase and updates the `heartAnomalies` properties only if user is `logged in`.
     ///
     /// ```
@@ -27,7 +34,6 @@ class RoutineService {
     ///     - None
     /// - Returns: If user is logged in, add a snapshot listener to the database and filter it based on the UID.
     func observeAllRoutines(userData: UserData?) {
-        print("UserData: ", userData)
         let uid: String?
         if userData?.role == "caregiver" {
             uid = UserDefaults.standard.string(forKey: "selectedSenior")
@@ -38,11 +44,11 @@ class RoutineService {
         let query = FirestoreConstants.routinesCollection
             .whereField("seniorId", isEqualTo: uid ?? "")
         
-        query.addSnapshotListener { [weak self] snapshot, _ in
+        routinesListener.append(query.addSnapshotListener { [weak self] snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added || $0.type == .modified }) else { return }
             let routines = changes.compactMap({ try? $0.document.data(as: RoutineData.self) })
             self?.routines = routines
-        }
+        })
     }
     
     func observeAllDeletedRoutines(userData: UserData?) {
@@ -56,12 +62,12 @@ class RoutineService {
         let query = FirestoreConstants.routinesCollection
             .whereField("seniorId", isEqualTo: uid ?? "")
         
-        query.addSnapshotListener { [weak self] snapshot, _ in
+        routinesListener.append(query.addSnapshotListener { [weak self] snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .removed }) else { return }
             let routines = changes.compactMap({ try? $0.document.data(as: RoutineData.self) })
             print("Routines", routines)
             self?.deletedRoutine = routines
-        }
+        })
     }
     
     func removeDeletedRoutines() {

@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @State private var showDeleteSheet = false
-    
+    @EnvironmentObject var batteryLevelViewModel: BatteryLevelStateViewModel
     @State private var walkieToggle = true
     @State private var locationToggle = true
     @State private var inactivityToggle = true
@@ -50,7 +50,7 @@ struct ProfileView: View {
                             .foregroundStyle(.white)
                             .padding(.trailing, 4)
                             
-                            Text("Walkie Talkie")
+                            Text("Walkie-Talkie")
                                 .fontWeight(.semibold)
                             
                             Spacer()
@@ -132,6 +132,7 @@ struct ProfileView: View {
                 Spacer()
                 
                 Button(action: {
+                    batteryLevelViewModel.cancelBatteryMonitoringIphone()
                     profileViewModel.signOut()
                 }, label: {
                     HStack {

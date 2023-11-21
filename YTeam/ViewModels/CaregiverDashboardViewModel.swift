@@ -30,6 +30,9 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var latestSymptomInfo: Symptom?
     private var cancellables = Set<AnyCancellable>()
     @Published var showWalkieTalkie: Bool = false
+    @Published var isJoined: Bool = false
+    @Published var isPlaying: Bool = false
+    @Published var speakerName: String = ""
     @Published var routines: [Routine] = []
     //    @Published var heartRate = 90
     @Published var inviteEmail = ""
@@ -68,9 +71,10 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .receive(on: DispatchQueue.main)
             .sink { [weak self] selectedInviteId in
                 guard let self = self else { return }
-                if self.selectedInviteId != selectedInviteId {
-                    self.selectedInviteId = selectedInviteId
-                }
+//                if self.selectedInviteId != selectedInviteId {
+//                    self.selectedInviteId = selectedInviteId
+//                }
+                self.selectedInviteId = selectedInviteId
             }
             .store(in: &cancellables)
 
@@ -159,6 +163,16 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 }
                 routineService.removeDeletedRoutines()
                 self.convertRoutineDataToRoutine()
+            }
+            .store(in: &cancellables)
+        
+        PTT.shared.$isJoined
+            .receive(on: DispatchQueue.main)
+            .combineLatest(PTT.shared.$speakerName, PTT.shared.$isPlaying)
+            .sink { [weak self] isJoined, speakerName, isPlaying in
+                self?.isJoined = isJoined
+                self?.speakerName = speakerName
+                self?.isPlaying = isPlaying
             }
             .store(in: &cancellables)
     }
