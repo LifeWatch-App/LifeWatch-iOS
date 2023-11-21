@@ -212,6 +212,15 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 return time1 < time2
             }
         }
+        
+        let today = Calendar.current.startOfDay(for: Date())
+        
+        self.routines = self.routines.filter({ routine in
+            guard let routineDate = routine.time.first else {
+                return false
+            }
+            return routineDate > today
+        })
     }
 
     func sendRequestToSenior() {

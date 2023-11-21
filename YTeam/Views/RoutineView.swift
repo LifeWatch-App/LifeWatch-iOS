@@ -208,7 +208,8 @@ struct RoutineView: View {
                         }
                     } else {
                         ContentUnavailableView {
-                            Label("Routines not Set", systemImage: "pills.fill")
+                            routineViewModel.isToday(date: Date()) ?
+                            Label("Routines Not Set", systemImage: "pills.fill") : Label("The Day Has Passed", systemImage: "calendar.circle")
                         } description: {
                             Text(routineViewModel.isToday(date: Date()) ? "Add a daily medicine or activity schedule by clicking the plus button." : "Routines for this day were not set.")
                         }
