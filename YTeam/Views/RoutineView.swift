@@ -88,7 +88,15 @@ struct RoutineView: View {
                                                 .font(.title3)
                                                 .fontWeight(.semibold)
                                             
-                                            Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
+                                            if routine.type == "Medicine" {
+                                                if (routine.medicineAmount != "") {
+                                                    Text("\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")")
+                                                }
+                                            } else {
+                                                if (routine.description != "") {
+                                                    Text(routine.description ?? "")
+                                                }
+                                            }
                                             
                                             HStack {
                                                 Image(systemName: "clock")

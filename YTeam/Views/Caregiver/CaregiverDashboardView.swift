@@ -33,7 +33,7 @@ struct CaregiverDashboardView: View {
                                 if let locationInfo = caregiverDashboardViewModel.latestLocationInfo {
                                     Text(locationInfo.isOutside ?? false ? "Outside" : "Home")
                                         .fontWeight(.bold)
-                                        .padding(.top, 45)
+                                        .padding(.top, 40)
                                         .padding(.leading, 25)
                                 }
                             }
@@ -261,7 +261,7 @@ struct SeniorStatus: View {
                                 Text("Inactivity")
                                     .font(.subheadline)
 
-                                Text("No Data")
+                                Text("Active")
                                     .font(.title2)
                                     .bold()
                             }
