@@ -27,7 +27,16 @@ struct CaregiverDashboardView: View {
 
                             UpcomingRoutines(caregiverDashboardViewModel: caregiverDashboardViewModel)
                             
-                            MapPreview()
+                            ZStack(alignment: .topLeading) {
+                                MapPreview()
+
+                                if let locationInfo = caregiverDashboardViewModel.latestLocationInfo {
+                                    Text(locationInfo.isOutside ?? false ? "Outside" : "Home")
+                                        .fontWeight(.bold)
+                                        .padding(.top, 45)
+                                        .padding(.leading, 25)
+                                }
+                            }
                         }
                     }
 
@@ -66,13 +75,15 @@ struct CaregiverDashboardView: View {
                             HStack {
                                 if caregiverDashboardViewModel.invites.isEmpty {
                                     Text("Add a senior")
-                                } else {
+                                } else if caregiverDashboardViewModel.invites.contains(where: { $0.accepted == true }) {
                                     Text(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto")
-                                    
-                                    Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
-                                        .font(.subheadline)
-                                        .padding(.leading, -2)
+                                } else {
+                                    Text("Add a senior")
                                 }
+
+                                Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
+                                    .font(.subheadline)
+                                    .padding(.leading, -2)
                             }
                             .font(.headline)
                         }
