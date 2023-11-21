@@ -12,8 +12,9 @@ struct MapTestView: View {
                     MKMapRep(mapVM: mapVM)
                         .ignoresSafeArea(edges: .top)
 
-                    ZStack(alignment: .topTrailing) {
+                    ZStack(alignment: .topLeading) {
                         Text("Set pin on a location")
+                            .foregroundStyle(colorScheme == .light ? Color.black : Color.white)
                             .font(.headline)
                             .frame(maxWidth: UIScreen.main.bounds.width)
                             .padding()
@@ -34,7 +35,7 @@ struct MapTestView: View {
                                 .clipShape(Circle())
                                 .opacity(mapVM.homeSetMode ? 0 : 1)
                         }
-                        .padding(.trailing)
+                        .padding(.leading)
                     }
                 }
 

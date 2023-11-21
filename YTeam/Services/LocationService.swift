@@ -26,6 +26,50 @@ final class LocationService {
         documentChangesAllLiveLocation = []
     }
 
+    func fetchLatestLocationSpecific() async throws -> QueryDocumentSnapshot? {
+        guard let uid = UserDefaults.standard.string(forKey: "selectedSenior") else { return nil }
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: currentDate)
+        let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+
+        let snapshot = try? await FirestoreConstants.liveLocationsCollection
+            .whereField("seniorId", isEqualTo: uid)
+            .whereField("createdAt", isGreaterThanOrEqualTo: startOfDay.timeIntervalSince1970)
+            .whereField("createdAt", isLessThanOrEqualTo: endOfDay.timeIntervalSince1970)
+            .order(by: "createdAt", descending: true)
+            .order(by: FieldPath.documentID(), descending: true)
+            .limit(to: 1)
+            .getDocuments()
+            .documents
+            .first
+        return snapshot
+    }
+
+    func updateLatestLocationSpecificOutside(isOutside: Bool) async throws {
+        do {
+            guard let snapshot = try await fetchLatestLocationSpecific() else { return }
+            guard let decodedSnapshot = try? snapshot.data(as: LiveLocation.self) else { return }
+
+            if decodedSnapshot.isOutside != isOutside {
+                let reference = FirestoreConstants.liveLocationsCollection.document(snapshot.documentID)
+
+                do {
+                    try await reference.updateData([
+                        "isOutside": isOutside
+                    ])
+                    print("Update successful")
+                } catch let error {
+                    print("Error updating document: \(error.localizedDescription)")
+                }
+            }
+        } catch let error {
+            print("Error fetching latest location: \(error.localizedDescription)")
+        }
+    }
+
+
+
     func observeHomeLocationSpecific() {
         guard let currentUid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
 
@@ -72,6 +116,7 @@ final class LocationService {
             .whereField("createdAt", isGreaterThanOrEqualTo: startOfDay.timeIntervalSince1970)
             .whereField("createdAt", isLessThanOrEqualTo: endOfDay.timeIntervalSince1970)
             .order(by: "createdAt", descending: true)
+            .order(by: FieldPath.documentID(), descending: true)
 
         locationListener.append(query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
