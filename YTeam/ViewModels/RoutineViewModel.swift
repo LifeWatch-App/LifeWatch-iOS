@@ -169,11 +169,9 @@ class RoutineViewModel: ObservableObject {
         
         print("Routines: ", self.routines)
         for routine in self.routines {
-            for time in routine.time {
-                if isToday(date: time) {
-                    print("Daily Routine Data Time", time)
-                    dailyRoutines.append(routine)
-                }
+            if isToday(date: routine.time.first ?? Date()) {
+                print("Daily Routine Data Time", time)
+                dailyRoutines.append(routine)
             }
         }
     }
