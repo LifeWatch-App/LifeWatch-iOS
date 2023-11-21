@@ -16,19 +16,16 @@ class SeniorDashboardViewModel: ObservableObject {
     @Published var invites: [Invite] = []
     @Published var user: User?
     @Published var userData: UserData?
-    private let service = AuthService.shared
-    private let symptomService = SymptomService.shared
-    private let sosService: SOSService = SOSService.shared
-    private var cancellables = Set<AnyCancellable>()
-
     @Published var showAddSymptom: Bool = false
     @Published var showSOS: Bool = false
     @Published var showWalkieTalkie: Bool = false
     @Published var selectedInviteId: String?
-    
     @Published var routines: [Routine] = []
     @Published var symptoms: [Symptom] = []
-    
+    private let service = AuthService.shared
+    private let symptomService = SymptomService.shared
+    private let sosService: SOSService = SOSService.shared
+    private var cancellables = Set<AnyCancellable>()
     private var routineData: [RoutineData] = []
     private let routineService: RoutineService = RoutineService.shared
     

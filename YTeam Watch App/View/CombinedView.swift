@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CombinedView: View {
     @StateObject private var locationVM = LocationViewModel()
-    @StateObject private var idleVM = IdleDetectionViewModel()
-    @StateObject private var chargingVM = ChargingViewModel()
+//    @StateObject private var idleVM = IdleDetectionViewModel()
+//    @StateObject private var chargingVM = ChargingViewModel()
     @EnvironmentObject private var authVM: TestAuthViewModel
     
     var body: some View {
@@ -26,11 +26,11 @@ struct CombinedView: View {
         case .authorizedAlways, .authorizedWhenInUse:
             VStack {
                 VStack(spacing: 15) {
-                    Text("\(chargingVM.batteryLevel?.description ?? "Not able to fetch") %")
-                    Text(chargingVM.batteryCharging.description)
+//                    Text("\(chargingVM.batteryLevel?.description ?? "Not able to fetch") %")
+//                    Text(chargingVM.batteryCharging.description)
                     
                     VStack {
-                        SOSView()
+//                        SOSView()
                         PairView(
                             leftText: "Latitude:",
                             rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)
@@ -40,18 +40,12 @@ struct CombinedView: View {
                             rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)
                         )
                     }
-                    
-//                    VStack {
-//                        Button("Set Current Location as Home") {
-//                            locationVM.shouldSet = true
-//                        }
-//                    }
                 }
                 .padding()
             }
-            .onReceive(idleVM.timer) { _ in
-                idleVM.checkPosition()
-            }
+//            .onReceive(idleVM.timer) { _ in
+//                idleVM.checkPosition()
+//            }
         default:
             Text("Unexpected status")
         }

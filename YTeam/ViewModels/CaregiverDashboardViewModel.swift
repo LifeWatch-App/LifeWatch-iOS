@@ -16,33 +16,30 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var invites: [Invite] = []
     @Published var user: User?
     @Published var userData: UserData?
-    let authService = AuthService.shared
-    private let batteryService = BatteryChargingService.shared
-    private let heartRateService = HeartRateService.shared
-    private let locationService = DashboardLocationService.shared
-    private let idleService = IdleService.shared
-    private let symptomService = SymptomService.shared
     @Published var batteryInfo: BatteryLevel?
     @Published var latestLocationInfo: LiveLocation?
     @Published var selectedInviteId: String?
     @Published var idleInfo: [Idle] = []
     @Published var heartBeatInfo: Heartbeat?
     @Published var latestSymptomInfo: Symptom?
-    private var cancellables = Set<AnyCancellable>()
     @Published var showWalkieTalkie: Bool = false
     @Published var routines: [Routine] = []
-    //    @Published var heartRate = 90
     @Published var inviteEmail = ""
-    
+    let authService = AuthService.shared
+    private let batteryService = BatteryChargingService.shared
+    private let heartRateService = HeartRateService.shared
+    private let locationService = DashboardLocationService.shared
+    private let idleService = IdleService.shared
+    private let symptomService = SymptomService.shared
+    private var cancellables = Set<AnyCancellable>()
     private var routineData: [RoutineData] = []
-    
     private let routineService: RoutineService = RoutineService.shared
-    
+
     override init() {
         super.init()
         setupSubscribers()
         // add dummy data
-//        routines = routinesDummyData
+        //        routines = routinesDummyData
     }
 
     private func setupSubscribers() {
@@ -68,9 +65,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .receive(on: DispatchQueue.main)
             .sink { [weak self] selectedInviteId in
                 guard let self = self else { return }
-//                if self.selectedInviteId != selectedInviteId {
-//                    self.selectedInviteId = selectedInviteId
-//                }
                 self.selectedInviteId = selectedInviteId
             }
             .store(in: &cancellables)
@@ -85,10 +79,10 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 self.batteryService.observeBatteryStateLevelSpecific()
                 self.heartRateService.observeHeartRateSpecific(userData: userData)
                 self.symptomService.observeLatestSyptoms(userData: userData)
-                
+
                 self.routineData = []
                 self.routines = []
-                
+
                 self.routineService.observeAllRoutines(userData: userData)
                 self.routineService.observeAllDeletedRoutines(userData: userData)
             }
@@ -148,7 +142,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 }
             }
             .store(in: &cancellables)
-        
+
         routineService.$deletedRoutine
             .receive(on: DispatchQueue.main)
             .sink { [weak self] routines in
@@ -163,16 +157,16 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             }
             .store(in: &cancellables)
     }
-    
+
     func convertRoutineDataToRoutine() {
         self.routines = self.routineData.map { routine in
             var medicineUnit: MedicineUnit
             var routineTime: [Date] = []
-            
+
             for time in routine.time {
                 routineTime.append( Date(timeIntervalSince1970: time))
             }
-            
+
             switch (routine.medicineUnit) {
             case "CC":
                 medicineUnit = .CC
@@ -187,15 +181,15 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             default:
                 medicineUnit = .Tablet
             }
-            
+
             return Routine(id: routine.id, type: routine.type, seniorId: routine.seniorId, time: routineTime, activity: routine.activity, description: routine.description, medicine: routine.medicine, medicineAmount: routine.medicineAmount, medicineUnit: medicineUnit, isDone: routine.isDone)
         }
-        
+
         if (self.routines.count > 1) {
             self.routines.sort { (routine1, routine2) -> Bool in
                 let time1 = routine1.time[0]
                 let time2 = routine2.time[0]
-                
+
                 return time1 < time2
             }
         }

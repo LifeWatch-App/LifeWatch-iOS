@@ -29,11 +29,11 @@ class CoreMotionManager: ObservableObject {
     
     private var timer: Timer?
     
-    init() {
-        self.checkAccelerometerAvailability()
-        self.setAccelerometerInterval(accelerometerInterval: self.accelerometerInterval)
-        self.startAccelerometer()
-    }
+//    init() {
+//        self.checkAccelerometerAvailability()
+//        self.setAccelerometerInterval(accelerometerInterval: self.accelerometerInterval)
+//        self.startAccelerometer()
+//    }
     
     
     /// Check the watch's `availability of accelerometer`.
