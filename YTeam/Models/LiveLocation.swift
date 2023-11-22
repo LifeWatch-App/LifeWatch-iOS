@@ -16,6 +16,7 @@ struct LiveLocation: Hashable, Codable {
     var longitude: Double?
     var latitude: Double?
     var isOutside: Bool?
+    var isDistanceFilter: Bool?
     var createdAt: Double?
     var addressArray: [String]?
 }

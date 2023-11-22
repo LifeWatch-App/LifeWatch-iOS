@@ -26,21 +26,16 @@ final class IdleService {
 
 
     func observeIdleSpecific() {
-        let uid: String?
-        guard let userData else { return }
-        if userData.role == "caregiver" {
-            uid = UserDefaults.standard.string(forKey: "selectedSenior")
-        } else {
-            uid = Auth.auth().currentUser?.uid
-        }
-
-        guard let uid else { return }
+        guard let uid = UserDefaults.standard.string(forKey: "selectedSenior") else { return }
 
         let query = FirestoreConstants.idlesCollection
             .whereField("seniorId", isEqualTo: uid)
 
+        print(query)
+
         query.addSnapshotListener { [weak self] querySnapshot, error in
             guard let changes = querySnapshot?.documentChanges.filter({ $0.type == .modified || $0.type == .added }) else { return }
+            print("Data bro", changes.first?.document.data())
             self?.idleDocumentChanges = changes
         }
     }

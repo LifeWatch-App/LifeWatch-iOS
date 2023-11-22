@@ -10,6 +10,142 @@ import Foundation
 final class DataService {
     static let shared = DataService()
 
+    func querySingleField<T: Codable>(collection: String, httpMethod: HTTPMethod, seniorId: String) async throws -> [FirestoreQueryRecord<T>] {
+        guard let url = URL(string: "\(APIConstants.baseURL):runQuery") else {
+            print("URL is invalid")
+            throw APIError.invalidURL
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = httpMethod.methodDescription
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let jsonBody = """
+    {
+        "structuredQuery": {
+            "where": {
+                "compositeFilter": {
+                    "op": "AND",
+                    "filters": [
+                        {
+                            "fieldFilter": {
+                                "field": {
+                                    "fieldPath": "seniorId"
+                                },
+                                "op": "EQUAL",
+                                "value": {
+                                    "stringValue": "\(seniorId)"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "from": [
+                {
+                    "collectionId": "\(collection)",
+                    "allDescendants": false
+                }
+            ],
+            "limit": 50
+        }
+    }
+    """
+
+        request.httpBody = jsonBody.data(using: .utf8)
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Server response is invalid")
+                throw APIError.invalidResponse
+            }
+
+            guard (200..<300).contains(httpResponse.statusCode) else {
+                print("Server error with status code: \(httpResponse.statusCode)")
+                throw APIError.invalidResponseCode(code: httpResponse.statusCode.description)
+            }
+
+            let decodedData = try JSONDecoder().decode([FirestoreQueryRecord<T>].self, from: data)
+            return decodedData
+        } catch {
+            print("Error: \(error)")
+            throw APIError.unknownError
+        }
+    }
+
+
+    func queryMultipleFields<T: Codable>(collection: String, httpMethod: HTTPMethod, seniorId: String) async throws -> [FirestoreQueryRecord<T>] {
+        guard let url = URL(string: "\(APIConstants.baseURL):runQuery") else {
+            print("URL is invalid")
+            throw APIError.invalidURL
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = httpMethod.methodDescription
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let jsonBody = """
+    {
+        "structuredQuery": {
+            "where": {
+                "compositeFilter": {
+                    "op": "AND",
+                    "filters": [
+                        {
+                            "fieldFilter": {
+                                "field": {
+                                    "fieldPath": "seniorId"
+                                },
+                                "op": "EQUAL",
+                                "value": {
+                                    "stringValue": "\(seniorId)"
+                                }
+                            }
+                        },
+                        {
+                            "fieldFilter": {
+                                "field": {
+                                    "fieldPath": "taskState"
+                                },
+                                "op": "EQUAL",
+                                "value": {
+                                    "stringValue": "ongoing"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "from": [
+                {
+                    "collectionId": "\(collection)",
+                    "allDescendants": false
+                }
+            ],
+            "limit": 50
+        }
+    }
+    """
+
+        request.httpBody = jsonBody.data(using: .utf8)
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Server response is invalid")
+                throw APIError.invalidResponse
+            }
+
+            guard (200..<300).contains(httpResponse.statusCode) else {
+                print("Server error with status code: \(httpResponse.statusCode)")
+                throw APIError.invalidResponseCode(code: httpResponse.statusCode.description)
+            }
+
+            let decodedData = try JSONDecoder().decode([FirestoreQueryRecord<T>].self, from: data)
+            return decodedData
+        } catch {
+            print("Error: \(error)")
+            throw APIError.unknownError
+        }
+    }
+
     func fetch<T: Codable>(endPoint: Endpoint, httpMethod: HTTPMethod) async throws -> T {
         guard let url = URL(string: "\(APIConstants.baseURL)\(endPoint.endPointDescription)") else {
             print("URL is invalid")

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CombinedView: View {
-    @StateObject private var heartManager = HeartManager()
+//    @StateObject private var heartManager = HeartManager()
     @StateObject private var locationVM = LocationViewModel()
     @StateObject private var idleVM = IdleDetectionViewModel()
     @StateObject private var chargingVM = ChargingViewModel()
@@ -57,21 +57,7 @@ struct CombinedView: View {
                             SOSView()
                         })
                         .buttonStyle(PlainButtonStyle())
-//                        PairView(
-//                            leftText: "Latitude:",
-//                            rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)
-//                        )
-//                        PairView(
-//                            leftText: "Longitude:",
-//                            rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)
-//                        )
                     }
-                    
-//                    VStack {
-//                        Button("Set Current Location as Home") {
-//                            locationVM.shouldSet = true
-//                        }
-//                    }
                 }
                 .padding()
             }

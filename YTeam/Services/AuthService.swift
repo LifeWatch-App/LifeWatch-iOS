@@ -137,11 +137,13 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
             } else {
                 print("Tokens successfully cleared")
             }
-            
+
             if self.invitesListener != nil {
                 self.invitesListener!.remove()
             }
-            
+
+            self.invites = []
+            self.selectedInviteId = nil
             self.userData = nil
             self.user = nil
             
