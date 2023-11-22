@@ -33,7 +33,7 @@ struct CaregiverDashboardView: View {
                                 if let locationInfo = caregiverDashboardViewModel.latestLocationInfo {
                                     Text(locationInfo.isOutside ?? false ? "Outside" : "Home")
                                         .fontWeight(.bold)
-                                        .padding(.top, 45)
+                                        .padding(.top, 40)
                                         .padding(.leading, 25)
                                 }
                             }
@@ -261,7 +261,7 @@ struct SeniorStatus: View {
                                 Text("Inactivity")
                                     .font(.subheadline)
 
-                                Text("No Data")
+                                Text("Active")
                                     .font(.title2)
                                     .bold()
                             }
@@ -368,7 +368,7 @@ struct SeniorStatus: View {
                     .padding(.horizontal, 4)
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("iPhone Battery")
+                        Text("Phone Battery")
                             .font(.caption)
 
                         HStack {
@@ -427,7 +427,7 @@ struct UpcomingRoutines: View {
                     HStack(alignment: .top) {
                         ForEach(caregiverDashboardViewModel.routines) { routine in
                             ForEach(routine.time.indices, id: \.self) { i in
-                                HStack(spacing: 16) {
+                                HStack(alignment: .center, spacing: 16) {
                                     VStack {
                                         Image(systemName: routine.type == "Medicine" ? "pill.fill" : "figure.run")
                                             .resizable()
@@ -442,8 +442,19 @@ struct UpcomingRoutines: View {
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
                                             .font(.headline)
-                                        Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
-                                            .font(.subheadline)
+                                        
+                                        if routine.type == "Medicine" {
+                                            if (routine.medicineAmount != "") {
+                                                Text("\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")")
+                                                    .font(.subheadline)
+                                            }
+                                        } else {
+                                            if (routine.description != "") {
+                                                Text(routine.description ?? "")
+                                                    .font(.subheadline)
+                                            }
+                                        }
+
                                         HStack {
                                             Image(systemName: "clock")
                                             Text(routine.time[i], style: .time)
@@ -455,7 +466,7 @@ struct UpcomingRoutines: View {
                                     
                                     Spacer()
                                     
-                                    Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "xmark.circle.fill")
+                                    Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "minus.circle.fill")
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 40)

@@ -155,8 +155,6 @@ class SeniorDashboardViewModel: ObservableObject {
             return Routine(id: routine.id, type: routine.type, seniorId: routine.seniorId, time: routineTime, activity: routine.activity, description: routine.description, medicine: routine.medicine, medicineAmount: routine.medicineAmount, medicineUnit: medicineUnit, isDone: routine.isDone)
         }
         
-        checkAllDone()
-        
         if (self.routines.count > 1) {
             self.routines.sort { (routine1, routine2) -> Bool in
                 let time1 = routine1.time[0]
@@ -165,6 +163,17 @@ class SeniorDashboardViewModel: ObservableObject {
                 return time1 < time2
             }
         }
+        
+        let today = Calendar.current.startOfDay(for: Date())
+        
+        self.routines = self.routines.filter({ routine in
+            guard let routineDate = routine.time.first else {
+                return false
+            }
+            return routineDate > today
+        })
+        
+        checkAllDone()
     }
 
     func sendSOS() throws {

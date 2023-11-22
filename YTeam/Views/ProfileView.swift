@@ -23,7 +23,7 @@ struct ProfileView: View {
                         Circle()
                             .fill(.secondary.opacity(0.5))
                             .frame(width: 75)
-                        Text("S")
+                        Text(profileViewModel.userData?.name?.prefix(1).uppercased() ?? "S")
                             .font(.largeTitle)
                             .bold()
                     }
@@ -83,7 +83,7 @@ struct ProfileView: View {
                         
                         HStack {
                             VStack {
-                                Image(systemName: "location.fill")
+                                Image(systemName: "moon.fill")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 20, height: 20)

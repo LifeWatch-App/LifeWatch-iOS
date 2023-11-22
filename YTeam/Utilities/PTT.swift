@@ -22,6 +22,7 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     @Published var isPlaying = false
     @Published var isJoined = false
     @Published var speakerName = ""
+    @Published var speakerUID = ""
     var speaker = PTParticipant(name: "-", image: UIImage())
     @Published var status = "Hold to Talk"
     
@@ -77,10 +78,14 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
         guard let activeSpeaker = pushPayload["activeSpeaker"] as? String else {
             return .leaveChannel
         }
+        guard let activeSpeakerUID = pushPayload["uid"] as? String else {
+            return .leaveChannel
+        }
         print("payload received from: \(activeSpeaker)")
         DispatchQueue.main.async{
             self.isPlaying = true
             self.speakerName = activeSpeaker
+            self.speakerUID = activeSpeakerUID
           }
         speaker = PTParticipant(name: activeSpeaker, image: UIImage())
         try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
@@ -127,10 +132,10 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
             let storage = Storage.storage()
             
             let storageRef = storage.reference()
-            let voiceRef = storageRef.child("voice/\(speaker.name).aac")
+            let voiceRef = storageRef.child("voice/\(speakerUID).aac")
             
             let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let fileName = path.appendingPathComponent("\(speaker.name).aac")
+            let fileName = path.appendingPathComponent("\(speakerUID).aac")
             
             let downloadTask = voiceRef.write(toFile: fileName) { url, error in
                 if let error = error {

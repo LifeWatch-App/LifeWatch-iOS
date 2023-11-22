@@ -12,7 +12,7 @@ import FirebaseAuth
 import AVFoundation
 import FirebaseStorage
 
-class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDelegate  {
+class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published var invites: [Invite] = []
     @Published var user: User?
     @Published var userData: UserData?
@@ -206,6 +206,15 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 return time1 < time2
             }
         }
+        
+        let today = Calendar.current.startOfDay(for: Date())
+        
+        self.routines = self.routines.filter({ routine in
+            guard let routineDate = routine.time.first else {
+                return false
+            }
+            return routineDate > today
+        })
     }
 
     func sendRequestToSenior() {
