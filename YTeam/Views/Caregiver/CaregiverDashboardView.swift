@@ -554,8 +554,16 @@ struct AnalysisResult: View {
                     .frame(width: 24)
                 
                 HStack {
-                    Text(caregiverDashboardViewModel.analysis != "" && !caregiverDashboardViewModel.isLoadingAnalysis ? caregiverDashboardViewModel.analysis : caregiverDashboardViewModel.isLoadingAnalysis ? "Analyzing..." : "Hi, I am an AI medical counselor who will help you analyze your senior's condition. Right now, I am not able to analyze it due to the incomplete data, but I will try to give you an analysis tomorrow.")
-                        .font(.subheadline)
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(caregiverDashboardViewModel.analysis != "" && !caregiverDashboardViewModel.isLoadingAnalysis ? caregiverDashboardViewModel.analysis : caregiverDashboardViewModel.isLoadingAnalysis ? "Analyzing..." : "Hi, I am an AI medical counselor who will help you analyze your senior's condition. Right now, I am not able to analyze it due to the incomplete data, but I will try to give you an analysis tomorrow.")
+                            .font(.callout)
+                        
+                        if !caregiverDashboardViewModel.isLoadingAnalysis {
+                            Text(caregiverDashboardViewModel.extractDate(date: caregiverDashboardViewModel.analysisDate, format: "dd MMM yyyy HH:mm:ss"))
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
                     
                     Spacer()
                 }

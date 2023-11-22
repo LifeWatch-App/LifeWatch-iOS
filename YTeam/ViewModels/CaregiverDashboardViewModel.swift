@@ -44,6 +44,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     var analysisData: [Analysis] = []
     @Published var analysisResult: [Message] = []
     @Published var analysis: String = ""
+    @Published var analysisDate: Date = Date()
     @Published var isLoadingAnalysis: Bool = false
     
     private var routineData: [RoutineData] = []
@@ -247,8 +248,9 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     }
     
     func checkAnalysis() {
-        if let analysis = analysisData.filter({$0.seniorId == selectedInviteId}).first?.result {
-            self.analysis = analysis
+        if let analysis = analysisData.filter({$0.seniorId == selectedInviteId}).first {
+            self.analysis = analysis.result ?? ""
+            self.analysisDate = analysis.date ?? Date()
         }
 
         if (analysisData.filter({$0.seniorId == selectedInviteId}).first?.date ?? Calendar.current.date(byAdding: .day, value: -2, to: Date())) ?? Date() < Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date() {
@@ -295,6 +297,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             let receivedMessage = Message(id: UUID(), role: receivedOpenAIMessage.role, content: receivedOpenAIMessage.content, createdAt: Date())
             await MainActor.run {
                 analysis = receivedMessage.content
+                analysisDate = receivedMessage.createdAt
 
                 addAnalysis(seniorId: selectedInviteId ?? "", result: receivedMessage.content, date: Date())
             }
@@ -366,5 +369,12 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     
     private func loadInitialHeartBeat(documents: [DocumentChange]) -> Heartbeat? {
         return try? documents.first?.document.data(as: Heartbeat.self)
+    }
+    
+    func extractDate(date: Date, format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        
+        return formatter.string(from: date)
     }
 }
