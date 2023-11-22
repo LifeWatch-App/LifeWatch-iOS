@@ -16,6 +16,11 @@ struct UserProfile: Codable, Hashable {
     let userName: Description?
 }
 
+struct FirestoreQueryRecord<T: Codable>: Codable {
+    let document: Document<T>?
+    let readTime: String
+}
+
 struct FirebaseRecords<T: Codable>: Codable {
     let documents: [Document<T>]
 }
@@ -32,6 +37,14 @@ struct Document<T: Codable>: Codable {
         self.createTime = createTime
         self.updateTime = updateTime
     }
+
+    enum CodingKeys: String, CodingKey {
+        case createTime = "createTime"
+        case fields = "fields"
+        case name = "name"
+        case updateTime = "updateTime"
+    }
+
 }
 
 struct Description: Codable, Hashable {
