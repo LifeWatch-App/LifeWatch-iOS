@@ -14,6 +14,7 @@ final class ChargingViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var batterySubscription: AnyCancellable?
     private let service = DataService.shared
+    @Published private(set) var isFirstTime: Bool = true
     @Published private(set) var batteryCharging: WKInterfaceDeviceBatteryState = .unplugged
     @Published private(set) var batteryLevel: Int?
     @Published private(set) var currentRange: ChargingRange?
@@ -42,7 +43,7 @@ final class ChargingViewModel: ObservableObject {
             if let chargingRecords: [FirestoreQueryRecord<ChargingRangeRecord>] = try? await self.service.queryMultipleFields(collection: "charges", httpMethod: .post, seniorId: userID) {
                 
                 let specificChargingRecords = chargingRecords.filter({ $0.document?.fields?.seniorId?.stringValue == userID })
-
+                
                 let specificChargingRecordsIDs = specificChargingRecords.compactMap { record -> String? in
                     let specificChargingRecordDocumentName = record.document?.name
                     let components = specificChargingRecordDocumentName?.components(separatedBy: "/")
@@ -82,57 +83,106 @@ final class ChargingViewModel: ObservableObject {
     
     
     private func setupSubscribers() {
-        batterySubscription = Timer.publish(every: 25, on: .main, in: .common)
-            .autoconnect()
-            .sink { [weak self] _ in
-                guard let userRecordData = UserDefaults.standard.object(forKey: "user-auth") as? Data,
-                      let userRecord = try? JSONDecoder().decode(UserRecord.self, from: userRecordData),
-                      let userID = userRecord.userID, let self = self else {
-                    return
-                }
-                
-                if self.batteryLevel != Int(roundf(interface.batteryLevel * 100)) {
-                    self.batteryLevel = Int(roundf(interface.batteryLevel * 100))
+        $isFirstTime
+            .sink { [weak self] firstTime in
+                if firstTime == true {
+                    guard let self = self else { return }
+                    guard let userRecordData = UserDefaults.standard.object(forKey: "user-auth") as? Data,
+                          let userRecord = try? JSONDecoder().decode(UserRecord.self, from: userRecordData),
+                          let userID = userRecord.userID else {
+                        return
+                    }
                     
-                    Task {
-                        if let batteryRecords: [FirestoreQueryRecord<BatteryLevelRecord>] = try? await self.service.querySingleField(collection: "batteryLevels", httpMethod: .post, seniorId: userID) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        if self.batteryLevel != Int(roundf(self.interface.batteryLevel * 100)) {
+                            self.batteryLevel = Int(roundf(self.interface.batteryLevel * 100))
                             
-                            if let specificBatteryRecord = batteryRecords.first(where: { $0.document?.fields?.seniorId?.stringValue == userID }) {
-                                guard let specificBatteryRecordDocumentName = specificBatteryRecord.document?.name else { return }
-                                let components = specificBatteryRecordDocumentName.components(separatedBy: "/")
-                                guard let specificBatteryRecordDocumentID = components.last else { return }
+                            Task {
+                                if let batteryRecords: [FirestoreQueryRecord<BatteryLevelRecord>] = try? await self.service.querySingleField(collection: "batteryLevels", httpMethod: .post, seniorId: userID) {
+                                    
+                                    if let specificBatteryRecord = batteryRecords.first(where: { $0.document?.fields?.seniorId?.stringValue == userID }) {
+                                        guard let specificBatteryRecordDocumentName = specificBatteryRecord.document?.name else { return }
+                                        let components = specificBatteryRecordDocumentName.components(separatedBy: "/")
+                                        guard let specificBatteryRecordDocumentID = components.last else { return }
+                                        
+                                        let batteryLevelRecord1: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), iphoneBatteryLevel: specificBatteryRecord.document?.fields?.iphoneBatteryLevel, watchLastUpdatedAt: Description(stringValue: Date.now.description), iphoneLastUpdatedAt: specificBatteryRecord.document?.fields?.iphoneLastUpdatedAt, watchBatteryState: Description(stringValue: self.batteryCharging.description), iphoneBatteryState: specificBatteryRecord.document?.fields?.iphoneBatteryState)
+                                        
+                                        try? await self.service.set(endPoint: SingleEndpoints.batteryLevels(batteryLevelsDocumentID: specificBatteryRecordDocumentID), fields: batteryLevelRecord1, httpMethod: .patch)
+                                    } else {
+                                        let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description), watchBatteryState: Description(stringValue: self.batteryCharging.description))
+                                        
+                                        try? await self.service.set(endPoint: MultipleEndPoints.batteryLevels, fields: batteryLevelRecord, httpMethod: .post)
+                                    }
+                                    
+                                } else {
+                                    let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description), watchBatteryState: Description(stringValue: self.batteryCharging.description))
+                                    
+                                    try? await self.service.set(endPoint: MultipleEndPoints.batteryLevels, fields: batteryLevelRecord, httpMethod: .post)
+                                }
+                            }
+                        }
+                        
+                        self.isFirstTime = false
+                    }
+                }
+            }
+            .store(in: &cancellables)
+        
+        
+        batterySubscription = Timer.publish(every: 895, on: .main, in: .common)
+            .autoconnect()
+            .combineLatest($isFirstTime)
+            .sink { [weak self] _, firstTime in
+                if !firstTime {
+                    guard let userRecordData = UserDefaults.standard.object(forKey: "user-auth") as? Data,
+                          let userRecord = try? JSONDecoder().decode(UserRecord.self, from: userRecordData),
+                          let userID = userRecord.userID, let self = self else {
+                        return
+                    }
+                    
+                    if self.batteryLevel != Int(roundf(interface.batteryLevel * 100)) {
+                        self.batteryLevel = Int(roundf(interface.batteryLevel * 100))
+                        
+                        Task {
+                            if let batteryRecords: [FirestoreQueryRecord<BatteryLevelRecord>] = try? await self.service.querySingleField(collection: "batteryLevels", httpMethod: .post, seniorId: userID) {
                                 
-                                let batteryLevelRecord1: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), iphoneBatteryLevel: specificBatteryRecord.document?.fields?.iphoneBatteryLevel, watchLastUpdatedAt: Description(stringValue: Date.now.description), iphoneLastUpdatedAt: specificBatteryRecord.document?.fields?.iphoneLastUpdatedAt, watchBatteryState: Description(stringValue: self.batteryCharging.description), iphoneBatteryState: specificBatteryRecord.document?.fields?.iphoneBatteryState)
+                                if let specificBatteryRecord = batteryRecords.first(where: { $0.document?.fields?.seniorId?.stringValue == userID }) {
+                                    guard let specificBatteryRecordDocumentName = specificBatteryRecord.document?.name else { return }
+                                    let components = specificBatteryRecordDocumentName.components(separatedBy: "/")
+                                    guard let specificBatteryRecordDocumentID = components.last else { return }
+                                    
+                                    let batteryLevelRecord1: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), iphoneBatteryLevel: specificBatteryRecord.document?.fields?.iphoneBatteryLevel, watchLastUpdatedAt: Description(stringValue: Date.now.description), iphoneLastUpdatedAt: specificBatteryRecord.document?.fields?.iphoneLastUpdatedAt, watchBatteryState: Description(stringValue: self.batteryCharging.description), iphoneBatteryState: specificBatteryRecord.document?.fields?.iphoneBatteryState)
+                                    
+                                    try? await self.service.set(endPoint: SingleEndpoints.batteryLevels(batteryLevelsDocumentID: specificBatteryRecordDocumentID), fields: batteryLevelRecord1, httpMethod: .patch)
+                                } else {
+                                    let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description), watchBatteryState: Description(stringValue: self.batteryCharging.description))
+                                    
+                                    try? await self.service.set(endPoint: MultipleEndPoints.batteryLevels, fields: batteryLevelRecord, httpMethod: .post)
+                                }
                                 
-                                try? await self.service.set(endPoint: SingleEndpoints.batteryLevels(batteryLevelsDocumentID: specificBatteryRecordDocumentID), fields: batteryLevelRecord1, httpMethod: .patch)
                             } else {
                                 let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description), watchBatteryState: Description(stringValue: self.batteryCharging.description))
                                 
                                 try? await self.service.set(endPoint: MultipleEndPoints.batteryLevels, fields: batteryLevelRecord, httpMethod: .post)
                             }
-                            
-                        } else {
-                            let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description), watchBatteryState: Description(stringValue: self.batteryCharging.description))
-                            
-                            try? await self.service.set(endPoint: MultipleEndPoints.batteryLevels, fields: batteryLevelRecord, httpMethod: .post)
                         }
                     }
-                }
-                
-                if self.batteryCharging != self.interface.batteryState {
-                    self.batteryCharging = self.interface.batteryState
                     
-                    Task {
-                        if let batteryRecords: [FirestoreQueryRecord<BatteryLevelRecord>] = try? await self.service.querySingleField(collection: "batteryLevels", httpMethod: .post, seniorId: userID) {
-                            
-                            guard let specificBatteryRecord = batteryRecords.first(where: { $0.document?.fields?.seniorId?.stringValue == userID }) else { return }
-                            guard let specificBatteryRecordDocumentName = specificBatteryRecord.document?.name else { return }
-                            let components = specificBatteryRecordDocumentName.components(separatedBy: "/")
-                            guard let specificBatteryRecordDocumentID = components.last else { return }
-                            
-                            let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: specificBatteryRecord.document?.fields?.watchBatteryLevel, iphoneBatteryLevel: specificBatteryRecord.document?.fields?.iphoneBatteryLevel, watchLastUpdatedAt: Description(stringValue: Date.now.description), iphoneLastUpdatedAt: specificBatteryRecord.document?.fields?.iphoneLastUpdatedAt, watchBatteryState: Description(stringValue: self.batteryCharging.description), iphoneBatteryState: specificBatteryRecord.document?.fields?.iphoneBatteryState)
-                            
-                            try? await self.service.set(endPoint: SingleEndpoints.batteryLevels(batteryLevelsDocumentID: specificBatteryRecordDocumentID), fields: batteryLevelRecord, httpMethod: .patch)
+                    if self.batteryCharging != self.interface.batteryState {
+                        self.batteryCharging = self.interface.batteryState
+                        
+                        Task {
+                            if let batteryRecords: [FirestoreQueryRecord<BatteryLevelRecord>] = try? await self.service.querySingleField(collection: "batteryLevels", httpMethod: .post, seniorId: userID) {
+                                
+                                guard let specificBatteryRecord = batteryRecords.first(where: { $0.document?.fields?.seniorId?.stringValue == userID }) else { return }
+                                guard let specificBatteryRecordDocumentName = specificBatteryRecord.document?.name else { return }
+                                let components = specificBatteryRecordDocumentName.components(separatedBy: "/")
+                                guard let specificBatteryRecordDocumentID = components.last else { return }
+                                
+                                let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: specificBatteryRecord.document?.fields?.watchBatteryLevel, iphoneBatteryLevel: specificBatteryRecord.document?.fields?.iphoneBatteryLevel, watchLastUpdatedAt: Description(stringValue: Date.now.description), iphoneLastUpdatedAt: specificBatteryRecord.document?.fields?.iphoneLastUpdatedAt, watchBatteryState: Description(stringValue: self.batteryCharging.description), iphoneBatteryState: specificBatteryRecord.document?.fields?.iphoneBatteryState)
+                                
+                                try? await self.service.set(endPoint: SingleEndpoints.batteryLevels(batteryLevelsDocumentID: specificBatteryRecordDocumentID), fields: batteryLevelRecord, httpMethod: .patch)
+                            }
                         }
                     }
                 }

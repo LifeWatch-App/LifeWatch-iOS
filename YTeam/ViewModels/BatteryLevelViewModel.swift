@@ -20,6 +20,7 @@ final class BatteryLevelStateViewModel: ObservableObject {
     @Published private(set) var batteryLevel: Int?
     @Published private(set) var batteryCharging: UIDevice.BatteryState = .unplugged
     @Published private(set) var currentRange: ChargingRange?
+    @Published private(set) var isFirstTime: Bool = true
 
     init() {
         Task { try? await initializerFunction() }
@@ -65,52 +66,90 @@ final class BatteryLevelStateViewModel: ObservableObject {
     }
 
     func setupSubscribers() {
-        batterySubscription = Timer.publish(every: 30, on: .main, in: .common)
-            .autoconnect()
-            .sink(receiveValue: { [weak self] _ in
+        $isFirstTime
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] firstTime in
                 guard let self = self else { return }
                 guard let userID = Auth.auth().currentUser?.uid else { return }
+                if firstTime {
+                    if self.batteryLevel != Int(roundf(interface.batteryLevel * 100)) {
 
-                if self.batteryLevel != Int(roundf(interface.batteryLevel * 100)) {
+                        DispatchQueue.main.async {
+                            self.batteryLevel = Int(roundf(self.interface.batteryLevel * 100))
+                        }
 
-                    DispatchQueue.main.async {
-                        self.batteryLevel = Int(roundf(self.interface.batteryLevel * 100))
-                    }
+                        Task {
+                            if let batteryRecords = try? await self.chargingService.fetchBatteryLevel(), !batteryRecords.isEmpty {
 
-                    Task {
-                        if let batteryRecords = try? await self.chargingService.fetchBatteryLevel(), !batteryRecords.isEmpty {
+                                if let specificBatteryRecord = batteryRecords.first(where: { $0.seniorId == userID }) {
+                                    let batteryLevel = BatteryLevel(seniorId: userID, watchBatteryLevel: specificBatteryRecord.watchBatteryLevel, iphoneBatteryLevel: self.batteryLevel?.description, watchLastUpdatedAt: specificBatteryRecord.watchLastUpdatedAt, iphoneLastUpdatedAt: Date.now.description, watchBatteryState: specificBatteryRecord.watchBatteryState, iphoneBatteryState: self.batteryCharging.description)
 
-                            if let specificBatteryRecord = batteryRecords.first(where: { $0.seniorId == userID }) {
-                                let batteryLevel = BatteryLevel(seniorId: userID, watchBatteryLevel: specificBatteryRecord.watchBatteryLevel, iphoneBatteryLevel: self.batteryLevel?.description, watchLastUpdatedAt: specificBatteryRecord.watchLastUpdatedAt, iphoneLastUpdatedAt: Date.now.description, watchBatteryState: specificBatteryRecord.watchBatteryState, iphoneBatteryState: self.batteryCharging.description)
+                                    try await self.chargingService.updateBatteryLevel(batteryLevel: batteryLevel)
+                                    print("Success updating battery levels")
+                                } else {
+                                    try await self.chargingService.createBatteryLevel(batteryLevel: self.batteryLevel ?? 0)
+                                    print("Success creating battery levels")
+                                }
 
-                                try await self.chargingService.updateBatteryLevel(batteryLevel: batteryLevel)
-                                print("Success updating battery levels")
                             } else {
                                 try await self.chargingService.createBatteryLevel(batteryLevel: self.batteryLevel ?? 0)
                                 print("Success creating battery levels")
                             }
-
-                        } else {
-                            try await self.chargingService.createBatteryLevel(batteryLevel: self.batteryLevel ?? 0)
-                            print("Success creating battery levels")
                         }
                     }
                 }
+            }
+            .store(in: &cancellables)
 
-                if self.batteryCharging != self.interface.batteryState {
-                    self.batteryCharging = self.interface.batteryState
-                    Task {
-                        if let batteryRecords = try? await self.chargingService.fetchBatteryLevel() {
+        batterySubscription = Timer.publish(every: 900, on: .main, in: .common)
+            .autoconnect()
+            .combineLatest($isFirstTime)
+            .sink(receiveValue: { [weak self] _, firstTime in
+                if !firstTime {
+                    guard let self = self else { return }
+                    guard let userID = Auth.auth().currentUser?.uid else { return }
 
-                            guard let specificBatteryRecord = batteryRecords.first(where: { $0.seniorId == userID }) else {
-                                print("Can't find specific battery record")
-                                return }
+                    if self.batteryLevel != Int(roundf(interface.batteryLevel * 100)) {
 
-                            let batteryLevelRecord: BatteryLevel = BatteryLevel(seniorId: userID, watchBatteryLevel: specificBatteryRecord.watchBatteryLevel, iphoneBatteryLevel: self.batteryLevel?.description, watchLastUpdatedAt: specificBatteryRecord.watchLastUpdatedAt, iphoneLastUpdatedAt: Date.now.description, watchBatteryState: specificBatteryRecord.watchBatteryState, iphoneBatteryState: self.batteryCharging.description)
+                        DispatchQueue.main.async {
+                            self.batteryLevel = Int(roundf(self.interface.batteryLevel * 100))
+                        }
 
-                            try await Task.sleep(for: .seconds(2))
-                            try await self.chargingService.updateBatteryLevel(batteryLevel: batteryLevelRecord)
-                            print("Success updating batteryState")
+                        Task {
+                            if let batteryRecords = try? await self.chargingService.fetchBatteryLevel(), !batteryRecords.isEmpty {
+
+                                if let specificBatteryRecord = batteryRecords.first(where: { $0.seniorId == userID }) {
+                                    let batteryLevel = BatteryLevel(seniorId: userID, watchBatteryLevel: specificBatteryRecord.watchBatteryLevel, iphoneBatteryLevel: self.batteryLevel?.description, watchLastUpdatedAt: specificBatteryRecord.watchLastUpdatedAt, iphoneLastUpdatedAt: Date.now.description, watchBatteryState: specificBatteryRecord.watchBatteryState, iphoneBatteryState: self.batteryCharging.description)
+
+                                    try await self.chargingService.updateBatteryLevel(batteryLevel: batteryLevel)
+                                    print("Success updating battery levels")
+                                } else {
+                                    try await self.chargingService.createBatteryLevel(batteryLevel: self.batteryLevel ?? 0)
+                                    print("Success creating battery levels")
+                                }
+
+                            } else {
+                                try await self.chargingService.createBatteryLevel(batteryLevel: self.batteryLevel ?? 0)
+                                print("Success creating battery levels")
+                            }
+                        }
+                    }
+
+                    if self.batteryCharging != self.interface.batteryState {
+                        self.batteryCharging = self.interface.batteryState
+                        Task {
+                            if let batteryRecords = try? await self.chargingService.fetchBatteryLevel() {
+
+                                guard let specificBatteryRecord = batteryRecords.first(where: { $0.seniorId == userID }) else {
+                                    print("Can't find specific battery record")
+                                    return }
+
+                                let batteryLevelRecord: BatteryLevel = BatteryLevel(seniorId: userID, watchBatteryLevel: specificBatteryRecord.watchBatteryLevel, iphoneBatteryLevel: self.batteryLevel?.description, watchLastUpdatedAt: specificBatteryRecord.watchLastUpdatedAt, iphoneLastUpdatedAt: Date.now.description, watchBatteryState: specificBatteryRecord.watchBatteryState, iphoneBatteryState: self.batteryCharging.description)
+
+                                try await Task.sleep(for: .seconds(2))
+                                try await self.chargingService.updateBatteryLevel(batteryLevel: batteryLevelRecord)
+                                print("Success updating batteryState")
+                            }
                         }
                     }
                 }

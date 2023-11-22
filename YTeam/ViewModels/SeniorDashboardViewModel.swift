@@ -32,15 +32,7 @@ class SeniorDashboardViewModel: ObservableObject {
     @Published var allRoutineDone = false
     
     init() {
-        print("init called here")
-        symptomService.observeSymptomsToday()
-        routineService.observeAllRoutines(userData: userData)
-        routineService.observeAllDeletedRoutines(userData: userData)
         setupSubscribers()
-
-        // add dummy data
-//        routines = routinesDummyData
-        //        symptoms = symptomsDummyData
     }
 
     deinit {
@@ -63,7 +55,18 @@ class SeniorDashboardViewModel: ObservableObject {
                 self?.invites = invites
             }
             .store(in: &cancellables)
-        
+
+        $userData
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] userData in
+                if userData != nil {
+                    self?.symptomService.observeSymptomsToday()
+                    self?.routineService.observeAllRoutines(userData: userData)
+                    self?.routineService.observeAllDeletedRoutines(userData: userData)
+                }
+            }
+            .store(in: &cancellables)
+
         service.$selectedInviteId
             .receive(on: DispatchQueue.main)
             .sink { [weak self] selectedInviteId in

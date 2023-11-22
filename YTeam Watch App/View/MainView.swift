@@ -19,7 +19,7 @@ struct MainView: View {
     
     var body: some View {
         if authVM.userAuth?.userID != nil {
-            CombinedView()
+            TestChargingView()
             //            IdleDetectionView()
             //            Text("Logged in")
             //                .environmentObject(authVM)

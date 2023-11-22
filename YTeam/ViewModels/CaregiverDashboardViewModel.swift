@@ -73,21 +73,26 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .store(in: &cancellables)
 
         $selectedInviteId
-            .combineLatest(authService.$userData)
+            .combineLatest($userData)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] selectedInviteId, userData in
                 guard let self = self else { return }
-                self.idleService.observeIdleSpecific()
-                self.locationService.observeLiveLocationSpecific()
-                self.batteryService.observeBatteryStateLevelSpecific()
-                self.heartRateService.observeHeartRateSpecific(userData: userData)
-                self.symptomService.observeLatestSyptoms(userData: userData)
-
-                self.routineData = []
-                self.routines = []
-
-                self.routineService.observeAllRoutines(userData: userData)
-                self.routineService.observeAllDeletedRoutines(userData: userData)
+                if selectedInviteId != nil && userData?.role != nil {
+                    self.idleInfo = []
+                    self.batteryInfo = nil
+                    self.latestLocationInfo = nil
+                    self.heartBeatInfo = nil
+                    self.latestSymptomInfo = nil
+                    self.routineData = []
+                    self.routines = []
+                    self.idleService.observeIdleSpecific()
+                    self.locationService.observeLiveLocationSpecific()
+                    self.batteryService.observeBatteryStateLevelSpecific()
+                    self.heartRateService.observeHeartRateSpecific(userData: userData)
+                    self.symptomService.observeLatestSyptoms(userData: userData)
+                    self.routineService.observeAllRoutines(userData: userData)
+                    self.routineService.observeAllDeletedRoutines(userData: userData)
+                }
             }
             .store(in: &cancellables)
 
