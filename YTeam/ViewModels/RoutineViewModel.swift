@@ -11,7 +11,7 @@ import Combine
 class RoutineViewModel: ObservableObject {
     @Published var showAddRoutine: Bool = false
     @Published var showEditRoutine: Bool = false
-    
+    @Published var userRole: UserRole = .unknown
     @Published var currentWeek: [Date] = []
     @Published var currentDay: Date = Date()
     
@@ -36,6 +36,26 @@ class RoutineViewModel: ObservableObject {
     }
     
     func setupRoutineSubscribers() {
+        authService.$userData
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] userData in
+                guard let self else {return}
+                print("User Data: ", userData)
+                
+                var role: UserRole = .unknown
+                
+                if (userData?.role == "caregiver") {
+                    role = .caregiver
+                }
+                
+                if (userData?.role == "senior") {
+                    role = .senior
+                }
+                
+                self.userRole = role
+            }
+            .store(in: &cancellables)
+        
         authService.$selectedInviteId
             .receive(on: DispatchQueue.main)
             .sink { [weak self] id in
@@ -55,6 +75,7 @@ class RoutineViewModel: ObservableObject {
                     
                     self?.routineService.observeAllRoutines(userData: userData)
                     self?.routineService.observeAllDeletedRoutines(userData: userData)
+                
                 }
                 self?.fetchCurrentWeek()
             }
