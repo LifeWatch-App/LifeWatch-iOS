@@ -11,17 +11,22 @@ import Firebase
 import FirebaseAuth
 import AVFoundation
 import FirebaseStorage
+import CoreData
 
 class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published var invites: [Invite] = []
     @Published var user: User?
     @Published var userData: UserData?
+    @Published var falls: [Fall] = []
+    @Published var sos: [SOS] = []
     let authService = AuthService.shared
     private let batteryService = BatteryChargingService.shared
     private let heartRateService = HeartRateService.shared
     private let locationService = DashboardLocationService.shared
     private let idleService = IdleService.shared
     private let symptomService = SymptomService.shared
+    private let fallService = FallService.shared
+    private let sosService = SOSService.shared
     @Published var batteryInfo: BatteryLevel?
     @Published var latestLocationInfo: LiveLocation?
     @Published var selectedInviteId: String?
@@ -36,6 +41,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var routines: [Routine] = []
     @Published var inviteEmail = ""
     
+    var analysisData: [Analysis] = []
     @Published var analysisResult: [Message] = []
     @Published var analysis: String = ""
     @Published var isLoadingAnalysis: Bool = false
@@ -46,10 +52,12 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     override init() {
         super.init()
         setupSubscribers()
+        
+        fetchAnalysisData()
         // add dummy data
-//        routines = routinesDummyData
+        //        routines = routinesDummyData
     }
-
+    
     private func setupSubscribers() {
         authService.$user
             .combineLatest(authService.$userData, authService.$invites)
@@ -58,47 +66,51 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 if self.user != user {
                     self.user = user
                 }
-
+                
                 if self.userData != userData {
                     self.userData = userData
                 }
-
+                
                 if self.invites != invites {
                     self.invites = invites
                 }
             }
             .store(in: &cancellables)
-
+        
         authService.$selectedInviteId
             .receive(on: DispatchQueue.main)
             .sink { [weak self] selectedInviteId in
                 guard let self = self else { return }
-//                if self.selectedInviteId != selectedInviteId {
-//                    self.selectedInviteId = selectedInviteId
-//                }
+                //                if self.selectedInviteId != selectedInviteId {
+                //                    self.selectedInviteId = selectedInviteId
+                //                }
                 self.selectedInviteId = selectedInviteId
             }
             .store(in: &cancellables)
-
+        
         $selectedInviteId
             .combineLatest(authService.$userData)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] selectedInviteId, userData in
                 guard let self = self else { return }
-                self.idleService.observeIdleSpecific()
-                self.locationService.observeLiveLocationSpecific()
-                self.batteryService.observeBatteryStateLevelSpecific()
-                self.heartRateService.observeHeartRateSpecific(userData: userData)
-                self.symptomService.observeLatestSyptoms(userData: userData)
-                
-                self.routineData = []
-                self.routines = []
-                
-                self.routineService.observeAllRoutines(userData: userData)
-                self.routineService.observeAllDeletedRoutines(userData: userData)
+                if userData?.role != nil && selectedInviteId != nil {
+                    self.routineData = []
+                    self.routines = []
+                    self.falls = []
+                    self.sos = []
+                    self.idleService.observeIdleSpecific()
+                    self.locationService.observeLiveLocationSpecific()
+                    self.batteryService.observeBatteryStateLevelSpecific()
+                    self.heartRateService.observeHeartRateSpecific(userData: userData)
+                    self.symptomService.observeLatestSyptoms(userData: userData)
+                    self.fallService.observeTodayFalls(userData: userData)
+                    self.sosService.observeTodaySOS(userData: userData)
+                    self.routineService.observeAllRoutines(userData: userData)
+                    self.routineService.observeAllDeletedRoutines(userData: userData)
+                }
             }
             .store(in: &cancellables)
-
+        
         symptomService.$symptomsLatestDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
@@ -106,7 +118,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 self.latestSymptomInfo = self.loadLatestSymptom(documents: documentChanges)
             }
             .store(in: &cancellables)
-
+        
         batteryService.$batteryDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
@@ -114,7 +126,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 self.batteryInfo = self.loadInitialBatteryLevel(documents: documentChanges)
             }
             .store(in: &cancellables)
-
+        
         idleService.$idleDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
@@ -122,7 +134,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 self.idleInfo = self.loadInitialIdleLevel(documents: documentChanges)
             }
             .store(in: &cancellables)
-
+        
         locationService.$latestLocationDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
@@ -130,7 +142,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 self.latestLocationInfo = self.loadLatestLiveLocation(documents: documentChanges)
             }
             .store(in: &cancellables)
-
+        
         heartRateService.$heartRateDocumentChanges
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
@@ -138,7 +150,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 self.heartBeatInfo = loadInitialHeartBeat(documents: documentChanges)
             }
             .store(in: &cancellables)
-
+        
         routineService.$routines
             .receive(on: DispatchQueue.main)
             .sink { [weak self] routines in
@@ -175,6 +187,24 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 self?.isJoined = isJoined
                 self?.speakerName = speakerName
                 self?.isPlaying = isPlaying
+            }
+            .store(in: &cancellables)
+        
+        fallService.$fallsToday
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] fall in
+                guard let self else { return }
+                
+                self.falls.append(contentsOf: fall)
+            }
+            .store(in: &cancellables)
+        
+        sosService.$sosToday
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] sos in
+                guard let self else {return}
+                
+                self.sos.append(contentsOf: sos)
             }
             .store(in: &cancellables)
     }
@@ -216,57 +246,111 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
         }
     }
     
-    func createAnalysis() {
-        analysisResult = []
-        let prompt = "Hi"
-        
-        let newMessage = Message(id: UUID(), role: .user, content: prompt, createdAt: Date())
-        analysisResult.append(newMessage)
-        
-        isLoadingAnalysis = true
-        
-        Task {
-            defer {
-                isLoadingAnalysis = false
-            }
+    func checkAnalysis() {
+        if let analysis = analysisData.filter({$0.seniorId == selectedInviteId}).first?.result {
+            self.analysis = analysis
+        }
+
+        if (analysisData.filter({$0.seniorId == selectedInviteId}).first?.date ?? Calendar.current.date(byAdding: .day, value: -2, to: Date())) ?? Date() < Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date() {
+            isLoadingAnalysis = true
             
-            let response = await OpenAIService.shared.sendMessage(messages: analysisResult)
-            guard let receivedOpenAIMessage = response?.choices.first?.message else {
-                print("Had no received message")
-                return
-            }
-            
-            let receivedMessage = Message(id: UUID(), role: receivedOpenAIMessage.role, content: receivedOpenAIMessage.content, createdAt: Date())
-            await MainActor.run {
-                analysis = receivedMessage.content
-                
-                UserDefaults.standard.set(Date(), forKey: "SavedDateKey")
-                UserDefaults.standard.set(analysis, forKey: "SavedAnalysisKey")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.createAnalysis()
             }
         }
     }
     
+    func createAnalysis() {
+        analysisResult = []
+        
+        var heartBeatString = ""
+        var symptomString = ""
+        
+        let fallString = "My senior had \(falls.count) fall today and \(sos.count) sos button pressed today. "
+        if let bpm = heartBeatInfo?.bpm {
+            heartBeatString = "Their heartbeat is \(bpm) bpm. "
+        }
+        if latestSymptomInfo != nil {
+            symptomString = "They have had a \(String(describing: latestSymptomInfo?.name)) symptom lately. "
+        } else {
+            symptomString = "They had no symptom lately. "
+        }
+        
+        let prompt = fallString + heartBeatString + symptomString + "Create a health analysis in 50 words."
 
+        let newMessage = Message(id: UUID(), role: .user, content: prompt, createdAt: Date())
+        analysisResult.append(newMessage)
+
+        Task {
+            defer {
+                isLoadingAnalysis = false
+            }
+
+            let response = await OpenAIService.shared.sendMessage(messages: self.analysisResult)
+            guard let receivedOpenAIMessage = response?.choices.first?.message else {
+                print("Had no received message")
+                return
+            }
+
+            let receivedMessage = Message(id: UUID(), role: receivedOpenAIMessage.role, content: receivedOpenAIMessage.content, createdAt: Date())
+            await MainActor.run {
+                analysis = receivedMessage.content
+
+                addAnalysis(seniorId: selectedInviteId ?? "", result: receivedMessage.content, date: Date())
+            }
+        }
+    }
+    
+    func fetchAnalysisData() {
+        let request = NSFetchRequest<Analysis>(entityName: "Analysis")
+        
+        do {
+            analysisData = try PersistenceController.shared.container.viewContext.fetch(request)
+            print("Fetch Success")
+        } catch let error {
+            print("Fetch Error: \(error)")
+        }
+    }
+    
+    func addAnalysis(seniorId: String, result: String, date: Date) {
+        if let analysis = analysisData.filter({$0.seniorId == seniorId}).first {
+            analysis.result = result
+            analysis.date = date
+        } else {
+            let analysis = Analysis(context: PersistenceController.shared.container.viewContext)
+            analysis.seniorId = seniorId
+            analysis.result = result
+            analysis.date = date
+        }
+        
+        do {
+            try PersistenceController.shared.container.viewContext.save()
+            fetchAnalysisData()
+        } catch {
+            print("Could not save analysis data")
+        }
+    }
+    
     func sendRequestToSenior() {
         AuthService.shared.sendRequestToSenior(email: inviteEmail)
     }
-
+    
     func signOut() {
         AuthService.shared.signOut()
     }
-
+    
     private func loadLatestLiveLocation(documents: [DocumentChange]) -> LiveLocation? {
         return try? documents.first?.document.data(as: LiveLocation.self)
     }
-
+    
     private func loadLatestSymptom(documents: [DocumentChange]) -> Symptom? {
         return try? documents.first?.document.data(as: Symptom.self)
     }
-
+    
     private func loadInitialBatteryLevel(documents: [DocumentChange]) -> BatteryLevel? {
         return try? documents.first?.document.data(as: BatteryLevel.self)
     }
-
+    
     private func loadInitialIdleLevel(documents: [DocumentChange]) -> [Idle] {
         var idles: [Idle] = []
         for document in documents {
@@ -276,10 +360,10 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             }
             idles.append(document)
         }
-
+        
         return idles
     }
-
+    
     private func loadInitialHeartBeat(documents: [DocumentChange]) -> Heartbeat? {
         return try? documents.first?.document.data(as: Heartbeat.self)
     }

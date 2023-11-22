@@ -103,6 +103,8 @@
 		7DB4E0CF2AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
 		7DB4E0D02AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
 		8D0340132B0C55BD0016E27F /* ChatBubbleTopLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0340122B0C55BD0016E27F /* ChatBubbleTopLeft.swift */; };
+		8D0340162B0E054F0016E27F /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0340152B0E054F0016E27F /* PersistenceController.swift */; };
+		8D0340192B0E055C0016E27F /* AnalysisData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8D0340172B0E055C0016E27F /* AnalysisData.xcdatamodeld */; };
 		8D21B03A2AF7A4F200D23BF1 /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */; };
 		8D21B03C2AF7AD7500D23BF1 /* AddEditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03B2AF7AD7500D23BF1 /* AddEditRoutineView.swift */; };
 		8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */; };
@@ -285,6 +287,8 @@
 		7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
 		7DB4E0CE2AEA080E00270F2C /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
 		8D0340122B0C55BD0016E27F /* ChatBubbleTopLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleTopLeft.swift; sourceTree = "<group>"; };
+		8D0340152B0E054F0016E27F /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		8D0340182B0E055C0016E27F /* AnalysisData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AnalysisData.xcdatamodel; sourceTree = "<group>"; };
 		8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
 		8D21B03B2AF7AD7500D23BF1 /* AddEditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditRoutineView.swift; sourceTree = "<group>"; };
 		8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSymptomView.swift; sourceTree = "<group>"; };
@@ -509,6 +513,7 @@
 			isa = PBXGroup;
 			children = (
 				7D02E7922ADE888800923AFB /* Constants */,
+				8D0340142B0E05300016E27F /* CoreData */,
 				4CA232912ADD4517003874D2 /* Info.plist */,
 				7D32BD142B070E1E00A4B313 /* GoogleService-Info.plist */,
 				4C4730282AD8D2520025F089 /* Services */,
@@ -739,6 +744,15 @@
 				7DB4E0CE2AEA080E00270F2C /* alert.mp3 */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		8D0340142B0E05300016E27F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				8D0340152B0E054F0016E27F /* PersistenceController.swift */,
+				8D0340172B0E055C0016E27F /* AnalysisData.xcdatamodeld */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		8D33E90F2AF739DA00C9D3C1 /* History */ = {
@@ -985,6 +999,7 @@
 				4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */,
 				8DED839D2AF663C900AFB95B /* Routine.swift in Sources */,
 				4CF1BBE52AE75C1D000E1199 /* TimeOption.swift in Sources */,
+				8D0340192B0E055C0016E27F /* AnalysisData.xcdatamodeld in Sources */,
 				8D33E9252AF7A4C000C9D3C1 /* RoutineViewModel.swift in Sources */,
 				8D8FB6B62AEA03C90081CD50 /* HeartRateChart.swift in Sources */,
 				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,
@@ -1003,6 +1018,7 @@
 				7D9D41D82AE62DB800818908 /* Idle.swift in Sources */,
 				9322F6102AEFA8A80013B0AB /* MKMapRep.swift in Sources */,
 				93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */,
+				8D0340162B0E054F0016E27F /* PersistenceController.swift in Sources */,
 				8D672F872AF517CF00C29E63 /* BatteryCircularProgressView.swift in Sources */,
 				7D0508F12AFC7A7800439E75 /* RoutineData.swift in Sources */,
 				8D21B03C2AF7AD7500D23BF1 /* AddEditRoutineView.swift in Sources */,
@@ -1437,6 +1453,19 @@
 			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		8D0340172B0E055C0016E27F /* AnalysisData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8D0340182B0E055C0016E27F /* AnalysisData.xcdatamodel */,
+			);
+			currentVersion = 8D0340182B0E055C0016E27F /* AnalysisData.xcdatamodel */;
+			path = AnalysisData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4CB0154E2AD4DBBC0023C71E /* Project object */;
 }
