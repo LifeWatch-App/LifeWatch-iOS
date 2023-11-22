@@ -10,6 +10,7 @@
 		4C0F8A3E2AE784CD002E8578 /* SignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */; };
 		4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C21A3E32ADF7B930044E966 /* CaregiverView.swift */; };
 		4C21A3E62ADF7ECA0044E966 /* SeniorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */; };
+		4C2513D82B0DB53B0061B647 /* UserRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2513D72B0DB53B0061B647 /* UserRole.swift */; };
 		4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4730292AD8DC750025F089 /* AuthService.swift */; };
 		4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47302B2AD9760C0025F089 /* LoginViewModel.swift */; };
 		4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */; };
@@ -197,6 +198,7 @@
 		4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButton.swift; sourceTree = "<group>"; };
 		4C21A3E32ADF7B930044E966 /* CaregiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverView.swift; sourceTree = "<group>"; };
 		4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorView.swift; sourceTree = "<group>"; };
+		4C2513D72B0DB53B0061B647 /* UserRole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRole.swift; sourceTree = "<group>"; };
 		4C4730292AD8DC750025F089 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		4C47302B2AD9760C0025F089 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -604,6 +606,7 @@
 		7D02E71F2AD8ECA300923AFB /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				4C2513D72B0DB53B0061B647 /* UserRole.swift */,
 				7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */,
 				7D02E7202AD8ECD500923AFB /* Screen.swift */,
 				7D9D41DB2AE7561600818908 /* InactivityType.swift */,
@@ -927,6 +930,7 @@
 				4CA7922E2ADFB67B003B5EC9 /* SeniorDashboardView.swift in Sources */,
 				8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
+				4C2513D82B0DB53B0061B647 /* UserRole.swift in Sources */,
 				8DED83982AF53A5500AFB95B /* WalkieTalkieView.swift in Sources */,
 				7DB24EF82AE51E81009A4A6D /* SOSService.swift in Sources */,
 				7DB24EFA2AE51E9A009A4A6D /* Emergency.swift in Sources */,
@@ -1188,7 +1192,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -1228,7 +1232,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -1270,7 +1274,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -1310,7 +1314,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
