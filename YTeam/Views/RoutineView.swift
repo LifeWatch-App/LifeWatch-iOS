@@ -130,12 +130,11 @@ struct RoutineView: View {
                                                         .foregroundStyle(.accent)
                                                         .padding(.leading, 2)
                                                 } } else {
-                                                    Image(systemName: routine.isDone[0] ? "checkmark.circle.fill" : "circle")
+                                                    Image(systemName: routine.isDone[0] ? "checkmark.circle.fill" : "minus.circle.fill")
                                                         .resizable()
                                                         .scaledToFit()
-                                                        .frame(width: 45)
-                                                        .foregroundStyle(.accent)
-                                                        .padding(.leading, 2)
+                                                        .frame(width: 50)
+                                                        .foregroundStyle(routine.isDone[0] ? Color("secondary-green") : Color("emergency-pink"))
                                                 }
                                         }
                                     }
