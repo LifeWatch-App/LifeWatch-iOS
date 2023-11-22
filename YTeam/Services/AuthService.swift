@@ -188,7 +188,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                 let udid: String = UIDevice().identifierForVendor!.uuidString
                 
                 if AuthService.shared.userData != nil {
-                    if AuthService.shared.userData!.udid! != udid {
+                    if AuthService.shared.userData!.udid ?? "" != udid {
                         self.signOut()
                     }
                     
