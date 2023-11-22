@@ -11,9 +11,9 @@ struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @State private var showDeleteSheet = false
     @EnvironmentObject var batteryLevelViewModel: BatteryLevelStateViewModel
-    @State private var walkieToggle = true
-    @State private var locationToggle = true
-    @State private var inactivityToggle = true
+//    @State private var walkieToggle = true
+//    @State private var locationToggle = true
+//    @State private var inactivityToggle = true
     
     var body: some View {
         NavigationStack {
@@ -133,10 +133,6 @@ struct ProfileView: View {
                 
                 Button(action: {
                     batteryLevelViewModel.cancelBatteryMonitoringIphone()
-                    
-                    UserDefaults.standard.set("", forKey: "SavedAnalysisKey")
-                    UserDefaults.standard.set(Calendar.current.date(byAdding: .day, value: -2, to: Date()) ?? Date(), forKey: "SavedDateKey")
-                    
                     profileViewModel.signOut()
                 }, label: {
                     HStack {

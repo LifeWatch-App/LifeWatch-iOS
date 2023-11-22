@@ -96,13 +96,13 @@ struct CaregiverDashboardView: View {
                                     Text("Add a senior")
                                 } else if caregiverDashboardViewModel.invites.contains(where: { $0.accepted == true }) {
                                     Text(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto")
+                                    
+                                    Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
+                                        .font(.subheadline)
+                                        .padding(.leading, -2)
                                 } else {
                                     Text("Add a senior")
                                 }
-
-                                Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
-                                    .font(.subheadline)
-                                    .padding(.leading, -2)
                             }
                             .font(.headline)
                         }
@@ -167,7 +167,7 @@ struct SeniorStatus: View {
                             .font(.subheadline)
                     }
 
-                    Text(caregiverDashboardViewModel.falls.count > 0 || caregiverDashboardViewModel.sos.count > 0 ? "Please contact Jack or find help immediately!" : caregiverDashboardViewModel.latestSymptomInfo == nil ? "No symptoms detected" : "\(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto") experienced \(caregiverDashboardViewModel.latestSymptomInfo?.name?.lowercased() ?? "none") lately")
+                    Text(caregiverDashboardViewModel.falls.count > 0 || caregiverDashboardViewModel.sos.count > 0 ? "Please contact your senior or find help immediately!" : caregiverDashboardViewModel.latestSymptomInfo == nil ? "No symptoms detected" : "\(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto") experienced \(caregiverDashboardViewModel.latestSymptomInfo?.name?.lowercased() ?? "none") lately")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
@@ -555,7 +555,7 @@ struct AnalysisResult: View {
                 
                 HStack {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(caregiverDashboardViewModel.analysis != "" && !caregiverDashboardViewModel.isLoadingAnalysis ? caregiverDashboardViewModel.analysis : caregiverDashboardViewModel.isLoadingAnalysis ? "Analyzing..." : "Hi, I am an AI medical counselor who will help you analyze your senior's condition. Right now, I am not able to analyze it due to the incomplete data, but I will try to give you an analysis tomorrow.")
+                        Text(caregiverDashboardViewModel.analysis != "" && !caregiverDashboardViewModel.isLoadingAnalysis ? caregiverDashboardViewModel.analysis : caregiverDashboardViewModel.isLoadingAnalysis ? "Analyzing..." : "Hi, I'm an AI medical counselor here to assist you in assessing the health of your senior. Because of the missing data, I am unable to assess it at this time. In order for us to assist you with the analysis, kindly add a senior and ensure that they are wearing their watch.")
                             .font(.callout)
                         
                         if !caregiverDashboardViewModel.isLoadingAnalysis {
@@ -574,7 +574,7 @@ struct AnalysisResult: View {
         }
         .padding(.horizontal)
         .onChange(of: caregiverDashboardViewModel.selectedInviteId) { oldValue, newValue in
-            caregiverDashboardViewModel.checkAnalysis()
+//            caregiverDashboardViewModel.checkAnalysis()
         }
     }
 }
