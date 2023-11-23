@@ -14,19 +14,23 @@ struct MainView: View {
     @StateObject var caregiverDashboardViewModel = CaregiverDashboardViewModel()
 
     var body: some View {
-        if (mainViewModel.userData?.role != nil) {
+        if (mainViewModel.userData?.role == nil) {
+            ChooseRoleView(mainViewModel: mainViewModel)
+        } else if (mainViewModel.userData?.name == "Unknown") {
+            EnterNameView()
+        } else {
             if mainViewModel.userData?.role == "senior" {
                 SeniorView(mainViewModel: mainViewModel)
                     .environmentObject(batteryLevelViewModel)
                     .environmentObject(caregiverDashboardViewModel)
                     .task {
                         PTT.shared.requestJoinChannel()
-                        mainViewModel.addInvitesListener() 
+                        mainViewModel.addInvitesListener()
                         await AVAudioApplication.requestRecordPermission()
                     }
             } else {
                 CaregiverView(mainViewModel: mainViewModel)
-                    .environmentObject(batteryLevelViewModel)  
+                    .environmentObject(batteryLevelViewModel)
                     .environmentObject(caregiverDashboardViewModel)
                     .task {
                         PTT.shared.requestJoinChannel()
@@ -34,8 +38,6 @@ struct MainView: View {
                         await AVAudioApplication.requestRecordPermission()
                     }
             }
-        } else {
-            ChooseRoleView(mainViewModel: mainViewModel)
         }
     }
 }

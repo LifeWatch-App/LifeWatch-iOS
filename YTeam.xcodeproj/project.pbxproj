@@ -52,6 +52,8 @@
 		4CCDD55A2AF634BA00146330 /* PTTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCDD5592AF634BA00146330 /* PTTService.swift */; };
 		4CF1BBE52AE75C1D000E1199 /* TimeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */; };
 		4CF1BBE62AE75C1D000E1199 /* TimeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */; };
+		4CF8D7B62B0F99E9005A31F8 /* EnterNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF8D7B52B0F99E9005A31F8 /* EnterNameView.swift */; };
+		4CF8D7B82B0F9BE6005A31F8 /* EnterNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF8D7B72B0F9BE6005A31F8 /* EnterNameViewModel.swift */; };
 		4CF962C82AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF962C72AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift */; };
 		7D02E7212AD8ECD500923AFB /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7202AD8ECD500923AFB /* Screen.swift */; };
 		7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D02E7242ADCC97200923AFB /* HistoryView.swift */; };
@@ -241,6 +243,8 @@
 		4CB9AE592AEA0E72008F4381 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		4CCDD5592AF634BA00146330 /* PTTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTTService.swift; sourceTree = "<group>"; };
 		4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeOption.swift; sourceTree = "<group>"; };
+		4CF8D7B52B0F99E9005A31F8 /* EnterNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterNameView.swift; sourceTree = "<group>"; };
+		4CF8D7B72B0F9BE6005A31F8 /* EnterNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterNameViewModel.swift; sourceTree = "<group>"; };
 		4CF962C72AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieViewModel.swift; sourceTree = "<group>"; };
 		7D02E7042AD78AD300923AFB /* YTeam Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "YTeam Watch App.entitlements"; sourceTree = "<group>"; };
 		7D02E7202AD8ECD500923AFB /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
@@ -461,6 +465,7 @@
 				8D73C3DB2AF915B7009AFD80 /* AddEditRoutineViewModel.swift */,
 				8D74658C2B0472C700A48F71 /* ConsultationViewModel.swift */,
 				9322F6112AEFA9250013B0AB /* MapViewModel.swift */,
+				4CF8D7B72B0F9BE6005A31F8 /* EnterNameViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -590,6 +595,7 @@
 				8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */,
 				8D21B03B2AF7AD7500D23BF1 /* AddEditRoutineView.swift */,
 				8DED83972AF53A5500AFB95B /* WalkieTalkieView.swift */,
+				4CF8D7B52B0F99E9005A31F8 /* EnterNameView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -933,6 +939,7 @@
 				7D02E7962ADE88BF00923AFB /* FallService.swift in Sources */,
 				931293692AED53100052F4AF /* TestBatteryView.swift in Sources */,
 				9322F60D2AEFA8340013B0AB /* MapTestView.swift in Sources */,
+				4CF8D7B82B0F9BE6005A31F8 /* EnterNameViewModel.swift in Sources */,
 				93D4FA642AF7976E000850CE /* BatteryCard.swift in Sources */,
 				4CF962C82AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift in Sources */,
 				8D33E9212AF73E4F00C9D3C1 /* HistoryCard.swift in Sources */,
@@ -949,6 +956,7 @@
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
 				4C2513D82B0DB53B0061B647 /* UserRole.swift in Sources */,
 				8DED83982AF53A5500AFB95B /* WalkieTalkieView.swift in Sources */,
+				4CF8D7B62B0F99E9005A31F8 /* EnterNameView.swift in Sources */,
 				7DB24EF82AE51E81009A4A6D /* SOSService.swift in Sources */,
 				7DB24EFA2AE51E9A009A4A6D /* Emergency.swift in Sources */,
 				4C6049C52AD7948F00E9F0BF /* MainViewModel.swift in Sources */,
