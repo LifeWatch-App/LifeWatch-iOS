@@ -11,9 +11,9 @@ struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @State private var showDeleteSheet = false
     @EnvironmentObject var batteryLevelViewModel: BatteryLevelStateViewModel
-    @State private var walkieToggle = true
-    @State private var locationToggle = true
-    @State private var inactivityToggle = true
+//    @State private var walkieToggle = true
+//    @State private var locationToggle = true
+//    @State private var inactivityToggle = true
     
     var body: some View {
         NavigationStack {
@@ -23,7 +23,7 @@ struct ProfileView: View {
                         Circle()
                             .fill(.secondary.opacity(0.5))
                             .frame(width: 75)
-                        Text("S")
+                        Text(profileViewModel.userData?.name?.prefix(1).uppercased() ?? "S")
                             .font(.largeTitle)
                             .bold()
                     }
@@ -36,73 +36,73 @@ struct ProfileView: View {
                 .padding(.horizontal)
                 
                 List {
-                    Section(header: Text("App Settings")) {
-                        HStack {
-                            VStack {
-                                Image(systemName: "flipphone")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 20, height: 20)
-                            }
-                            .padding(8)
-                            .background(.accent)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                            .foregroundStyle(.white)
-                            .padding(.trailing, 4)
-                            
-                            Text("Walkie-Talkie")
-                                .fontWeight(.semibold)
-                            
-                            Spacer()
-                            
-                            Toggle("", isOn: $walkieToggle)
-                        }
-                        .padding(.vertical, 1)
-                        
-                        HStack {
-                            VStack {
-                                Image(systemName: "location.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 20, height: 20)
-                            }
-                            .padding(8)
-                            .background(.accent)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                            .foregroundStyle(.white)
-                            .padding(.trailing, 4)
-                            
-                            Text("Location")
-                                .fontWeight(.semibold)
-                            
-                            Spacer()
-                            
-                            Toggle("", isOn: $locationToggle)
-                        }
-                        .padding(.vertical, 1)
-                        
-                        HStack {
-                            VStack {
-                                Image(systemName: "location.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 20, height: 20)
-                            }
-                            .padding(8)
-                            .background(.accent)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                            .foregroundStyle(.white)
-                            .padding(.trailing, 4)
-                            
-                            Text("Inactivity")
-                                .fontWeight(.semibold)
-                            
-                            Spacer()
-                            
-                            Toggle("", isOn: $inactivityToggle)
-                        }
-                        .padding(.vertical, 1)
-                    }
+//                    Section(header: Text("App Settings")) {
+//                        HStack {
+//                            VStack {
+//                                Image(systemName: "flipphone")
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .frame(width: 20, height: 20)
+//                            }
+//                            .padding(8)
+//                            .background(.accent)
+//                            .clipShape(RoundedRectangle(cornerRadius: 4))
+//                            .foregroundStyle(.white)
+//                            .padding(.trailing, 4)
+//                            
+//                            Text("Walkie-Talkie")
+//                                .fontWeight(.semibold)
+//                            
+//                            Spacer()
+//                            
+//                            Toggle("", isOn: $walkieToggle)
+//                        }
+//                        .padding(.vertical, 1)
+//                        
+//                        HStack {
+//                            VStack {
+//                                Image(systemName: "location.fill")
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .frame(width: 20, height: 20)
+//                            }
+//                            .padding(8)
+//                            .background(.accent)
+//                            .clipShape(RoundedRectangle(cornerRadius: 4))
+//                            .foregroundStyle(.white)
+//                            .padding(.trailing, 4)
+//                            
+//                            Text("Location")
+//                                .fontWeight(.semibold)
+//                            
+//                            Spacer()
+//                            
+//                            Toggle("", isOn: $locationToggle)
+//                        }
+//                        .padding(.vertical, 1)
+//                        
+//                        HStack {
+//                            VStack {
+//                                Image(systemName: "moon.fill")
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .frame(width: 20, height: 20)
+//                            }
+//                            .padding(8)
+//                            .background(.accent)
+//                            .clipShape(RoundedRectangle(cornerRadius: 4))
+//                            .foregroundStyle(.white)
+//                            .padding(.trailing, 4)
+//                            
+//                            Text("Inactivity")
+//                                .fontWeight(.semibold)
+//                            
+//                            Spacer()
+//                            
+//                            Toggle("", isOn: $inactivityToggle)
+//                        }
+//                        .padding(.vertical, 1)
+//                    }
                     
                     Section(header: Text("Care Team")) {
                         ForEach(profileViewModel.invites, id: \.id) { invite in

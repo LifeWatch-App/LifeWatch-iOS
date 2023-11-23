@@ -502,12 +502,9 @@ final class HistoryViewModel: ObservableObject {
     ///     - None
     /// - Returns: Updated `currentDay` and `currentWeek` .
     func fetchCurrentWeek() {
-        print("Fetch current week called")
         currentWeek = []
 
         let calendar = Calendar.current
-
-        print("CurrentDay", self.currentDay)
 
         let week = calendar.dateInterval(of: .weekOfMonth, for: self.currentDay)
 

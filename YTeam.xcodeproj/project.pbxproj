@@ -10,6 +10,7 @@
 		4C0F8A3E2AE784CD002E8578 /* SignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */; };
 		4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C21A3E32ADF7B930044E966 /* CaregiverView.swift */; };
 		4C21A3E62ADF7ECA0044E966 /* SeniorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */; };
+		4C2513D82B0DB53B0061B647 /* UserRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2513D72B0DB53B0061B647 /* UserRole.swift */; };
 		4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4730292AD8DC750025F089 /* AuthService.swift */; };
 		4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47302B2AD9760C0025F089 /* LoginViewModel.swift */; };
 		4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */; };
@@ -102,6 +103,9 @@
 		7DB4E0CC2AEA063100270F2C /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */; };
 		7DB4E0CF2AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
 		7DB4E0D02AEA080E00270F2C /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DB4E0CE2AEA080E00270F2C /* alert.mp3 */; };
+		8D0340132B0C55BD0016E27F /* ChatBubbleTopLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0340122B0C55BD0016E27F /* ChatBubbleTopLeft.swift */; };
+		8D0340162B0E054F0016E27F /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0340152B0E054F0016E27F /* PersistenceController.swift */; };
+		8D0340192B0E055C0016E27F /* AnalysisData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8D0340172B0E055C0016E27F /* AnalysisData.xcdatamodeld */; };
 		8D21B03A2AF7A4F200D23BF1 /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */; };
 		8D21B03C2AF7AD7500D23BF1 /* AddEditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03B2AF7AD7500D23BF1 /* AddEditRoutineView.swift */; };
 		8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */; };
@@ -197,6 +201,7 @@
 		4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButton.swift; sourceTree = "<group>"; };
 		4C21A3E32ADF7B930044E966 /* CaregiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverView.swift; sourceTree = "<group>"; };
 		4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorView.swift; sourceTree = "<group>"; };
+		4C2513D72B0DB53B0061B647 /* UserRole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRole.swift; sourceTree = "<group>"; };
 		4C4730292AD8DC750025F089 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		4C47302B2AD9760C0025F089 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -283,6 +288,9 @@
 		7DB2E5FE2AF32F2F00CAD5A6 /* HeartAnomaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartAnomaly.swift; sourceTree = "<group>"; };
 		7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
 		7DB4E0CE2AEA080E00270F2C /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
+		8D0340122B0C55BD0016E27F /* ChatBubbleTopLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleTopLeft.swift; sourceTree = "<group>"; };
+		8D0340152B0E054F0016E27F /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		8D0340182B0E055C0016E27F /* AnalysisData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AnalysisData.xcdatamodel; sourceTree = "<group>"; };
 		8D21B0392AF7A4F200D23BF1 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
 		8D21B03B2AF7AD7500D23BF1 /* AddEditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditRoutineView.swift; sourceTree = "<group>"; };
 		8D21B03D2AF7AD7E00D23BF1 /* AddSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSymptomView.swift; sourceTree = "<group>"; };
@@ -384,6 +392,7 @@
 				8D21B0452AF7ED0B00D23BF1 /* ChangeSeniorOverlay.swift */,
 				8D3F172D2B032AD00001537E /* InviteSheetView.swift */,
 				8D7465922B04736600A48F71 /* ChatBubble.swift */,
+				8D0340122B0C55BD0016E27F /* ChatBubbleTopLeft.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -506,6 +515,7 @@
 			isa = PBXGroup;
 			children = (
 				7D02E7922ADE888800923AFB /* Constants */,
+				8D0340142B0E05300016E27F /* CoreData */,
 				4CA232912ADD4517003874D2 /* Info.plist */,
 				7D32BD142B070E1E00A4B313 /* GoogleService-Info.plist */,
 				4C4730282AD8D2520025F089 /* Services */,
@@ -604,6 +614,7 @@
 		7D02E71F2AD8ECA300923AFB /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				4C2513D72B0DB53B0061B647 /* UserRole.swift */,
 				7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */,
 				7D02E7202AD8ECD500923AFB /* Screen.swift */,
 				7D9D41DB2AE7561600818908 /* InactivityType.swift */,
@@ -736,6 +747,15 @@
 				7DB4E0CE2AEA080E00270F2C /* alert.mp3 */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		8D0340142B0E05300016E27F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				8D0340152B0E054F0016E27F /* PersistenceController.swift */,
+				8D0340172B0E055C0016E27F /* AnalysisData.xcdatamodeld */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		8D33E90F2AF739DA00C9D3C1 /* History */ = {
@@ -927,6 +947,7 @@
 				4CA7922E2ADFB67B003B5EC9 /* SeniorDashboardView.swift in Sources */,
 				8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
+				4C2513D82B0DB53B0061B647 /* UserRole.swift in Sources */,
 				8DED83982AF53A5500AFB95B /* WalkieTalkieView.swift in Sources */,
 				7DB24EF82AE51E81009A4A6D /* SOSService.swift in Sources */,
 				7DB24EFA2AE51E9A009A4A6D /* Emergency.swift in Sources */,
@@ -961,6 +982,7 @@
 				8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */,
 				7DB24EF62AE51E79009A4A6D /* SOS.swift in Sources */,
 				93614CD92B030183003350F1 /* DashboardLocationService.swift in Sources */,
+				8D0340132B0C55BD0016E27F /* ChatBubbleTopLeft.swift in Sources */,
 				8D33E9232AF740A200C9D3C1 /* HistoryWeekPicker.swift in Sources */,
 				93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */,
 				4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */,
@@ -981,6 +1003,7 @@
 				4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */,
 				8DED839D2AF663C900AFB95B /* Routine.swift in Sources */,
 				4CF1BBE52AE75C1D000E1199 /* TimeOption.swift in Sources */,
+				8D0340192B0E055C0016E27F /* AnalysisData.xcdatamodeld in Sources */,
 				8D33E9252AF7A4C000C9D3C1 /* RoutineViewModel.swift in Sources */,
 				8D8FB6B62AEA03C90081CD50 /* HeartRateChart.swift in Sources */,
 				7D02E7252ADCC97200923AFB /* HistoryView.swift in Sources */,
@@ -999,6 +1022,7 @@
 				7D9D41D82AE62DB800818908 /* Idle.swift in Sources */,
 				9322F6102AEFA8A80013B0AB /* MKMapRep.swift in Sources */,
 				93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */,
+				8D0340162B0E054F0016E27F /* PersistenceController.swift in Sources */,
 				8D672F872AF517CF00C29E63 /* BatteryCircularProgressView.swift in Sources */,
 				7D0508F12AFC7A7800439E75 /* RoutineData.swift in Sources */,
 				8D21B03C2AF7AD7500D23BF1 /* AddEditRoutineView.swift in Sources */,
@@ -1188,7 +1212,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -1228,7 +1252,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -1270,7 +1294,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -1281,8 +1305,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1310,7 +1334,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = DQPBPU9766;
+				DEVELOPMENT_TEAM = 594Q84397D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -1321,8 +1345,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1433,6 +1457,19 @@
 			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		8D0340172B0E055C0016E27F /* AnalysisData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8D0340182B0E055C0016E27F /* AnalysisData.xcdatamodel */,
+			);
+			currentVersion = 8D0340182B0E055C0016E27F /* AnalysisData.xcdatamodel */;
+			path = AnalysisData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4CB0154E2AD4DBBC0023C71E /* Project object */;
 }
