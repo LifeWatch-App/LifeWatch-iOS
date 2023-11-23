@@ -78,7 +78,6 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     func fallDetectionManager(
         _ fallDetectionManager: CMFallDetectionManager,
         didDetect event: CMFallDetectionEvent) async {
-            print("Senior Fell")
             self.fall = true
             self.scheduleNotification()
     }
