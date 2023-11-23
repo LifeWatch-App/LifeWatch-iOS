@@ -86,6 +86,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                if !isDone {
                                    let content = UNMutableNotificationContent()
                                    content.threadIdentifier = routine.id
+                                   if #available(iOS 15.0, *) {
+                                        content.interruptionLevel = .timeSensitive
+                                    }
                                    
                                    if routine.type == "Medicine" {
                                        content.title = "Take \(routine.medicine) - \(routine.medicineAmount) \(routine.medicineUnit)"
