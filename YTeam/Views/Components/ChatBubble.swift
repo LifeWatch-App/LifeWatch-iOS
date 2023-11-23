@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct ChatBubble: Shape {
     let sender: SenderRole
     

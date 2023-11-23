@@ -12,6 +12,7 @@ class SOSService {
     static let shared: SOSService = SOSService()
     
     @Published var sos: [SOS] = []
+    @Published var sosToday: [SOS] = []
     private var sosListener: [ListenerRegistration] = []
 
     func deinitializerFunction() {
@@ -70,6 +71,34 @@ class SOSService {
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
             let sos = changes.compactMap({ try? $0.document.data(as: SOS.self) })
             self?.sos = sos
+        })
+    }
+    
+    func observeTodaySOS(userData: UserData?) {
+        let uid: String?
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: currentDate)
+        let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+        
+        if userData?.role == "caregiver" {
+            uid = UserDefaults.standard.string(forKey: "selectedSenior")
+        } else {
+            uid = Auth.auth().currentUser?.uid
+        }
+
+        guard let uid else { return }
+
+        let query = FirestoreConstants.sosCollection
+                                    .whereField("seniorId", isEqualTo: uid)
+                                    .whereField("time", isGreaterThanOrEqualTo: startOfDay.timeIntervalSince1970)
+                                    .whereField("time", isLessThanOrEqualTo: endOfDay.timeIntervalSince1970)
+                                    .order(by: "time", descending: true)
+    
+        sosListener.append(query.addSnapshotListener { [weak self] snapshot, _ in
+            guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
+            let sos = changes.compactMap({ try? $0.document.data(as: SOS.self) })
+            self?.sosToday = sos
         })
     }
 }

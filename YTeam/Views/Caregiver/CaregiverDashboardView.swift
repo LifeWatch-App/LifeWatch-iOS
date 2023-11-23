@@ -37,6 +37,8 @@ struct CaregiverDashboardView: View {
                                         .padding(.leading, 25)
                                 }
                             }
+                            
+                            AnalysisResult(caregiverDashboardViewModel: caregiverDashboardViewModel)
                         }
                     }
 
@@ -94,13 +96,13 @@ struct CaregiverDashboardView: View {
                                     Text("Add a senior")
                                 } else if caregiverDashboardViewModel.invites.contains(where: { $0.accepted == true }) {
                                     Text(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto")
+                                    
+                                    Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
+                                        .font(.subheadline)
+                                        .padding(.leading, -2)
                                 } else {
                                     Text("Add a senior")
                                 }
-
-                                Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
-                                    .font(.subheadline)
-                                    .padding(.leading, -2)
                             }
                             .font(.headline)
                         }
@@ -119,6 +121,9 @@ struct CaregiverDashboardView: View {
                     InviteSheetView(caregiverDashboardViewModel: caregiverDashboardViewModel)
                 }
                 .navigationTitle("Tracker")
+                .onChange(of: caregiverDashboardViewModel.falls) { oldValue, newValue in
+                    
+                }
             }
 
             ChangeSeniorOverlay(showInviteSheet: $showInviteSheet, showChangeSenior: $showChangeSenior)
@@ -146,7 +151,7 @@ struct SeniorStatus: View {
             }
 
             HStack(spacing: 12) {
-                Image(caregiverDashboardViewModel.latestSymptomInfo == nil ? "safe" : caregiverDashboardViewModel.latestSymptomInfo?.name ?? "Unknown")
+                Image(caregiverDashboardViewModel.falls.count > 0 || caregiverDashboardViewModel.sos.count > 0 ? "danger" : caregiverDashboardViewModel.latestSymptomInfo == nil ? "safe" : caregiverDashboardViewModel.latestSymptomInfo?.name ?? "Unknown")
                     .resizable()
                     .scaledToFit()
                     .cornerRadius(100)
@@ -154,17 +159,17 @@ struct SeniorStatus: View {
 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(caregiverDashboardViewModel.latestSymptomInfo == nil ? "Safe Condition" : "Symptoms Detected")
+                        Text(caregiverDashboardViewModel.falls.count > 0 ? "Fall Detection Triggered" : caregiverDashboardViewModel.sos.count > 0 ? "SOS Button Triggered" : caregiverDashboardViewModel.latestSymptomInfo == nil ? "Safe Condition" : "Symptoms Detected")
                             .font(.headline)
-                        Image(systemName: caregiverDashboardViewModel.latestSymptomInfo == nil ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
-                            .foregroundStyle(.white, Color(caregiverDashboardViewModel.latestSymptomInfo == nil ? "secondary-green" : "emergency-pink"))
+                            .foregroundStyle(caregiverDashboardViewModel.falls.count > 0 || caregiverDashboardViewModel.sos.count > 0 ? Color("emergency-pink") : Color(.label))
+                        Image(systemName: caregiverDashboardViewModel.latestSymptomInfo == nil && caregiverDashboardViewModel.falls.count == 0 && caregiverDashboardViewModel.sos.count == 0 ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
+                            .foregroundStyle(.white, Color(caregiverDashboardViewModel.latestSymptomInfo == nil && caregiverDashboardViewModel.falls.count == 0 && caregiverDashboardViewModel.sos.count == 0 ? "secondary-green" : "emergency-pink"))
                             .font(.subheadline)
                     }
 
-                    Text(caregiverDashboardViewModel.latestSymptomInfo == nil ? "No symptoms detected" : "\(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto") experienced \(caregiverDashboardViewModel.latestSymptomInfo?.name?.lowercased() ?? "none") lately")
+                    Text(caregiverDashboardViewModel.falls.count > 0 || caregiverDashboardViewModel.sos.count > 0 ? "Please contact your senior or find help immediately!" : caregiverDashboardViewModel.latestSymptomInfo == nil ? "No symptoms detected" : "\(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto") experienced \(caregiverDashboardViewModel.latestSymptomInfo?.name?.lowercased() ?? "none") lately")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
-                    //                    experienced \(caregiverDashboardViewModel.latestSymptomInfo?.name?.lowercased()) lately")
                 }
 
                 Spacer()
@@ -209,38 +214,6 @@ struct SeniorStatus: View {
                 .padding(12)
                 .background(colorScheme == .light ? .white : Color(.systemGray6))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-
-//                VStack(alignment: .leading) {
-//                    HStack {
-//                        VStack {
-//                            Image(systemName: "location.fill")
-//                                .foregroundStyle(.white)
-//                        }
-//                        .padding(8)
-//                        .background(.blue)
-//                        .clipShape(RoundedRectangle(cornerRadius: 4))
-//
-//                        Spacer()
-//                    }
-//
-//                    Text("Location")
-//                        .font(.subheadline)
-//
-//                    if (caregiverDashboardViewModel.latestLocationInfo != nil) {
-//                        Text("\(caregiverDashboardViewModel.latestLocationInfo?.isOutside ?? false ? "Outside" : "Home")")
-//                            .font(.title2)
-//                            .bold()
-//                            .padding(.bottom, 6)
-//                    } else {
-//                        Text("No Data")
-//                            .font(.title2)
-//                            .bold()
-//                            .padding(.bottom, 6)
-//                    }
-//                }
-//                .padding(12)
-//                .background(colorScheme == .light ? .white : Color(.systemGray6))
-//                .clipShape(RoundedRectangle(cornerRadius: 8))
 
                 VStack(alignment: .leading) {
                     HStack {
@@ -566,6 +539,53 @@ struct MapPreview: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .padding(.horizontal)
             }
+        }
+    }
+}
+
+struct AnalysisResult: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    @ObservedObject var caregiverDashboardViewModel: CaregiverDashboardViewModel
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("AI Analysis Result")
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+                
+                Spacer()
+            }
+            
+            HStack(alignment: .top) {
+                Image("Robot")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24)
+                
+                HStack {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(caregiverDashboardViewModel.analysis != "" && !caregiverDashboardViewModel.isLoadingAnalysis ? caregiverDashboardViewModel.analysis : caregiverDashboardViewModel.isLoadingAnalysis ? "Analyzing..." : "Hi, I'm an AI medical counselor here to assist you in assessing the health of your senior. Because of the missing data, I am unable to assess it at this time. In order for us to assist you with the analysis, kindly add a senior and ensure that they are wearing their watch.")
+                            .font(.callout)
+                        
+                        if !caregiverDashboardViewModel.isLoadingAnalysis {
+                            Text(caregiverDashboardViewModel.extractDate(date: caregiverDashboardViewModel.analysisDate, format: "dd MMM yyyy HH:mm:ss"))
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    
+                    Spacer()
+                }
+                .padding(12)
+                .background(colorScheme == .light ? .white : Color(.systemGray6))
+                .clipShape(ChatBubbleTopLeft())
+            }
+        }
+        .padding(.horizontal)
+        .onChange(of: caregiverDashboardViewModel.selectedInviteId) { oldValue, newValue in
+//            caregiverDashboardViewModel.checkAnalysis()
         }
     }
 }

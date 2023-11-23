@@ -30,20 +30,19 @@ struct RoutineView: View {
                                 } label: {
                                     VStack {
                                         ZStack {
-                                            RoutineCircularProgressView(progress: routineViewModel.progressCount[i], disabled: routineViewModel.currentWeek[i] > lastDate)
+                                            RoutineCircularProgressView(progress: routineViewModel.progressCount[i])
                                                 .frame(width: 40)
                                             
                                             Text("\(routineViewModel.extractDate(date: routineViewModel.currentWeek[i], format: "d"))")
                                                 .fontWeight(.semibold)
-                                                .foregroundStyle(routineViewModel.isToday(date: routineViewModel.currentWeek[i]) ? .accent : routineViewModel.currentWeek[i] > lastDate ? .secondary : Color(.label))
+                                                .foregroundStyle(routineViewModel.isToday(date: routineViewModel.currentWeek[i]) ? .accent : Color(.label))
                                         }
                                         
                                         Text("\(routineViewModel.extractDate(date: routineViewModel.currentWeek[i], format: "E"))")
                                             .font(.subheadline)
-                                            .foregroundStyle(routineViewModel.isToday(date: routineViewModel.currentWeek[i]) ? .accent : routineViewModel.currentWeek[i] > lastDate ? .secondary : Color(.label))
+                                            .foregroundStyle(routineViewModel.isToday(date: routineViewModel.currentWeek[i]) ? .accent : Color(.label))
                                     }
                                 }
-                                .disabled(routineViewModel.currentWeek[i] > lastDate)
                             }
                         }
                         .frame(height: 70)
@@ -73,7 +72,7 @@ struct RoutineView: View {
                                             .frame(width: 28)
                                             .foregroundStyle(.white, .accent)
                                         
-                                        if routine != routineViewModel.routines.last {
+                                        if routine != routineViewModel.dailyRoutines.last {
                                             RoundedRectangle(cornerRadius: 100)
                                                 .fill(.secondary.opacity(0.5))
                                                 .frame(width: 2)
@@ -153,7 +152,7 @@ struct RoutineView: View {
                                             .frame(width: 28)
                                             .foregroundStyle(.white, .accent)
                                         
-                                        if routine != routineViewModel.routines.last {
+                                        if routine != routineViewModel.dailyRoutines.last {
                                             RoundedRectangle(cornerRadius: 100)
                                                 .fill(.secondary.opacity(0.5))
                                                 .frame(width: 2)
@@ -235,7 +234,7 @@ struct RoutineView: View {
                             routineViewModel.isToday(date: Date()) ?
                             Label("Routines Not Set", systemImage: "pills.fill") : Label("The Day Has Passed", systemImage: "calendar.circle")
                         } description: {
-                            Text(routineViewModel.isToday(date: Date()) ? "Add a daily medicine or activity schedule by clicking the plus button." : "Routines for this day were not set.")
+                            Text(routineViewModel.isToday(date: Date()) || routineViewModel.currentDay > Date() ? "Add a daily medicine or activity schedule by clicking the plus button." : "Routines for this day were not set.")
                         }
                         .padding(.top, 64)
                     }
@@ -257,9 +256,9 @@ struct RoutineView: View {
                         Image(systemName: "plus")
                             .font(.title3)
                             .bold()
-                            .foregroundStyle(routineViewModel.isToday(date: Date()) ? .accent : .secondary)
+                            .foregroundStyle(routineViewModel.currentDay < Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date() ? .gray : .accent)
                     }
-                    .disabled(!routineViewModel.isToday(date: Date()))
+                    .disabled(routineViewModel.currentDay < Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date())
                 }
             }
             .navigationTitle("Routines")
@@ -294,17 +293,10 @@ struct RoutineWeekPicker: View {
             } label: {
                 Image(systemName: "arrow.right.circle.fill")
                     .font(.title)
-                    .foregroundStyle(.white, !routineViewModel.isToday(date: Date()) ? .accent : .gray)
+                    .foregroundStyle(.white, .accent)
             }
-            .disabled(routineViewModel.currentWeek.contains(Date()))
         }
         .padding(.vertical, 8)
-        .onChange(of: routineViewModel.currentWeek) { oldValue, newValue in
-            if routineViewModel.currentDay > Date() {
-                routineViewModel.currentDay = Date()
-                routineViewModel.fetchCurrentWeek()
-            }
-        }
     }
 }
 
