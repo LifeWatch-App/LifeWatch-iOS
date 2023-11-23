@@ -74,7 +74,7 @@ struct SeniorDashboardView: View {
             }
             .navigationTitle("Dashboard")
             .fullScreenCover(isPresented: $emailModal) {
-                OnBoardingEmailView()
+                OnBoardingEmailView(seniorDashboardViewModel: seniorDashboardViewModel)
             }
             .onAppear {
                 seniorDashboardViewModel.checkAllDone()

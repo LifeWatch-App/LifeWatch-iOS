@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 
 struct OnBoardingEmailView: View {
     @Environment(\.dismiss) var dismiss
-    
+    @ObservedObject var seniorDashboardViewModel: SeniorDashboardViewModel
     @AppStorage("emailModal") var emailModal = true
     
     var body: some View {
@@ -38,7 +38,7 @@ struct OnBoardingEmailView: View {
                     .font(.title3)
                     .multilineTextAlignment(.center)
                 
-                Text("senior@gmail.com")
+                Text(seniorDashboardViewModel.user?.email ?? "Email not found")
                     .font(.title)
                     .bold()
                     .foregroundStyle(Color(.label))
@@ -71,6 +71,6 @@ struct OnBoardingEmailView: View {
 }
 
 #Preview {
-    OnBoardingEmailView()
+    OnBoardingEmailView(seniorDashboardViewModel: SeniorDashboardViewModel())
 //        .preferredColorScheme(.dark)
 }
