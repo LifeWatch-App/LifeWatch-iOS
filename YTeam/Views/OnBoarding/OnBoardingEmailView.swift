@@ -39,6 +39,7 @@ struct OnBoardingEmailView: View {
                     .multilineTextAlignment(.center)
                 
                 Text(seniorDashboardViewModel.user?.email ?? "Email not found")
+                    .textSelection(.enabled)
                     .font(.title)
                     .bold()
                     .foregroundStyle(Color(.label))
