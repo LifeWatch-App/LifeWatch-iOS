@@ -19,4 +19,5 @@ struct RoutineData: Codable, Hashable {
     var medicineAmount: String = ""
     var medicineUnit: String = ""
     var isDone: [Bool] = []
+    var uuid: [UUID] = []
 }
