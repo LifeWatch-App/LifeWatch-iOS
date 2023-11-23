@@ -24,7 +24,7 @@ struct TestChargingView: View {
     var body: some View {
         VStack {
             Text("\(vm.batteryLevel?.description ?? "Not able to fetch") %")
-            Text(vm.batteryCharging.description)
+            Text(vm.batteryCharging?.description ?? "NONE")
         }
         .onAppear {
             mainViewModel.getUserData()
