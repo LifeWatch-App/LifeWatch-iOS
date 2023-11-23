@@ -180,6 +180,9 @@ struct UpcomingActivity: View {
                             
                             Spacer()
                         }
+                        .padding()
+                        .background(colorScheme == .light ? .white : Color(.systemGray6))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                     } else {
                         ForEach(seniorDashboardViewModel.routines.prefix(3)) { routine in
                             ForEach(routine.time.indices, id: \.self) { i in
@@ -237,6 +240,9 @@ struct UpcomingActivity: View {
                         
                         Spacer()
                     }
+                    .padding()
+                    .background(colorScheme == .light ? .white : Color(.systemGray6))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
             }
         }
