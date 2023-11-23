@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
-    @ObservedObject private var fallDetector: FallDetectionManager = FallDetectionManager()
-    @ObservedObject private var motionDetector: CoreMotionManager = CoreMotionManager()
+    //@ObservedObject private var fallDetector: FallDetectionManager = FallDetectionManager()
+    //@ObservedObject private var motionDetector: CoreMotionManager = CoreMotionManager()
     @StateObject private var authVM = TestAuthViewModel()
     //@ObservedObject private var heartManager: HeartManager = HeartManager()
     
@@ -25,25 +25,25 @@ struct MainView: View {
             //                .environmentObject(authVM)
             //            TestChargingView()
                 .environmentObject(authVM)
-                //.environmentObject(heartManager)
-                .sheet(isPresented: $motionDetector.fall) {
-                    FallNotificationView()
-                        .environmentObject(fallDetector)
-                        .environmentObject(motionDetector)
-                        .toolbar(.hidden, for: .navigationBar)
-                }
-                .sheet(isPresented: $fallDetector.fall) {
-                    FallNotificationView()
-                        .environmentObject(fallDetector)
-                        .environmentObject(motionDetector)
-                        .toolbar(.hidden, for: .navigationBar)
-                }
-                .sheet(isPresented: $fallDetector.notificationSent) {
-                    FallNotificationSentView()
-                        .environmentObject(fallDetector)
-                        .environmentObject(motionDetector)
-                        .toolbar(.hidden, for: .navigationBar)
-                }
+            //.environmentObject(heartManager)
+            //                .sheet(isPresented: $motionDetector.fall) {
+            //                    FallNotificationView()
+            //                        .environmentObject(fallDetector)
+            //                        .environmentObject(motionDetector)
+            //                        .toolbar(.hidden, for: .navigationBar)
+            //                }
+            //                .sheet(isPresented: $fallDetector.fall) {
+            //                    FallNotificationView()
+            //                        .environmentObject(fallDetector)
+            //                        .environmentObject(motionDetector)
+            //                        .toolbar(.hidden, for: .navigationBar)
+            //                }
+            //                .sheet(isPresented: $fallDetector.notificationSent) {
+            //                    FallNotificationSentView()
+            //                        .environmentObject(fallDetector)
+            //                        .environmentObject(motionDetector)
+            //                        .toolbar(.hidden, for: .navigationBar)
+            //                }
             
         } else if authVM.userAuth?.userID == nil {
             Text("Not authenticated and logged in")

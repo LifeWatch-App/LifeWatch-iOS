@@ -51,9 +51,14 @@ final class BatteryChargingService {
     
     func updateBatteryLevel(batteryLevel: BatteryLevel) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        guard let encodedData = try? Firestore.Encoder().encode(batteryLevel) else { return }
+//        guard let encodedData = try? Firestore.Encoder().encode(batteryLevel) else { return }
         let documents = try await FirestoreConstants.batteryLevelCollection.whereField("seniorId", isEqualTo: uid).getDocuments().documents.first
-        try await documents?.reference.updateData(encodedData)
+        guard let batteryState = batteryLevel.iphoneBatteryState, let iphonebatteryLevel = batteryLevel.iphoneBatteryLevel, let lastUpdated = batteryLevel.iphoneLastUpdatedAt else { return }
+        try await documents?.reference.updateData([
+            "iphoneBatteryState": batteryState,
+            "iphoneBatteryLevel": iphonebatteryLevel,
+            "iphoneLastUpdatedAt": lastUpdated,
+        ])
     }
     
     func createChargingRecord(chargingRange: ChargingRange) async throws {
