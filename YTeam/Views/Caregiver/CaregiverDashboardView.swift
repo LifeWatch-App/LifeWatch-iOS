@@ -241,40 +241,42 @@ struct SeniorStatus: View {
 
                         } else {
                             if (caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" }) != nil) {
+                                VStack(alignment: .leading) {
+                                    Text("Inactive for")
+                                        .font(.subheadline)
 
-                                Text("Inactive for")
-                                    .font(.subheadline)
+                                    HStack {
+                                        Text(Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeString)
+                                            .font(.title2)
+                                            .bold()
 
-                                HStack {
-                                    Text(Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeString)
-                                        .font(.title2)
-                                        .bold()
-
-                                    if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 60 {
-                                        Text("min")
-                                            .foregroundStyle(.secondary)
-                                            .font(.subheadline)
-                                            .padding(.leading, -4)
-                                    } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 3600 {
-                                        Text("hours")
-                                            .foregroundStyle(.secondary)
-                                            .font(.subheadline)
-                                            .padding(.leading, -4)
-                                    } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) >= 86400 {
-                                        Text("days")
-                                            .foregroundStyle(.secondary)
-                                            .font(.subheadline)
-                                            .padding(.leading, -4)
+                                        if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 60 {
+                                            Text("min")
+                                                .foregroundStyle(.secondary)
+                                                .font(.subheadline)
+                                                .padding(.leading, -4)
+                                        } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 3600 {
+                                            Text("hours")
+                                                .foregroundStyle(.secondary)
+                                                .font(.subheadline)
+                                                .padding(.leading, -4)
+                                        } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) >= 86400 {
+                                            Text("days")
+                                                .foregroundStyle(.secondary)
+                                                .font(.subheadline)
+                                                .padding(.leading, -4)
+                                        }
                                     }
                                 }
                             } else {
-                                Text("Currently")
-                                    .font(.subheadline)
+                                VStack(alignment: .leading) {
+                                    Text("Currently")
+                                        .font(.subheadline)
 
-                                Text("Active")
-                                    .font(.title2)
-                                    .bold()
-                                    .padding(.bottom, 6)
+                                    Text("Active")
+                                        .font(.title2)
+                                        .bold()
+                                }
                             }
                         }
 
