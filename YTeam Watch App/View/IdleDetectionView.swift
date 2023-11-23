@@ -9,6 +9,7 @@ import SwiftUI
 
 struct IdleDetectionView: View {
     @StateObject var idleViewModel: IdleDetectionViewModel = IdleDetectionViewModel()
+    @StateObject private var locationVM = LocationViewModel()
 
     var body: some View {
         VStack {

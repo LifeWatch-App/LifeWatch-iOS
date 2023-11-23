@@ -18,7 +18,8 @@ struct ChargingRange: Hashable, Codable {
     func getValidChargingRange(startCharging: String, endCharging: String) -> Bool {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
-        
+        dateFormatter.timeZone = TimeZone.current
+
         guard let startChargingDate = dateFormatter.date(from: startCharging) else {
             print("Fail converting to date from string")
             return false

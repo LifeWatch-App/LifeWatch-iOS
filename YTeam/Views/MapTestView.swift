@@ -60,44 +60,57 @@ struct MapTestView: View {
                         HStack {
                             ForEach(mapVM.allLocations, id: \.self) { location in
                                 VStack {
-                                    HStack(spacing: 20) {
+                                    HStack(spacing: 50) {
                                         VStack(alignment: .leading, spacing: 8) {
                                             if location.locationName != "Unknown Address" && !(location.addressArray?.isEmpty ?? true) {
                                                 Text(location.addressArray?[0] ?? "None")
-                                                    .font(.title3)
+                                                    .font(.title2)
                                                     .fontWeight(.semibold)
-                                                    .lineLimit(1)
+//                                                    .lineLimit(1)
 
                                                 Text(location.addressArray?[1].trimmingCharacters(in: .whitespaces) ?? "None")
-                                                    .font(.body)
-                                                    .lineLimit(1)
+                                                    .font(.title3)
+//                                                    .lineLimit(1)
                                             } else {
                                                 Text("Address Not Found")
                                                     .font(.title3)
                                                     .fontWeight(.semibold)
-                                                    .lineLimit(1)
+//                                                    .lineLimit(1)
                                             }
                                         }
 
+//                                        Spacer()
                                         Divider()
                                             .padding(.horizontal, 1)
                                             .background(.gray.opacity(0.2))
 
-                                        HStack(spacing: 4) {
-                                            Image(systemName: "clock")
-                                                .font(.headline)
-                                                .foregroundStyle(.secondary)
-
-                                            if let createdAtTime = location.createdAt {
-                                                Text("\(Date.unixToTime(unix: createdAtTime))")
+//                                        Spacer()
+                                        VStack(spacing: 10) {
+                                            if (location.latitude == mapVM.lastSeenLocation?.latitude ?? 0 && location.longitude == mapVM.lastSeenLocation?.longitude ?? 0) {
+                                                Text("Last Seen Location")
                                                     .font(.headline)
+                                            }
+                                            HStack(spacing: 4) {
+                                                Image(systemName: "clock")
+                                                    .font(.title3)
                                                     .foregroundStyle(.secondary)
+
+                                                if let createdAtTime = location.createdAt {
+                                                    Text("\(Date.unixToTime(unix: createdAtTime))")
+                                                        .font(.title3)
+                                                        .foregroundStyle(.secondary)
+                                                }
                                             }
                                         }
+//                                        Spacer()
                                     }
+
                                 }
-                                .frame(maxHeight: 70)
-                                .padding(20)
+                                .frame(maxHeight: 90)
+                                .frame(width: UIScreen.main.bounds.width * 0.85)
+//                                .frame(maxHeight: 70)
+                                .padding(.vertical, 20)
+                                .padding(.horizontal, 30)
                                 .background(
                                     CardShape()
                                         .fill(colorScheme == .light ? Color.white : Color(.systemGray6))

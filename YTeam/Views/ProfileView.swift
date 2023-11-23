@@ -104,10 +104,16 @@ struct ProfileView: View {
 //                        .padding(.vertical, 1)
 //                    }
                     
-                    Section(header: Text("Care Team")) {
+                    //FILTER IF USER IS CAREGIVER, SHOW ALL SENIORS HE IS OBSERVING
+                    //FILTER IF USER IS SENIOR, SHOW ALL CAREGIVERS OBSERVING SENIOR
+                    Section(header: Text(profileViewModel.userData?.role == "caregiver" ? "Seniors" : "Care Team")) {
                         ForEach(profileViewModel.invites, id: \.id) { invite in
                             HStack {
-                                Text(invite.caregiverData!.name ?? "Subroto")
+                                if profileViewModel.userData?.role == "senior" {
+                                    Text(invite.caregiverData!.name ?? "Subroto")
+                                } else {
+                                    Text(invite.seniorData!.name ?? "Subroto")
+                                }
                                 Spacer()
                                 if invite.accepted! {
                                     Button {

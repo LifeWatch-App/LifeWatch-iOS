@@ -141,7 +141,7 @@ final class BatteryLevelStateViewModel: ObservableObject {
                 }
             })
         
-        chargingStateSubscription = Timer.publish(every: 5, on: .main, in: .common)
+        chargingStateSubscription = Timer.publish(every: 3, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
                 guard let self = self else { return }

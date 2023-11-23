@@ -12,15 +12,16 @@ struct MainView: View {
     //@ObservedObject private var motionDetector: CoreMotionManager = CoreMotionManager()
     @StateObject private var authVM = TestAuthViewModel()
     //@ObservedObject private var heartManager: HeartManager = HeartManager()
-    
+
     //    private var fallDetected: Bool {
     //        return fallDetector.fall || motionDetector.fall
     //    }
-    
+
     var body: some View {
         if authVM.userAuth?.userID != nil {
             CombinedView()
-            //            IdleDetectionView()
+            //            TestChargingView()
+            //                        IdleDetectionView()
             //            Text("Logged in")
             //                .environmentObject(authVM)
             //            TestChargingView()
@@ -44,7 +45,7 @@ struct MainView: View {
             //                        .environmentObject(motionDetector)
             //                        .toolbar(.hidden, for: .navigationBar)
             //                }
-            
+
         } else if authVM.userAuth?.userID == nil {
             Text("Not authenticated and logged in")
         }

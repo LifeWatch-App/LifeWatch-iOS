@@ -13,6 +13,8 @@ import AVFoundation
 import FirebaseStorage
 import CoreData
 
+
+@MainActor
 class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published var invites: [Invite] = []
     @Published var user: User?
@@ -385,7 +387,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     func extractDate(date: Date, format: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
-        
+
         return formatter.string(from: date)
     }
 }

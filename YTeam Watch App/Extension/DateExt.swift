@@ -11,7 +11,7 @@ extension Date {
     func formatDateToCustomString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC") // Assuming you want a UTC timestamp
+        dateFormatter.timeZone = TimeZone.current// Assuming you want a UTC timestamp
         return dateFormatter.string(from: self)
     }
 
@@ -65,7 +65,7 @@ extension Date {
         let date = Date(timeIntervalSince1970: unix)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
-        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        dateFormatter.timeZone = TimeZone.current
         return dateFormatter.string(from: date)
     }
 

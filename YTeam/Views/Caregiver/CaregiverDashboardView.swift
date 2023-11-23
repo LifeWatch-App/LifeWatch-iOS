@@ -587,7 +587,7 @@ struct AnalysisResult: View {
         }
         .padding(.horizontal)
         .onChange(of: caregiverDashboardViewModel.selectedInviteId) { oldValue, newValue in
-//            caregiverDashboardViewModel.checkAnalysis()
+            caregiverDashboardViewModel.checkAnalysis()
         }
     }
 }
