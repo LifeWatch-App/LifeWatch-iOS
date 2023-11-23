@@ -85,6 +85,7 @@ struct SOSView: View {
                 Spacer()
                 
                 Button {
+                    sosManager.disableShowSOS()
                     audioPlayerManager.stopAlert()
                     dismiss()
                 } label: {
