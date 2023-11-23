@@ -69,10 +69,12 @@ class AddEditRoutineViewModel: ObservableObject {
         }
         
         var unixArray: [Double] = []
+        var uuidArray: [UUID] = []
         var unitMedicine: String
         var isDoneIndex: Int = 0
         var isDoneArray: [Bool] = []
         var timeIndex: Int = 0
+        var uuidIndex: Int = 0
         
         while (timeIndex < self.timeAmount){
             unixArray.append(self.times[timeIndex].timeIntervalSince1970)
@@ -99,22 +101,25 @@ class AddEditRoutineViewModel: ObservableObject {
             isDoneIndex += 1
         }
         
-        
+        while (uuidIndex < self.timeAmount) {
+            uuidArray.append(UUID())
+            uuidIndex += 1
+        }
         
         if (editOrAdd == "add") {
-            self.routine = RoutineData(id: UUID().uuidString, seniorId: seniorId ?? "", type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
+            self.routine = RoutineData(id: UUID().uuidString, seniorId: seniorId ?? "", type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray, uuid: uuidArray)
             
             Task {await self.sendRoutine()}
         }
         
         if (editOrAdd == "edit") {
-            self.routine = RoutineData(id: routineId, seniorId: seniorId ?? "", type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
+            self.routine = RoutineData(id: routineId, seniorId: seniorId ?? "", type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray, uuid: uuidArray)
             
             Task {await self.updateRoutine()}
         }
         
         if (editOrAdd == "delete") {
-            self.routine = RoutineData(id: routineId, seniorId: seniorId ?? "", type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray)
+            self.routine = RoutineData(id: routineId, seniorId: seniorId ?? "", type: self.type, time: unixArray, activity: self.activity, description: self.description, medicine: self.medicine, medicineAmount: self.medicineAmount, medicineUnit: unitMedicine, isDone: isDoneArray, uuid: uuidArray)
             
             Task {await self.deleteRoutine()}
         }
@@ -133,7 +138,7 @@ class AddEditRoutineViewModel: ObservableObject {
     }
 }
 
-enum MedicineUnit: String, CaseIterable, Identifiable {
+enum MedicineUnit: String, CaseIterable, Identifiable, Codable {
     var id: Self { self }
     case Tablet, Pill, Gram, Litre, Mililitre, CC
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Routine: Identifiable, Equatable {
+struct Routine: Identifiable, Equatable, Codable {
     var id: String = ""
     var type: String  = ""
     var seniorId: String?

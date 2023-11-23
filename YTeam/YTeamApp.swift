@@ -56,6 +56,82 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         Messaging.messaging().apnsToken = deviceToken
         print("APNS Token: ", deviceToken.map { String(format: "%02.2hhx", $0) }.joined())
     }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        guard let routineData = userInfo["routine"] as? [String: Any] else { return }
+        guard let isDelete = userInfo["isDelete"] as? Bool else { return }
+        print("isDelete", isDelete)
+        
+        completionHandler(.newData)
+        let dict: [AnyHashable: Any] = routineData
+               do {
+                   let jsonData = try JSONSerialization.data(withJSONObject: dict)
+                   let routine = try JSONDecoder().decode(RoutineData.self, from: jsonData)
+                   var uuidsToBeDeleted = [String]()
+                   
+                   let notificationCenter = UNUserNotificationCenter.current()
+                   notificationCenter.getPendingNotificationRequests { unnNotificationRequests in
+                       var identifiers = [String]()
+                       
+                       for (_, unNotificationRequest) in unnNotificationRequests.enumerated() {
+                           if unNotificationRequest.content.threadIdentifier == routine.id {
+                               identifiers.append(unNotificationRequest.identifier)
+                           }
+                           
+                           notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
+                       }
+                       
+                       if !isDelete {
+                           for (index, isDone) in routine.isDone.enumerated() {
+                               if !isDone {
+                                   let content = UNMutableNotificationContent()
+                                   content.threadIdentifier = routine.id
+                                   if #available(iOS 15.0, *) {
+                                        content.interruptionLevel = .timeSensitive
+                                    }
+                                   
+                                   if routine.type == "Medicine" {
+                                       content.title = "Take \(routine.medicine) - \(routine.medicineAmount) \(routine.medicineUnit)"
+                                       content.body = "Don't forget to take your medicine."
+                                   } else {
+                                       content.title = "Time to \(routine.activity)"
+                                       content.body = routine.description == "" ? "Don't forget to do your routine." : routine.description
+                                   }
+                                   
+                                   let date = Date(timeIntervalSince1970: routine.time[index])
+
+                                   // Configure the recurring date.
+                                   var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+                                   dateComponents.timeZone = nil
+
+                                   // Create the trigger as a repeating event.
+                                   let trigger = UNCalendarNotificationTrigger(
+                                            dateMatching: dateComponents, repeats: true)
+
+                                   // Create the request
+                                   let uuidString = routine.uuid[index].uuidString
+                                   let request = UNNotificationRequest(identifier: uuidString,
+                                               content: content, trigger: trigger)
+
+
+                                   // Schedule the request with the system.
+                                   let notificationCenter = UNUserNotificationCenter.current()
+                                   notificationCenter.add(request) { (error) in
+                                      if error != nil {
+                                         // Handle any errors.
+                                      } else {
+                                          print("Notfication successfuly scheduled:", dateComponents)
+                                      }
+                                   }
+                               }
+                           }
+                       }
+                   }
+               }
+               catch {
+                   print(error)
+               }
+    }
 }
 
 @main
