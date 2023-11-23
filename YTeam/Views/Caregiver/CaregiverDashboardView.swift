@@ -12,7 +12,7 @@ struct CaregiverDashboardView: View {
     
     @AppStorage("inviteModal") var inviteModal = true
     
-    @StateObject var caregiverDashboardViewModel = CaregiverDashboardViewModel()
+    @EnvironmentObject var caregiverDashboardViewModel: CaregiverDashboardViewModel
     @State var showChangeSenior = false
     @State var showInviteSheet = false
 
@@ -110,7 +110,7 @@ struct CaregiverDashboardView: View {
 
                     ToolbarItem(placement: .topBarTrailing) {
                         NavigationLink {
-                            ProfileView(caregiverDashboardViewModel: caregiverDashboardViewModel)
+                            ProfileView() .environmentObject(caregiverDashboardViewModel)
                         } label: {
                             Image(systemName: "person.crop.circle")
                                 .font(.title)
@@ -587,7 +587,7 @@ struct AnalysisResult: View {
         }
         .padding(.horizontal)
         .onChange(of: caregiverDashboardViewModel.selectedInviteId) { oldValue, newValue in
-            caregiverDashboardViewModel.checkAnalysis()
+//            caregiverDashboardViewModel.checkAnalysis()
         }
     }
 }

@@ -11,12 +11,14 @@ import AVFAudio
 struct MainView: View {
     @StateObject var mainViewModel = MainViewModel()
     @StateObject var batteryLevelViewModel = BatteryLevelStateViewModel()
+    @StateObject var caregiverDashboardViewModel = CaregiverDashboardViewModel()
 
     var body: some View {
         if (mainViewModel.userData?.role != nil) {
             if mainViewModel.userData?.role == "senior" {
                 SeniorView(mainViewModel: mainViewModel)
                     .environmentObject(batteryLevelViewModel)
+                    .environmentObject(caregiverDashboardViewModel)
                     .task {
                         PTT.shared.requestJoinChannel()
                         mainViewModel.addInvitesListener() 
@@ -24,7 +26,8 @@ struct MainView: View {
                     }
             } else {
                 CaregiverView(mainViewModel: mainViewModel)
-                    .environmentObject(batteryLevelViewModel)   
+                    .environmentObject(batteryLevelViewModel)  
+                    .environmentObject(caregiverDashboardViewModel)
                     .task {
                         PTT.shared.requestJoinChannel()
                         mainViewModel.addInvitesListener()
