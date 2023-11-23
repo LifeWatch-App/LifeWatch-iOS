@@ -11,6 +11,8 @@ struct AddEditRoutineView: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject var addEditRoutineViewModel = AddEditRoutineViewModel()
+    
+    let currentDay: Date
     let routine: Routine?
     
     var body: some View {
@@ -141,6 +143,10 @@ struct AddEditRoutineView: View {
                 }
             }
             .onAppear {
+                for (index, _) in addEditRoutineViewModel.times.enumerated() {
+                    addEditRoutineViewModel.times[index] = currentDay
+                }
+                
                 if let routine = routine {
                     addEditRoutineViewModel.type = routine.type
                     addEditRoutineViewModel.timeAmount = routine.time.count
@@ -161,5 +167,5 @@ struct AddEditRoutineView: View {
 }
 
 #Preview {
-    AddEditRoutineView(routine: nil)
+    AddEditRoutineView(currentDay: Date(), routine: nil)
 }
