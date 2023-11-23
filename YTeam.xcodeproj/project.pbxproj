@@ -10,6 +10,7 @@
 		4C0F8A3E2AE784CD002E8578 /* SignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */; };
 		4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C21A3E32ADF7B930044E966 /* CaregiverView.swift */; };
 		4C21A3E62ADF7ECA0044E966 /* SeniorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */; };
+		4C2513D82B0DB53B0061B647 /* UserRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2513D72B0DB53B0061B647 /* UserRole.swift */; };
 		4C47302A2AD8DC750025F089 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4730292AD8DC750025F089 /* AuthService.swift */; };
 		4C47302C2AD9760C0025F089 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47302B2AD9760C0025F089 /* LoginViewModel.swift */; };
 		4C47302F2AD9761E0025F089 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */; };
@@ -200,6 +201,7 @@
 		4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButton.swift; sourceTree = "<group>"; };
 		4C21A3E32ADF7B930044E966 /* CaregiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverView.swift; sourceTree = "<group>"; };
 		4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorView.swift; sourceTree = "<group>"; };
+		4C2513D72B0DB53B0061B647 /* UserRole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRole.swift; sourceTree = "<group>"; };
 		4C4730292AD8DC750025F089 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		4C47302B2AD9760C0025F089 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4C47302E2AD9761E0025F089 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -612,6 +614,7 @@
 		7D02E71F2AD8ECA300923AFB /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				4C2513D72B0DB53B0061B647 /* UserRole.swift */,
 				7DB4E0CA2AEA004E00270F2C /* AudioPlayerManager.swift */,
 				7D02E7202AD8ECD500923AFB /* Screen.swift */,
 				7D9D41DB2AE7561600818908 /* InactivityType.swift */,
@@ -658,6 +661,7 @@
 				7D02E7552ADD023E00923AFB /* CalendarExt.swift */,
 				7D02E7562ADD023E00923AFB /* DateExt.swift */,
 				9322F6172AF1F2C60013B0AB /* CLPlacemarkExt.swift */,
+				7DB2E5FE2AF32F2F00CAD5A6 /* HeartAnomaly.swift */,
 				93D4FA602AF78F0F000850CE /* ColorExt.swift */,
 			);
 			path = Extension;
@@ -706,7 +710,6 @@
 				7D02E7612ADD023E00923AFB /* UserProfile.swift */,
 				8D7D73052ADE247D00251550 /* Inactivity.swift */,
 				931293622AEA08820052F4AF /* LocationRecord.swift */,
-				7DB2E5FE2AF32F2F00CAD5A6 /* HeartAnomaly.swift */,
 				7D2151B42AF8EDE3001BB9BC /* Heartbeat.swift */,
 				7D0508E62AF9F6C800439E75 /* SOS.swift */,
 			);
@@ -944,6 +947,7 @@
 				4CA7922E2ADFB67B003B5EC9 /* SeniorDashboardView.swift in Sources */,
 				8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
+				4C2513D82B0DB53B0061B647 /* UserRole.swift in Sources */,
 				8DED83982AF53A5500AFB95B /* WalkieTalkieView.swift in Sources */,
 				7DB24EF82AE51E81009A4A6D /* SOSService.swift in Sources */,
 				7DB24EFA2AE51E9A009A4A6D /* Emergency.swift in Sources */,
@@ -1301,8 +1305,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1341,8 +1345,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

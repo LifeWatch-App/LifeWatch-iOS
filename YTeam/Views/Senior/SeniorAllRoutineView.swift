@@ -11,6 +11,7 @@ struct SeniorAllRoutineView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @ObservedObject var seniorDashboardViewModel: SeniorDashboardViewModel
+    @StateObject var routineViewModel: RoutineViewModel = RoutineViewModel()
     
     var body: some View {
         if seniorDashboardViewModel.routines.count > 0 {
@@ -43,12 +44,15 @@ struct SeniorAllRoutineView: View {
                                 }
                                 
                                 Spacer()
-                                
-                                Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 40)
-                                    .foregroundStyle(.accent)
+                                Button {
+                                    routineViewModel.updateRoutineCheck(routine: routine, index: i)
+                                } label: {
+                                    Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 40)
+                                        .foregroundStyle(.accent)
+                                }
                             }
                             .padding()
                             .background(colorScheme == .light ? .white : Color(.systemGray6))

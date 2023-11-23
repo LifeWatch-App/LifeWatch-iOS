@@ -87,7 +87,15 @@ struct RoutineView: View {
                                                 .font(.title3)
                                                 .fontWeight(.semibold)
                                             
-                                            Text(routine.type == "Medicine" ? "\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")" : "\(routine.description ?? "")")
+                                            if routine.type == "Medicine" {
+                                                if (routine.medicineAmount != "") {
+                                                    Text("\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")")
+                                                }
+                                            } else {
+                                                if (routine.description != "") {
+                                                    Text(routine.description ?? "")
+                                                }
+                                            }
                                             
                                             HStack {
                                                 Image(systemName: "clock")
@@ -108,17 +116,26 @@ struct RoutineView: View {
                                             
                                             Spacer()
                                             
-                                            Button {
-                                                // change done status here - single
-                                                routineViewModel.updateSingleRoutineCheck(routine: routine)
-                                            } label: {
-                                                Image(systemName: routine.isDone[0] ? "checkmark.circle.fill" : "circle")
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: 45)
-                                                    .foregroundStyle(.accent)
-                                                    .padding(.leading, 2)
-                                            }
+                                            if (routineViewModel.userRole == .senior) {
+                                                Button {
+                                                    // change done status here - single
+                                                    routineViewModel.updateSingleRoutineCheck(routine: routine)
+                                                    //                                                routineViewModel.countProgress()
+                                                } label: {
+                                                    Image(systemName: routine.isDone[0] ? "checkmark.circle.fill" : "circle")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 45)
+                                                        .foregroundStyle(.accent)
+                                                        .padding(.leading, 2)
+                                                } } else {
+                                                    Image(systemName: routine.isDone[0] ? "checkmark.circle.fill" : "circle")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 45)
+                                                        .foregroundStyle(.accent)
+                                                        .padding(.leading, 2)
+                                                }
                                         }
                                     }
                                     .padding()
@@ -173,19 +190,27 @@ struct RoutineView: View {
                                             
                                             ForEach(routine.time.indices, id: \.self) { i in
                                                 VStack {
-                                                    Button {
-                                                        // change done status here
-                                                        routineViewModel.updateRoutineCheck(routine: routine, index: i)
-                                                    } label: {
-                                                        Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
+                                                    if (routineViewModel.userRole == .senior) {
+                                                        Button {
+                                                            // change done status here
+                                                            routineViewModel.updateRoutineCheck(routine: routine, index: i)
+                                                        } label: {
+                                                            Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "circle")
+                                                                .resizable()
+                                                                .scaledToFit()
+                                                                .frame(width: 50)
+                                                        }
+                                                    } else {
+                                                        Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "minus.circle.fill")
                                                             .resizable()
                                                             .scaledToFit()
                                                             .frame(width: 50)
+                                                            .foregroundStyle(routine.isDone[i] ? Color("secondary-green") : Color("emergency-pink"))
                                                     }
                                                     
                                                     Text("\(routine.time[i], style: .time)")
                                                         .font(.subheadline)
-                                                        .foregroundStyle(.accent)
+                                                        .foregroundStyle(Color.secondary)
                                                 }
                                             }
                                             
@@ -206,7 +231,8 @@ struct RoutineView: View {
                         }
                     } else {
                         ContentUnavailableView {
-                            Label("Routines not Set", systemImage: "pills.fill")
+                            routineViewModel.isToday(date: Date()) ?
+                            Label("Routines Not Set", systemImage: "pills.fill") : Label("The Day Has Passed", systemImage: "calendar.circle")
                         } description: {
                             Text(routineViewModel.isToday(date: Date()) || routineViewModel.currentDay > Date() ? "Add a daily medicine or activity schedule by clicking the plus button." : "Routines for this day were not set.")
                         }
@@ -276,5 +302,5 @@ struct RoutineWeekPicker: View {
 
 #Preview {
     RoutineView()
-//        .preferredColorScheme(.dark)
+    //        .preferredColorScheme(.dark)
 }

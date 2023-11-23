@@ -24,7 +24,7 @@ final class MapViewModel: NSObject, ObservableObject {
     @Published var shouldSelect: Bool = false
     @Published var homeSetMode: Bool = false
     @Published var selectedPlacemark: CLLocationCoordinate2D?
-    var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     private let service = LocationService.shared
     private let authService = AuthService.shared
     

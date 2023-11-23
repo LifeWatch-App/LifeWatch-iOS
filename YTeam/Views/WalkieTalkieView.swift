@@ -84,17 +84,17 @@ struct WalkieTalkieView: View {
                     VStack {
                         Text("Leave Channel")
                             .bold()
-                            .foregroundStyle(.red)
-                        Text("(you will not receive incoming transmissions)")
-                            .font(.subheadline)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.white)
                     }
                     .padding(12)
-                    .background(.white)
+                    .background(.red)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .padding(.vertical, 8)
                     .padding(.horizontal)
                 }
+                Text("(you will not receive incoming transmissions)")
+                    .font(.subheadline)
+                    .foregroundStyle(.white)
             }
             .padding(.bottom, 100)
             .padding(.horizontal)

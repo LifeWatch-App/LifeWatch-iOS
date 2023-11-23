@@ -23,4 +23,5 @@ struct UserData: Identifiable, Codable, Hashable {
     var role: String?
     var fcmToken: String?
     var pttToken: String?
+    var udid: String?
 }

@@ -21,10 +21,6 @@ struct IdleDetectionView: View {
             Button("Update") {
                 idleViewModel.updateIdleDataFirebase(endTime: Date.now)
             }
-
-            Button("Delete") {
-                idleViewModel.deleteIdleDataFirebase()
-            }
         }
         .onReceive(idleViewModel.timer) { input in
             idleViewModel.checkPosition()

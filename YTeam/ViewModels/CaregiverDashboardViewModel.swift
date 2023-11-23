@@ -33,7 +33,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var idleInfo: [Idle] = []
     @Published var heartBeatInfo: Heartbeat?
     @Published var latestSymptomInfo: Symptom?
-    private var cancellables = Set<AnyCancellable>()
     @Published var showWalkieTalkie: Bool = false
     @Published var isJoined: Bool = false
     @Published var isPlaying: Bool = false
@@ -47,9 +46,10 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var analysisDate: Date = Date()
     @Published var isLoadingAnalysis: Bool = false
     
+    private var cancellables = Set<AnyCancellable>()
     private var routineData: [RoutineData] = []
     private let routineService: RoutineService = RoutineService.shared
-    
+
     override init() {
         super.init()
         setupSubscribers()
@@ -82,9 +82,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .receive(on: DispatchQueue.main)
             .sink { [weak self] selectedInviteId in
                 guard let self = self else { return }
-                //                if self.selectedInviteId != selectedInviteId {
-                //                    self.selectedInviteId = selectedInviteId
-                //                }
                 self.selectedInviteId = selectedInviteId
             }
             .store(in: &cancellables)
@@ -166,7 +163,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 }
             }
             .store(in: &cancellables)
-        
+
         routineService.$deletedRoutine
             .receive(on: DispatchQueue.main)
             .sink { [weak self] routines in
@@ -209,16 +206,16 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             }
             .store(in: &cancellables)
     }
-    
+
     func convertRoutineDataToRoutine() {
         self.routines = self.routineData.map { routine in
             var medicineUnit: MedicineUnit
             var routineTime: [Date] = []
-            
+
             for time in routine.time {
                 routineTime.append( Date(timeIntervalSince1970: time))
             }
-            
+
             switch (routine.medicineUnit) {
             case "CC":
                 medicineUnit = .CC
@@ -233,18 +230,27 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             default:
                 medicineUnit = .Tablet
             }
-            
+
             return Routine(id: routine.id, type: routine.type, seniorId: routine.seniorId, time: routineTime, activity: routine.activity, description: routine.description, medicine: routine.medicine, medicineAmount: routine.medicineAmount, medicineUnit: medicineUnit, isDone: routine.isDone)
         }
-        
+
         if (self.routines.count > 1) {
             self.routines.sort { (routine1, routine2) -> Bool in
                 let time1 = routine1.time[0]
                 let time2 = routine2.time[0]
-                
+
                 return time1 < time2
             }
         }
+        
+        let today = Calendar.current.startOfDay(for: Date())
+        
+        self.routines = self.routines.filter({ routine in
+            guard let routineDate = routine.time.first else {
+                return false
+            }
+            return routineDate > today
+        })
     }
     
     func checkAnalysis() {

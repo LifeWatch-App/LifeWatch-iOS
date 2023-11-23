@@ -22,6 +22,7 @@ struct LiveLocationRecord: Hashable, Codable {
     var longitude: Description?
     var latitude: Description?
     var isOutside: Description?
+    var isDistanceFilter: Description?
     var createdAt: Description?
 }
 

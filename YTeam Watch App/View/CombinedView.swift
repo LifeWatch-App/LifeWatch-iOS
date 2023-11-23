@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CombinedView: View {
-    @StateObject private var heartManager = HeartManager()
+//    @StateObject private var heartManager = HeartManager()
     @StateObject private var locationVM = LocationViewModel()
     @StateObject private var idleVM = IdleDetectionViewModel()
     @StateObject private var chargingVM = ChargingViewModel()
@@ -27,16 +27,14 @@ struct CombinedView: View {
             ErrorView(errorText: "The app does not have location permissions. Please enable them in settings.")
         case .authorizedAlways, .authorizedWhenInUse:
             VStack {
-                VStack(spacing: 15) {
+                VStack {
                     VStack {
-                        Text("\(heartManager.heartRate)")
-                            .font(.title2)
-                        Text("BPM")
                         Spacer()
                         Button{
                             sosManager.showSOS.toggle()
                         } label: {
                             VStack(alignment: .leading) {
+                                Spacer()
                                 HStack(alignment: .center) {
                                     Text("SOS")
                                         .multilineTextAlignment(.leading)
@@ -48,6 +46,7 @@ struct CombinedView: View {
                                     Image(systemName: "light.beacon.max.fill")
                                         .font(.title2)
                                 }
+                                Spacer()
                             }
                             .padding()
                             .background(Color("emergency-pink"))
@@ -58,21 +57,7 @@ struct CombinedView: View {
                             SOSView()
                         })
                         .buttonStyle(PlainButtonStyle())
-//                        PairView(
-//                            leftText: "Latitude:",
-//                            rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)
-//                        )
-//                        PairView(
-//                            leftText: "Longitude:",
-//                            rightText: String(locationVM.lastSeenLocation?.coordinate.latitude ?? 0)
-//                        )
                     }
-                    
-//                    VStack {
-//                        Button("Set Current Location as Home") {
-//                            locationVM.shouldSet = true
-//                        }
-//                    }
                 }
                 .padding()
             }
