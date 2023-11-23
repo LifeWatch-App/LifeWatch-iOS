@@ -150,14 +150,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                 print("Tokens successfully cleared")
             }
 
-            if self.invitesListener != nil {
-                self.invitesListener!.remove()
-            }
-
-            self.invites = []
-            self.selectedInviteId = nil
-            self.userData = nil
-            self.user = nil
+            self.removeListeners()
             
             do {
                 try Auth.auth().signOut()
@@ -507,6 +500,8 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                             print("Sos data successfully removed!")
                                         }
                                         
+                                        self.removeListeners()
+                                        
                                         Auth.auth().currentUser?.delete { err in
                                             if let err = err {
                                                 print("Error deleting user account: \(err)")
@@ -545,6 +540,8 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                         
                         print("Invites data successfully removed!")
                     }
+                    
+                    self.removeListeners()
                     
                     Auth.auth().currentUser?.delete { err in
                         if let err = err {
@@ -702,5 +699,30 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         // Handle error.
         print("Sign in with Apple errored: \(error)")
+    }
+    
+    func removeListeners() {
+        if self.invitesListener != nil {
+            self.invitesListener!.remove()
+        }
+
+        self.invites = []
+        self.selectedInviteId = nil
+        self.userData = nil
+        self.user = nil
+        
+        UserDefaults.standard.removeObject(forKey: "selectedSenior")
+        FallService.shared.deinitializerFunction()
+        SOSService.shared.deinitializerFunction()
+        InactivityService.shared.deinitializerFunction()
+        HeartAnomalyService.shared.deinitializerFunction()
+        HeartbeatService.shared.deinitializerFunction()
+        LocationService.shared.deinitializerFunction()
+        BatteryChargingService.shared.deinitializerFunction()
+        DashboardLocationService.shared.deinitializerFunction()
+        HeartRateService.shared.deinitializerFunction()
+        IdleService.shared.deinitializerFunction()
+        RoutineService.shared.deinitializerFunction()
+        SymptomService.shared.deinitializerFunction()
     }
 }
