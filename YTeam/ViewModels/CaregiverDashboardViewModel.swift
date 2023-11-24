@@ -13,6 +13,8 @@ import AVFoundation
 import FirebaseStorage
 import CoreData
 
+
+@MainActor
 class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published var invites: [Invite] = []
     @Published var user: User?
@@ -52,14 +54,16 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
 
     override init() {
         super.init()
+        print("Test init")
         setupSubscribers()
         
-        fetchAnalysisData()
+        //fetchAnalysisData()
         // add dummy data
         //        routines = routinesDummyData
     }
     
     private func setupSubscribers() {
+        print("Test called")
         authService.$user
             .combineLatest(authService.$userData, authService.$invites)
             .sink { [weak self] user, userData, invites in
@@ -150,6 +154,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .receive(on: DispatchQueue.main)
             .sink { [weak self] documentChanges in
                 guard let self = self else { return }
+                print("DocumentChanges", documentChanges)
                 self.heartBeatInfo = loadInitialHeartBeat(documents: documentChanges)
             }
             .store(in: &cancellables)
@@ -268,7 +273,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             isLoadingAnalysis = true
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                self.createAnalysis()
+//                self.createAnalysis()
             }
         }
     }
@@ -393,7 +398,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     func extractDate(date: Date, format: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
-        
+
         return formatter.string(from: date)
     }
 }

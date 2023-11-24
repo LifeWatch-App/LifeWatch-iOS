@@ -786,6 +786,7 @@ final class HistoryViewModel: ObservableObject {
     func extractDate(date: Date, format: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
+        formatter.timeZone = TimeZone.current
 
         return formatter.string(from: date)
     }

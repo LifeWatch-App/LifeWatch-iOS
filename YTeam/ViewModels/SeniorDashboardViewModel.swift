@@ -32,6 +32,10 @@ class SeniorDashboardViewModel: ObservableObject {
     @Published var allRoutineDone = false
     
     init() {
+        print("Inited here")
+        symptomService.observeSymptomsToday()
+        routineService.observeAllRoutines(userData: userData)
+        routineService.observeAllDeletedRoutines(userData: userData)
         setupSubscribers()
     }
 
@@ -53,17 +57,6 @@ class SeniorDashboardViewModel: ObservableObject {
                 self?.user = user
                 self?.userData = userData
                 self?.invites = invites
-            }
-            .store(in: &cancellables)
-
-        $userData
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] userData in
-                if userData != nil {
-                    self?.symptomService.observeSymptomsToday()
-                    self?.routineService.observeAllRoutines(userData: userData)
-                    self?.routineService.observeAllDeletedRoutines(userData: userData)
-                }
             }
             .store(in: &cancellables)
 

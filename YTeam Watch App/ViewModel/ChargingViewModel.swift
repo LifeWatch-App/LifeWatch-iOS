@@ -98,30 +98,31 @@ final class ChargingViewModel: ObservableObject {
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                        if self.batteryLevel != Int(roundf(self.interface.batteryLevel * 100)) {
+                        if self.batteryLevel != Int(roundf(self.interface.batteryLevel * 100)) && self.batteryCharging?.rawValue != self.interface.batteryState.rawValue {
                             self.batteryLevel = Int(roundf(self.interface.batteryLevel * 100))
+                            self.batteryCharging = self.interface.batteryState
                             
                             Task {
-                                if let batteryRecords: [FirestoreQueryRecord<BatteryLevelRecord>] = try? await self.service.querySingleField(collection: "batteryLevels", httpMethod: .post, seniorId: userID) {
+                                if let batteryRecords: [FirestoreQueryRecord<BatteryLevelRecord>] = try? await self.service.querySingleField(collection: "batteryLevels", httpMethod: .post, seniorId: userID)  {
                                     
                                     if let specificBatteryRecord = batteryRecords.first(where: { $0.document?.fields?.seniorId?.stringValue == userID }) {
                                         guard let specificBatteryRecordDocumentName = specificBatteryRecord.document?.name else { return }
                                         let components = specificBatteryRecordDocumentName.components(separatedBy: "/")
                                         guard let specificBatteryRecordDocumentID = components.last else { return }
                                         
-                                        let batteryLevelRecord1: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), iphoneBatteryLevel: Description(stringValue: specificBatteryRecord.document?.fields?.iphoneBatteryLevel?.stringValue), watchLastUpdatedAt: Description(stringValue: Date.now.description), iphoneLastUpdatedAt: Description(stringValue: specificBatteryRecord.document?.fields?.iphoneLastUpdatedAt?.stringValue), watchBatteryState: Description(stringValue: specificBatteryRecord.document?.fields?.watchBatteryState?.stringValue), iphoneBatteryState: Description(stringValue: specificBatteryRecord.document?.fields?.iphoneBatteryState?.stringValue))
+                                        let batteryLevelRecord1: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), iphoneBatteryLevel: Description(stringValue: specificBatteryRecord.document?.fields?.iphoneBatteryLevel?.stringValue), watchLastUpdatedAt: Description(stringValue: Date.now.description), iphoneLastUpdatedAt: Description(stringValue: specificBatteryRecord.document?.fields?.iphoneLastUpdatedAt?.stringValue), watchBatteryState: Description(stringValue: self.batteryCharging?.description), iphoneBatteryState: Description(stringValue: specificBatteryRecord.document?.fields?.iphoneBatteryState?.stringValue))
                                         
                                         try? await self.service.set(endPoint: SingleEndpoints.batteryLevels(batteryLevelsDocumentID: specificBatteryRecordDocumentID), fields: batteryLevelRecord1, httpMethod: .patch)
                                         self.isFirstTime = false
                                     } else {
-                                        let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description))
+                                        let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description), watchBatteryState: Description(stringValue: self.batteryCharging?.description))
                                         
                                         try? await self.service.set(endPoint: MultipleEndPoints.batteryLevels, fields: batteryLevelRecord, httpMethod: .post)
                                         self.isFirstTime = false
                                     }
                                     
                                 } else {
-                                    let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description))
+                                    let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description), watchBatteryState: Description(stringValue: self.batteryCharging?.description))
                                     
                                     try? await self.service.set(endPoint: MultipleEndPoints.batteryLevels, fields: batteryLevelRecord, httpMethod: .post)
                                     self.isFirstTime = false
@@ -157,23 +158,15 @@ final class ChargingViewModel: ObservableObject {
                                 let batteryLevelRecord1: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), iphoneBatteryLevel: Description(stringValue: specificBatteryRecord.document?.fields?.iphoneBatteryLevel?.stringValue), watchLastUpdatedAt: Description(stringValue: Date.now.description), iphoneLastUpdatedAt: Description(stringValue: specificBatteryRecord.document?.fields?.iphoneLastUpdatedAt?.stringValue), watchBatteryState: Description(stringValue: specificBatteryRecord.document?.fields?.watchBatteryState?.stringValue), iphoneBatteryState: Description(stringValue: specificBatteryRecord.document?.fields?.iphoneBatteryState?.stringValue))
                                 
                                 try? await self.service.set(endPoint: SingleEndpoints.batteryLevels(batteryLevelsDocumentID: specificBatteryRecordDocumentID), fields: batteryLevelRecord1, httpMethod: .patch)
-                            } else {
-                                let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description))
-                                
-                                try? await self.service.set(endPoint: MultipleEndPoints.batteryLevels, fields: batteryLevelRecord, httpMethod: .post)
                             }
                             
-                        } else {
-                            let batteryLevelRecord: BatteryLevelRecord = BatteryLevelRecord(seniorId: Description(stringValue: userID), watchBatteryLevel: Description(stringValue: self.batteryLevel?.description), watchLastUpdatedAt: Description(stringValue: Date.now.description))
-                            
-                            try? await self.service.set(endPoint: MultipleEndPoints.batteryLevels, fields: batteryLevelRecord, httpMethod: .post)
                         }
                     }
                 }
             }
         
         
-        chargingStateSubscription = Timer.publish(every: 5, on: .main, in: .common)
+        chargingStateSubscription = Timer.publish(every: 3, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
                 guard let userRecordData = UserDefaults.standard.object(forKey: "user-auth") as? Data,
@@ -182,7 +175,7 @@ final class ChargingViewModel: ObservableObject {
                     return
                 }
                 
-                if self.batteryCharging?.rawValue != self.interface.batteryState.rawValue && self.batteryLevel != nil && self.isFirstTime == false {
+                if self.batteryCharging?.rawValue != self.interface.batteryState.rawValue && self.batteryLevel != nil && self.batteryCharging != nil && self.isFirstTime == false {
                     Task {
                         self.batteryCharging = self.interface.batteryState
                         
@@ -260,6 +253,8 @@ final class ChargingViewModel: ObservableObject {
                     print("Unknown state")
                 case .full:
                     print("Your battery is full")
+                case .none:
+                    print("None")
                 @unknown default:
                     print("Unknown")
                 }

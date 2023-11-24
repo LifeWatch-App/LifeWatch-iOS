@@ -317,23 +317,23 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                 } else {
                                     invite?.caregiverData = try? querySnapshot?.data(as: UserData.self)
                                     self.invites.append(invite!)
-                                    
-                                    if !self.invites.isEmpty {
-                                        if let selectedSeniorId = UserDefaults.standard.string(forKey: "selectedSenior") {
-                                            if self.selectedInviteId != selectedSeniorId {
-                                                self.selectedInviteId = selectedSeniorId
-                                            }
-                                            
-                                        } else {
-                                            print("Called invites from empty")
-                                            self.selectedInviteId = self.invites.first?.seniorId
-                                            UserDefaults.standard.set(self.invites.first?.seniorId, forKey: "selectedSenior")
-                                        }
-                                    } else {
-                                        self.selectedInviteId = nil
-                                    }
                                 }
-                                
+
+                                if !self.invites.isEmpty && self.userData?.role == "caregiver" {
+                                    if let selectedSeniorId = UserDefaults.standard.string(forKey: "selectedSenior") {
+                                        if self.selectedInviteId != selectedSeniorId {
+                                            self.selectedInviteId = selectedSeniorId
+                                        }
+
+                                    } else {
+                                        print("Called invites from empty")
+                                        self.selectedInviteId = self.invites.first?.seniorId
+                                        UserDefaults.standard.set(self.invites.first?.seniorId, forKey: "selectedSenior")
+                                    }
+                                } else {
+                                    self.selectedInviteId = nil
+                                }
+
                                 if (index == documents.count - 1) {
                                     withAnimation {
                                         self.isLoading = false
