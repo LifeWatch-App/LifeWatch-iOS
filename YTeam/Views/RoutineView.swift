@@ -230,10 +230,10 @@ struct RoutineView: View {
                         }
                     } else {
                         ContentUnavailableView {
-                            routineViewModel.isToday(date: Date()) ?
+                            routineViewModel.isTodayAndAfter() ?
                             Label("Routines Not Set", systemImage: "pills.fill") : Label("The Day Has Passed", systemImage: "calendar.circle")
                         } description: {
-                            Text(routineViewModel.isToday(date: Date()) || routineViewModel.currentDay > Date() ? "Add a daily medicine or activity schedule by clicking the plus button." : "Routines for this day were not set.")
+                            Text(routineViewModel.isTodayAndAfter() ? "Add a daily medicine or activity schedule by clicking the plus button." : "Routines for this day were not set.")
                         }
                         .padding(.top, 64)
                     }
@@ -242,10 +242,10 @@ struct RoutineView: View {
             }
             .background(Color(.systemGroupedBackground))
             .sheet(isPresented: $routineViewModel.showAddRoutine, content: {
-                AddEditRoutineView(routine: nil)
+                AddEditRoutineView(currentDay: routineViewModel.currentDay, routine: nil)
             })
             .sheet(isPresented: $routineViewModel.showEditRoutine, content: {
-                AddEditRoutineView(routine: routine)
+                AddEditRoutineView(currentDay: routineViewModel.currentDay, routine: routine)
             })
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

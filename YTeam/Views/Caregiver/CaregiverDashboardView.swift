@@ -12,7 +12,7 @@ struct CaregiverDashboardView: View {
     
     @AppStorage("inviteModal") var inviteModal = true
     
-    @StateObject var caregiverDashboardViewModel = CaregiverDashboardViewModel()
+    @EnvironmentObject var caregiverDashboardViewModel: CaregiverDashboardViewModel
     @State var showChangeSenior = false
     @State var showInviteSheet = false
 
@@ -110,7 +110,7 @@ struct CaregiverDashboardView: View {
 
                     ToolbarItem(placement: .topBarTrailing) {
                         NavigationLink {
-                            ProfileView()
+                            ProfileView() .environmentObject(caregiverDashboardViewModel)
                         } label: {
                             Image(systemName: "person.crop.circle")
                                 .font(.title)
@@ -159,7 +159,7 @@ struct SeniorStatus: View {
 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(caregiverDashboardViewModel.falls.count > 0 ? "Fall Detection Triggered" : caregiverDashboardViewModel.sos.count > 0 ? "SOS Button Triggered" : caregiverDashboardViewModel.latestSymptomInfo == nil ? "Safe Condition" : "Symptoms Detected")
+                        Text(caregiverDashboardViewModel.falls.count > 0 ? "Fall Detection Triggered" : caregiverDashboardViewModel.sos.count > 0 ? "SOS Button Triggered" : caregiverDashboardViewModel.latestSymptomInfo == nil ? "No Alerts" : "Symptoms Detected")
                             .font(.headline)
                             .foregroundStyle(caregiverDashboardViewModel.falls.count > 0 || caregiverDashboardViewModel.sos.count > 0 ? Color("emergency-pink") : Color(.label))
                         Image(systemName: caregiverDashboardViewModel.latestSymptomInfo == nil && caregiverDashboardViewModel.falls.count == 0 && caregiverDashboardViewModel.sos.count == 0 ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")

@@ -11,6 +11,8 @@ struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @State private var showDeleteSheet = false
     @EnvironmentObject var batteryLevelViewModel: BatteryLevelStateViewModel
+    
+    @EnvironmentObject var caregiverDashboardViewModel: CaregiverDashboardViewModel
 //    @State private var walkieToggle = true
 //    @State private var locationToggle = true
 //    @State private var inactivityToggle = true
@@ -139,6 +141,11 @@ struct ProfileView: View {
                 
                 Button(action: {
                     batteryLevelViewModel.cancelBatteryMonitoringIphone()
+                    
+                    if profileViewModel.userData?.role != "senior" {
+                        caregiverDashboardViewModel.resetAnalysis()
+                    }
+                    
                     profileViewModel.signOut()
                 }, label: {
                     HStack {

@@ -150,14 +150,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                 print("Tokens successfully cleared")
             }
 
-            if self.invitesListener != nil {
-                self.invitesListener!.remove()
-            }
-
-            self.invites = []
-            self.selectedInviteId = nil
-            self.userData = nil
-            self.user = nil
+            self.removeListeners()
             
             do {
                 try Auth.auth().signOut()
@@ -222,6 +215,8 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                     guard let pttToken = UserDefaults.standard.value(forKey: "pttToken") else{
                         return
                     }
+                    let udid: String = UIDevice().identifierForVendor!.uuidString
+                    
                     self.db
                         .collection("users")
                         .document(AuthService.shared.user!.uid)
@@ -230,7 +225,8 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                             "email": AuthService.shared.user!.email!,
                             "role": NSNull(),
                             "fcmToken": fcmToken,
-                            "pttToken": pttToken
+                            "pttToken": pttToken,
+                            "udid": udid
                         ]) { [weak self] err in
                             guard self != nil else { return }
                             if let err = err {
@@ -241,7 +237,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                             }
                             else {
                                 print("Document added")
-                                self!.userData = UserData(id: AuthService.shared.user!.uid, email: AuthService.shared.user!.email!, role: nil, fcmToken: fcmToken as! String, pttToken: pttToken as! String)
+                                self!.userData = UserData(id: AuthService.shared.user!.uid, email: AuthService.shared.user!.email!, role: nil, fcmToken: fcmToken as! String, pttToken: pttToken as! String, udid: udid)
                                 withAnimation {
                                     self!.isLoading = false
                                 }
@@ -362,6 +358,26 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
             } else {
                 print("Document successfully updated")
                 AuthService.shared.userData?.role = role
+            }
+            
+            withAnimation {
+                self.isLoading = false
+            }
+        }
+    }
+    
+    func setName(name: String) {
+        withAnimation {
+            self.isLoading = true
+        }
+        db.collection("users").document(AuthService.shared.user!.uid).updateData([
+            "name": name
+        ]) { err in
+            if let err = err {
+                print("Error updating name: \(err)")
+            } else {
+                print("Name successfully updated")
+                AuthService.shared.userData?.name = name
             }
             
             withAnimation {
@@ -507,6 +523,8 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                             print("Sos data successfully removed!")
                                         }
                                         
+                                        self.removeListeners()
+                                        
                                         Auth.auth().currentUser?.delete { err in
                                             if let err = err {
                                                 print("Error deleting user account: \(err)")
@@ -545,6 +563,8 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                         
                         print("Invites data successfully removed!")
                     }
+                    
+                    self.removeListeners()
                     
                     Auth.auth().currentUser?.delete { err in
                         if let err = err {
@@ -689,6 +709,18 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                 
                 print("Apple sign in!")
                 
+                let udid: String = UIDevice().identifierForVendor!.uuidString
+                
+                self.db.collection("users").document(AuthService.shared.user!.uid).updateData([
+                    "udid": UIDevice().identifierForVendor?.uuidString
+                ]) { err in
+                    if let err = err {
+                        print("Error updating udid: \(err)")
+                    } else {
+                        print("UDID successfully updated to: ", udid)
+                    }
+                }
+                
                 self.loginProviders = []
                 if let providerData = Auth.auth().currentUser?.providerData {
                     for item in providerData {
@@ -702,5 +734,30 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         // Handle error.
         print("Sign in with Apple errored: \(error)")
+    }
+    
+    func removeListeners() {
+        if self.invitesListener != nil {
+            self.invitesListener!.remove()
+        }
+
+        self.invites = []
+        self.selectedInviteId = nil
+        self.userData = nil
+        self.user = nil
+        
+        UserDefaults.standard.removeObject(forKey: "selectedSenior")
+        FallService.shared.deinitializerFunction()
+        SOSService.shared.deinitializerFunction()
+        InactivityService.shared.deinitializerFunction()
+        HeartAnomalyService.shared.deinitializerFunction()
+        HeartbeatService.shared.deinitializerFunction()
+        LocationService.shared.deinitializerFunction()
+        BatteryChargingService.shared.deinitializerFunction()
+        DashboardLocationService.shared.deinitializerFunction()
+        HeartRateService.shared.deinitializerFunction()
+        IdleService.shared.deinitializerFunction()
+        RoutineService.shared.deinitializerFunction()
+        SymptomService.shared.deinitializerFunction()
     }
 }

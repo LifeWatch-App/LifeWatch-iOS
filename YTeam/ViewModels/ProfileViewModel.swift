@@ -38,19 +38,6 @@ class ProfileViewModel: ObservableObject {
     }
 
     func signOut() {
-        UserDefaults.standard.removeObject(forKey: "selectedSenior")
-        FallService.shared.deinitializerFunction()
-        SOSService.shared.deinitializerFunction()
-        InactivityService.shared.deinitializerFunction()
-        HeartAnomalyService.shared.deinitializerFunction()
-        HeartbeatService.shared.deinitializerFunction()
-        LocationService.shared.deinitializerFunction()
-        BatteryChargingService.shared.deinitializerFunction()
-        DashboardLocationService.shared.deinitializerFunction()
-        HeartRateService.shared.deinitializerFunction()
-        IdleService.shared.deinitializerFunction()
-        RoutineService.shared.deinitializerFunction()
-        SymptomService.shared.deinitializerFunction()
         AuthService.shared.signOut()
     }
 

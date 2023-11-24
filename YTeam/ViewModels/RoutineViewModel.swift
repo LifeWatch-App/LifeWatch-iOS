@@ -268,6 +268,12 @@ class RoutineViewModel: ObservableObject {
         return calendar.isDate(currentDay, inSameDayAs: date)
     }
     
+    func isTodayAndAfter() -> Bool {
+        let today = Calendar.current.startOfDay(for: Date())
+        
+        return self.currentDay >= today
+    }
+    
     func isSameDate(date1: Date, date2: Date) -> Bool {
         let calendar = Calendar.current
         

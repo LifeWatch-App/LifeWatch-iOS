@@ -24,4 +24,8 @@ class SOSManager: ObservableObject {
             Task { try? await service.set(endPoint: MultipleEndPoints.sos, fields: sos, httpMethod: .post) }
         }
     }
+    
+    func disableShowSOS() {
+        self.showSOS = false
+    }
 }

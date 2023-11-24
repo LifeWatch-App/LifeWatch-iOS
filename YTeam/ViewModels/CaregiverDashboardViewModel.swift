@@ -43,7 +43,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var inviteEmail = ""
     
     var analysisData: [Analysis] = []
-    @Published var analysisResult: [Message] = []
+    var analysisResult: [Message] = []
     @Published var analysis: String = ""
     @Published var analysisDate: Date = Date()
     @Published var isLoadingAnalysis: Bool = false
@@ -348,6 +348,14 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
         } catch {
             print("Could not save analysis data")
         }
+    }
+    
+    func resetAnalysis() {
+        analysisData = []
+        analysisResult = []
+        analysis = ""
+        analysisDate = Date()
+        isLoadingAnalysis = false
     }
     
     func sendRequestToSenior() {

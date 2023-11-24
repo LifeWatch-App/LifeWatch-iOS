@@ -13,20 +13,21 @@ struct SeniorDashboardView: View {
     @AppStorage("emailModal") var emailModal = true
     
     @StateObject var seniorDashboardViewModel = SeniorDashboardViewModel()
+    @EnvironmentObject var caregiverDashboardViewModel: CaregiverDashboardViewModel
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack{
                     ForEach(seniorDashboardViewModel.invites, id: \.id) { invite in
                         if !invite.accepted! {
-                            HStack() {
+                            HStack {
                                 VStack(alignment: .leading) {
                                     Text("\(invite.caregiverData!.name ?? "Subroto")")
                                         .font(.title3)
                                         .fontWeight(.semibold)
                                     Text("Would like to join your care team")
                                         .foregroundColor(.secondary)
-                                    
                                 }
                                 Spacer()
                                 HStack(spacing: 16) {
@@ -65,7 +66,7 @@ struct SeniorDashboardView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
-                        ProfileView()
+                        ProfileView() .environmentObject(caregiverDashboardViewModel)
                     } label: {
                         Image(systemName: "person.crop.circle")
                             .font(.title)
@@ -74,7 +75,7 @@ struct SeniorDashboardView: View {
             }
             .navigationTitle("Dashboard")
             .fullScreenCover(isPresented: $emailModal) {
-                OnBoardingEmailView()
+                OnBoardingEmailView(seniorDashboardViewModel: seniorDashboardViewModel)
             }
             .onAppear {
                 seniorDashboardViewModel.checkAllDone()
@@ -180,6 +181,9 @@ struct UpcomingActivity: View {
                             
                             Spacer()
                         }
+                        .padding()
+                        .background(colorScheme == .light ? .white : Color(.systemGray6))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                     } else {
                         ForEach(seniorDashboardViewModel.routines.prefix(3)) { routine in
                             ForEach(routine.time.indices, id: \.self) { i in
@@ -237,6 +241,9 @@ struct UpcomingActivity: View {
                         
                         Spacer()
                     }
+                    .padding()
+                    .background(colorScheme == .light ? .white : Color(.systemGray6))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
             }
         }
