@@ -28,6 +28,9 @@ class ProfileViewModel: ObservableObject {
             .sink { [weak self] loginProviders, invites, userData, user in
                 self?.loginProviders = loginProviders
                 self?.invites = invites
+                for invite in invites {
+                    print("Invites", invite)
+                }
                 self?.userData = userData
                 self?.user = user
             }

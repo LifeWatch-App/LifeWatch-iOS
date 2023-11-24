@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TestChargingView: View {
     @StateObject private var locationVM = LocationViewModel()
+    
     @StateObject private var vm = ChargingViewModel()
     
     var body: some View {

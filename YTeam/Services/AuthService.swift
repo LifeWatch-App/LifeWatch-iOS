@@ -323,7 +323,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                     self.invites.append(invite!)
                                 }
 
-                                if !self.invites.isEmpty {
+                                if !self.invites.isEmpty && self.userData?.role == "caregiver" {
                                     if let selectedSeniorId = UserDefaults.standard.string(forKey: "selectedSenior") {
                                         if self.selectedInviteId != selectedSeniorId {
                                             self.selectedInviteId = selectedSeniorId

@@ -36,11 +36,9 @@ final class BatteryChargingService {
         return chargingRanges
     }
     
-    func createBatteryLevel(batteryLevel: Int) async throws {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        let batteryLevelRecord: BatteryLevel = BatteryLevel(seniorId: uid, iphoneBatteryLevel: batteryLevel.description, iphoneLastUpdatedAt: Date.now.description)
+    func createBatteryLevel(batteryLevel: BatteryLevel) async throws {
         do {
-            let encodedData = try Firestore.Encoder().encode(batteryLevelRecord)
+            let encodedData = try Firestore.Encoder().encode(batteryLevel)
             try await FirestoreConstants.batteryLevelCollection.document().setData(encodedData)
             print("Successfully created battery level record!")
         } catch {

@@ -51,24 +51,6 @@ final class BatteryLevelStateViewModel: ObservableObject {
         batteryCharging = .unplugged
     }
     
-    func testCreateBatteryLevel() async throws {
-        try await chargingService.createBatteryLevel(batteryLevel: 50)
-    }
-    
-    func testFetchBatteryLevel() async throws {
-        let testBatteryLevels = try await chargingService.fetchBatteryLevel()
-        print(testBatteryLevels)
-    }
-    
-    func testUpdateBatteryLevel() async throws {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        if let batteryRecords = try? await self.chargingService.fetchBatteryLevel() {
-            guard let specificBatteryRecord = batteryRecords.first(where: { $0.seniorId == userID }) else { return }
-            let batteryLevel = BatteryLevel(seniorId: userID, watchBatteryLevel: specificBatteryRecord.watchBatteryLevel, iphoneBatteryLevel: "50", watchLastUpdatedAt: specificBatteryRecord.watchLastUpdatedAt, iphoneLastUpdatedAt: Date.now.description, watchBatteryState: specificBatteryRecord.watchBatteryState, iphoneBatteryState: specificBatteryRecord.iphoneBatteryState)
-            try await chargingService.updateBatteryLevel(batteryLevel: batteryLevel)
-        }
-    }
-    
     func setupSubscribers() {
         $isFirstTime
             .receive(on: DispatchQueue.main)
@@ -76,9 +58,9 @@ final class BatteryLevelStateViewModel: ObservableObject {
                 guard let self = self else { return }
                 guard let userID = Auth.auth().currentUser?.uid else { return }
                 if firstTime {
-                    if self.batteryLevel != Int(roundf(interface.batteryLevel * 100)) {
+                    if self.batteryLevel != Int(roundf(interface.batteryLevel * 100)) && self.batteryCharging?.description != self.interface.batteryState.description {
                         
-                        
+                        self.batteryCharging = self.interface.batteryState
                         self.batteryLevel = Int(roundf(self.interface.batteryLevel * 100))
                         
                         
@@ -86,21 +68,23 @@ final class BatteryLevelStateViewModel: ObservableObject {
                             if let batteryRecords = try? await self.chargingService.fetchBatteryLevel(), !batteryRecords.isEmpty {
                                 
                                 if let specificBatteryRecord = batteryRecords.first(where: { $0.seniorId == userID }) {
-                                    let batteryLevel = BatteryLevel(seniorId: userID, watchBatteryLevel: specificBatteryRecord.watchBatteryLevel, iphoneBatteryLevel: self.batteryLevel?.description, watchLastUpdatedAt: specificBatteryRecord.watchLastUpdatedAt, iphoneLastUpdatedAt: Date.now.description, watchBatteryState: specificBatteryRecord.watchBatteryState, iphoneBatteryState: specificBatteryRecord.iphoneBatteryState)
+                                    let batteryLevel = BatteryLevel(seniorId: userID, watchBatteryLevel: specificBatteryRecord.watchBatteryLevel, iphoneBatteryLevel: self.batteryLevel?.description, watchLastUpdatedAt: specificBatteryRecord.watchLastUpdatedAt, iphoneLastUpdatedAt: Date.now.description, watchBatteryState: specificBatteryRecord.watchBatteryState, iphoneBatteryState: self.batteryCharging?.description)
                                     
                                     try await self.chargingService.updateBatteryLevel(batteryLevel: batteryLevel)
                                     self.isFirstTime = false
-                                    print("Success updating battery levels")
+                                    print("Success updating battery first time")
                                 } else {
-                                    try await self.chargingService.createBatteryLevel(batteryLevel: self.batteryLevel ?? 0)
+                                    let batteryLevel = BatteryLevel(seniorId: userID, iphoneBatteryLevel: self.batteryLevel?.description, iphoneLastUpdatedAt: Date.now.description, iphoneBatteryState: self.batteryCharging?.description)
+                                    try await self.chargingService.createBatteryLevel(batteryLevel: batteryLevel)
                                     self.isFirstTime = false
-                                    print("Success creating battery levels")
+                                    print("Success creating battery first time")
                                 }
                                 
                             } else {
-                                try await self.chargingService.createBatteryLevel(batteryLevel: self.batteryLevel ?? 0)
+                                let batteryLevel = BatteryLevel(seniorId: userID, iphoneBatteryLevel: self.batteryLevel?.description, iphoneLastUpdatedAt: Date.now.description, iphoneBatteryState: self.batteryCharging?.description)
+                                try await self.chargingService.createBatteryLevel(batteryLevel: batteryLevel)
                                 self.isFirstTime = false
-                                print("Success creating battery levels")
+                                print("Success creating battery first time")
                             }
                         }
                     }
@@ -128,14 +112,7 @@ final class BatteryLevelStateViewModel: ObservableObject {
                                 
                                 try await self.chargingService.updateBatteryLevel(batteryLevel: batteryLevel)
                                 print("Success updating battery levels")
-                            } else {
-                                try await self.chargingService.createBatteryLevel(batteryLevel: self.batteryLevel ?? 0)
-                                print("Success creating battery levels")
                             }
-                            
-                        } else {
-                            try await self.chargingService.createBatteryLevel(batteryLevel: self.batteryLevel ?? 0)
-                            print("Success creating battery levels")
                         }
                     }
                 }
@@ -147,7 +124,7 @@ final class BatteryLevelStateViewModel: ObservableObject {
                 guard let self = self else { return }
                 guard let userID = Auth.auth().currentUser?.uid else { return }
                 
-                if self.batteryCharging?.description != self.interface.batteryState.description && self.batteryLevel != nil && self.isFirstTime == false {
+                if self.batteryCharging?.description != self.interface.batteryState.description && self.batteryLevel != nil && self.isFirstTime == false && self.batteryCharging != nil {
                     
                     self.batteryCharging = self.interface.batteryState
                     
