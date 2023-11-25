@@ -10,7 +10,7 @@ import UserNotifications
 import WatchKit
 
 @main
-struct YTeam_Watch_AppApp: App {
+struct YTeam_Watch_App: App {
     let notificationCenter = UNUserNotificationCenter.current()
 
     init() {
