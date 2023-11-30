@@ -15,7 +15,7 @@ struct ContentView: View {
             if mainViewModel.isLoading {
                 ProgressView()
             } else if mainViewModel.user != nil  {
-                MainView()
+                MainView(mainViewModel: mainViewModel)
             } else {
                 LoginView()
             }

@@ -30,6 +30,7 @@ class MainViewModel: ObservableObject {
                 self?.invites = invites
                 self?.handleAuthWatch(userID: user?.uid, userData: userData)
                 self?.isLoading = isLoading
+                print("setupSubscriberss")
             }
             .store(in: &cancellables)
     }

@@ -9,7 +9,7 @@ import SwiftUI
 import AVFAudio
 
 struct MainView: View {
-    @StateObject var mainViewModel = MainViewModel()
+    @ObservedObject var mainViewModel: MainViewModel
     @StateObject var batteryLevelViewModel = BatteryLevelStateViewModel()
     @StateObject var caregiverDashboardViewModel = CaregiverDashboardViewModel()
 
@@ -43,5 +43,5 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView()
+    MainView(mainViewModel: MainViewModel())
 }
