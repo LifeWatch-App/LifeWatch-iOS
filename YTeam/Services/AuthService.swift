@@ -745,8 +745,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         self.selectedInviteId = nil
         self.userData = nil
         self.user = nil
-        
-        UserDefaults.standard.removeObject(forKey: "selectedSenior")
+
         FallService.shared.deinitializerFunction()
         SOSService.shared.deinitializerFunction()
         InactivityService.shared.deinitializerFunction()
@@ -759,5 +758,8 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         IdleService.shared.deinitializerFunction()
         RoutineService.shared.deinitializerFunction()
         SymptomService.shared.deinitializerFunction()
+
+        UserDefaults.standard.removeObject(forKey: "selectedSenior")
+        print("Called deinitializer")
     }
 }

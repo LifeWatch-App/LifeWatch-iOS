@@ -14,7 +14,6 @@ import FirebaseStorage
 import CoreData
 
 
-@MainActor
 class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published var invites: [Invite] = []
     @Published var user: User?
@@ -74,6 +73,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 
                 if self.userData != userData {
                     self.userData = userData
+                    print("UserData", userData)
                 }
                 
                 if self.invites != invites {
@@ -351,6 +351,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     }
     
     func resetAnalysis() {
+        print("Reset called")
         analysisData = []
         analysisResult = []
         analysis = ""
