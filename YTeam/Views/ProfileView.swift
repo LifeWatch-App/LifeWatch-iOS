@@ -10,13 +10,8 @@ import SwiftUI
 struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @State private var showDeleteSheet = false
-    @EnvironmentObject var batteryLevelViewModel: BatteryLevelStateViewModel
-    
-    @EnvironmentObject var caregiverDashboardViewModel: CaregiverDashboardViewModel
-//    @State private var walkieToggle = true
-//    @State private var locationToggle = true
-//    @State private var inactivityToggle = true
-    
+    var resetAnalysis: () -> Void
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -140,10 +135,12 @@ struct ProfileView: View {
                 Spacer()
                 
                 Button(action: {
-                    batteryLevelViewModel.cancelBatteryMonitoringIphone()
+//                    batteryLevelViewModel.cancelBatteryMonitoringIphone()
                     
+                    print("Role", profileViewModel.userData?.role)
                     if profileViewModel.userData?.role != "senior" {
-                        caregiverDashboardViewModel.resetAnalysis()
+                        resetAnalysis()
+                        print("Called reset here")
                     }
                     
                     profileViewModel.signOut()
@@ -232,7 +229,7 @@ struct DeleteSheetView: View {
     }
 }
 
-#Preview {
-    ProfileView()
-        .preferredColorScheme(.dark)
-}
+//#Preview {
+//    ProfileView(, resetAnalysis: <#() -> Void#>)
+//        .preferredColorScheme(.dark)
+//}
