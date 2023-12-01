@@ -273,7 +273,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             isLoadingAnalysis = true
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//                self.createAnalysis()
+                self.createAnalysis()
             }
         }
     }
