@@ -56,4 +56,8 @@ class ProfileViewModel: ObservableObject {
     func denyInvite(id: String) {
         AuthService.shared.denyInvite(id: id)
     }
+    
+    func resetAnalysis() {
+        AnalysisService.shared.resetAnalysis()
+    }
 }

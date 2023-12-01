@@ -21,6 +21,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var falls: [Fall] = []
     @Published var sos: [SOS] = []
     let authService = AuthService.shared
+    let analysisService = AnalysisService.shared
     private let batteryService = BatteryChargingService.shared
     private let heartRateService = HeartRateService.shared
     private let locationService = DashboardLocationService.shared
@@ -213,6 +214,24 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 guard let self else {return}
                 
                 self.sos.append(contentsOf: sos)
+            }
+            .store(in: &cancellables)
+        
+        analysisService.$analysisData
+            .receive(on: DispatchQueue.main)
+            .combineLatest(analysisService.$analysisResult, analysisService.$analysis, analysisService.$analysisDate)
+            .sink { [weak self] analysisData, analysisResult, analysis, analysisDate in
+                self?.analysisData = analysisData
+                self?.analysisResult = analysisResult
+                self?.analysis = analysis
+                self?.analysisDate = analysisDate
+            }
+            .store(in: &cancellables)
+        
+        analysisService.$isLoadingAnalysis
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isLoadingAnalysis in
+                self?.isLoadingAnalysis = isLoadingAnalysis
             }
             .store(in: &cancellables)
     }

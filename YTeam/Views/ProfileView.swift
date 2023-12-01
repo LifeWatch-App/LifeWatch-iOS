@@ -10,7 +10,6 @@ import SwiftUI
 struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @State private var showDeleteSheet = false
-    var resetAnalysis: () -> Void
 
     var body: some View {
         NavigationStack {
@@ -139,7 +138,7 @@ struct ProfileView: View {
                     
                     print("Role", profileViewModel.userData?.role)
                     if profileViewModel.userData?.role != "senior" {
-                        resetAnalysis()
+                        profileViewModel.resetAnalysis()
                         print("Called reset here")
                     }
                     

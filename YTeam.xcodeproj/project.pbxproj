@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C089AC82B1A4FA0002C893C /* AnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C089AC72B1A4FA0002C893C /* AnalysisService.swift */; };
 		4C0F8A3E2AE784CD002E8578 /* SignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */; };
 		4C21A3E42ADF7B930044E966 /* CaregiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C21A3E32ADF7B930044E966 /* CaregiverView.swift */; };
 		4C21A3E62ADF7ECA0044E966 /* SeniorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */; };
@@ -199,6 +200,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4C089AC72B1A4FA0002C893C /* AnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisService.swift; sourceTree = "<group>"; };
 		4C0F8A3D2AE784CD002E8578 /* SignInWithAppleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButton.swift; sourceTree = "<group>"; };
 		4C21A3E32ADF7B930044E966 /* CaregiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverView.swift; sourceTree = "<group>"; };
 		4C21A3E52ADF7ECA0044E966 /* SeniorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeniorView.swift; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 				93614CDF2B0301C4003350F1 /* SymptomService.swift */,
 				7D0508EE2AFC7A0100439E75 /* RoutineService.swift */,
 				8D74658E2B0472EF00A48F71 /* OpenAIService.swift */,
+				4C089AC72B1A4FA0002C893C /* AnalysisService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -937,6 +940,7 @@
 				931293692AED53100052F4AF /* TestBatteryView.swift in Sources */,
 				9322F60D2AEFA8340013B0AB /* MapTestView.swift in Sources */,
 				4CF8D7B82B0F9BE6005A31F8 /* EnterNameViewModel.swift in Sources */,
+				4C089AC82B1A4FA0002C893C /* AnalysisService.swift in Sources */,
 				93D4FA642AF7976E000850CE /* BatteryCard.swift in Sources */,
 				4CF962C82AF9F93700DE5EF5 /* WalkieTalkieViewModel.swift in Sources */,
 				8D33E9212AF73E4F00C9D3C1 /* HistoryCard.swift in Sources */,

@@ -110,7 +110,7 @@ struct CaregiverDashboardView: View {
 
                     ToolbarItem(placement: .topBarTrailing) {
                         NavigationLink {
-                            ProfileView(resetAnalysis: caregiverDashboardViewModel.resetAnalysis)
+                            ProfileView()
                         } label: {
                             Image(systemName: "person.crop.circle")
                                 .font(.title)

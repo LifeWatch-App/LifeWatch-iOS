@@ -13,7 +13,6 @@ struct SeniorDashboardView: View {
     @AppStorage("emailModal") var emailModal = true
     
     @StateObject var seniorDashboardViewModel = SeniorDashboardViewModel()
-    @EnvironmentObject var caregiverDashboardViewModel: CaregiverDashboardViewModel
     
     var body: some View {
         NavigationStack {
@@ -66,7 +65,7 @@ struct SeniorDashboardView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
-                        ProfileView(resetAnalysis: caregiverDashboardViewModel.resetAnalysis)
+                        ProfileView()
                     } label: {
                         Image(systemName: "person.crop.circle")
                             .font(.title)
