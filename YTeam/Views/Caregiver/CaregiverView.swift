@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CaregiverView: View {
-    @ObservedObject var mainViewModel: MainViewModel
     @State var showChangeSenior = false
     var body: some View {
         TabView {
@@ -36,5 +35,5 @@ struct CaregiverView: View {
 }
 
 #Preview {
-    CaregiverView(mainViewModel: MainViewModel())
+    CaregiverView()
 }

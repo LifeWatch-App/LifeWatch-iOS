@@ -12,7 +12,7 @@ struct CaregiverDashboardView: View {
     
     @AppStorage("inviteModal") var inviteModal = true
     
-    @EnvironmentObject var caregiverDashboardViewModel: CaregiverDashboardViewModel
+    @StateObject var caregiverDashboardViewModel: CaregiverDashboardViewModel = CaregiverDashboardViewModel()
     @State var showChangeSenior = false
     @State var showInviteSheet = false
 
