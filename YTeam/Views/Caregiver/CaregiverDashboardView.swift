@@ -159,7 +159,7 @@ struct SeniorStatus: View {
 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(caregiverDashboardViewModel.falls.count > 0 ? "Fall Detection Triggered" : caregiverDashboardViewModel.sos.count > 0 ? "SOS Button Triggered" : caregiverDashboardViewModel.latestSymptomInfo == nil ? "No Alerts" : "Symptoms Detected")
+                        Text(caregiverDashboardViewModel.falls.count > 0 ? "Fall Detection Triggered" : caregiverDashboardViewModel.sos.count > 0 ? "SOS Button Triggered" : caregiverDashboardViewModel.latestSymptomInfo == nil ? "No Alerts" : "Symptoms Reported")
                             .font(.headline)
                             .foregroundStyle(caregiverDashboardViewModel.falls.count > 0 || caregiverDashboardViewModel.sos.count > 0 ? Color("emergency-pink") : Color(.label))
                         Image(systemName: caregiverDashboardViewModel.latestSymptomInfo == nil && caregiverDashboardViewModel.falls.count == 0 && caregiverDashboardViewModel.sos.count == 0 ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
@@ -167,7 +167,7 @@ struct SeniorStatus: View {
                             .font(.subheadline)
                     }
 
-                    Text(caregiverDashboardViewModel.falls.count > 0 || caregiverDashboardViewModel.sos.count > 0 ? "Please contact your senior or find help immediately!" : caregiverDashboardViewModel.latestSymptomInfo == nil ? "No symptoms detected" : "\(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto") experienced \(caregiverDashboardViewModel.latestSymptomInfo?.name?.lowercased() ?? "none") lately")
+                    Text(caregiverDashboardViewModel.falls.count > 0 || caregiverDashboardViewModel.sos.count > 0 ? "Please contact your senior or find help immediately!" : caregiverDashboardViewModel.latestSymptomInfo == nil ? "No symptoms reported" : "\(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto") experienced \(caregiverDashboardViewModel.latestSymptomInfo?.name?.lowercased() ?? "none") lately")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
@@ -194,7 +194,7 @@ struct SeniorStatus: View {
                         
                         VStack(alignment: .leading) {
                             Text("Heart Rate")
-                                .font(.subheadline)
+                                .font(.caption)
                             
                             HStack {
                                 Text("\(Int(caregiverDashboardViewModel.heartBeatInfo?.bpm ?? 0))")
@@ -218,14 +218,14 @@ struct SeniorStatus: View {
                 VStack(alignment: .leading) {
                     HStack {
                         VStack {
-                            Image(systemName: (caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" }) != nil) ? "figure.walk" : "moon.fill")
+                            Image(systemName: "applewatch.radiowaves.left.and.right")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 20, height: 20)
+                                .frame(width: 30, height: 30)
                                 .foregroundStyle(.white)
-                                .padding(.horizontal, (caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" }) != nil) ? 2 : 0)
+                                .font(.system(size: 60))
                         }
-                        .padding(12)
+                        .padding(8)
                         .background(.blue)
                         .clipShape(RoundedRectangle(cornerRadius: 4))
                         
@@ -242,8 +242,8 @@ struct SeniorStatus: View {
                         } else {
                             if (caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" }) != nil) {
                                 VStack(alignment: .leading) {
-                                    Text("Inactive for")
-                                        .font(.subheadline)
+                                    Text("Stationary For")
+                                        .font(.caption)
 
                                     HStack {
                                         Text(Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeString)
@@ -270,11 +270,11 @@ struct SeniorStatus: View {
                                 }
                             } else {
                                 VStack(alignment: .leading) {
-                                    Text("Currently")
-                                        .font(.subheadline)
+                                    Text("Watch Activity")
+                                        .font(.caption)
 
-                                    Text("Active")
-                                        .font(.title2)
+                                    Text("In Motion")
+                                        .font(.title3)
                                         .bold()
                                 }
                             }
