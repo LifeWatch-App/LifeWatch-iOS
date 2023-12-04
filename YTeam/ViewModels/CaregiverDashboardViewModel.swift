@@ -51,6 +51,8 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     private var cancellables = Set<AnyCancellable>()
     private var routineData: [RoutineData] = []
     private let routineService: RoutineService = RoutineService.shared
+    
+    @Published var showDisclaimerSheet = false
 
     override init() {
         super.init()

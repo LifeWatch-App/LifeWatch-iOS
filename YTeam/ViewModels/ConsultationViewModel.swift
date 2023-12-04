@@ -17,6 +17,8 @@ class ConsultationViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     
+    @Published var showDisclaimerSheet = false
+    
     func sendMessage() {
         let newMessage = Message(id: UUID(), role: .user, content: messageText, createdAt: Date())
         messages.append(newMessage)

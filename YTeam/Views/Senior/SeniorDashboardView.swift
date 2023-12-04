@@ -26,7 +26,7 @@ struct SeniorDashboardView: View {
                                         .font(.title3)
                                         .fontWeight(.semibold)
                                     Text("Would like to join your care team")
-                                        .foregroundColor(.secondary)
+                                        .foregroundStyle(.secondary)
                                 }
                                 Spacer()
                                 HStack(spacing: 16) {
@@ -209,7 +209,7 @@ struct UpcomingActivity: View {
                                                 Text(routine.time[i], style: .time)
                                                     .padding(.leading, -4)
                                             }
-                                            .foregroundColor(.secondary)
+                                            .foregroundStyle(.secondary)
                                         }
                                         
                                         Spacer()
@@ -301,7 +301,7 @@ struct Symtomps: View {
                                 .padding(.leading, -4)
                                 .font(.subheadline)
                         }
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                         .padding(.leading, 4)
                     }
                     .padding()

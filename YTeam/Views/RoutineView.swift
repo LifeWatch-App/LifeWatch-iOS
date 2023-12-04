@@ -102,7 +102,7 @@ struct RoutineView: View {
                                                 Text(routine.time.first ?? Date(), style: .time)
                                                     .padding(.leading, -4)
                                             }
-                                            .foregroundColor(.secondary)
+                                            .foregroundStyle(.secondary)
                                         }
                                         
                                         Spacer()

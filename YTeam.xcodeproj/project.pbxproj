@@ -139,6 +139,7 @@
 		8D7465932B04736600A48F71 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7465922B04736600A48F71 /* ChatBubble.swift */; };
 		8D7D73062ADE247D00251550 /* Inactivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D73052ADE247D00251550 /* Inactivity.swift */; };
 		8D8FB6B62AEA03C90081CD50 /* HeartRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */; };
+		8D9F70942B1E135E00DEEB92 /* DisclaimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9F70932B1E135E00DEEB92 /* DisclaimerView.swift */; };
 		8DDFD0702ADD24E000A022FE /* InactivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */; };
 		8DDFD0722ADD2EDB00A022FE /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */; };
 		8DDFD0742ADD3F5A00A022FE /* ChooseRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */; };
@@ -325,6 +326,7 @@
 		8D7465922B04736600A48F71 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
 		8D7D73052ADE247D00251550 /* Inactivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inactivity.swift; sourceTree = "<group>"; };
 		8D8FB6B52AEA03C90081CD50 /* HeartRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateChart.swift; sourceTree = "<group>"; };
+		8D9F70932B1E135E00DEEB92 /* DisclaimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclaimerView.swift; sourceTree = "<group>"; };
 		8DDFD06F2ADD24E000A022FE /* InactivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactivityChart.swift; sourceTree = "<group>"; };
 		8DDFD0712ADD2EDB00A022FE /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		8DDFD0732ADD3F5A00A022FE /* ChooseRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRoleView.swift; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				4CA7922F2ADFF9A1003B5EC9 /* CaregiverDashboardView.swift */,
 				8D73C3D52AF8FC23009AFD80 /* CaregiverAllRoutineView.swift */,
 				8D7465872B046F6B00A48F71 /* ConsultationView.swift */,
+				8D9F70932B1E135E00DEEB92 /* DisclaimerView.swift */,
 			);
 			path = Caregiver;
 			sourceTree = "<group>";
@@ -1020,6 +1023,7 @@
 				93D4FA5E2AF4A160000850CE /* CardShape.swift in Sources */,
 				7D9D41DA2AE62EA200818908 /* InactivityService.swift in Sources */,
 				93614CDE2B0301B6003350F1 /* IdleService.swift in Sources */,
+				8D9F70942B1E135E00DEEB92 /* DisclaimerView.swift in Sources */,
 				4CA232A52ADE1F4F003874D2 /* UserRecord.swift in Sources */,
 				4CB9AE582AEA0E26008F4381 /* ProfileView.swift in Sources */,
 				7D2151B32AF8734C001BB9BC /* Heartbeat.swift in Sources */,

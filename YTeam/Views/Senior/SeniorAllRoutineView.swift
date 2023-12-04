@@ -40,7 +40,7 @@ struct SeniorAllRoutineView: View {
                                         Text(routine.time[i], style: .time)
                                             .padding(.leading, -4)
                                     }
-                                    .foregroundColor(.secondary)
+                                    .foregroundStyle(.secondary)
                                 }
                                 
                                 Spacer()

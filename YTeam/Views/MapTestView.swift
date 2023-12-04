@@ -29,7 +29,7 @@ struct MapTestView: View {
                         } label: {
                             Text("3D")
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .padding(10)
                                 .background(mapVM.is3DMap ? Color.green : Color.blue)
                                 .clipShape(Circle())

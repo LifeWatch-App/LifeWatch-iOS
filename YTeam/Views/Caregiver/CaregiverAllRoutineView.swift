@@ -42,7 +42,7 @@ struct CaregiverAllRoutineView: View {
                                             .padding(.leading, -4)
                                     }
                                     .font(.subheadline)
-                                    .foregroundColor(.secondary)
+                                    .foregroundStyle(.secondary)
                                 }
                                 
                                 Spacer()

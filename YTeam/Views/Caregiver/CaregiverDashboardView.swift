@@ -120,6 +120,9 @@ struct CaregiverDashboardView: View {
                 .sheet(isPresented: $showInviteSheet) {
                     InviteSheetView(caregiverDashboardViewModel: caregiverDashboardViewModel)
                 }
+                .sheet(isPresented: $caregiverDashboardViewModel.showDisclaimerSheet) {
+                    DisclaimerView()
+                }
                 .navigationTitle("Tracker")
                 .onChange(of: caregiverDashboardViewModel.falls) { oldValue, newValue in
                     
@@ -436,7 +439,7 @@ struct UpcomingRoutines: View {
                                                 .padding(.leading, -4)
                                         }
                                         .font(.subheadline)
-                                        .foregroundColor(.secondary)
+                                        .foregroundStyle(.secondary)
                                     }
                                     
                                     Spacer()
@@ -576,6 +579,17 @@ struct AnalysisResult: View {
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
+                        
+                        Divider()
+                        
+                        Group {
+                            Text("This medical AI is intended solely for educational purposes and should not be used as a substitute for professional medical advice.")
+                            Button("Click here for more information") {
+                                caregiverDashboardViewModel.showDisclaimerSheet.toggle()
+                            }
+                            .foregroundStyle(.accent)
+                        }
+                        .font(.caption)
                     }
                     
                     Spacer()

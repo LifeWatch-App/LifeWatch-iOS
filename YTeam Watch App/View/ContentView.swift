@@ -41,11 +41,11 @@ struct RequestLocationView: View {
                 Label("Allow tracking", systemImage: "location")
             })
             .padding(10)
-            .foregroundColor(.white)
+            .foregroundStyle(.white)
             .background(Color.accentColor)
             .clipShape(RoundedRectangle(cornerRadius: 8))
             Text("We need your permission to track you.")
-                .foregroundColor(.gray)
+                .foregroundStyle(.gray)
                 .font(.caption)
         }
     }
@@ -62,7 +62,7 @@ struct ErrorView: View {
             Text(errorText)
         }
         .padding()
-        .foregroundColor(.white)
+        .foregroundStyle(.white)
         .background(Color.red)
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }

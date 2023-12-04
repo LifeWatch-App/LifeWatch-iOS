@@ -39,6 +39,21 @@ struct ConsultationView: View {
                     .padding()
                 }
                 
+                Group {
+                    Divider()
+                        .padding(.horizontal)
+                        .padding(.vertical, 4)
+                    Text("This medical AI is intended solely for educational purposes and should not be used as a substitute for professional medical advice.")
+                        .padding(.horizontal)
+                        .multilineTextAlignment(.center)
+                    Button("Click here for more information") {
+                        consultationViewModel.showDisclaimerSheet.toggle()
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 4)
+                }
+                .font(.caption)
+                
                 HStack {
                     TextField("Enter a message", text: $consultationViewModel.messageText)
                         .padding()
@@ -58,6 +73,9 @@ struct ConsultationView: View {
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 4)
+            }
+            .sheet(isPresented: $consultationViewModel.showDisclaimerSheet) {
+                DisclaimerView()
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("AI Health Consultation")
