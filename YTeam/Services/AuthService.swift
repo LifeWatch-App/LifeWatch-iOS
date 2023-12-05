@@ -151,6 +151,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
             }
 
             self.removeListeners()
+            PTT.shared.leaveChannel()
             
             do {
                 try Auth.auth().signOut()
@@ -520,6 +521,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                         }
                                         
                                         self.removeListeners()
+                                        PTT.shared.leaveChannel()
                                         
                                         Auth.auth().currentUser?.delete { err in
                                             if let err = err {
@@ -561,6 +563,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                     }
                     
                     self.removeListeners()
+                    PTT.shared.leaveChannel()
                     
                     Auth.auth().currentUser?.delete { err in
                         if let err = err {
