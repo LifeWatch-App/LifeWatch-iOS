@@ -209,12 +209,8 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                         self.isLoading = false
                     }
                 } else {
-                    guard let fcmToken = UserDefaults.standard.value(forKey: "fcmToken") else{
-                        return
-                    }
-                    guard let pttToken = UserDefaults.standard.value(forKey: "pttToken") else{
-                        return
-                    }
+                    let fcmToken: String? = UserDefaults.standard.value(forKey: "fcmToken") as? String
+                    let pttToken: String? = UserDefaults.standard.value(forKey: "pttToken") as? String
                     let udid: String = UIDevice().identifierForVendor!.uuidString
                     
                     self.db
@@ -224,8 +220,8 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                             "name": "Unknown",
                             "email": AuthService.shared.user!.email!,
                             "role": NSNull(),
-                            "fcmToken": fcmToken,
-                            "pttToken": pttToken,
+                            "fcmToken": fcmToken ?? NSNull(),
+                            "pttToken": pttToken ?? NSNull(),
                             "udid": udid
                         ]) { [weak self] err in
                             guard self != nil else { return }
@@ -237,7 +233,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                             }
                             else {
                                 print("Document added")
-                                self!.userData = UserData(id: AuthService.shared.user!.uid, email: AuthService.shared.user!.email!, role: nil, fcmToken: fcmToken as! String, pttToken: pttToken as! String, udid: udid)
+                                self!.userData = UserData(id: AuthService.shared.user!.uid, name: "Unknown", email: AuthService.shared.user!.email!, role: nil, fcmToken: fcmToken, pttToken: pttToken, udid: udid)
                                 withAnimation {
                                     self!.isLoading = false
                                 }
