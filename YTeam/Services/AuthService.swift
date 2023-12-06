@@ -302,6 +302,10 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                 for (index, document) in documents.enumerated() {
                     var invite = try? document.data(as: Invite.self)
                     
+                    if invite?.accepted ?? false {
+                        PTT.shared.requestJoinChannel()
+                    }
+                    
                     self.db.collection("users").document(invite!.seniorId!).getDocument { (querySnapshot, err) in
                         if let err = err {
                             print("Error getting documents: \(err)")

@@ -517,6 +517,7 @@ struct MapPreview: View {
                             .multilineTextAlignment(.center)
                         Text("Ask your senior to set their home location.")
                             .font(.subheadline)
+                            .multilineTextAlignment(.center)
                     }
                     
                     Spacer()
@@ -535,6 +536,7 @@ struct MapPreview: View {
                             .multilineTextAlignment(.center)
                         Text("Ask your senior to turn on their location.")
                             .font(.subheadline)
+                            .multilineTextAlignment(.center)
                     }
                     
                     Spacer()
