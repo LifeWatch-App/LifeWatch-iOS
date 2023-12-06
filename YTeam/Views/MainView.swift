@@ -22,7 +22,6 @@ struct MainView: View {
                 SeniorView(mainViewModel: mainViewModel)
                     .environmentObject(batteryLevelViewModel)
                     .task {
-                        PTT.shared.requestJoinChannel()
                         mainViewModel.addInvitesListener()
                         await AVAudioApplication.requestRecordPermission()
                     }
@@ -30,7 +29,6 @@ struct MainView: View {
                 CaregiverView()
                     .environmentObject(batteryLevelViewModel)
                     .task {
-                        PTT.shared.requestJoinChannel()
                         mainViewModel.addInvitesListener()
                         await AVAudioApplication.requestRecordPermission()
                     }
