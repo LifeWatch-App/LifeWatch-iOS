@@ -38,6 +38,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var showWalkieTalkie: Bool = false
     @Published var isJoined: Bool = false
     @Published var isPlaying: Bool = false
+    @Published var isLoading: Bool = true
     @Published var speakerName: String = ""
     @Published var routines: [Routine] = []
     @Published var inviteEmail = ""
@@ -65,7 +66,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     }
     
     private func setupSubscribers() {
-        print("Test called")
         authService.$user
             .combineLatest(authService.$userData, authService.$invites)
             .sink { [weak self] user, userData, invites in
@@ -76,7 +76,6 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                 
                 if self.userData != userData {
                     self.userData = userData
-                    print("UserData", userData)
                 }
                 
                 if self.invites != invites {
@@ -117,6 +116,10 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                     self.sosService.observeTodaySOS(userData: userData)
                     self.routineService.observeAllRoutines(userData: userData)
                     self.routineService.observeAllDeletedRoutines(userData: userData)
+
+                    if self.isLoading {
+                        self.isLoading = false
+                    }
                 }
             }
             .store(in: &cancellables)

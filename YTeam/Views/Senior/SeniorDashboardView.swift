@@ -9,83 +9,91 @@ import SwiftUI
 
 struct SeniorDashboardView: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     @AppStorage("emailModal") var emailModal = true
-    
+
     @StateObject var seniorDashboardViewModel = SeniorDashboardViewModel()
-    
+
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack{
-                    ForEach(seniorDashboardViewModel.invites, id: \.id) { invite in
-                        if !invite.accepted! {
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text("\(invite.caregiverData!.name ?? "Subroto")")
-                                        .font(.title3)
-                                        .fontWeight(.semibold)
-                                    Text("Would like to join your care team")
-                                        .foregroundStyle(.secondary)
-                                }
-                                Spacer()
-                                HStack(spacing: 16) {
-                                    Button {
-                                        seniorDashboardViewModel.acceptInvite(id: invite.id!)
-                                    } label: {
-                                        Text("Accept")
+            ZStack {
+                if !seniorDashboardViewModel.isLoading  {
+                    ScrollView {
+                        VStack{
+                            ForEach(seniorDashboardViewModel.invites, id: \.id) { invite in
+                                if !invite.accepted! {
+                                    HStack {
+                                        VStack(alignment: .leading) {
+                                            Text("\(invite.caregiverData!.name ?? "Subroto")")
+                                                .font(.title3)
+                                                .fontWeight(.semibold)
+                                            Text("Would like to join your care team")
+                                                .foregroundColor(.secondary)
+                                        }
+                                        Spacer()
+                                        HStack(spacing: 16) {
+                                            Button {
+                                                seniorDashboardViewModel.acceptInvite(id: invite.id!)
+                                            } label: {
+                                                Text("Accept")
+                                            }
+                                            Button {
+                                                seniorDashboardViewModel.denyInvite(id: invite.id!)
+                                            } label: {
+                                                Text("Deny")
+                                                    .foregroundStyle(.red)
+                                            }
+                                        }
+                                        .padding(.leading, 4)
                                     }
-                                    Button {
-                                        seniorDashboardViewModel.denyInvite(id: invite.id!)
-                                    } label: {
-                                        Text("Deny")
-                                            .foregroundStyle(.red)
-                                    }
+                                    .padding()
+                                    .background(colorScheme == .light ? .white : Color(.systemGray6))
+                                    .clipShape(RoundedRectangle(cornerRadius: 8))
                                 }
-                                .padding(.leading, 4)
                             }
-                            .padding()
-                            .background(colorScheme == .light ? .white : Color(.systemGray6))
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                            ButtonCards(seniorDashboardViewModel: seniorDashboardViewModel)
+
+                            UpcomingActivity(seniorDashboardViewModel: seniorDashboardViewModel)
+
+                            Symtomps(seniorDashboardViewModel: seniorDashboardViewModel)
+                        }
+                        .padding(.horizontal)
+                    }
+                    .sheet(isPresented: $seniorDashboardViewModel.showAddSymptom, content: {
+                        AddSymptomView()
+                    })
+                    .background(colorScheme == .light ? Color(.systemGroupedBackground) : .black)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            NavigationLink {
+                                ProfileView()
+                            } label: {
+                                Image(systemName: "person.crop.circle")
+                                    .font(.title)
+                            }
                         }
                     }
-                    
-                    ButtonCards(seniorDashboardViewModel: seniorDashboardViewModel)
-                    
-                    UpcomingActivity(seniorDashboardViewModel: seniorDashboardViewModel)
-                    
-                    Symtomps(seniorDashboardViewModel: seniorDashboardViewModel)
-                }
-                .padding(.horizontal)
-            }
-            .sheet(isPresented: $seniorDashboardViewModel.showAddSymptom, content: {
-                AddSymptomView()
-            })
-            .background(colorScheme == .light ? Color(.systemGroupedBackground) : .black)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        ProfileView()
-                    } label: {
-                        Image(systemName: "person.crop.circle")
-                            .font(.title)
+                    .navigationTitle("Dashboard")
+                    .fullScreenCover(isPresented: $emailModal) {
+                        OnBoardingEmailView(seniorDashboardViewModel: seniorDashboardViewModel)
                     }
+                    .onAppear {
+                        seniorDashboardViewModel.checkAllDone()
+                    }
+                    .padding(.horizontal)
+                } else {
+                    ProgressView()
                 }
             }
-            .navigationTitle("Dashboard")
-            .fullScreenCover(isPresented: $emailModal) {
-                OnBoardingEmailView(seniorDashboardViewModel: seniorDashboardViewModel)
-            }
-            .onAppear {
-                seniorDashboardViewModel.checkAllDone()
-            }
+            .transition(.opacity)
         }
     }
 }
 
 struct ButtonCards: View {
     @ObservedObject var seniorDashboardViewModel: SeniorDashboardViewModel
-    
+
     var body: some View {
         HStack(spacing: 12) {
             Button{
@@ -97,13 +105,13 @@ struct ButtonCards: View {
                             .multilineTextAlignment(.leading)
                             .font(.title)
                             .bold()
-                        
+
                         Spacer()
-                        
+
                         Image(systemName: "light.beacon.max.fill")
                             .font(.title2)
                     }
-                    
+
                     Text("Alerting Family Member")
                         .multilineTextAlignment(.leading)
                 }
@@ -114,7 +122,7 @@ struct ButtonCards: View {
             .fullScreenCover(isPresented: $seniorDashboardViewModel.showSOS, content: {
                 SOSView(seniorDashboardViewModel: seniorDashboardViewModel)
             })
-            
+
             Button {
                 seniorDashboardViewModel.showWalkieTalkie.toggle()
             } label: {
@@ -124,13 +132,13 @@ struct ButtonCards: View {
                             .multilineTextAlignment(.leading)
                             .font(.title)
                             .bold()
-                        
+
                         Spacer()
-                        
+
                         Image(systemName: "flipphone")
                             .font(.title2)
                     }
-                    
+
                     Text("Talk to Family Member")
                         .multilineTextAlignment(.leading)
                 }
@@ -148,7 +156,7 @@ struct ButtonCards: View {
 
 struct UpcomingActivity: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     @ObservedObject var seniorDashboardViewModel: SeniorDashboardViewModel
     @StateObject var routineViewModel: RoutineViewModel = RoutineViewModel()
     var body: some View {
@@ -157,9 +165,9 @@ struct UpcomingActivity: View {
                 Text("Upcoming Routines")
                     .font(.headline)
                     .foregroundStyle(.secondary)
-                
+
                 Spacer()
-                
+
                 NavigationLink {
                     SeniorAllRoutineView(seniorDashboardViewModel: seniorDashboardViewModel)
                 } label: {
@@ -167,17 +175,17 @@ struct UpcomingActivity: View {
                         .font(.headline)
                 }
             }
-            
+
             VStack(spacing: 8) {
                 // Ambil 3 dengan waktu terdekat yang belum done
                 if seniorDashboardViewModel.routines.count > 0 {
                     if seniorDashboardViewModel.allRoutineDone {
                         HStack {
                             Spacer()
-                            
+
                             Text("You have completed all of the routines today.")
                                 .multilineTextAlignment(.center)
-                            
+
                             Spacer()
                         }
                         .padding()
@@ -199,7 +207,7 @@ struct UpcomingActivity: View {
                                         .frame(width: 52, height: 52)
                                         .background(.blue)
                                         .clipShape(RoundedRectangle(cornerRadius: 8))
-                                        
+
                                         VStack(alignment: .leading, spacing: 4) {
                                             Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
                                                 .font(.headline)
@@ -211,9 +219,9 @@ struct UpcomingActivity: View {
                                             }
                                             .foregroundStyle(.secondary)
                                         }
-                                        
+
                                         Spacer()
-                                        
+
                                         Button {
                                             routineViewModel.updateRoutineCheck(routine: routine, index: i)
                                         } label: {
@@ -234,10 +242,10 @@ struct UpcomingActivity: View {
                 } else {
                     HStack {
                         Spacer()
-                        
+
                         Text("Routines not Set.")
                             .multilineTextAlignment(.center)
-                        
+
                         Spacer()
                     }
                     .padding()
@@ -252,18 +260,18 @@ struct UpcomingActivity: View {
 
 struct Symtomps: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     @ObservedObject var seniorDashboardViewModel: SeniorDashboardViewModel
-    
+
     var body: some View {
         VStack {
             HStack {
                 Text("Today's Symptoms")
                     .font(.headline)
                     .foregroundStyle(.secondary)
-                
+
                 Spacer()
-                
+
                 Button {
                     seniorDashboardViewModel.showAddSymptom.toggle()
                 } label: {
@@ -272,7 +280,7 @@ struct Symtomps: View {
                         .bold()
                 }
             }
-            
+
             if seniorDashboardViewModel.symptoms.count > 0 {
                 ForEach(seniorDashboardViewModel.symptoms) { symptom in
                     HStack(alignment: .center, spacing: 16) {
@@ -281,20 +289,20 @@ struct Symtomps: View {
                             .cornerRadius(8)
                             .scaledToFit()
                             .frame(height: 50)
-                        
+
                         VStack(alignment: .leading) {
                             Text(symptom.name ?? "Unknown")
                                 .font(.title3)
                                 .fontWeight(.semibold)
-                            
+
                             if symptom.note != "" {
                                 Text(symptom.note ?? "")
                                     .font(.subheadline)
                             }
                         }
-                        
+
                         Spacer()
-                        
+
                         HStack {
                             Image(systemName: "clock")
                             Text(Date.unixToDate(unix: symptom.time ?? 0), style: .time)
@@ -311,9 +319,9 @@ struct Symtomps: View {
             } else {
                 HStack {
                     Spacer()
-                    
+
                     Text("No symptoms today.")
-                    
+
                     Spacer()
                 }
                 .padding()
@@ -326,5 +334,5 @@ struct Symtomps: View {
 
 #Preview {
     SeniorDashboardView()
-//            .preferredColorScheme(.dark)
+    //            .preferredColorScheme(.dark)
 }

@@ -21,6 +21,7 @@ class SeniorDashboardViewModel: ObservableObject {
     @Published var showWalkieTalkie: Bool = false
     @Published var selectedInviteId: String?
     @Published var routines: [Routine] = []
+    @Published var isLoading: Bool = true
     @Published var symptoms: [Symptom] = []
     private let service = AuthService.shared
     private let symptomService = SymptomService.shared
@@ -37,6 +38,9 @@ class SeniorDashboardViewModel: ObservableObject {
         routineService.observeAllRoutines(userData: userData)
         routineService.observeAllDeletedRoutines(userData: userData)
         setupSubscribers()
+        if self.isLoading {
+            self.isLoading = false
+        }
     }
 
     deinit {

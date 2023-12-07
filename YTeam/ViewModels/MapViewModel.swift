@@ -18,12 +18,16 @@ final class MapViewModel: NSObject, ObservableObject {
     @Published var lastSeenLocation: CLLocationCoordinate2D?
     @Published var allLocations: [LiveLocation] = []
     @Published var is3DMap = false
+    @Published var locationSearchItems: [LocationSearchItem] = []
     @Published var shouldChangeMap = false
     @Published var recenter: Bool = false
     @Published var zoomOut: Bool = false
     @Published var shouldSelect: Bool = false
+    @Published var searchText: String = ""
     @Published var homeSetMode: Bool = false
+    @Published var shouldNavigateLocationFromSearch: Bool = false
     @Published var selectedPlacemark: CLLocationCoordinate2D?
+    @Published var selectedSearchPlacemark: CLLocationCoordinate2D?
     private var cancellables = Set<AnyCancellable>()
     private let service = LocationService.shared
     private let authService = AuthService.shared
@@ -72,9 +76,7 @@ final class MapViewModel: NSObject, ObservableObject {
             .sink { [weak self] documentChanges in
                 print(documentChanges)
                 guard let self = self else { return }
-                withAnimation {
-                    self.mapRegion = self.loadLatestHomeLocation(documents: documentChanges)
-                }
+                self.mapRegion = self.loadLatestHomeLocation(documents: documentChanges)
             }
             .store(in: &cancellables)
         
@@ -93,6 +95,45 @@ final class MapViewModel: NSObject, ObservableObject {
                 self.loadLiveLocations(documents: documentChanges)
             }
             .store(in: &cancellables)
+        
+        $searchText
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .sink { [weak self] searchText in
+                if !searchText.isEmpty {
+                    self?.searchLocation(searchText: searchText)
+                }
+            }
+            .store(in: &cancellables)
+        
+        
+    }
+    
+    private func searchLocation(resultType: MKLocalSearch.ResultType = .pointOfInterest,
+                                searchText: String) {
+        self.locationSearchItems = []
+        let request = MKLocalSearch.Request()
+        request.resultTypes = resultType
+        guard let lastSeenLocation = self.lastSeenLocation else { return }
+        request.region = MKCoordinateRegion(center: lastSeenLocation, latitudinalMeters: 500_000, longitudinalMeters: 500_000)
+        request.pointOfInterestFilter = .includingAll
+        request.naturalLanguageQuery = searchText
+        let search = MKLocalSearch(request: request)
+        
+        search.start { response, error in
+            if let error {
+                print("Error: \(error)")
+            } else {
+                guard let response else { return }
+                print(response)
+                withAnimation(.spring()) {
+                    if response.mapItems.compactMap({ LocationSearchItem(place: $0.placemark) }) != self.locationSearchItems {
+                        DispatchQueue.main.async {
+                            self.locationSearchItems = response.mapItems.compactMap({ LocationSearchItem(place: $0.placemark) })
+                        }
+                    }
+                }
+            }
+        }
     }
     
     private func loadLiveLocations(documents: [DocumentChange]) {
@@ -139,7 +180,6 @@ final class MapViewModel: NSObject, ObservableObject {
         
         if homeSetMode {
             Task { try? await service.setHomeLocation(location: locationCoordinate) }
-            homeSetMode = false
         }
     }
     

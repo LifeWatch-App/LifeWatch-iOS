@@ -27,6 +27,7 @@ final class HistoryViewModel: ObservableObject {
     @Published var fallsCount: Int = 0
     @Published var sosCount: Int = 0
     @Published var idleCount: Int = 0
+    @Published var isLoading: Bool = true
     @Published var chargeCount: Int = 0
     @Published var inactivityData: [InactivityChart] = []
     @Published var heartRateData: [HeartRateChart] = []
@@ -527,6 +528,13 @@ final class HistoryViewModel: ObservableObject {
             self.updateGroupedInactivities()
             self.updateGroupedHeartAnomalies()
             self.convertHeartbeatsToHeartRateChart()
+            if self.isLoading == true {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    withAnimation {
+                        self.isLoading = false
+                    }
+                }
+            }
         }
     }
 

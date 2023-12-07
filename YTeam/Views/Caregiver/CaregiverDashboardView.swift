@@ -9,132 +9,142 @@ import SwiftUI
 
 struct CaregiverDashboardView: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     @AppStorage("inviteModal") var inviteModal = true
-    
+
     @StateObject var caregiverDashboardViewModel: CaregiverDashboardViewModel = CaregiverDashboardViewModel()
     @State var showChangeSenior = false
     @State var showInviteSheet = false
+    @State var searchTest = ""
 
     var body: some View {
         ZStack {
             NavigationStack {
-                VStack {
-                    ScrollView {
-                        VStack(spacing: 20) {
-                            SeniorStatus(caregiverDashboardViewModel: caregiverDashboardViewModel)
-                                .padding(.horizontal)
+                ZStack {
+                    if !caregiverDashboardViewModel.isLoading {
+                        VStack {
+                            ScrollView {
+                                VStack(spacing: 20) {
+                                    SeniorStatus(caregiverDashboardViewModel: caregiverDashboardViewModel)
+                                        .padding(.horizontal)
 
-                            UpcomingRoutines(caregiverDashboardViewModel: caregiverDashboardViewModel)
-                            
-                            ZStack(alignment: .topLeading) {
-                                MapPreview()
+                                    UpcomingRoutines(caregiverDashboardViewModel: caregiverDashboardViewModel)
 
-                                if let locationInfo = caregiverDashboardViewModel.latestLocationInfo {
-                                    Text(locationInfo.isOutside ?? false ? "Outside" : "Home")
-                                        .fontWeight(.bold)
-                                        .padding(.top, 40)
-                                        .padding(.leading, 25)
+                                    ZStack(alignment: .topLeading) {
+                                        MapPreview()
+
+                                        if let locationInfo = caregiverDashboardViewModel.latestLocationInfo {
+                                            Text(locationInfo.isOutside ?? false ? "Outside" : "Home")
+                                                .fontWeight(.bold)
+                                                .padding(.top, 40)
+                                                .padding(.leading, 25)
+                                        }
+                                    }
+
+                                    AnalysisResult(caregiverDashboardViewModel: caregiverDashboardViewModel)
                                 }
                             }
-                            
-                            AnalysisResult(caregiverDashboardViewModel: caregiverDashboardViewModel)
-                        }
-                    }
 
-                    if caregiverDashboardViewModel.isJoined {
-                        if caregiverDashboardViewModel.isPlaying {
-                            Text("\(caregiverDashboardViewModel.speakerName)...")
-                                .font(.subheadline)
-                                .multilineTextAlignment(.center)
-                                .foregroundStyle(.accent)
-                                .padding(.horizontal)
-                                .padding(.top, 8)
-                        }
-                    } else {
-                        Text("You are not in a channel\n(you won't receive incoming transmissions)")
-                            .font(.subheadline)
-                            .multilineTextAlignment(.center)
-                            .foregroundStyle(.red)
-                            .padding(.horizontal)
-                            .padding(.top, 8)
-                    }
-                    Button {
-                        caregiverDashboardViewModel.showWalkieTalkie.toggle()
-                    } label: {
-                        HStack {
-                            Spacer()
-
-                            Image(systemName: "flipphone")
-                            Text("Walkie-Talkie")
-
-                            Spacer()
-                        }
-                        .foregroundStyle(.white)
-                        .padding(12)
-                        .background(.accent)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .padding(.vertical, 8)
-                        .padding(.horizontal)
-                    }
-                }
-                .fullScreenCover(isPresented: $caregiverDashboardViewModel.showWalkieTalkie, content: {
-                    WalkieTalkieView()
-                })
-                .background(colorScheme == .light ? Color(.systemGroupedBackground) : .black)
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            if caregiverDashboardViewModel.invites.isEmpty {
-                                showInviteSheet.toggle()
-                            } else {
-                                showChangeSenior.toggle()
-                            }
-                        } label: {
-                            HStack {
-                                if caregiverDashboardViewModel.invites.isEmpty {
-                                    Text("Add a senior")
-                                } else if caregiverDashboardViewModel.invites.contains(where: { $0.accepted == true }) {
-                                    Text(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto")
-                                    
-                                    Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
+                            if caregiverDashboardViewModel.isJoined {
+                                if caregiverDashboardViewModel.isPlaying {
+                                    Text("\(caregiverDashboardViewModel.speakerName)...")
                                         .font(.subheadline)
-                                        .padding(.leading, -2)
-                                } else {
-                                    Text("Add a senior")
+                                        .multilineTextAlignment(.center)
+                                        .foregroundStyle(.accent)
+                                        .padding(.horizontal)
+                                        .padding(.top, 8)
+                                }
+                            } else {
+                                Text("You are not in a channel\n(you won't receive incoming transmissions)")
+                                    .font(.subheadline)
+                                    .multilineTextAlignment(.center)
+                                    .foregroundStyle(.red)
+                                    .padding(.horizontal)
+                                    .padding(.top, 8)
+                            }
+                            Button {
+                                caregiverDashboardViewModel.showWalkieTalkie.toggle()
+                            } label: {
+                                HStack {
+                                    Spacer()
+
+                                    Image(systemName: "flipphone")
+                                    Text("Walkie-Talkie")
+
+                                    Spacer()
+                                }
+                                .foregroundStyle(.white)
+                                .padding(12)
+                                .background(.accent)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                .padding(.vertical, 8)
+                                .padding(.horizontal)
+                            }
+                        }
+                        .background(colorScheme == .light ? Color(.systemGroupedBackground) : .black)
+                        .navigationTitle("Tracker")
+                        .onChange(of: caregiverDashboardViewModel.falls) { oldValue, newValue in
+
+                        }
+                        .fullScreenCover(isPresented: $caregiverDashboardViewModel.showWalkieTalkie, content: {
+                            WalkieTalkieView()
+                        })
+                        .fullScreenCover(isPresented: $inviteModal) {
+                            OnBoardingInviteView(caregiverDashboardViewModel: caregiverDashboardViewModel)
+                        }
+                        //                .background(colorScheme == .light ? Color(.systemGroupedBackground) : .black)
+                        .toolbar {
+                            ToolbarItem(placement: .topBarLeading) {
+                                Button {
+                                    if caregiverDashboardViewModel.invites.isEmpty {
+                                        showInviteSheet.toggle()
+                                    } else {
+                                        showChangeSenior.toggle()
+                                    }
+                                } label: {
+                                    HStack {
+                                        if caregiverDashboardViewModel.invites.isEmpty {
+                                            Text("Add a senior")
+                                        } else if caregiverDashboardViewModel.invites.contains(where: { $0.accepted == true }) {
+                                            Text(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto")
+
+                                            Image(systemName: showChangeSenior ? "chevron.up" : "chevron.down")
+                                                .font(.subheadline)
+                                                .padding(.leading, -2)
+                                        } else {
+                                            Text("Add a senior")
+                                        }
+                                    }
+                                    .font(.headline)
                                 }
                             }
-                            .font(.headline)
-                        }
-                    }
 
-                    ToolbarItem(placement: .topBarTrailing) {
-                        NavigationLink {
-                            ProfileView()
-                        } label: {
-                            Image(systemName: "person.crop.circle")
-                                .font(.title)
+                            ToolbarItem(placement: .topBarTrailing) {
+                                NavigationLink {
+                                    ProfileView()
+                                } label: {
+                                    Image(systemName: "person.crop.circle")
+                                        .font(.title)
+                                }
+                            }
                         }
+                        .sheet(isPresented: $showInviteSheet) {
+                            InviteSheetView(caregiverDashboardViewModel: caregiverDashboardViewModel)
+                        }
+                        .sheet(isPresented: $caregiverDashboardViewModel.showDisclaimerSheet) {
+                            DisclaimerView()
+                        }
+
+                    } else {
+                        ProgressView()
                     }
-                }
-                .sheet(isPresented: $showInviteSheet) {
-                    InviteSheetView(caregiverDashboardViewModel: caregiverDashboardViewModel)
-                }
-                .sheet(isPresented: $caregiverDashboardViewModel.showDisclaimerSheet) {
-                    DisclaimerView()
-                }
-                .navigationTitle("Tracker")
-                .onChange(of: caregiverDashboardViewModel.falls) { oldValue, newValue in
-                    
                 }
             }
 
             ChangeSeniorOverlay(showInviteSheet: $showInviteSheet, showChangeSenior: $showChangeSenior)
                 .environmentObject(caregiverDashboardViewModel)
         }
-        .fullScreenCover(isPresented: $inviteModal) {
-            OnBoardingInviteView(caregiverDashboardViewModel: caregiverDashboardViewModel)
-        }
+        .transition(.opacity)
     }
 }
 
@@ -194,16 +204,16 @@ struct SeniorStatus: View {
                         .padding(12)
                         .background(.blue)
                         .clipShape(RoundedRectangle(cornerRadius: 4))
-                        
+
                         VStack(alignment: .leading) {
                             Text("Heart Rate")
                                 .font(.caption)
-                            
+
                             HStack {
                                 Text("\(Int(caregiverDashboardViewModel.heartBeatInfo?.bpm ?? 0))")
                                     .font(.title2)
                                     .bold()
-                                
+
                                 Text("bpm")
                                     .foregroundStyle(.secondary)
                                     .font(.subheadline)
@@ -231,7 +241,7 @@ struct SeniorStatus: View {
                         .padding(8)
                         .background(.blue)
                         .clipShape(RoundedRectangle(cornerRadius: 4))
-                        
+
                         if caregiverDashboardViewModel.idleInfo.isEmpty {
                             VStack(alignment: .leading) {
                                 Text("Inactivity")
@@ -253,22 +263,10 @@ struct SeniorStatus: View {
                                             .font(.title2)
                                             .bold()
 
-                                        if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 60 {
-                                            Text("min")
-                                                .foregroundStyle(.secondary)
-                                                .font(.subheadline)
-                                                .padding(.leading, -4)
-                                        } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) <= 3600 {
-                                            Text("hours")
-                                                .foregroundStyle(.secondary)
-                                                .font(.subheadline)
-                                                .padding(.leading, -4)
-                                        } else if (Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeDifference) >= 86400 {
-                                            Text("days")
-                                                .foregroundStyle(.secondary)
-                                                .font(.subheadline)
-                                                .padding(.leading, -4)
-                                        }
+                                        Text(Date.timeDifference(unix: caregiverDashboardViewModel.idleInfo.first(where: { $0.taskState == "ongoing" })?.startTime ?? 0).timeUnits)
+                                            .foregroundStyle(.secondary)
+                                            .font(.subheadline)
+                                            .padding(.leading, -4)
                                     }
                                 }
                             } else {
@@ -388,9 +386,9 @@ struct UpcomingRoutines: View {
                 Text("Senior's Routine")
                     .font(.headline)
                     .foregroundStyle(.secondary)
-                
+
                 Spacer()
-                
+
                 NavigationLink {
                     CaregiverAllRoutineView(caregiverDashboardViewModel: caregiverDashboardViewModel)
                 } label: {
@@ -399,7 +397,7 @@ struct UpcomingRoutines: View {
                 }
             }
             .padding(.horizontal)
-            
+
             if caregiverDashboardViewModel.routines.count > 0 {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .top) {
@@ -416,11 +414,11 @@ struct UpcomingRoutines: View {
                                     .padding(12)
                                     .background(.blue)
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
-                                    
+
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text("\((routine.type == "Medicine" ? routine.medicine ?? "" : routine.activity ?? ""))")
                                             .font(.headline)
-                                        
+
                                         if routine.type == "Medicine" {
                                             if (routine.medicineAmount != "") {
                                                 Text("\(routine.medicineAmount ?? "") \(routine.medicineUnit?.rawValue ?? "")")
@@ -441,9 +439,9 @@ struct UpcomingRoutines: View {
                                         .font(.subheadline)
                                         .foregroundStyle(.secondary)
                                     }
-                                    
+
                                     Spacer()
-                                    
+
                                     Image(systemName: routine.isDone[i] ? "checkmark.circle.fill" : "minus.circle.fill")
                                         .resizable()
                                         .scaledToFit()
@@ -464,10 +462,10 @@ struct UpcomingRoutines: View {
             } else {
                 HStack {
                     Spacer()
-                    
+
                     Text("Routines not Set.")
                         .multilineTextAlignment(.center)
-                    
+
                     Spacer()
                 }
                 .padding()
@@ -481,18 +479,18 @@ struct UpcomingRoutines: View {
 
 struct MapPreview: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     @StateObject var mapVM = MapViewModel()
-    
+
     var body: some View {
         VStack {
             HStack {
                 Text("Senior's Location")
                     .font(.headline)
                     .foregroundStyle(.secondary)
-                
+
                 Spacer()
-                
+
                 NavigationLink {
                     MapTestView(mapVM: mapVM)
                 } label: {
@@ -501,7 +499,7 @@ struct MapPreview: View {
                 }
             }
             .padding(.horizontal)
-            
+
             if mapVM.lastSeenLocation != nil && mapVM.mapRegion != nil {
                 MKMapRep(mapVM: mapVM)
                     .frame(height: 150)
@@ -510,7 +508,7 @@ struct MapPreview: View {
             } else if mapVM.mapRegion == nil {
                 HStack {
                     Spacer()
-                    
+
                     VStack {
                         Text("Home Location not Available")
                             .font(.headline)
@@ -518,7 +516,7 @@ struct MapPreview: View {
                         Text("Ask your senior to set their home location.")
                             .font(.subheadline)
                     }
-                    
+
                     Spacer()
                 }
                 .padding()
@@ -528,7 +526,7 @@ struct MapPreview: View {
             } else {
                 HStack {
                     Spacer()
-                    
+
                     VStack {
                         Text("Location not Available")
                             .font(.headline)
@@ -536,7 +534,7 @@ struct MapPreview: View {
                         Text("Ask your senior to turn on their location.")
                             .font(.subheadline)
                     }
-                    
+
                     Spacer()
                 }
                 .padding()
@@ -550,38 +548,38 @@ struct MapPreview: View {
 
 struct AnalysisResult: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     @ObservedObject var caregiverDashboardViewModel: CaregiverDashboardViewModel
-    
+
     var body: some View {
         VStack {
             HStack {
                 Text("AI Analysis Result")
                     .font(.headline)
                     .foregroundStyle(.secondary)
-                
+
                 Spacer()
             }
-            
+
             HStack(alignment: .top) {
                 Image("Robot")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 24)
-                
+
                 HStack {
                     VStack(alignment: .leading, spacing: 8) {
                         Text(caregiverDashboardViewModel.analysis != "" && !caregiverDashboardViewModel.isLoadingAnalysis ? caregiverDashboardViewModel.analysis : caregiverDashboardViewModel.isLoadingAnalysis ? "Analyzing..." : "Hi, I'm an AI medical counselor here to assist you in assessing the health of your senior. Because of the missing data, I am unable to assess it at this time. In order for us to assist you with the analysis, kindly add a senior and ensure that they are wearing their watch.")
                             .font(.callout)
-                        
+
                         if !caregiverDashboardViewModel.isLoadingAnalysis {
                             Text(caregiverDashboardViewModel.extractDate(date: caregiverDashboardViewModel.analysisDate, format: "dd MMM yyyy HH:mm:ss"))
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
-                        
+
                         Divider()
-                        
+
                         Group {
                             Text("This medical AI is intended solely for educational purposes and should not be used as a substitute for professional medical advice.")
                             Button("Click here for more information") {
@@ -591,7 +589,7 @@ struct AnalysisResult: View {
                         }
                         .font(.caption)
                     }
-                    
+
                     Spacer()
                 }
                 .padding(12)

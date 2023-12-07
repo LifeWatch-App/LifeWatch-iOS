@@ -169,6 +169,7 @@
 		93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */; };
 		93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FD2AE76DD0005E1678 /* BatteryChargingService.swift */; };
 		93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FF2AE779F7005E1678 /* ChargingRange.swift */; };
+		93B8E9CD2B202CCD006C65B6 /* LocationSearchItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B8E9CC2B202CCD006C65B6 /* LocationSearchItems.swift */; };
 		93D4FA5C2AF3F430000850CE /* LiveLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D4FA5B2AF3F430000850CE /* LiveLocation.swift */; };
 		93D4FA5E2AF4A160000850CE /* CardShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D4FA5D2AF4A160000850CE /* CardShape.swift */; };
 		93D4FA612AF78F0F000850CE /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D4FA602AF78F0F000850CE /* ColorExt.swift */; };
@@ -354,6 +355,7 @@
 		93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryLevel.swift; sourceTree = "<group>"; };
 		93B898FD2AE76DD0005E1678 /* BatteryChargingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryChargingService.swift; sourceTree = "<group>"; };
 		93B898FF2AE779F7005E1678 /* ChargingRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingRange.swift; sourceTree = "<group>"; };
+		93B8E9CC2B202CCD006C65B6 /* LocationSearchItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchItems.swift; sourceTree = "<group>"; };
 		93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "YTeam-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		93D4FA5B2AF3F430000850CE /* LiveLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveLocation.swift; sourceTree = "<group>"; };
 		93D4FA5D2AF4A160000850CE /* CardShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardShape.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */,
 				93614CE12B04F48A003350F1 /* HomeLocation.swift */,
 				7D0508F02AFC7A7800439E75 /* RoutineData.swift */,
+				93B8E9CC2B202CCD006C65B6 /* LocationSearchItems.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -956,6 +959,7 @@
 				93614CE22B04F48A003350F1 /* HomeLocation.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
 				4CA7922E2ADFB67B003B5EC9 /* SeniorDashboardView.swift in Sources */,
+				93B8E9CD2B202CCD006C65B6 /* LocationSearchItems.swift in Sources */,
 				8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
 				4C2513D82B0DB53B0061B647 /* UserRole.swift in Sources */,
@@ -1224,7 +1228,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = DQPBPU9766;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -1236,13 +1240,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kevin.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.Careific.watchkitapp;
 				PRODUCT_NAME = "Careific Watch App";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
@@ -1264,7 +1268,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = DQPBPU9766;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "YTeam-Watch-App-Info.plist";
@@ -1276,13 +1280,13 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be shared with your care team";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.YTeam.Careific;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kevin.Careific;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.Careific.watchkitapp;
 				PRODUCT_NAME = "Careific Watch App";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
@@ -1306,7 +1310,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = DQPBPU9766;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -1324,8 +1328,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.Careific;
 				PRODUCT_NAME = Careific;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -1349,7 +1353,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YTeam/Preview Content\"";
-				DEVELOPMENT_TEAM = 594Q84397D;
+				DEVELOPMENT_TEAM = DQPBPU9766;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YTeam/Info.plist;
@@ -1367,8 +1371,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.Careific;
 				PRODUCT_NAME = Careific;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
