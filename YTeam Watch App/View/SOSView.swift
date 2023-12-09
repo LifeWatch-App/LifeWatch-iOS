@@ -20,7 +20,7 @@ struct SOSView: View {
     var body: some View {
         if timeRemaining > 0 {
             VStack {
-                Text("Alerting Family")
+                Text("Alerting Care Team")
                     .bold()
                     .foregroundStyle(.white)
                 Spacer()

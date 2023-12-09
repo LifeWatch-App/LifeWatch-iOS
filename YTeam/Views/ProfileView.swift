@@ -105,9 +105,23 @@ struct ProfileView: View {
                             ForEach(profileViewModel.invites, id: \.id) { invite in
                                 HStack {
                                     if profileViewModel.userData?.role == "senior" {
-                                        Text(invite.caregiverData!.name ?? "Subroto")
+                                        HStack {
+                                            Text(invite.caregiverData!.name ?? "Subroto")
+                                            if !invite.accepted! {
+                                                Text("(Pending request)")
+                                                    .foregroundStyle(.secondary)
+                                                    .font(.caption)
+                                            }
+                                        }
                                     } else {
-                                        Text(invite.seniorData!.name ?? "Subroto")
+                                        HStack {
+                                            Text(invite.seniorData!.name ?? "Subroto")
+                                            if !invite.accepted! {
+                                                Text("(Pending request)")
+                                                    .foregroundStyle(.secondary)
+                                                    .font(.caption)
+                                            }
+                                        }
                                     }
                                     Spacer()
                                     if invite.accepted! {
@@ -118,10 +132,27 @@ struct ProfileView: View {
                                                 .foregroundStyle(Color("emergency-pink"))
                                         }
                                     } else {
-                                        Button {
-                                            profileViewModel.acceptInvite(id: invite.id!)
-                                        } label: {
-                                            Text("Accept")
+                                        if profileViewModel.userData?.role == "senior" {
+                                            HStack(spacing: 16) {
+                                                Button {
+                                                    profileViewModel.acceptInvite(id: invite.id!)
+                                                } label: {
+                                                    Text("Accept")
+                                                }
+                                                Button {
+                                                    profileViewModel.denyInvite(id: invite.id!)
+                                                } label: {
+                                                    Text("Deny")
+                                                        .foregroundStyle(Color("emergency-pink"))
+                                                }
+                                            }
+                                        } else {
+                                            Button {
+                                                profileViewModel.denyInvite(id: invite.id!)
+                                            } label: {
+                                                Text("Remove")
+                                                    .foregroundStyle(Color("emergency-pink"))
+                                            }
                                         }
                                     }
                                 }

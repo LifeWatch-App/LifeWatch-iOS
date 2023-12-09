@@ -45,7 +45,7 @@ struct SOSView: View {
                     Text("Emergency Call")
                         .font(.title)
                         .bold()
-                    Text("Alerting to Family Members")
+                    Text("Alerting Care Team")
                         .font(.title3)
                     
                     Spacer()
