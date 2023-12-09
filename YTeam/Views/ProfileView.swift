@@ -30,118 +30,122 @@ struct ProfileView: View {
                     Text(profileViewModel.user?.email ?? "Unknown Email")
                 }
                 .padding(.horizontal)
-                
+
                 List {
-//                    Section(header: Text("App Settings")) {
-//                        HStack {
-//                            VStack {
-//                                Image(systemName: "flipphone")
-//                                    .resizable()
-//                                    .scaledToFit()
-//                                    .frame(width: 20, height: 20)
-//                            }
-//                            .padding(8)
-//                            .background(.accent)
-//                            .clipShape(RoundedRectangle(cornerRadius: 4))
-//                            .foregroundStyle(.white)
-//                            .padding(.trailing, 4)
-//                            
-//                            Text("Walkie-Talkie")
-//                                .fontWeight(.semibold)
-//                            
-//                            Spacer()
-//                            
-//                            Toggle("", isOn: $walkieToggle)
-//                        }
-//                        .padding(.vertical, 1)
-//                        
-//                        HStack {
-//                            VStack {
-//                                Image(systemName: "location.fill")
-//                                    .resizable()
-//                                    .scaledToFit()
-//                                    .frame(width: 20, height: 20)
-//                            }
-//                            .padding(8)
-//                            .background(.accent)
-//                            .clipShape(RoundedRectangle(cornerRadius: 4))
-//                            .foregroundStyle(.white)
-//                            .padding(.trailing, 4)
-//                            
-//                            Text("Location")
-//                                .fontWeight(.semibold)
-//                            
-//                            Spacer()
-//                            
-//                            Toggle("", isOn: $locationToggle)
-//                        }
-//                        .padding(.vertical, 1)
-//                        
-//                        HStack {
-//                            VStack {
-//                                Image(systemName: "moon.fill")
-//                                    .resizable()
-//                                    .scaledToFit()
-//                                    .frame(width: 20, height: 20)
-//                            }
-//                            .padding(8)
-//                            .background(.accent)
-//                            .clipShape(RoundedRectangle(cornerRadius: 4))
-//                            .foregroundStyle(.white)
-//                            .padding(.trailing, 4)
-//                            
-//                            Text("Inactivity")
-//                                .fontWeight(.semibold)
-//                            
-//                            Spacer()
-//                            
-//                            Toggle("", isOn: $inactivityToggle)
-//                        }
-//                        .padding(.vertical, 1)
-//                    }
-                    
-                    //FILTER IF USER IS CAREGIVER, SHOW ALL SENIORS HE IS OBSERVING
-                    //FILTER IF USER IS SENIOR, SHOW ALL CAREGIVERS OBSERVING SENIOR
+                    //                    Section(header: Text("App Settings")) {
+                    //                        HStack {
+                    //                            VStack {
+                    //                                Image(systemName: "flipphone")
+                    //                                    .resizable()
+                    //                                    .scaledToFit()
+                    //                                    .frame(width: 20, height: 20)
+                    //                            }
+                    //                            .padding(8)
+                    //                            .background(.accent)
+                    //                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                    //                            .foregroundStyle(.white)
+                    //                            .padding(.trailing, 4)
+                    //
+                    //                            Text("Walkie-Talkie")
+                    //                                .fontWeight(.semibold)
+                    //
+                    //                            Spacer()
+                    //
+                    //                            Toggle("", isOn: $walkieToggle)
+                    //                        }
+                    //                        .padding(.vertical, 1)
+                    //
+                    //                        HStack {
+                    //                            VStack {
+                    //                                Image(systemName: "location.fill")
+                    //                                    .resizable()
+                    //                                    .scaledToFit()
+                    //                                    .frame(width: 20, height: 20)
+                    //                            }
+                    //                            .padding(8)
+                    //                            .background(.accent)
+                    //                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                    //                            .foregroundStyle(.white)
+                    //                            .padding(.trailing, 4)
+                    //
+                    //                            Text("Location")
+                    //                                .fontWeight(.semibold)
+                    //
+                    //                            Spacer()
+                    //
+                    //                            Toggle("", isOn: $locationToggle)
+                    //                        }
+                    //                        .padding(.vertical, 1)
+                    //
+                    //                        HStack {
+                    //                            VStack {
+                    //                                Image(systemName: "moon.fill")
+                    //                                    .resizable()
+                    //                                    .scaledToFit()
+                    //                                    .frame(width: 20, height: 20)
+                    //                            }
+                    //                            .padding(8)
+                    //                            .background(.accent)
+                    //                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                    //                            .foregroundStyle(.white)
+                    //                            .padding(.trailing, 4)
+                    //
+                    //                            Text("Inactivity")
+                    //                                .fontWeight(.semibold)
+                    //
+                    //                            Spacer()
+                    //
+                    //                            Toggle("", isOn: $inactivityToggle)
+                    //                        }
+                    //                        .padding(.vertical, 1)
+                    //                    }
+
                     Section(header: Text(profileViewModel.userData?.role == "caregiver" ? "Seniors" : "Care Team")) {
-                        ForEach(profileViewModel.invites, id: \.id) { invite in
-                            HStack {
-                                if profileViewModel.userData?.role == "senior" {
-                                    Text(invite.caregiverData!.name ?? "Subroto")
-                                } else {
-                                    Text(invite.seniorData!.name ?? "Subroto")
-                                }
-                                Spacer()
-                                if invite.accepted! {
-                                    Button {
-                                        profileViewModel.denyInvite(id: invite.id!)
-                                    } label: {
-                                        Text("Remove")
-                                            .foregroundStyle(.red)
+                        if !profileViewModel.invites.isEmpty {
+                            ForEach(profileViewModel.invites, id: \.id) { invite in
+                                HStack {
+                                    if profileViewModel.userData?.role == "senior" {
+                                        Text(invite.caregiverData!.name ?? "Subroto")
+                                    } else {
+                                        Text(invite.seniorData!.name ?? "Subroto")
                                     }
-                                } else {
-                                    Button {
-                                        profileViewModel.acceptInvite(id: invite.id!)
-                                    } label: {
-                                        Text("Accept")
+                                    Spacer()
+                                    if invite.accepted! {
+                                        Button {
+                                            profileViewModel.denyInvite(id: invite.id!)
+                                        } label: {
+                                            Text("Remove")
+                                                .foregroundStyle(Color("emergency-pink"))
+                                        }
+                                    } else {
+                                        Button {
+                                            profileViewModel.acceptInvite(id: invite.id!)
+                                        } label: {
+                                            Text("Accept")
+                                        }
                                     }
                                 }
                             }
+                        } else {
+                            if profileViewModel.userData?.role == "senior" {
+                                Text("You have not accepted any caregiver.")
+                            } else {
+                                Text("You have not added any senior.")
+                            }
                         }
-                       
                     }
                 }
-                
+
                 Spacer()
-                
+
                 Button(action: {
-//                    batteryLevelViewModel.cancelBatteryMonitoringIphone()
-                    
-                    print("Role", profileViewModel.userData?.role)
+                    //                    batteryLevelViewModel.cancelBatteryMonitoringIphone()
+
                     if profileViewModel.userData?.role != "senior" {
                         profileViewModel.resetAnalysis()
                         print("Called reset here")
                     }
-                    
+
                     profileViewModel.signOut()
                 }, label: {
                     HStack {
@@ -156,7 +160,7 @@ struct ProfileView: View {
                     .padding(.vertical, 8)
                     .padding(.horizontal)
                 })
-                
+
                 Button(action: {
                     showDeleteSheet = true
                 }, label: {
@@ -180,13 +184,13 @@ struct ProfileView: View {
 struct DeleteSheetView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var profileViewModel: ProfileViewModel
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("Reauthenticate your account")
                 .font(.largeTitle)
                 .bold()
-            
+
             ForEach(profileViewModel.loginProviders, id: \.self) { loginProvider in
                 if loginProvider == "password" {
                     VStack(alignment: .leading) {
@@ -198,7 +202,7 @@ struct DeleteSheetView: View {
                                     .stroke(Color(.systemGray3), lineWidth: 1)
                             )
                     }
-                    
+
                     Button {
                         profileViewModel.deleteAccountWithPassword()
                     } label: {
@@ -209,7 +213,7 @@ struct DeleteSheetView: View {
                                 .padding()
                             Spacer()
                         }
-                        .background(.red)
+                        .background(Color("emergency-pink"))
                         .foregroundStyle(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                     }
