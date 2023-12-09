@@ -45,6 +45,7 @@ struct CaregiverDashboardView: View {
                                 AnalysisResult(caregiverDashboardViewModel: caregiverDashboardViewModel)
                             }
                         }
+                        .disabled(caregiverDashboardViewModel.isLoading)
 
                         if caregiverDashboardViewModel.isJoined {
                             if caregiverDashboardViewModel.isPlaying {
