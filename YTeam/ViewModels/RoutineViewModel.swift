@@ -23,6 +23,7 @@ class RoutineViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     @Published var selectedUserId: String?
+    @Published var seniorSelected: Bool = false
     private let authService = AuthService.shared
     
     private let routineService: RoutineService = RoutineService.shared
@@ -50,6 +51,7 @@ class RoutineViewModel: ObservableObject {
                 
                 if (userData?.role == "senior") {
                     role = .senior
+                    self.seniorSelected = true
                 }
                 
                 self.userRole = role
@@ -61,6 +63,7 @@ class RoutineViewModel: ObservableObject {
             .sink { [weak self] id in
                 if self?.selectedUserId != id && id != nil {
                     self?.selectedUserId = id
+                    self?.seniorSelected = true
                 }
             }
             .store(in: &cancellables)
