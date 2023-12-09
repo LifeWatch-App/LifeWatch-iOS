@@ -14,7 +14,7 @@ struct InviteSheetView: View {
     var body: some View {
         VStack {
             HStack {
-                Button("cancel") {
+                Button("Cancel") {
                     dismiss()
                 }
                 .foregroundStyle(.accent)

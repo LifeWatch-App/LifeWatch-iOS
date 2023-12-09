@@ -129,8 +129,14 @@ struct ProfileView: View {
                         } else {
                             if profileViewModel.userData?.role == "senior" {
                                 Text("You have not accepted any caregiver.")
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .multilineTextAlignment(.center)
+                                    .foregroundStyle(.secondary)
                             } else {
                                 Text("You have not added any senior.")
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .multilineTextAlignment(.center)
+                                    .foregroundStyle(.secondary)
                             }
                         }
                     }

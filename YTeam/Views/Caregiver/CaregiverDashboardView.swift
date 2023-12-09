@@ -118,6 +118,10 @@ struct CaregiverDashboardView: View {
                                     if !caregiverDashboardViewModel.isLoading {
                                         if caregiverDashboardViewModel.invites.isEmpty {
                                             Text("Add a senior")
+                                            
+                                            Image(systemName: "plus")
+                                                .font(.caption)
+                                                .padding(.leading, -2)
 
                                         } else if caregiverDashboardViewModel.invites.contains(where: { $0.accepted == true }) {
                                             Text(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto")
@@ -127,6 +131,10 @@ struct CaregiverDashboardView: View {
                                                 .padding(.leading, -2)
                                         } else {
                                             Text("Add a senior")
+                                            
+                                            Image(systemName: "plus")
+                                                .font(.caption)
+                                                .padding(.leading, -2)
                                         }
                                     }
                                 }
