@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @State private var showDeleteSheet = false
-    
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -30,7 +30,7 @@ struct ProfileView: View {
                     Text(profileViewModel.user?.email ?? "Unknown Email")
                 }
                 .padding(.horizontal)
-                
+
                 List {
                     //                    Section(header: Text("App Settings")) {
                     //                        HStack {
@@ -99,7 +99,7 @@ struct ProfileView: View {
                     //                        }
                     //                        .padding(.vertical, 1)
                     //                    }
-                    
+
                     Section(header: Text(profileViewModel.userData?.role == "caregiver" ? "Seniors" : "Care Team")) {
                         if !profileViewModel.invites.isEmpty {
                             ForEach(profileViewModel.invites, id: \.id) { invite in
@@ -115,7 +115,7 @@ struct ProfileView: View {
                                             profileViewModel.denyInvite(id: invite.id!)
                                         } label: {
                                             Text("Remove")
-                                                .foregroundStyle(.red)
+                                                .foregroundStyle(Color("emergency-pink"))
                                         }
                                     } else {
                                         Button {
@@ -135,17 +135,17 @@ struct ProfileView: View {
                         }
                     }
                 }
-                
+
                 Spacer()
-                
+
                 Button(action: {
                     //                    batteryLevelViewModel.cancelBatteryMonitoringIphone()
-                    
+
                     if profileViewModel.userData?.role != "senior" {
                         profileViewModel.resetAnalysis()
                         print("Called reset here")
                     }
-                    
+
                     profileViewModel.signOut()
                 }, label: {
                     HStack {
@@ -160,7 +160,7 @@ struct ProfileView: View {
                     .padding(.vertical, 8)
                     .padding(.horizontal)
                 })
-                
+
                 Button(action: {
                     showDeleteSheet = true
                 }, label: {
@@ -184,13 +184,13 @@ struct ProfileView: View {
 struct DeleteSheetView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var profileViewModel: ProfileViewModel
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("Reauthenticate your account")
                 .font(.largeTitle)
                 .bold()
-            
+
             ForEach(profileViewModel.loginProviders, id: \.self) { loginProvider in
                 if loginProvider == "password" {
                     VStack(alignment: .leading) {
@@ -202,7 +202,7 @@ struct DeleteSheetView: View {
                                     .stroke(Color(.systemGray3), lineWidth: 1)
                             )
                     }
-                    
+
                     Button {
                         profileViewModel.deleteAccountWithPassword()
                     } label: {
@@ -213,7 +213,7 @@ struct DeleteSheetView: View {
                                 .padding()
                             Spacer()
                         }
-                        .background(.red)
+                        .background(Color("emergency-pink"))
                         .foregroundStyle(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                     }

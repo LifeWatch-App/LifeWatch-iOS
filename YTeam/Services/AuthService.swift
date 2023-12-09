@@ -327,7 +327,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                         UserDefaults.standard.set(self.invites.first?.seniorId, forKey: "selectedSenior")
                                     }
                                 } else {
-                                    self.selectedInviteId = nil
+                                    self.selectedInviteId = Auth.auth().currentUser?.uid
                                 }
 
                                 if (index == documents.count - 1) {

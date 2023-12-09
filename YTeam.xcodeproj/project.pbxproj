@@ -170,6 +170,8 @@
 		93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FD2AE76DD0005E1678 /* BatteryChargingService.swift */; };
 		93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FF2AE779F7005E1678 /* ChargingRange.swift */; };
 		93B8E9CD2B202CCD006C65B6 /* LocationSearchItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B8E9CC2B202CCD006C65B6 /* LocationSearchItems.swift */; };
+		93B8E9D52B2413D4006C65B6 /* SkeletonUI in Frameworks */ = {isa = PBXBuildFile; productRef = 93B8E9D42B2413D4006C65B6 /* SkeletonUI */; };
+		93B8E9D82B2432B6006C65B6 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 93B8E9D72B2432B6006C65B6 /* Shimmer */; };
 		93D4FA5C2AF3F430000850CE /* LiveLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D4FA5B2AF3F430000850CE /* LiveLocation.swift */; };
 		93D4FA5E2AF4A160000850CE /* CardShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D4FA5D2AF4A160000850CE /* CardShape.swift */; };
 		93D4FA612AF78F0F000850CE /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D4FA602AF78F0F000850CE /* ColorExt.swift */; };
@@ -371,8 +373,10 @@
 				4C6049A52AD78F4D00E9F0BF /* FirebaseAnalytics in Frameworks */,
 				8D74658B2B04729500A48F71 /* Alamofire in Frameworks */,
 				4C6049A72AD7917A00E9F0BF /* FirebaseAuth in Frameworks */,
+				93B8E9D82B2432B6006C65B6 /* Shimmer in Frameworks */,
 				4CA792322ADFFFC2003B5EC9 /* FirebaseMessaging in Frameworks */,
 				4C6049CB2AD79DDA00E9F0BF /* FirebaseFirestore in Frameworks */,
+				93B8E9D52B2413D4006C65B6 /* SkeletonUI in Frameworks */,
 				4C6049D02AD7C6E000E9F0BF /* FirebaseFirestoreSwift in Frameworks */,
 				4CCBF3602AF38CBC005A2C24 /* FirebaseStorage in Frameworks */,
 			);
@@ -836,6 +840,8 @@
 				4CA792312ADFFFC2003B5EC9 /* FirebaseMessaging */,
 				4CCBF35F2AF38CBC005A2C24 /* FirebaseStorage */,
 				8D74658A2B04729500A48F71 /* Alamofire */,
+				93B8E9D42B2413D4006C65B6 /* SkeletonUI */,
+				93B8E9D72B2432B6006C65B6 /* Shimmer */,
 			);
 			productName = YTeam;
 			productReference = 4CB015562AD4DBBC0023C71E /* Careific.app */;
@@ -891,6 +897,8 @@
 			packageReferences = (
 				4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				8D7465892B04729500A48F71 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				93B8E9CE2B217E94006C65B6 /* XCRemoteSwiftPackageReference "SkeletonUI" */,
+				93B8E9D62B2432B6006C65B6 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
 			);
 			productRefGroup = 4CB015572AD4DBBC0023C71E /* Products */;
 			projectDirPath = "";
@@ -1435,6 +1443,22 @@
 				minimumVersion = 5.8.1;
 			};
 		};
+		93B8E9CE2B217E94006C65B6 /* XCRemoteSwiftPackageReference "SkeletonUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CSolanaM/SkeletonUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		93B8E9D62B2432B6006C65B6 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/markiv/SwiftUI-Shimmer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1477,6 +1501,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		93B8E9D42B2413D4006C65B6 /* SkeletonUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93B8E9CE2B217E94006C65B6 /* XCRemoteSwiftPackageReference "SkeletonUI" */;
+			productName = SkeletonUI;
+		};
+		93B8E9D72B2432B6006C65B6 /* Shimmer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93B8E9D62B2432B6006C65B6 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
+			productName = Shimmer;
 		};
 /* End XCSwiftPackageProductDependency section */
 

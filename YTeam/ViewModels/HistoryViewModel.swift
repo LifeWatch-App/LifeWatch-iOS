@@ -50,6 +50,14 @@ final class HistoryViewModel: ObservableObject {
     private let heartbeatService = HeartbeatService.shared
     private let symptomService = SymptomService.shared
 
+    private var symptomFinish = false
+    private var chargeFinish = false
+    private var anomaliesFinish = false
+    private var idleFinish = false
+    private var heartFinish = false
+    private var fallFinish = false
+    private var sosFinish = false
+
     private var cancellables = Set<AnyCancellable>()
 
     init() {
@@ -79,7 +87,8 @@ final class HistoryViewModel: ObservableObject {
             .combineLatest(authService.$userData)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] id, userData in
-                if id != nil && userData != nil {
+                if id != nil && userData?.role != nil {
+                    print("UserData", userData)
                     self?.symptomsTest = []
                     self?.idles = []
                     self?.charges = []
@@ -88,13 +97,22 @@ final class HistoryViewModel: ObservableObject {
                     self?.heartbeats = []
                     self?.heartAnomalies = []
 
+                    self?.isLoading = true
+                    self?.symptomFinish = false
+                    self?.chargeFinish = false
+                    self?.anomaliesFinish = false
+                    self?.idleFinish = false
+                    self?.heartFinish = false
+                    self?.fallFinish = false
+                    self?.sosFinish = false
+
                     self?.inactivityService.observeAllInactivity(userData: userData)
                     self?.sosService.observeAllSOS(userData: userData)
                     self?.symptomService.observeSymptoms(userData: userData)
                     self?.fallService.observeAllFalls(userData: userData)
                     self?.heartAnomalyService.observeAllAnomalies(userData: userData)
                     self?.heartbeatService.observeAllHeartbeats(userData: userData)
-                    self?.fetchCurrentWeek()
+                    //self?.fetchCurrentWeek()
                 }
             }
             .store(in: &cancellables)
@@ -105,6 +123,7 @@ final class HistoryViewModel: ObservableObject {
                 guard let self else { return }
 
                 self.falls.append(contentsOf: fall)
+                self.fallFinish = true
                 self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
@@ -115,6 +134,7 @@ final class HistoryViewModel: ObservableObject {
                 guard let self else {return}
 
                 self.sos.append(contentsOf: sos)
+                self.sosFinish = true
                 self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
@@ -125,6 +145,7 @@ final class HistoryViewModel: ObservableObject {
                 guard let self else {return}
                 print("Idle", idle)
                 self.idles.append(contentsOf: idle)
+                self.idleFinish = true
                 self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
@@ -135,6 +156,7 @@ final class HistoryViewModel: ObservableObject {
                 guard let self else {return}
                 print("Charge", charge)
                 self.charges.append(contentsOf: charge)
+                self.chargeFinish = true
                 self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
@@ -145,6 +167,7 @@ final class HistoryViewModel: ObservableObject {
                 guard let self else {return}
 
                 self.heartAnomalies.append(contentsOf: anomaly)
+                self.anomaliesFinish = true
                 self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
@@ -155,6 +178,7 @@ final class HistoryViewModel: ObservableObject {
                 guard let self else {return}
 
                 self.heartbeats.append(contentsOf: heartbeat)
+                self.heartFinish = true
                 self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
@@ -164,6 +188,7 @@ final class HistoryViewModel: ObservableObject {
             .sink { [weak self] documentChanges in
                 guard let self else {return}
                 self.symptomsTest.append(contentsOf: self.loadInitialSymptoms(documents: documentChanges))
+                self.symptomFinish = true
                 self.fetchCurrentWeek()
             }
             .store(in: &cancellables)
@@ -528,7 +553,16 @@ final class HistoryViewModel: ObservableObject {
             self.updateGroupedInactivities()
             self.updateGroupedHeartAnomalies()
             self.convertHeartbeatsToHeartRateChart()
-            if self.isLoading == true {
+            checkFinishLoading()
+        }
+    }
+
+
+
+    func checkFinishLoading() {
+        if symptomFinish && chargeFinish && anomaliesFinish && idleFinish && heartFinish && fallFinish && sosFinish {
+            if self.isLoading {
+                print("From History: Entered this statement")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     withAnimation {
                         self.isLoading = false

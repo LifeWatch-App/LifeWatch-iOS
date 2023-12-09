@@ -29,3 +29,8 @@ let routinesDummyData: [Routine] = [
     Routine(type: "Activity", time: [Date()], activity: "Jogging", description: "10 km", isDone: [false]),
     Routine(type: "Activity", time: [Date(), Date(), Date()], activity: "Eat", description: "Order from Gofood Delivery", isDone: [true, false, false]),
 ]
+
+let routinesDummyDataSkeleton: [Routine] = [
+    Routine(type: "Medicine", time: [Date(), Date()], medicine: "OBH Combi", medicineAmount: "200", medicineUnit: .Mililitre, isDone: [true, false]),
+    Routine(type: "Medicine", time: [Date()], medicine: "Panadol", medicineAmount: "2", medicineUnit: .Tablet, isDone: [true]),
+]

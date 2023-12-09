@@ -17,6 +17,17 @@ struct Symptom : Hashable, Codable, Identifiable {
     var time: Double?
 }
 
+let dummySymptomsSkeleton2: [Symptom] = [
+    Symptom(name: "Headache", seniorId: "1", note: "This is the headache", time: 123),
+    Symptom(name: "Fever", seniorId: "2", note: "This is the fever", time: 124),
+]
+
+let dummySymptomsSkeleton: [String: Int] = [
+    "Headache": 1,
+    "Cough": 2,
+    "Dizziness": 2,
+]
+
 let symptomList: [String] = [
     "Headache",
     "Fever",
@@ -32,6 +43,9 @@ let symptomList: [String] = [
     "Insomnia",
     "Sore Throat"
 ]
+
+
+
 
 // dummy data
 //let symptomsDummyData: [Symptom] = [

@@ -70,7 +70,7 @@ struct BatteryCard: View {
         .padding(.leading, 5)
         .padding(.trailing, 10)
         .padding(.vertical, 10)
-        .background(.red.opacity(0.2))
+        .background(Color("emergency-pink").opacity(0.2))
         .clipShape(RoundedRectangle(cornerRadius: 5))
         //            .shadow(color: .black, radius: 0.2, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/
     }

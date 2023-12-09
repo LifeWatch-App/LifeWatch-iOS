@@ -240,7 +240,7 @@ extension MapViewModel: MKMapViewDelegate {
                     if isCoordinate(lastSeenLocation, withinRegion: homeLocation) {
                         marker.markerTintColor = .systemBlue
                     } else {
-                        marker.markerTintColor = .systemRed
+                        marker.markerTintColor = UIColor(named: "emergency-pink")
                     }
                 }
             default:

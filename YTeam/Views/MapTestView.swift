@@ -151,7 +151,7 @@ struct MapTestView: View {
                         }
                         .foregroundStyle(.white)
                         .padding(12)
-                        .background(Color("secondary-green"))
+                        .background(.accent)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .padding(.vertical, 8)
                         .padding(.horizontal)
@@ -162,11 +162,11 @@ struct MapTestView: View {
                             HStack {
                                 ForEach(mapVM.allLocations, id: \.self) { location in
                                     VStack {
-                                        HStack(spacing: location.addressArray?[0].count ?? 0 > 20 ? 30 : 70) {
+                                        HStack(/*spacing: location.addressArray?[0].count ?? 0 > 20 ? 30 : 70*/) {
                                             VStack(alignment: .leading, spacing: 8) {
                                                 if location.locationName != "Unknown Address" && !(location.addressArray?.isEmpty ?? true) {
                                                     Text(location.addressArray?[0] ?? "None")
-                                                        .font(.title3)
+                                                        .font(.headline)
                                                         .fontWeight(.semibold)
                                                     //                                                    .lineLimit(1)
 
@@ -182,17 +182,18 @@ struct MapTestView: View {
                                                     //                                                    .lineLimit(1)
                                                 }
                                             }
+                                            Spacer()
 
                                             //                                        Spacer()
                                             Divider()
                                                 .padding(.horizontal, 1)
                                                 .background(.gray.opacity(0.2))
+                                                .padding(.horizontal, 4)
 
                                             //                                        Spacer()
                                             VStack(alignment: .leading, spacing: 10) {
                                                 if (location.latitude == mapVM.lastSeenLocation?.latitude ?? 0 && location.longitude == mapVM.lastSeenLocation?.longitude ?? 0) {
                                                     Text("Last Seen")
-                                                        .multilineTextAlignment(.center)
                                                         .font(.headline)
                                                 }
                                                 HStack(spacing: 4) {
@@ -207,15 +208,15 @@ struct MapTestView: View {
                                                     }
                                                 }
                                             }
-                                            //                                        Spacer()
+                                            Spacer()
                                         }
 
                                     }
                                     .frame(maxHeight: 90)
-                                    .frame(width: UIScreen.main.bounds.width * 0.80)
+                                    .frame(width: UIScreen.main.bounds.width * 0.75)
                                     //                                .frame(maxHeight: 70)
                                     .padding(.vertical, 20)
-                                    .padding(.horizontal, 30)
+                                    .padding(.horizontal, 20)
                                     .background(
                                         CardShape()
                                             .fill(colorScheme == .light ? Color.white : Color(.systemGray6))
@@ -224,7 +225,7 @@ struct MapTestView: View {
                                     .background(
                                         RoundedRectangle(cornerRadius: 8)
                                         //Check if location within homeradius
-                                            .fill(location.isOutside ?? false ? Color.red : .accent)
+                                            .fill(location.isOutside ?? false ? Color("emergency-pink") : .accent)
                                     )
                                     .padding(.vertical, 8)
                                     .onTapGesture {

@@ -87,7 +87,7 @@ struct WalkieTalkieView: View {
                             .foregroundStyle(.white)
                     }
                     .padding(12)
-                    .background(.red)
+                    .background(Color("emergency-pink"))
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .padding(.vertical, 8)
                     .padding(.horizontal)
