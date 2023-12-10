@@ -12,22 +12,28 @@ final class TestAuthConnector: NSObject, WCSessionDelegate {
     var session: WCSession
     @Published var userRecord: UserRecord?
     private let decoder = JSONDecoder()
-
+    
     init(session: WCSession = .default) {
         self.session = session
         super.init()
         self.session.delegate = self
         session.activate()
+        print("init")
     }
-
+    
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        if let userRecord = UserDefaults.standard.data(forKey: "user-auth") {
+            let decodedUserRecord = try? self.decoder.decode(UserRecord.self, from: userRecord)
+            self.userRecord = decodedUserRecord
+        }
     }
-
+    
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        print("didreceive")
         if let userRecordDataEncapsulator = message["user_auth"], let data = userRecordDataEncapsulator as? Data {
             do {
                 let userRecordData = try JSONDecoder().decode(UserRecord.self, from: data)
-
+                
                 if let userRecord = UserDefaults.standard.data(forKey: "user-auth") {
                     let decodedUserRecord = try? self.decoder.decode(UserRecord.self, from: userRecord)
                     guard decodedUserRecord?.userID != nil, userRecordData.userID != nil else {
@@ -35,19 +41,19 @@ final class TestAuthConnector: NSObject, WCSessionDelegate {
                         UserDefaults.standard.removeObject(forKey: "user-auth")
                         return
                     }
-
+                    
                     if decodedUserRecord?.userID == userRecordData.userID {
                         self.userRecord = decodedUserRecord
                     } else {
                         UserDefaults.standard.set(userRecordDataEncapsulator as! Data, forKey: "user-auth")
                         self.userRecord = userRecordData
                     }
-
+                    
                 } else {
                     UserDefaults.standard.set(userRecordDataEncapsulator as! Data, forKey: "user-auth")
                     self.userRecord = userRecordData
                 }
-
+                
             } catch {
                 print("Error of the decoding is: \(error)")
             }
