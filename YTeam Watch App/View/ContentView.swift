@@ -63,7 +63,7 @@ struct ErrorView: View {
         }
         .padding()
         .foregroundStyle(.white)
-        .background(Color.red)
+        .background(Color("emergency-pink"))
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }

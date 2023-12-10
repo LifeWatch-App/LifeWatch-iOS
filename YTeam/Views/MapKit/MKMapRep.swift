@@ -18,6 +18,7 @@ struct MKMapRep: UIViewRepresentable {
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
+        mapView.showsCompass = false
         mapView.delegate = context.coordinator
         
         guard let lastSeenLocation = context.coordinator.lastSeenLocation else { return mapView }
@@ -65,6 +66,11 @@ struct MKMapRep: UIViewRepresentable {
             DispatchQueue.main.async {
                 coordinator.shouldChangeMap = false
             }
+        }
+
+        if coordinator.shouldNavigateLocationFromSearch {
+            zoomLocationFromSearch(mapView: uiView, context: context)
+            coordinator.shouldNavigateLocationFromSearch = false
         }
     }
     
@@ -214,6 +220,21 @@ struct MKMapRep: UIViewRepresentable {
         }
     }
     
+    private func zoomLocationFromSearch(mapView: MKMapView, context: Context) {
+        guard let location = context.coordinator.selectedSearchPlacemark else { return }
+        if context.coordinator.is3DMap == false {
+            let region = MKCoordinateRegion(center: location, latitudinalMeters: 50, longitudinalMeters: 50)
+            mapView.setRegion(region, animated: true)
+        } else {
+            let camera = MKMapCamera()
+            camera.centerCoordinate = location
+            camera.pitch = 80
+            camera.altitude = 100
+            camera.heading = 45.0
+            mapView.setCamera(camera, animated: true)
+        }
+    }
+
     private func zoomOutRecenterLiveLocation(mapView: MKMapView, context: Context) {
         guard let location = context.coordinator.lastSeenLocation else {
             print("Print mapRegion not available")

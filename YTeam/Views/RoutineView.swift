@@ -52,8 +52,15 @@ struct RoutineView: View {
                     .onAppear {
                         routineViewModel.countProgress()
                     }
-                    
-                    if routineViewModel.dailyRoutines.count > 0 {
+                    if (!routineViewModel.seniorSelected && routineViewModel.userRole == .caregiver) {
+                        ContentUnavailableView {
+                            Label("Try connecting to a senior", systemImage: "person.fill.badge.plus")
+                        } description: {
+                            Text("Invite your senior's email, then connect before adding their routines.")
+                        }
+                        .padding(.top, 64)
+                    }
+                    else if routineViewModel.dailyRoutines.count > 0 {
                         HStack {
                             Text("\(routineViewModel.extractDate(date: routineViewModel.currentDay, format: "dd MMM yyyy"))")
                                 .font(.title3)
@@ -255,9 +262,9 @@ struct RoutineView: View {
                         Image(systemName: "plus")
                             .font(.title3)
                             .bold()
-                            .foregroundStyle(routineViewModel.currentDay < Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date() ? .gray : .accent)
+                            .foregroundStyle(routineViewModel.currentDay < Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date() || routineViewModel.seniorSelected == false ? .gray : .accent)
                     }
-                    .disabled(routineViewModel.currentDay < Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date())
+                    .disabled(routineViewModel.currentDay < Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date() || routineViewModel.seniorSelected == false )
                 }
             }
             .navigationTitle("Routines")

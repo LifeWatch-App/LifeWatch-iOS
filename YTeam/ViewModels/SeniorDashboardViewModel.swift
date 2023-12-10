@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseStorage
 import Firebase
 import AVFoundation
+import SwiftUI
 
 class SeniorDashboardViewModel: ObservableObject {
     @Published var invites: [Invite] = []
@@ -21,6 +22,7 @@ class SeniorDashboardViewModel: ObservableObject {
     @Published var showWalkieTalkie: Bool = false
     @Published var selectedInviteId: String?
     @Published var routines: [Routine] = []
+    @Published var isLoading: Bool = true
     @Published var symptoms: [Symptom] = []
     private let service = AuthService.shared
     private let symptomService = SymptomService.shared
@@ -28,8 +30,16 @@ class SeniorDashboardViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var routineData: [RoutineData] = []
     private let routineService: RoutineService = RoutineService.shared
-    
+
+
+    private var symptomFinish = false
+    private var routineFinish = false
+
+
     @Published var allRoutineDone = false
+    
+
+
     
     init() {
         print("Inited here")
@@ -79,6 +89,9 @@ class SeniorDashboardViewModel: ObservableObject {
                     print("SymptomData", document.document.data())
                 }
                 self.symptoms.insert(contentsOf: self.loadInitialSymptoms(documents: documentChanges), at: 0)
+
+                symptomFinish = true
+                checkFinishLoading()
             }
             .store(in: &cancellables)
 
@@ -107,6 +120,9 @@ class SeniorDashboardViewModel: ObservableObject {
                     }
                     self.convertRoutineDataToRoutine()
                 }
+
+                routineFinish = true
+                checkFinishLoading()
             }
             .store(in: &cancellables)
         
@@ -170,6 +186,22 @@ class SeniorDashboardViewModel: ObservableObject {
         })
         
         checkAllDone()
+    }
+
+    func checkLoadingState() {
+        
+    }
+
+    func checkFinishLoading() {
+        if symptomFinish && routineFinish {
+            if self.isLoading {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    withAnimation {
+                        self.isLoading = false
+                    }
+                }
+            }
+        }
     }
 
     func sendSOS() throws {

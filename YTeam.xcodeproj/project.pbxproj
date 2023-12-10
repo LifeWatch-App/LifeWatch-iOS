@@ -51,6 +51,7 @@
 		4CB9AE5A2AEA0E72008F4381 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB9AE592AEA0E72008F4381 /* ProfileViewModel.swift */; };
 		4CCBF3602AF38CBC005A2C24 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4CCBF35F2AF38CBC005A2C24 /* FirebaseStorage */; };
 		4CCDD55A2AF634BA00146330 /* PTTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCDD5592AF634BA00146330 /* PTTService.swift */; };
+		4CDDE4812B247A5700DDFA39 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDDE4802B247A5700DDFA39 /* LoadingView.swift */; };
 		4CF1BBE52AE75C1D000E1199 /* TimeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */; };
 		4CF1BBE62AE75C1D000E1199 /* TimeOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */; };
 		4CF8D7B62B0F99E9005A31F8 /* EnterNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF8D7B52B0F99E9005A31F8 /* EnterNameView.swift */; };
@@ -169,6 +170,9 @@
 		93B898FC2AE76DC2005E1678 /* BatteryLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */; };
 		93B898FE2AE76DD0005E1678 /* BatteryChargingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FD2AE76DD0005E1678 /* BatteryChargingService.swift */; };
 		93B899002AE779F7005E1678 /* ChargingRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B898FF2AE779F7005E1678 /* ChargingRange.swift */; };
+		93B8E9CD2B202CCD006C65B6 /* LocationSearchItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B8E9CC2B202CCD006C65B6 /* LocationSearchItems.swift */; };
+		93B8E9D52B2413D4006C65B6 /* SkeletonUI in Frameworks */ = {isa = PBXBuildFile; productRef = 93B8E9D42B2413D4006C65B6 /* SkeletonUI */; };
+		93B8E9D82B2432B6006C65B6 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 93B8E9D72B2432B6006C65B6 /* Shimmer */; };
 		93D4FA5C2AF3F430000850CE /* LiveLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D4FA5B2AF3F430000850CE /* LiveLocation.swift */; };
 		93D4FA5E2AF4A160000850CE /* CardShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D4FA5D2AF4A160000850CE /* CardShape.swift */; };
 		93D4FA612AF78F0F000850CE /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D4FA602AF78F0F000850CE /* ColorExt.swift */; };
@@ -244,6 +248,7 @@
 		4CB9AE572AEA0E26008F4381 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		4CB9AE592AEA0E72008F4381 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		4CCDD5592AF634BA00146330 /* PTTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTTService.swift; sourceTree = "<group>"; };
+		4CDDE4802B247A5700DDFA39 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		4CF1BBE42AE75C1D000E1199 /* TimeOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeOption.swift; sourceTree = "<group>"; };
 		4CF8D7B52B0F99E9005A31F8 /* EnterNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterNameView.swift; sourceTree = "<group>"; };
 		4CF8D7B72B0F9BE6005A31F8 /* EnterNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterNameViewModel.swift; sourceTree = "<group>"; };
@@ -354,6 +359,7 @@
 		93B898FB2AE76DC2005E1678 /* BatteryLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryLevel.swift; sourceTree = "<group>"; };
 		93B898FD2AE76DD0005E1678 /* BatteryChargingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryChargingService.swift; sourceTree = "<group>"; };
 		93B898FF2AE779F7005E1678 /* ChargingRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingRange.swift; sourceTree = "<group>"; };
+		93B8E9CC2B202CCD006C65B6 /* LocationSearchItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchItems.swift; sourceTree = "<group>"; };
 		93CC91482AD7EC8100D1AC86 /* YTeam-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "YTeam-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		93D4FA5B2AF3F430000850CE /* LiveLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveLocation.swift; sourceTree = "<group>"; };
 		93D4FA5D2AF4A160000850CE /* CardShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardShape.swift; sourceTree = "<group>"; };
@@ -369,8 +375,10 @@
 				4C6049A52AD78F4D00E9F0BF /* FirebaseAnalytics in Frameworks */,
 				8D74658B2B04729500A48F71 /* Alamofire in Frameworks */,
 				4C6049A72AD7917A00E9F0BF /* FirebaseAuth in Frameworks */,
+				93B8E9D82B2432B6006C65B6 /* Shimmer in Frameworks */,
 				4CA792322ADFFFC2003B5EC9 /* FirebaseMessaging in Frameworks */,
 				4C6049CB2AD79DDA00E9F0BF /* FirebaseFirestore in Frameworks */,
+				93B8E9D52B2413D4006C65B6 /* SkeletonUI in Frameworks */,
 				4C6049D02AD7C6E000E9F0BF /* FirebaseFirestoreSwift in Frameworks */,
 				4CCBF3602AF38CBC005A2C24 /* FirebaseStorage in Frameworks */,
 			);
@@ -497,6 +505,7 @@
 				8D21B03F2AF7B51800D23BF1 /* HoursMinutes.swift */,
 				93614CE12B04F48A003350F1 /* HomeLocation.swift */,
 				7D0508F02AFC7A7800439E75 /* RoutineData.swift */,
+				93B8E9CC2B202CCD006C65B6 /* LocationSearchItems.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -599,6 +608,7 @@
 				8D21B03B2AF7AD7500D23BF1 /* AddEditRoutineView.swift */,
 				8DED83972AF53A5500AFB95B /* WalkieTalkieView.swift */,
 				4CF8D7B52B0F99E9005A31F8 /* EnterNameView.swift */,
+				4CDDE4802B247A5700DDFA39 /* LoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -833,6 +843,8 @@
 				4CA792312ADFFFC2003B5EC9 /* FirebaseMessaging */,
 				4CCBF35F2AF38CBC005A2C24 /* FirebaseStorage */,
 				8D74658A2B04729500A48F71 /* Alamofire */,
+				93B8E9D42B2413D4006C65B6 /* SkeletonUI */,
+				93B8E9D72B2432B6006C65B6 /* Shimmer */,
 			);
 			productName = YTeam;
 			productReference = 4CB015562AD4DBBC0023C71E /* Careific.app */;
@@ -888,6 +900,8 @@
 			packageReferences = (
 				4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				8D7465892B04729500A48F71 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				93B8E9CE2B217E94006C65B6 /* XCRemoteSwiftPackageReference "SkeletonUI" */,
+				93B8E9D62B2432B6006C65B6 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
 			);
 			productRefGroup = 4CB015572AD4DBBC0023C71E /* Products */;
 			projectDirPath = "";
@@ -935,6 +949,7 @@
 				8D73C3DC2AF915B7009AFD80 /* AddEditRoutineViewModel.swift in Sources */,
 				9318D3D22ADE2A5C00245AFF /* UserProfile.swift in Sources */,
 				7D02E7942ADE889500923AFB /* FirestoreConstants.swift in Sources */,
+				4CDDE4812B247A5700DDFA39 /* LoadingView.swift in Sources */,
 				8D69AB8C2B01BCF50042D456 /* OnBoardingView.swift in Sources */,
 				8D33E9192AF73A2F00C9D3C1 /* SymptomView.swift in Sources */,
 				93B898FA2AE76DB6005E1678 /* BatteryLevelViewModel.swift in Sources */,
@@ -956,6 +971,7 @@
 				93614CE22B04F48A003350F1 /* HomeLocation.swift in Sources */,
 				7D02E7732ADD029900923AFB /* UserData.swift in Sources */,
 				4CA7922E2ADFB67B003B5EC9 /* SeniorDashboardView.swift in Sources */,
+				93B8E9CD2B202CCD006C65B6 /* LocationSearchItems.swift in Sources */,
 				8D21B03E2AF7AD7E00D23BF1 /* AddSymptomView.swift in Sources */,
 				7D02E7742ADD029900923AFB /* Invite.swift in Sources */,
 				4C2513D82B0DB53B0061B647 /* UserRole.swift in Sources */,
@@ -1241,7 +1257,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific.watchkitapp;
 				PRODUCT_NAME = "Careific Watch App";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1281,7 +1297,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific.watchkitapp;
 				PRODUCT_NAME = "Careific Watch App";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1324,7 +1340,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
 				PRODUCT_NAME = Careific;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1367,7 +1383,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.YTeam.Careific;
 				PRODUCT_NAME = Careific;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1431,6 +1447,22 @@
 				minimumVersion = 5.8.1;
 			};
 		};
+		93B8E9CE2B217E94006C65B6 /* XCRemoteSwiftPackageReference "SkeletonUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CSolanaM/SkeletonUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		93B8E9D62B2432B6006C65B6 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/markiv/SwiftUI-Shimmer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1473,6 +1505,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4C6049A32AD78F4D00E9F0BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		93B8E9D42B2413D4006C65B6 /* SkeletonUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93B8E9CE2B217E94006C65B6 /* XCRemoteSwiftPackageReference "SkeletonUI" */;
+			productName = SkeletonUI;
+		};
+		93B8E9D72B2432B6006C65B6 /* Shimmer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93B8E9D62B2432B6006C65B6 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
+			productName = Shimmer;
 		};
 /* End XCSwiftPackageProductDependency section */
 

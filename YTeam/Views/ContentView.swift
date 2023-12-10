@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             if mainViewModel.isLoading {
-                ProgressView()
+                LoadingView()
             } else if mainViewModel.user != nil  {
                 MainView(mainViewModel: mainViewModel)
             } else {
