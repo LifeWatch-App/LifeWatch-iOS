@@ -248,14 +248,14 @@ struct MapTestView: View {
 
             } else if mapVM.mapRegion == nil {
                 ContentUnavailableView {
-                    Label("Home Location not Available", systemImage: "location.fill")
+                    Label("Home Location Not Available", systemImage: "location.fill")
                 } description: {
                     Text("Ask your senior to set their home location")
                 }
                 .background(Color(.systemGroupedBackground))
             } else {
                 ContentUnavailableView {
-                    Label("Location not Available", systemImage: "location.fill")
+                    Label("Location Not Available", systemImage: "location.fill")
                 } description: {
                     Text("Ask your senior to turn on their location.")
                 }
