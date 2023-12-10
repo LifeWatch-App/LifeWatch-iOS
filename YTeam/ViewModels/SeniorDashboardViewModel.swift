@@ -177,12 +177,13 @@ class SeniorDashboardViewModel: ObservableObject {
         }
         
         let today = Calendar.current.startOfDay(for: Date())
+        let endOfToday = Calendar.current.startOfDay(for: Date()).addingTimeInterval(24 * 60 * 60 - 1)
         
         self.routines = self.routines.filter({ routine in
             guard let routineDate = routine.time.first else {
                 return false
             }
-            return routineDate > today
+            return routineDate > today && routineDate < endOfToday
         })
         
         checkAllDone()
