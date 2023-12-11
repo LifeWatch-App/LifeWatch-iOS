@@ -4,14 +4,14 @@ import MapKit
 struct MapTestView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var mapVM: MapViewModel
-
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             if mapVM.lastSeenLocation != nil {
                 ZStack(alignment: .topLeading) {
                     MKMapRep(mapVM: mapVM)
                         .ignoresSafeArea(edges: .top)
-
+                    
                     VStack(alignment: .leading){
                         if mapVM.homeSetMode {
                             VStack {
@@ -20,7 +20,7 @@ struct MapTestView: View {
                                         .foregroundColor(
                                             Color.black
                                         )
-
+                                    
                                     TextField("Search Location...", text: $mapVM.searchText)
                                     //                                .foregroundColor(Color.theme.accent)
                                         .submitLabel(.search)
@@ -49,8 +49,8 @@ struct MapTestView: View {
                                 )
                                 .padding(.horizontal)
                                 .padding(.top, 10)
-
-
+                                
+                                
                                 if !mapVM.locationSearchItems.isEmpty && !mapVM.searchText.isEmpty {
                                     ScrollView {
                                         VStack(spacing: 15) {
@@ -59,7 +59,7 @@ struct MapTestView: View {
                                                     Text(location.place.name ?? "No Name")
                                                         .font(.title3)
                                                         .fontWeight(.bold)
-
+                                                    
                                                     Text(location.place.formattedAddress ?? "None")
                                                         .font(.headline)
                                                         .fontWeight(.regular)
@@ -78,20 +78,20 @@ struct MapTestView: View {
                                             }
                                         }
                                     }
-                                    .frame(maxWidth: .infinity, maxHeight: mapVM.locationSearchItems.count > 1 ? UIScreen.main.bounds.height * 0.20 : UIScreen.main.bounds.height * 0.08, alignment: .leading)
+                                    .frame(maxWidth: .infinity, maxHeight: mapVM.locationSearchItems.count > 1 ? UIScreen.main.bounds.height * 0.20 : UIScreen.main.bounds.height * 0.09, alignment: .leading)
                                     .padding(15)
                                     .background(.white)
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                                     .padding(.horizontal)
-//                                    .animation(.easeInOut, value: mapVM.locationSearchItems)
-//                                    .animation(.easeInOut, value: mapVM.searchText)
+                                    //                                    .animation(.easeInOut, value: mapVM.locationSearchItems)
+                                    //                                    .animation(.easeInOut, value: mapVM.searchText)
                                 }
                             }
                         } else {
                             Text("")
                                 .opacity(0)
                         }
-
+                        
                         Button {
                             mapVM.is3DMap.toggle()
                             mapVM.shouldChangeMap = true
@@ -108,15 +108,15 @@ struct MapTestView: View {
                         .padding(.top)
                     }
                 }
-
+                
                 VStack(alignment: .trailing, spacing: 12) {
                     if mapVM.homeSetMode {
                         HStack {
                             Spacer()
-
+                            
                             Image(systemName: "checkmark")
                             Text("Done")
-
+                            
                             Spacer()
                         }
                         .foregroundStyle(.white)
@@ -132,7 +132,7 @@ struct MapTestView: View {
                             mapVM.locationSearchItems = []
                             mapVM.shouldNavigateLocationFromSearch = false
                         }
-
+                        
                     } else {
                         Button {
                             mapVM.homeSetMode = true
@@ -143,7 +143,7 @@ struct MapTestView: View {
                             HStack(spacing: 4) {
                                 Image(systemName: "house.fill")
                                     .font(.headline)
-
+                                
                                 Text("Set Boundary")
                             }
                             .foregroundStyle(.white)
@@ -156,20 +156,20 @@ struct MapTestView: View {
                         .padding(.vertical, 8)
                         .padding(.horizontal)
                     }
-
+                    
                     if !mapVM.homeSetMode {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(mapVM.allLocations, id: \.self) { location in
                                     VStack {
-                                        HStack(/*spacing: location.addressArray?[0].count ?? 0 > 20 ? 30 : 70*/) {
+                                        HStack {
                                             VStack(alignment: .leading, spacing: 8) {
                                                 if location.locationName != "Unknown Address" && !(location.addressArray?.isEmpty ?? true) {
                                                     Text(location.addressArray?[0] ?? "None")
                                                         .font(.headline)
                                                         .fontWeight(.semibold)
                                                     //                                                    .lineLimit(1)
-
+                                                    
                                                     Text(location.addressArray?[1].trimmingCharacters(in: .whitespaces) ?? "None")
                                                         .font(.headline)
                                                         .foregroundStyle(.black.opacity(0.4))
@@ -183,13 +183,13 @@ struct MapTestView: View {
                                                 }
                                             }
                                             Spacer()
-
+                                            
                                             //                                        Spacer()
                                             Divider()
                                                 .padding(.horizontal, 1)
                                                 .background(.gray.opacity(0.2))
                                                 .padding(.horizontal, 4)
-
+                                            
                                             //                                        Spacer()
                                             VStack(alignment: .leading, spacing: 10) {
                                                 if (location.latitude == mapVM.lastSeenLocation?.latitude ?? 0 && location.longitude == mapVM.lastSeenLocation?.longitude ?? 0) {
@@ -200,7 +200,7 @@ struct MapTestView: View {
                                                     Image(systemName: "clock")
                                                         .font(.headline)
                                                         .foregroundStyle(.secondary)
-
+                                                    
                                                     if let createdAtTime = location.createdAt {
                                                         Text("\(Date.unixToTime(unix: createdAtTime))")
                                                             .font(.headline)
@@ -210,7 +210,7 @@ struct MapTestView: View {
                                             }
                                             Spacer()
                                         }
-
+                                        
                                     }
                                     .frame(maxHeight: 90)
                                     .frame(width: UIScreen.main.bounds.width * 0.75)
@@ -245,14 +245,14 @@ struct MapTestView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .navigationBarTitleDisplayMode(.inline)
-
-//            } else if mapVM.mapRegion == nil {
-//                ContentUnavailableView {
-//                    Label("Home Location Not Available", systemImage: "location.fill")
-//                } description: {
-//                    Text("Ask your senior to set their home location")
-//                }
-//                .background(Color(.systemGroupedBackground))
+                
+                //            } else if mapVM.mapRegion == nil {
+                //                ContentUnavailableView {
+                //                    Label("Home Location Not Available", systemImage: "location.fill")
+                //                } description: {
+                //                    Text("Ask your senior to set their home location")
+                //                }
+                //                .background(Color(.systemGroupedBackground))
             } else {
                 ContentUnavailableView {
                     Label("Location Not Available", systemImage: "location.fill")
@@ -266,9 +266,9 @@ struct MapTestView: View {
         .onDisappear {
             resetMapState()
         }
-
+        
     }
-
+    
     private func resetMapState() {
         mapVM.is3DMap = false
         mapVM.shouldChangeMap = false

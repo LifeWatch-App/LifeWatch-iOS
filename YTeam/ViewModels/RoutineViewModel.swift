@@ -92,9 +92,9 @@ class RoutineViewModel: ObservableObject {
                             withAnimation {
                                 self?.guardLoading = true
                                 self?.isLoading = true
+                                self?.routines = []
+                                self?.dailyRoutines = []
                                 self?.routineData = []
-//                                self?.routines = []
-//                                self?.dailyRoutines = []
                                 self?.routineFinish = false
                             }
                         }

@@ -382,9 +382,15 @@ struct RoutineView: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 28)
+                                                .skeleton(with: routineViewModel.isLoading,
+                                                          size: CGSize(width: 28, height: 28),
+                                                          animation: .linear(),
+                                                          appearance: .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
+                                                          shape: ShapeType.circle)
+                                                .shimmering(active: routineViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
                                                 .foregroundStyle(.white, .accent)
                                             
-                                            if routine != routinesDummyDataSkeleton.last {
+                                            if routine != routinesDummyDataSkeleton2.last {
                                                 RoundedRectangle(cornerRadius: 100)
                                                     .fill(.secondary.opacity(0.5))
                                                     .frame(width: 2)
@@ -503,6 +509,7 @@ struct RoutineView: View {
                 }
                 .padding(.horizontal)
             }
+            .disabled(routineViewModel.isLoading)
             .background(Color(.systemGroupedBackground))
             .onAppear {
                 if routineViewModel.viewHasAppeared != true {

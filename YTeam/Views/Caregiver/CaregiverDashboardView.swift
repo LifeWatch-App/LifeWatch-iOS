@@ -785,12 +785,12 @@ struct AnalysisResult: View {
                         .skeleton(with: caregiverDashboardViewModel.isLoading,
                                   size: CGSize(width: 24, height: 24),
                                   animation: .linear(),
-                                  appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
+                                  appearance: .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                   shape: ShapeType.circle)
                         .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
-                        .padding(5)
-                        .background(colorScheme == .light ? .white : Color(.systemGray6))
-                        .clipShape(Circle())
+//                        .padding(5)
+////                        .background(colorScheme == .light ? .white : Color(.systemGray6))
+////                        .clipShape(Circle())
                 } else {
                     Image("Robot")
                         .resizable()

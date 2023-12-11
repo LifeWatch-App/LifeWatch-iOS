@@ -307,6 +307,7 @@ struct HistoryView: View {
                             }
                             .padding(.bottom, 8)
                         }
+                        .disabled(historyViewModel.isLoading)
                     }
                     .padding(.horizontal)
                     .background(Color(.systemGroupedBackground))

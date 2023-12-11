@@ -47,7 +47,6 @@ final class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDele
                 guard let userIData = UserDefaults.standard.object(forKey: "user-auth") else { return }
                 guard let userID = try? JSONDecoder().decode(UserRecord.self, from: userIData as! Data).userID else { return }
                 self?.fetchHomeLocation(completion: { coordinate in
-                    guard let coordinate else { return }
                     self?.setHomeLocation = coordinate
                     self?.testLocationCompletion(coordinate: lastSeenLocation.coordinate, completion: { placemark in
                         self?.currentPlacemark = placemark
@@ -119,51 +118,6 @@ final class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDele
         print("Updated last seen location nowp")
         self.lastSeenLocation = newLocation
 
-        if isFirstTimeUpdateLocation && setHomeLocation != nil {
-            //                print("Entered here")
-            //                guard let lastSeenLocation else {
-            //                    print("Not found lastseenLocation")
-            //                    return
-            //                }
-            //
-            //                guard let currentPlacemark = self.currentPlacemark else {
-            //                    print("Place mark is nil")
-            //                    return
-            //                }
-            //                print("Current placemark", currentPlacemark)
-            //                let isWithinRegion = checkLocationWithinHomeRadius(coordinate: lastSeenLocation.coordinate)
-            //                let liveLocationRecord = LiveLocationRecord(seniorId: Description(stringValue: userID), locationName: Description(stringValue: currentPlacemark.formattedAddress ?? "Unknown Address"), longitude: Description(doubleValue: lastSeenLocation.coordinate.longitude), latitude: Description(doubleValue: lastSeenLocation.coordinate.latitude), isOutside: Description(booleanValue: isWithinRegion), createdAt: Description(doubleValue: Date.now.timeIntervalSince1970))
-            //
-            //                self.service.setCompletion(endPoint: MultipleEndPoints.liveLocations, fields: liveLocationRecord, httpMethod: .post) { error in
-            //                    print("Error: \(error?.localizedDescription ?? "No Error")")
-            //                    DispatchQueue.main.async {
-            //                        self.isFirstTimeUpdateLocation = false
-            //                    }
-            //                }
-
-        } else if !isFirstTimeUpdateLocation && setHomeLocation != nil {
-            //                if locationUpdateTimer == nil {
-            //                    DispatchQueue.main.async {
-            //                        self.locationUpdateTimer = Timer.scheduledTimer(withTimeInterval: 3600, repeats: true) { [weak self] _ in
-            //                            guard let lastSeenLocation = self?.lastSeenLocation else { return }
-            //                            let isWithinRegion = self?.checkLocationWithinHomeRadius(coordinate: lastSeenLocation.coordinate)
-            //                            guard let currentPlacemark = self?.currentPlacemark else { return }
-            //                            let liveLocationRecord = LiveLocationRecord(seniorId: Description(stringValue: userID), locationName: Description(stringValue: currentPlacemark.formattedAddress ?? "Unknown Address"), longitude: Description(doubleValue: lastSeenLocation.coordinate.longitude), latitude: Description(doubleValue: lastSeenLocation.coordinate.latitude), isOutside: Description(booleanValue: isWithinRegion), createdAt: Description(doubleValue: Date.now.timeIntervalSince1970))
-            //
-            //                            self?.service.setCompletion(endPoint: MultipleEndPoints.liveLocations, fields: liveLocationRecord, httpMethod: .post, completion: { error in
-            //                                if let error {
-            //                                    print("Error: \(error.localizedDescription)")
-            //                                } else {
-            //                                    print("Success creating live location record from timer")
-            //                                }
-            //                            })
-            //
-            //                        }
-            //                    }
-            //                }
-        }
-
-
         guard let lastSeenLocation = self.lastSeenLocation, setHomeLocation != nil else { return }
         print("Entered setHomeLocation")
         let testLoc = checkLocationWithinHomeRadius(coordinate: lastSeenLocation.coordinate)
@@ -173,12 +127,15 @@ final class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDele
                 guard let userIData = UserDefaults.standard.object(forKey: "user-auth") else { return }
                 guard let userID = try? JSONDecoder().decode(UserRecord.self, from: userIData as! Data).userID else { return }
 
-                let liveLocationRecord = LiveLocationRecord(seniorId: Description(stringValue: userID), longitude: Description(doubleValue: lastSeenLocation.coordinate.longitude), latitude: Description(doubleValue: lastSeenLocation.coordinate.latitude), isOutside: Description(booleanValue: self.isWithinRegion), isDistanceFilter: Description(booleanValue: false), createdAt: Description(doubleValue: Date.now.timeIntervalSince1970))
+                if isFirstTimeUpdateLocation == false {
+                    let liveLocationRecord = LiveLocationRecord(seniorId: Description(stringValue: userID), longitude: Description(doubleValue: lastSeenLocation.coordinate.longitude), latitude: Description(doubleValue: lastSeenLocation.coordinate.latitude), isOutside: Description(booleanValue: self.isWithinRegion), isDistanceFilter: Description(booleanValue: false), createdAt: Description(doubleValue: Date.now.timeIntervalSince1970))
 
-                self.isWithinRegion = testLoc
-                self.service.setCompletion(endPoint: MultipleEndPoints.liveLocations, fields: liveLocationRecord, httpMethod: .post, completion: { error in
-                    print("Error: \(error?.localizedDescription ?? "Send request because user went outside just now")")
-                })
+                    self.isWithinRegion = testLoc
+                    self.service.setCompletion(endPoint: MultipleEndPoints.liveLocations, fields: liveLocationRecord, httpMethod: .post, completion: { error in
+                        print("Error: \(error?.localizedDescription ?? "Send request because user went outside just now")")
+                    })
+                }
+
             } else {
                 self.isWithinRegion = testLoc
             }
