@@ -35,6 +35,7 @@ struct CaregiverDashboardView: View {
                                     MapPreview(caregiverDashboardViewModel: caregiverDashboardViewModel)
 
                                     if let locationInfo = caregiverDashboardViewModel.latestLocationInfo, !caregiverDashboardViewModel.isLoading {
+                                        
                                         Text(locationInfo.isOutside ?? false ? "Outside" : "Home")
                                             .fontWeight(.bold)
                                             .padding(.top, 40)
@@ -85,7 +86,7 @@ struct CaregiverDashboardView: View {
                             .skeleton(with: caregiverDashboardViewModel.isLoading,
                                       size: CGSize(width: UIScreen.main.bounds.width - 30, height: 50),
                                       animation: .linear(),
-                                      appearance: .gradient(),
+                                      appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                       shape: ShapeType.rounded(.radius(10, style: .circular)))
                             .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false))
                             .padding(.vertical, 8)
@@ -157,6 +158,9 @@ struct CaregiverDashboardView: View {
 
         }
         .transition(.opacity)
+        .onAppear {
+            print("Test on appear again")
+        }
     }
 }
 
@@ -184,7 +188,7 @@ struct SeniorStatus: View {
                     .skeleton(with: caregiverDashboardViewModel.isLoading,
                               size: CGSize(width: 50, height: 50),
                               animation: .linear(),
-                              appearance: .gradient(.radial),
+                              appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                               shape: ShapeType.circle)
                     .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
                     .frame(width: 50)
@@ -209,7 +213,7 @@ struct SeniorStatus: View {
                     //                                  shape: ShapeType.rounded(.radius(10, style: .circular)))
                 }
                 .skeleton(with: caregiverDashboardViewModel.isLoading,
-                          animation: .linear(), appearance: .gradient(),
+                          animation: .linear(), appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                           shape: ShapeType.rounded(.radius(5, style: .circular)), lines: 2,
                           scales: [0: 0.5, 1: 0.9])
                 .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
@@ -234,7 +238,7 @@ struct SeniorStatus: View {
                         .background(.blue)
                         .skeleton(with: caregiverDashboardViewModel.isLoading,
                                   size: CGSize(width: 50, height: 50), animation: .linear(),
-                                  appearance: .gradient(),
+                                  appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                   shape: ShapeType.rounded(.radius(5, style: .circular)))
                         .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
                         .clipShape(RoundedRectangle(cornerRadius: 4))
@@ -255,7 +259,7 @@ struct SeniorStatus: View {
                             }
                         }
                         .skeleton(with: caregiverDashboardViewModel.isLoading,
-                                  animation: .linear(), appearance: .gradient(),
+                                  animation: .linear(), appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                   shape: ShapeType.rounded(.radius(5, style: .circular)), lines: 2,
                                   scales: [0: 1, 1: 1])
                         .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
@@ -282,7 +286,7 @@ struct SeniorStatus: View {
                         .skeleton(with: caregiverDashboardViewModel.isLoading,
                                   size: CGSize(width: 50, height: 50),
                                   animation: .linear(),
-                                  appearance: .gradient(),
+                                  appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                   shape: ShapeType.rounded(.radius(5, style: .circular)))
                         .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
                         .clipShape(RoundedRectangle(cornerRadius: 4))
@@ -302,12 +306,12 @@ struct SeniorStatus: View {
                                     .bold()
                                     .skeleton(with: caregiverDashboardViewModel.isLoading,
                                               animation: .linear(),
-                                              appearance: .gradient(),
+                                              appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                               shape: ShapeType.rounded(.radius(5, style: .circular)))
                                     .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false))
                             }
                             .skeleton(with: caregiverDashboardViewModel.isLoading,
-                                      animation: .linear(), appearance: .gradient(),
+                                      animation: .linear(), appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                       shape: ShapeType.rounded(.radius(5, style: .circular)), lines: 2,
                                       scales: [0: 1, 1: 1])
                             .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
@@ -319,7 +323,7 @@ struct SeniorStatus: View {
                                         .font(.caption)
                                         .skeleton(with: caregiverDashboardViewModel.isLoading,
                                                   animation: .linear(),
-                                                  appearance: .gradient(),
+                                                  appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                                   shape: ShapeType.rounded(.radius(5, style: .circular)))
                                         .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
 
@@ -337,7 +341,7 @@ struct SeniorStatus: View {
 
                                 }
                                 .skeleton(with: caregiverDashboardViewModel.isLoading,
-                                          animation: .linear(), appearance: .gradient(),
+                                          animation: .linear(), appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                           shape: ShapeType.rounded(.radius(5, style: .circular)), lines: 2,
                                           scales: [0: 1, 1: 1])
                                 .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
@@ -352,7 +356,7 @@ struct SeniorStatus: View {
                                         .bold()
                                 }
                                 .skeleton(with: caregiverDashboardViewModel.isLoading,
-                                          animation: .linear(), appearance: .gradient(),
+                                          animation: .linear(), appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                           shape: ShapeType.rounded(.radius(5, style: .circular)), lines: 2,
                                           scales: [0: 1, 1: 1])
                                 .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
@@ -382,7 +386,7 @@ struct SeniorStatus: View {
                     }
                     .skeleton(with: caregiverDashboardViewModel.isLoading,
                               size: CGSize(width: 50, height: 50), animation: .linear(),
-                              appearance: .gradient(),
+                              appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                               shape: ShapeType.rounded(.radius(5, style: .circular)))
                     .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
                     .padding(.horizontal, 4)
@@ -405,7 +409,7 @@ struct SeniorStatus: View {
                         .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo)
                     }
                     .skeleton(with: caregiverDashboardViewModel.isLoading,
-                              animation: .linear(), appearance: .gradient(),
+                              animation: .linear(), appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                               shape: ShapeType.rounded(.radius(5, style: .circular)), lines: 2,
                               scales: [0: 1, 1: 1])
                     .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
@@ -432,7 +436,7 @@ struct SeniorStatus: View {
                     .skeleton(with: caregiverDashboardViewModel.isLoading,
                               size: CGSize(width: 50, height: 50),
                               animation: .linear(),
-                              appearance: .gradient(),
+                              appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                               shape: ShapeType.rounded(.radius(5, style: .circular)))
                     .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
 
@@ -455,7 +459,7 @@ struct SeniorStatus: View {
                         .animation(.easeInOut, value: caregiverDashboardViewModel.batteryInfo?.iphoneBatteryLevel)
                     }
                     .skeleton(with: caregiverDashboardViewModel.isLoading,
-                              animation: .linear(), appearance: .gradient(),
+                              animation: .linear(), appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                               shape: ShapeType.rounded(.radius(5, style: .circular)), lines: 2,
                               scales: [0: 1, 1: 1])
                     .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
@@ -593,7 +597,7 @@ struct UpcomingRoutines: View {
                                     .skeleton(with: caregiverDashboardViewModel.isLoading,
                                               size: CGSize(width: 60, height: 60),
                                               animation: .linear(),
-                                              appearance: .gradient(),
+                                              appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                               shape: ShapeType.rounded(.radius(8, style: .circular)))
                                     .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
 
@@ -622,7 +626,7 @@ struct UpcomingRoutines: View {
                                         .foregroundStyle(.secondary)
                                     }
                                     .skeleton(with: caregiverDashboardViewModel.isLoading,
-                                              animation: .linear(), appearance: .gradient(),
+                                              animation: .linear(), appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                               shape: ShapeType.rounded(.radius(5, style: .circular)), lines: 3,
                                               scales: [0: 1, 1: 0.8, 2: 0.4], spacing: 10)
                                     .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
@@ -636,7 +640,7 @@ struct UpcomingRoutines: View {
                                         .skeleton(with: caregiverDashboardViewModel.isLoading,
                                                   size: CGSize(width: 40, height: 40),
                                                   animation: .linear(),
-                                                  appearance: .gradient(.radial),
+                                                  appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                                   shape: ShapeType.circle)
                                         .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
                                         .foregroundStyle(.white, routine.isDone[i] ? Color("secondary-green") : Color("emergency-pink"))
@@ -651,7 +655,7 @@ struct UpcomingRoutines: View {
                     .padding(.horizontal)
                     .scrollTargetLayout()
                 }
-                .scrollDisabled(true)
+//                .scrollDisabled(true)
                 .scrollTargetBehavior(.viewAligned)
             }
         }
@@ -685,37 +689,37 @@ struct MapPreview: View {
             .padding(.horizontal)
 
             VStack {
-                if mapVM.lastSeenLocation != nil && mapVM.mapRegion != nil && !caregiverDashboardViewModel.isLoading {
+                if mapVM.lastSeenLocation != nil && !caregiverDashboardViewModel.isLoading {
                     MKMapRep(mapVM: mapVM)
                         .frame(height: 150)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .padding(.horizontal)
 
 
-                } else if mapVM.mapRegion == nil {
-                    HStack {
-                        Spacer()
-
-                        VStack {
-                            Text("Home Location not Available")
-                                .font(.headline)
-                                .multilineTextAlignment(.center)
-
-                            Text("Ask your senior to set their home location.")
-                                .font(.subheadline)
-                        }
-
-                        Spacer()
-                    }
-                    .skeleton(with: caregiverDashboardViewModel.isLoading,
-                              size: CGSize(width: UIScreen.main.bounds.width - 70, height: 50),
-                              animation: .linear(), appearance: .gradient(),
-                              shape: ShapeType.rounded(.radius(5, style: .circular)))
-                    .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
-                    .padding()
-                    .background(colorScheme == .light ? .white : Color(.systemGray6))
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .padding(.horizontal)
+//                } else if mapVM.mapRegion == nil {
+//                    HStack {
+//                        Spacer()
+//
+//                        VStack {
+//                            Text("Home Location not Available")
+//                                .font(.headline)
+//                                .multilineTextAlignment(.center)
+//
+//                            Text("Ask your senior to set their home location.")
+//                                .font(.subheadline)
+//                        }
+//
+//                        Spacer()
+//                    }
+//                    .skeleton(with: caregiverDashboardViewModel.isLoading,
+//                              size: CGSize(width: UIScreen.main.bounds.width - 70, height: 50),
+//                              animation: .linear(), appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
+//                              shape: ShapeType.rounded(.radius(5, style: .circular)))
+//                    .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
+//                    .padding()
+//                    .background(colorScheme == .light ? .white : Color(.systemGray6))
+//                    .clipShape(RoundedRectangle(cornerRadius: 8))
+//                    .padding(.horizontal)
 
                 } else {
                     HStack {
@@ -734,7 +738,7 @@ struct MapPreview: View {
                     }
                     .skeleton(with: caregiverDashboardViewModel.isLoading,
                               size: CGSize(width: UIScreen.main.bounds.width - 70, height: 50),
-                              animation: .linear(), appearance: .gradient(),
+                              animation: .linear(), appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                               shape: ShapeType.rounded(.radius(5, style: .circular)))
                     .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
                     .padding()
@@ -771,7 +775,7 @@ struct AnalysisResult: View {
                         .skeleton(with: caregiverDashboardViewModel.isLoading,
                                   size: CGSize(width: 24, height: 24),
                                   animation: .linear(),
-                                  appearance: .gradient(.radial),
+                                  appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                   shape: ShapeType.circle)
                         .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
                         .padding(5)
@@ -810,7 +814,7 @@ struct AnalysisResult: View {
                         .font(.caption)
                     }
                     .skeleton(with: caregiverDashboardViewModel.isLoading,
-                              animation: .linear(), appearance: .gradient(),
+                              animation: .linear(), appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                               shape: ShapeType.rounded(.radius(5, style: .circular)), lines: 4,
                               scales: [0: 0.5, 1: 1, 2: 0.8, 3: 0.6 ], spacing: 15)
                     .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))

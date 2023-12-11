@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct UserRecord: Codable {
+struct UserRecord: Codable, Hashable {
     var userID: String?
 }

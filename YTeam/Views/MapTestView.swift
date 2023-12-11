@@ -7,7 +7,7 @@ struct MapTestView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            if mapVM.lastSeenLocation != nil && mapVM.mapRegion != nil {
+            if mapVM.lastSeenLocation != nil {
                 ZStack(alignment: .topLeading) {
                     MKMapRep(mapVM: mapVM)
                         .ignoresSafeArea(edges: .top)
@@ -72,8 +72,8 @@ struct MapTestView: View {
                                                     withAnimation {
                                                         mapVM.shouldNavigateLocationFromSearch = true
                                                         mapVM.selectedSearchPlacemark = location.place.location?.coordinate
+                                                        UIApplication.shared.endEditing()
                                                     }
-                                                    UIApplication.shared.endEditing()
                                                 }
                                             }
                                         }
@@ -246,13 +246,13 @@ struct MapTestView: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .navigationBarTitleDisplayMode(.inline)
 
-            } else if mapVM.mapRegion == nil {
-                ContentUnavailableView {
-                    Label("Home Location not Available", systemImage: "location.fill")
-                } description: {
-                    Text("Ask your senior to set their home location")
-                }
-                .background(Color(.systemGroupedBackground))
+//            } else if mapVM.mapRegion == nil {
+//                ContentUnavailableView {
+//                    Label("Home Location not Available", systemImage: "location.fill")
+//                } description: {
+//                    Text("Ask your senior to set their home location")
+//                }
+//                .background(Color(.systemGroupedBackground))
             } else {
                 ContentUnavailableView {
                     Label("Location not Available", systemImage: "location.fill")

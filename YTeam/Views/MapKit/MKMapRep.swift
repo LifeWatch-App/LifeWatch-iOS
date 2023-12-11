@@ -58,7 +58,9 @@ struct MKMapRep: UIViewRepresentable {
         
         if let lastSeenLocation = coordinator.lastSeenLocation {
             updateLiveLocationAnnotation(mapView: uiView, location: lastSeenLocation)
-            updateRegionCircle(mapView: uiView, location: context.coordinator.mapRegion!.center)
+            if let mapRegion = context.coordinator.mapRegion?.center {
+                updateRegionCircle(mapView: uiView, location: mapRegion)
+            }
         }
         
         if coordinator.shouldChangeMap {
@@ -70,7 +72,9 @@ struct MKMapRep: UIViewRepresentable {
 
         if coordinator.shouldNavigateLocationFromSearch {
             zoomLocationFromSearch(mapView: uiView, context: context)
-            coordinator.shouldNavigateLocationFromSearch = false
+            DispatchQueue.main.async {
+                coordinator.shouldNavigateLocationFromSearch = false
+            }
         }
     }
     

@@ -13,6 +13,9 @@ class RoutineService {
     private var routinesListener: [ListenerRegistration] = []
     @Published var routines: [RoutineData] = []
     @Published var deletedRoutine: [RoutineData] = []
+
+    @Published var routinesDashboard: [RoutineData] = []
+    @Published var deletedRoutineDashboard: [RoutineData] = []
 //    init() {
 //        Task{try? await observeAllRoutines()}
 //    }
@@ -49,8 +52,49 @@ class RoutineService {
             let routines = changes.compactMap({ try? $0.document.data(as: RoutineData.self) })
             self?.routines = routines
         })
+
+        print("Observe routines for: \(UserDefaults.standard.string(forKey: "selectedSenior"))")
     }
-    
+
+    func observeAllRoutinesDashboard(userData: UserData?) {
+        let uid: String?
+        if userData?.role == "caregiver" {
+            uid = UserDefaults.standard.string(forKey: "selectedSenior")
+        } else {
+            uid = Auth.auth().currentUser?.uid
+        }
+
+        let query = FirestoreConstants.routinesCollection
+            .whereField("seniorId", isEqualTo: uid ?? "")
+
+        routinesListener.append(query.addSnapshotListener { [weak self] snapshot, _ in
+            guard let changes = snapshot?.documentChanges.filter({ $0.type == .added || $0.type == .modified }) else { return }
+            let routines = changes.compactMap({ try? $0.document.data(as: RoutineData.self) })
+            self?.routinesDashboard = routines
+        })
+
+        print("Observe routines for: \(UserDefaults.standard.string(forKey: "selectedSenior"))")
+    }
+
+    func observeAllDeletedRoutinesDashboard(userData: UserData?) {
+        let uid: String?
+        if userData?.role == "caregiver" {
+            uid = UserDefaults.standard.string(forKey: "selectedSenior")
+        } else {
+            uid = Auth.auth().currentUser?.uid
+        }
+
+        let query = FirestoreConstants.routinesCollection
+            .whereField("seniorId", isEqualTo: uid ?? "")
+
+        routinesListener.append(query.addSnapshotListener { [weak self] snapshot, _ in
+            guard let changes = snapshot?.documentChanges.filter({ $0.type == .removed }) else { return }
+            let routines = changes.compactMap({ try? $0.document.data(as: RoutineData.self) })
+            print("Routines", routines)
+            self?.deletedRoutineDashboard = routines
+        })
+    }
+
     func observeAllDeletedRoutines(userData: UserData?) {
         let uid: String?
         if userData?.role == "caregiver" {

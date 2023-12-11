@@ -40,6 +40,7 @@ final class MapViewModel: NSObject, ObservableObject {
     private func setupSubscribers() {
         
         authService.$selectedInviteId
+            .removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] id in
                 if self?.selectedUserId != id && id != nil {
@@ -49,11 +50,11 @@ final class MapViewModel: NSObject, ObservableObject {
             .store(in: &cancellables)
         
         $selectedUserId
+            .removeDuplicates()
             .combineLatest(authService.$userData)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] id, userData in
                 if id != nil && userData != nil {
-                    print("Entered here man")
                     self?.allLocations = []
                     self?.recenter = false
                     self?.zoomOut = false
@@ -213,9 +214,9 @@ extension MapViewModel: MKMapViewDelegate {
                     boundCircle.lineWidth = 4
                     boundCircle.fillColor = UIColor.systemBlue.withAlphaComponent(0.25)
                 } else {
-                    boundCircle.strokeColor = UIColor.systemRed
+                    boundCircle.strokeColor = UIColor(named: "emergency-pink")
                     boundCircle.lineWidth = 4
-                    boundCircle.fillColor = UIColor.systemRed.withAlphaComponent(0.25)
+                    boundCircle.fillColor = UIColor(named: "emergency-pink")?.withAlphaComponent(0.25)
                 }
             }
             return boundCircle
