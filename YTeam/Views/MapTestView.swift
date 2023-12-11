@@ -12,16 +12,14 @@ struct MapTestView: View {
                     MKMapRep(mapVM: mapVM)
                         .ignoresSafeArea(edges: .top)
                     
-                    VStack(alignment: .leading){
+                    VStack(alignment: .leading) {
                         if mapVM.homeSetMode {
                             VStack {
                                 HStack {
                                     Image(systemName: "magnifyingglass")
-                                        .foregroundColor(
-                                            Color.black
-                                        )
-                                    
+
                                     TextField("Search Location...", text: $mapVM.searchText)
+                                    
                                     //                                .foregroundColor(Color.theme.accent)
                                         .submitLabel(.search)
                                         .autocorrectionDisabled()
@@ -45,7 +43,7 @@ struct MapTestView: View {
                                 .padding()
                                 .background(
                                     RoundedRectangle(cornerRadius: 5)
-                                        .fill(Color.white)
+                                        .fill(colorScheme == .light ? Color.white : Color(.systemGray6))
                                 )
                                 .padding(.horizontal)
                                 .padding(.top, 10)
@@ -80,7 +78,7 @@ struct MapTestView: View {
                                     }
                                     .frame(maxWidth: .infinity, maxHeight: mapVM.locationSearchItems.count > 1 ? UIScreen.main.bounds.height * 0.20 : UIScreen.main.bounds.height * 0.09, alignment: .leading)
                                     .padding(15)
-                                    .background(.white)
+                                    .background(colorScheme == .light ? .white : Color(.systemGray6))
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                                     .padding(.horizontal)
                                     //                                    .animation(.easeInOut, value: mapVM.locationSearchItems)
@@ -172,7 +170,7 @@ struct MapTestView: View {
                                                     
                                                     Text(location.addressArray?[1].trimmingCharacters(in: .whitespaces) ?? "None")
                                                         .font(.headline)
-                                                        .foregroundStyle(.black.opacity(0.4))
+                                                        .foregroundStyle(.secondary)
                                                         .fontWeight(.medium)
                                                     //                                                    .lineLimit(1)
                                                 } else {
@@ -186,10 +184,10 @@ struct MapTestView: View {
                                             
                                             //                                        Spacer()
                                             Divider()
-                                                .padding(.horizontal, 1)
-                                                .background(.gray.opacity(0.2))
+                                                .padding(.horizontal, 0.5)
+                                                .background(.secondary)
                                                 .padding(.horizontal, 4)
-                                            
+
                                             //                                        Spacer()
                                             VStack(alignment: .leading, spacing: 10) {
                                                 if (location.latitude == mapVM.lastSeenLocation?.latitude ?? 0 && location.longitude == mapVM.lastSeenLocation?.longitude ?? 0) {
