@@ -74,9 +74,6 @@ struct MKMapRep: UIViewRepresentable {
             zoomLocationFromSearch(mapView: uiView, context: context)
             DispatchQueue.main.async {
                 coordinator.shouldNavigateLocationFromSearch = false
-                coordinator.locationSearchItems = []
-                coordinator.selectedSearchPlacemark = nil
-                coordinator.searchText = ""
             }
         }
     }

@@ -4,6 +4,7 @@ import MapKit
 struct MapTestView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var mapVM: MapViewModel
+    @State var hideSearch = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -38,6 +39,9 @@ struct MapTestView: View {
                                                 }
                                             , alignment: .trailing
                                         )
+                                        .onTapGesture {
+                                            hideSearch = false
+                                        }
                                 }
                                 .font(.headline)
                                 .padding()
@@ -49,7 +53,7 @@ struct MapTestView: View {
                                 .padding(.top, 10)
                                 
                                 
-                                if !mapVM.locationSearchItems.isEmpty && !mapVM.searchText.isEmpty {
+                                if !mapVM.locationSearchItems.isEmpty && !mapVM.searchText.isEmpty && !hideSearch {
                                     ScrollView {
                                         VStack(spacing: 15) {
                                             ForEach(mapVM.locationSearchItems) { location in
@@ -68,6 +72,7 @@ struct MapTestView: View {
                                                 }
                                                 .onTapGesture {
                                                     withAnimation {
+                                                        hideSearch = true
                                                         mapVM.shouldNavigateLocationFromSearch = true
                                                         mapVM.selectedSearchPlacemark = location.place.location?.coordinate
                                                         UIApplication.shared.endEditing()
@@ -260,7 +265,7 @@ struct MapTestView: View {
                 .background(Color(.systemGroupedBackground))
             }
         }
-        .navigationTitle(mapVM.homeSetMode ? "Set pin on a location" : "")
+        .navigationTitle(mapVM.homeSetMode ? "Tap to set home location" : "")
         .onDisappear {
             resetMapState()
         }
