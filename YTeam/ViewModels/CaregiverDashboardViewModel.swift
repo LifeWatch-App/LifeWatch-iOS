@@ -349,7 +349,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             guard let routineDate = routine.time.first else {
                 return false
             }
-            return routineDate > today && routineDate < endOfToday
+            return routineDate >= today && routineDate <= endOfToday
         })
     }
 
