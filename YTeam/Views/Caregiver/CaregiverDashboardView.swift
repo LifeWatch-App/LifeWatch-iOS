@@ -46,6 +46,7 @@ struct CaregiverDashboardView: View {
                                 AnalysisResult(caregiverDashboardViewModel: caregiverDashboardViewModel)
                             }
                         }
+                        .disabled(caregiverDashboardViewModel.isLoading)
 
                         if caregiverDashboardViewModel.isJoined {
                             if caregiverDashboardViewModel.isPlaying {
@@ -118,6 +119,10 @@ struct CaregiverDashboardView: View {
                                     if !caregiverDashboardViewModel.isLoading {
                                         if caregiverDashboardViewModel.invites.isEmpty {
                                             Text("Add a senior")
+                                            
+                                            Image(systemName: "plus")
+                                                .font(.caption)
+                                                .padding(.leading, -2)
 
                                         } else if caregiverDashboardViewModel.invites.contains(where: { $0.accepted == true }) {
                                             Text(caregiverDashboardViewModel.invites.first(where: { $0.seniorId == caregiverDashboardViewModel.selectedInviteId })?.seniorData?.name ?? "Subroto")
@@ -127,6 +132,10 @@ struct CaregiverDashboardView: View {
                                                 .padding(.leading, -2)
                                         } else {
                                             Text("Add a senior")
+                                            
+                                            Image(systemName: "plus")
+                                                .font(.caption)
+                                                .padding(.leading, -2)
                                         }
                                     }
                                 }
@@ -293,16 +302,16 @@ struct SeniorStatus: View {
 
                         if caregiverDashboardViewModel.idleInfo.isEmpty {
                             VStack(alignment: .leading) {
-                                Text("Inactivity")
-                                    .font(.subheadline)
+                                Text("Watch Activity")
+                                    .font(.caption)
                                     .skeleton(with: caregiverDashboardViewModel.isLoading,
                                               animation: .linear(),
                                               appearance: .gradient(),
                                               shape: ShapeType.rounded(.radius(5, style: .circular)))
                                     .shimmering(active: caregiverDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
 
-                                Text("Active")
-                                    .font(.title2)
+                                Text("No Data")
+                                    .font(.title3)
                                     .bold()
                                     .skeleton(with: caregiverDashboardViewModel.isLoading,
                                               animation: .linear(),
@@ -701,11 +710,11 @@ struct MapPreview: View {
 //                        Spacer()
 //
 //                        VStack {
-//                            Text("Home Location not Available")
+//                            Text("Location Not Available")
 //                                .font(.headline)
 //                                .multilineTextAlignment(.center)
 //
-//                            Text("Ask your senior to set their home location.")
+//                            Text("Ask your senior to turn on their location.")
 //                                .font(.subheadline)
 //                        }
 //
@@ -726,9 +735,10 @@ struct MapPreview: View {
                         Spacer()
 
                         VStack {
-                            Text("Location not Available")
+                            Text("Location Not Available")
                                 .font(.headline)
                                 .multilineTextAlignment(.center)
+
                             Text("Ask your senior to turn on their location.")
                                 .font(.subheadline)
                         }

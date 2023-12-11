@@ -69,7 +69,8 @@ struct SignUpView: View {
                         }
                         .foregroundStyle(accepted ? .accent : .secondary)
                         
-                        Text("I accept the terms and privacy policy")
+                        Link("I accept the terms and privacy policy", destination: URL(string: "https://careific.app/privacy-policy")!)
+                        
                         Spacer()
                     }
                     .padding(.bottom, 8)
@@ -87,11 +88,12 @@ struct SignUpView: View {
                                 .padding()
                             Spacer()
                         }
-                        .background(.accent)
+                        .background(accepted ? .accent : .secondary)
                         .foregroundStyle(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                     }
                     .padding(.top, 8)
+                    .disabled(!accepted)
                     
                     HStack {
                         Text("Already have an account?")

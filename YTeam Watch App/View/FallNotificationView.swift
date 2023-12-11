@@ -83,7 +83,7 @@ struct FallNotificationView: View {
     }
     
     func updateCountdown() {
-        if (self.second > 0) {
+        if (self.second > -1) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 //                self.progress -= CGFloat((1/self.second))
                 self.second -= 1

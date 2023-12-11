@@ -29,6 +29,7 @@ class RoutineViewModel: ObservableObject {
     private var guardLoading = true
     
     @Published var selectedUserId: String?
+    @Published var seniorSelected: Bool = false
     private let authService = AuthService.shared
 
     private var routineFinish = false
@@ -60,6 +61,7 @@ class RoutineViewModel: ObservableObject {
 
                 if (userData?.role == "senior") {
                     role = .senior
+                    self.seniorSelected = true
                 }
 
                 self.userRole = role
@@ -73,6 +75,7 @@ class RoutineViewModel: ObservableObject {
                 if self?.selectedUserId != id && id != nil {
                     self?.selectedUserId = id
                     self?.shouldReloadData = true
+                    self?.seniorSelected = true
                 }
             }
             .store(in: &cancellables)

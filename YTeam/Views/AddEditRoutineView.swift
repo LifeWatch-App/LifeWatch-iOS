@@ -136,7 +136,7 @@ struct AddEditRoutineView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("cancel") {
+                    Button("Cancel") {
                         dismiss()
                     }
                     .foregroundStyle(.accent)

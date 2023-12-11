@@ -18,9 +18,9 @@ struct SOSView: View {
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
-        if timeRemaining > 0 {
+        if timeRemaining > -1 {
             VStack {
-                Text("Alerting Family")
+                Text("Alerting Care Team")
                     .bold()
                     .foregroundStyle(.white)
                 Spacer()
@@ -63,7 +63,7 @@ struct SOSView: View {
             .toolbar(.hidden, for: .navigationBar)
             .background(Color("emergency-pink"))
             .onReceive(timer) { _ in
-                if timeRemaining > 0 {
+                if timeRemaining > -1 {
                     timeRemaining -= 1
                 }
             }
@@ -106,6 +106,7 @@ struct SOSView: View {
                 .buttonStyle(PlainButtonStyle())
                 Spacer()
             }
+            .animation(.easeIn(duration: 1.0), value: UUID())
             .toolbar(.hidden, for: .navigationBar)
             .background(Color("emergency-pink"))
             .onAppear{

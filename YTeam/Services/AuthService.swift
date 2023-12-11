@@ -151,6 +151,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
             }
 
             self.removeListeners()
+            PTT.shared.leaveChannel()
             
             do {
                 try Auth.auth().signOut()
@@ -300,6 +301,10 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                 
                 for (index, document) in documents.enumerated() {
                     var invite = try? document.data(as: Invite.self)
+                    
+                    if invite?.accepted ?? false {
+                        PTT.shared.requestJoinChannel()
+                    }
                     
                     self.db.collection("users").document(invite!.seniorId!).getDocument { (querySnapshot, err) in
                         if let err = err {
@@ -508,29 +513,114 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                         print("Battery levels data successfully removed!")
                                     }
                                     
-                                    self.db.collection("sos").whereField("seniorId", isEqualTo: AuthService.shared.user!.uid).getDocuments() { (querySnapshot, err) in
+                                    self.db.collection("heartAnomaly").whereField("seniorId", isEqualTo: AuthService.shared.user!.uid).getDocuments() { (querySnapshot, err) in
                                         if let err = err {
-                                            print("Error getting sos documents: \(err)")
+                                            print("Error getting heartAnomaly documents: \(err)")
                                         } else {
                                             for document in querySnapshot!.documents {
                                                 document.reference.delete()
                                             }
                                             
-                                            print("Sos data successfully removed!")
+                                            print("heartAnomaly data successfully removed!")
                                         }
                                         
-                                        self.removeListeners()
-                                        
-                                        Auth.auth().currentUser?.delete { err in
+                                        self.db.collection("heartbeat").whereField("seniorId", isEqualTo: AuthService.shared.user!.uid).getDocuments() { (querySnapshot, err) in
                                             if let err = err {
-                                                print("Error deleting user account: \(err)")
+                                                print("Error getting heartbeat documents: \(err)")
                                             } else {
-                                                print("User account deletion successful")
+                                                for document in querySnapshot!.documents {
+                                                    document.reference.delete()
+                                                }
                                                 
+                                                print("heartbeat data successfully removed!")
                                             }
                                             
-                                            withAnimation {
-                                                self.isLoading = false
+                                            self.db.collection("homeLocations").whereField("seniorId", isEqualTo: AuthService.shared.user!.uid).getDocuments() { (querySnapshot, err) in
+                                                if let err = err {
+                                                    print("Error getting homeLocations documents: \(err)")
+                                                } else {
+                                                    for document in querySnapshot!.documents {
+                                                        document.reference.delete()
+                                                    }
+                                                    
+                                                    print("homeLocations data successfully removed!")
+                                                }
+                                                
+                                                self.db.collection("liveLocations").whereField("seniorId", isEqualTo: AuthService.shared.user!.uid).getDocuments() { (querySnapshot, err) in
+                                                    if let err = err {
+                                                        print("Error getting liveLocations documents: \(err)")
+                                                    } else {
+                                                        for document in querySnapshot!.documents {
+                                                            document.reference.delete()
+                                                        }
+                                                        
+                                                        print("liveLocations data successfully removed!")
+                                                    }
+                                                    
+                                                    self.db.collection("ptt").whereField("speakerId", isEqualTo: AuthService.shared.user!.uid).getDocuments() { (querySnapshot, err) in
+                                                        if let err = err {
+                                                            print("Error getting ptt documents: \(err)")
+                                                        } else {
+                                                            for document in querySnapshot!.documents {
+                                                                document.reference.delete()
+                                                            }
+                                                            
+                                                            print("ptt data successfully removed!")
+                                                        }
+                                                        
+                                                        self.db.collection("routines").whereField("seniorId", isEqualTo: AuthService.shared.user!.uid).getDocuments() { (querySnapshot, err) in
+                                                            if let err = err {
+                                                                print("Error getting routines documents: \(err)")
+                                                            } else {
+                                                                for document in querySnapshot!.documents {
+                                                                    document.reference.delete()
+                                                                }
+                                                                
+                                                                print("routines data successfully removed!")
+                                                            }
+                                                            
+                                                            self.db.collection("symptoms").whereField("seniorId", isEqualTo: AuthService.shared.user!.uid).getDocuments() { (querySnapshot, err) in
+                                                                if let err = err {
+                                                                    print("Error getting symptoms documents: \(err)")
+                                                                } else {
+                                                                    for document in querySnapshot!.documents {
+                                                                        document.reference.delete()
+                                                                    }
+                                                                    
+                                                                    print("symptoms data successfully removed!")
+                                                                }
+                                                                
+                                                                self.db.collection("sos").whereField("seniorId", isEqualTo: AuthService.shared.user!.uid).getDocuments() { (querySnapshot, err) in
+                                                                    if let err = err {
+                                                                        print("Error getting sos documents: \(err)")
+                                                                    } else {
+                                                                        for document in querySnapshot!.documents {
+                                                                            document.reference.delete()
+                                                                        }
+                                                                        
+                                                                        print("Sos data successfully removed!")
+                                                                    }
+                                                                    
+                                                                    self.removeListeners()
+                                                                    PTT.shared.leaveChannel()
+                                                                    
+                                                                    Auth.auth().currentUser?.delete { err in
+                                                                        if let err = err {
+                                                                            print("Error deleting user account: \(err)")
+                                                                        } else {
+                                                                            print("User account deletion successful")
+                                                                            
+                                                                        }
+                                                                        
+                                                                        withAnimation {
+                                                                            self.isLoading = false
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -560,22 +650,36 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                         print("Invites data successfully removed!")
                     }
                     
-                    self.removeListeners()
-                    
-                    Auth.auth().currentUser?.delete { err in
+                    self.db.collection("ptt").whereField("speakerId", isEqualTo: AuthService.shared.user!.uid).getDocuments() { (querySnapshot, err) in
                         if let err = err {
-                            print("Error deleting user account: \(err)")
+                            print("Error getting ptt documents: \(err)")
                         } else {
-                            print("User account deletion successful")
-                            UserDefaults.standard.removeObject(forKey: "selectedSenior")
+                            for document in querySnapshot!.documents {
+                                document.reference.delete()
+                            }
+                            
+                            print("ptt data successfully removed!")
                         }
                         
-                        self.isLoading = false
+                        self.removeListeners()
+                        PTT.shared.leaveChannel()
+                        
+                        Auth.auth().currentUser?.delete { err in
+                            if let err = err {
+                                print("Error deleting user account: \(err)")
+                            } else {
+                                print("User account deletion successful")
+                                UserDefaults.standard.removeObject(forKey: "selectedSenior")
+                            }
+                            
+                            self.isLoading = false
+                        }
                     }
                 }
             }
         }
     }
+
     
     func acceptInvite(id: String) {
         db.collection("invites").document(id).updateData([
