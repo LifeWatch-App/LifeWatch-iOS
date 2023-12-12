@@ -135,7 +135,7 @@ final class ChargingViewModel: ObservableObject {
             .store(in: &cancellables)
         
         
-        batterySubscription = Timer.publish(every: 900, on: .main, in: .common)
+        batterySubscription = Timer.publish(every: 3, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
                 guard let userRecordData = UserDefaults.standard.object(forKey: "user-auth") as? Data,

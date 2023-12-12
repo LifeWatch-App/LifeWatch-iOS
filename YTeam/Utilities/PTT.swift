@@ -31,6 +31,13 @@ class PTT: NSObject, PTChannelManagerDelegate, PTChannelRestorationDelegate, AVA
     }
     
     func channelManager(_ channelManager: PTChannelManager, didJoinChannel channelUUID: UUID, reason: PTChannelJoinReason) {
+        let pttToken = UserDefaults.standard.value(forKey: "pttToken")
+        if (pttToken != nil) {
+            if (pttToken as! String != AuthService.shared.userData?.pttToken ?? "") {
+                AuthService.shared.updatePTTToken(pttToken: pttToken! as! String)
+            }
+        }
+        
         DispatchQueue.main.async{
             self.isJoined = true
         }

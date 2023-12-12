@@ -23,6 +23,7 @@ struct MainView: View {
                     .environmentObject(batteryLevelViewModel)
                     .task {
                         mainViewModel.addInvitesListener()
+                        mainViewModel.addUserDataListener()
                         await AVAudioApplication.requestRecordPermission()
                     }
             } else {
@@ -30,6 +31,7 @@ struct MainView: View {
                     .environmentObject(batteryLevelViewModel)
                     .task {
                         mainViewModel.addInvitesListener()
+                        mainViewModel.addUserDataListener()
                         await AVAudioApplication.requestRecordPermission()
                     }
             }

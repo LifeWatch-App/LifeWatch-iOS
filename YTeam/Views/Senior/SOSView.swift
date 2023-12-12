@@ -42,7 +42,7 @@ struct SOSView: View {
                 .frame(width: Screen.width, height: Screen.height)
                 
                 VStack(spacing: 4) {
-                    Text("Emergency Call")
+                    Text("Emergency Alert")
                         .font(.title)
                         .bold()
                     Text("Alerting Care Team")
@@ -83,7 +83,7 @@ struct SOSView: View {
                         Image(systemName: "light.beacon.max.fill")
                             .font(.system(size: 200))
                         
-                        Text("Alert message to the member family has been successfully sent")
+                        Text("An alert message has been sent to your care team.")
                             .font(.title3)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 32)
