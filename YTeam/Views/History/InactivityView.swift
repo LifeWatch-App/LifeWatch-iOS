@@ -127,10 +127,10 @@ struct InactivityView: View {
                         .padding(.top, 8)
                         ForEach(0..<inactivities.count, id: \.self) { index in
                             if let idle = inactivities[index] as? Idle {
-                                HistoryCard(option: .idle, time: Date.unixToString(unix: idle.startTime ?? 0, timeOption: .hour), finishedTime: Date.unixToString(unix: idle.endTime ?? 0, timeOption: .hour))
+                                HistoryCard(option: .idle, time: Date.unixToTime(unix: idle.startTime ?? 0), finishedTime: Date.unixToTime(unix: idle.endTime ?? 0))
                                     .listRowSeparator(.hidden)
                             } else if let charge = inactivities[index] as? Charge {
-                                HistoryCard(option: .charging, time: Date.unixToString(unix: charge.startCharging ?? 0, timeOption: .hour), finishedTime: Date.unixToString(unix: charge.endCharging ?? 0, timeOption: .hour))
+                                HistoryCard(option: .charging, time: Date.unixToTime(unix: charge.startCharging ?? 0), finishedTime: Date.unixToTime(unix: charge.endCharging ?? 0))
                                     .listRowSeparator(.hidden)
                             }
                         }

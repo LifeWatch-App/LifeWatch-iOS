@@ -24,6 +24,7 @@ final class HistoryViewModel: ObservableObject {
     @Published var groupedEmergencies: [(String, [Emergency])] = []
     @Published var groupedInactivities: [(String, [Any])] = []
     @Published var groupedHeartAnomalies: [(String, [HeartAnomaly])] = []
+    @Published var groupedSymptoms: [(String, [Symptom])] = []
     @Published var filteredSymptoms: [String: Int] = [:]
     @Published var loading: Bool = true
     @Published var loggedIn: Bool = false
@@ -469,6 +470,7 @@ final class HistoryViewModel: ObservableObject {
     /// - Parameters:
     ///     - None
     /// - Returns: Updated `idleCount, chargesCount, and groupedInactivities`.
+    ///
     func updateGroupedHeartAnomalies() {
         self.checkAuth()
         
@@ -509,7 +511,48 @@ final class HistoryViewModel: ObservableObject {
             self.loading = false
         }
     }
-    
+
+    func updateGroupedSymptoms() {
+        self.checkAuth()
+
+        if (self.loggedIn == true) {
+            let filteredSymptoms = self.symptomsTest.sorted { $0.time ?? 0 > $1.time ?? 0 }
+
+            guard let firstDay = self.currentWeek.first else {return}
+            guard let lastDay = self.currentWeek.last else {return}
+
+            var symptomsDictionary: [String: [Symptom]] = [:]
+
+            for symptom in filteredSymptoms {
+                let dateString = Date.unixToString(unix: symptom.time ?? 0 , timeOption: .date)
+
+                if var symptoms = symptomsDictionary[dateString] {
+                    symptoms.append(symptom)
+                    symptomsDictionary[dateString] = symptoms
+                } else {
+                    symptomsDictionary[dateString] = [symptom]
+                }
+
+            }
+
+            var uniqueKeys = Set<String>()
+
+            let unixKeys = filteredSymptoms.compactMap {$0.time}
+            let sortedUnixKeys = unixKeys.sorted {$0 > $1}
+            let sortedKeys = sortedUnixKeys.compactMap { unix -> String? in
+                if (uniqueKeys.insert(Date.unixToString(unix: unix, timeOption: .date)).inserted &&
+                    Date(timeIntervalSince1970: unix) >= firstDay &&
+                    Date(timeIntervalSince1970: unix) <= lastDay) {
+                    return Date.unixToString(unix: unix, timeOption: .date)
+                }
+                return nil
+            }
+
+            self.groupedSymptoms = sortedKeys.map {($0, symptomsDictionary[$0]!)}
+            self.loading = false
+        }
+    }
+
     /// Updates internal properties such as `loggedIn`and is called in HistoryViewModel only.
     ///
     /// ```
@@ -577,6 +620,7 @@ final class HistoryViewModel: ObservableObject {
         withAnimation {
             self.fetchCurrentWeekData()
             self.updateSymptoms()
+            self.updateGroupedSymptoms()
             self.updateGroupedEmergencies()
             self.updateGroupedInactivities()
             self.updateGroupedHeartAnomalies()

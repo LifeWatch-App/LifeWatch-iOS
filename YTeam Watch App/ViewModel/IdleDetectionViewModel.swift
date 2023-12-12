@@ -124,7 +124,7 @@ class IdleDetectionViewModel: ObservableObject {
                 } else {
                     self.time += 1
                     self.idleTime = self.time
-                    if self.idleTime > 216000 && self.isAlreadyIdle == false {
+                    if self.idleTime > 900 && self.isAlreadyIdle == false {
                         self.isAlreadyIdle = true
                         self.idle = true
                         self.createIdleDataFirebase(startTime: Date.now)

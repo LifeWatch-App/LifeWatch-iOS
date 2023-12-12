@@ -40,3 +40,35 @@ struct HistoryCard: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
+
+
+struct SymptomCard: View {
+    @Environment(\.colorScheme) var colorScheme
+
+    var symptomName: String
+    var time: String
+
+    var body: some View {
+        HStack{
+            Image(symptomName)
+                .resizable()
+                .frame(width: 40, height: 40)
+//                .background(option == .fell || option == .idle ? .accent : option == .pressed || option == .lowHeartRate ? Color("emergency-pink") : Color("secondary-orange"))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+
+            Text(symptomName)
+                .padding(.leading, 8.0)
+
+            Spacer()
+            Group{
+                Image(systemName: "clock")
+
+                Text(time)
+            }
+            .foregroundStyle(.secondary)
+        }
+        .padding()
+        .background(colorScheme == .light ? .white : Color(.systemGray6))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+}

@@ -24,8 +24,22 @@ struct SymptomView: View {
                             SymptomCards(historyViewModel: historyViewModel)
                             
                             // foreach symptom here
-                            
                             Spacer()
+                        }
+
+                        ForEach(historyViewModel.groupedSymptoms, id: \.0) { (time: String, symptoms: [Symptom]) in
+                            VStack{
+                                HStack{
+                                    Text(time)
+                                        .font(.headline)
+                                    Spacer()
+                                }
+                                .padding(.top, 8)
+                                ForEach(0..<symptoms.count, id: \.self) { index in
+                                    SymptomCard(symptomName: symptoms[index].name ?? "None", time: Date.unixToTime(unix: symptoms[index].time ?? 0))
+                                }
+                            }
+                            .padding()
                         }
                     }
                 }
