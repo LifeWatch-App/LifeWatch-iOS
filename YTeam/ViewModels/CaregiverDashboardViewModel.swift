@@ -20,6 +20,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
     @Published var user: User?
     @Published var userData: UserData?
     @Published var falls: [Fall] = []
+    @Published var viewHasAppeared = false
     @Published var sos: [SOS] = []
     let authService = AuthService.shared
     let analysisService = AnalysisService.shared
@@ -80,6 +81,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
 
     private func setupSubscribers() {
         authService.$user
+            .removeDuplicates()
             .combineLatest(authService.$userData, authService.$invites)
             .sink { [weak self] user, userData, invites in
                 guard let self = self else { return }
@@ -98,6 +100,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .store(in: &cancellables)
 
         authService.$selectedInviteId
+            .removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] selectedInviteId in
                 guard let self = self else { return }
@@ -106,6 +109,7 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
             .store(in: &cancellables)
 
         $selectedInviteId
+            .removeDuplicates()
             .combineLatest($userData)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] selectedInviteId, userData in
@@ -120,18 +124,22 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
                     self.routines = []
                     self.falls = []
                     self.sos = []
-                    self.isLoading = true
-                    self.symptomFinish = false
-                    self.batteryFinish = false
-                    self.idleFinish = false
-                    self.locationFinish = false
-                    self.heartFinish = false
-                    self.routineFinish = false
-                    self.routineDeleteFinish = false
-                    self.pttFinish = false
-                    self.fallFinish = false
-                    self.analysisFinish = false
-                    self.sosFinish = false
+
+                    if self.isLoading == false {
+                        self.isLoading = true
+                        self.symptomFinish = false
+                        self.batteryFinish = false
+                        self.viewHasAppeared = false
+                        self.idleFinish = false
+                        self.locationFinish = false
+                        self.heartFinish = false
+                        self.routineFinish = false
+                        self.routineDeleteFinish = false
+                        self.pttFinish = false
+                        self.fallFinish = false
+                        self.analysisFinish = false
+                        self.sosFinish = false
+                    }
 
                     self.idleService.observeIdleSpecific()
                     self.locationService.observeLiveLocationSpecific()
@@ -343,12 +351,13 @@ class CaregiverDashboardViewModel: NSObject, ObservableObject, AVAudioPlayerDele
         }
 
         let today = Calendar.current.startOfDay(for: Date())
-
+        let endOfToday = Calendar.current.startOfDay(for: Date()).addingTimeInterval(24 * 60 * 60 - 1)
+        
         self.routines = self.routines.filter({ routine in
             guard let routineDate = routine.time.first else {
                 return false
             }
-            return routineDate > today
+            return routineDate >= today && routineDate <= endOfToday
         })
     }
 

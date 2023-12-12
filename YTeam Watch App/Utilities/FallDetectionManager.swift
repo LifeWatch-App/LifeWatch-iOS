@@ -14,9 +14,9 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     @Published var authorized: Bool = false
     @Published var fall: Bool = false
     @Published var notificationSent: Bool = false
-    
+
     let fallDetector = CMFallDetectionManager()
-    
+
     private let service = DataService.shared
     private let decoder: JSONDecoder = JSONDecoder()
     static var shared: FallDetectionManager = FallDetectionManager()
@@ -25,7 +25,7 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
         self.assignDelegate()
         self.checkAndRequestForAuthorizationStatus()
     }
-    
+
     /// Assign fall detection delegate to `watch for fall detection events`.
     ///
     /// ```
@@ -38,7 +38,7 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     func assignDelegate() {
         self.fallDetector.delegate = self
     }
-    
+
     /// Check the watch's `fall data authorization status` and `asks for confirmation in authorization`.
     ///
     /// ```
@@ -51,21 +51,23 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     ///  `sets the authorization boolean` in the ObservedObject.
     @MainActor
     func checkAndRequestForAuthorizationStatus() {
-        if self.fallDetector.authorizationStatus == .authorized {
-            self.authorized = true
-        } else {
-            self.fallDetector.requestAuthorization { currentStatus in
-                switch currentStatus {
-                case .authorized:
-                    self.authorized = true
-                default:
-                    self.authorized = false
+        DispatchQueue.main.async {
+            if self.fallDetector.authorizationStatus == .authorized {
+                self.authorized = true
+            } else {
+                self.fallDetector.requestAuthorization { currentStatus in
+                    switch currentStatus {
+                    case .authorized:
+                        self.authorized = true
+                    default:
+                        self.authorized = false
+                    }
+
                 }
-                
             }
         }
     }
-    
+
     /// `Unchangable conforming function to automatically check for falls`.
     ///
     /// ```
@@ -78,10 +80,12 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     func fallDetectionManager(
         _ fallDetectionManager: CMFallDetectionManager,
         didDetect event: CMFallDetectionEvent) async {
-            self.fall = true
-            self.scheduleNotification()
-    }
-    
+            DispatchQueue.main.async {
+                self.fall = true
+                self.scheduleNotification()
+            }
+        }
+
     /// Disables `fall`.
     ///
     /// ```
@@ -92,9 +96,11 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
     ///     - None
     /// - Returns: Void. Disables fall
     func cancelFallStatus() {
-        self.fall = false
+        DispatchQueue.main.async {
+            self.fall = false
+        }
     }
-    
+
     func scheduleNotification() {
         let content = UNMutableNotificationContent()
         content.title = "Potential Fall"
@@ -106,7 +112,7 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
         let acceptAction = UNNotificationAction(identifier: "AcceptAction", title: "Yes", options: [])
         let rejectAction = UNNotificationAction(identifier: "RejectAction", title: "No", options: [])
         let fallCategory = UNNotificationCategory(identifier: "FallNotification", actions: [acceptAction, rejectAction], intentIdentifiers: [], options: [])
-        
+
         UNUserNotificationCenter.current().setNotificationCategories([fallCategory])
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
@@ -114,7 +120,7 @@ class FallDetectionManager: NSObject, CMFallDetectionDelegate, ObservableObject 
             }
         }
     }
-    
+
     func sendFall() {
         guard let data = UserDefaults.standard.data(forKey: "user-auth") else { return }
         let userRecord = try? self.decoder.decode(UserRecord.self, from: data)

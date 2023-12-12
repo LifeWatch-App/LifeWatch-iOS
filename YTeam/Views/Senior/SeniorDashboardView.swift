@@ -272,7 +272,7 @@ struct UpcomingActivity: View {
                                     .skeleton(with: seniorDashboardViewModel.isLoading,
                                               size: CGSize(width: 50, height: 50),
                                               animation: .linear(),
-                                              appearance: .gradient(.radial),
+                                              appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                               shape: ShapeType.rounded(.radius(5, style: .circular)))
                                     .shimmering(active: seniorDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
 
@@ -288,7 +288,7 @@ struct UpcomingActivity: View {
                                         .foregroundStyle(.secondary)
                                     }
                                     .skeleton(with: seniorDashboardViewModel.isLoading,
-                                              animation: .linear(), appearance: .gradient(),
+                                              animation: .linear(), appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                               shape: ShapeType.rounded(.radius(5, style: .circular)), lines: 3,
                                               scales: [0: 1, 1: 0.8, 2: 0.4], spacing: 15)
                                     .shimmering(active: seniorDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
@@ -305,7 +305,7 @@ struct UpcomingActivity: View {
                                             .skeleton(with: seniorDashboardViewModel.isLoading,
                                                       size: CGSize(width: 40, height: 40),
                                                       animation: .linear(),
-                                                      appearance: .gradient(.radial),
+                                                      appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                                       shape: ShapeType.circle)
                                             .shimmering(active: seniorDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
                                             .foregroundStyle(.accent)
@@ -408,7 +408,7 @@ struct Symtomps: View {
                             .skeleton(with: seniorDashboardViewModel.isLoading,
                                       size: CGSize(width: 50, height: 50),
                                       animation: .linear(),
-                                      appearance: .gradient(.radial),
+                                      appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                       shape: ShapeType.rounded(.radius(5, style: .circular)))
                             .shimmering(active: seniorDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))
 
@@ -423,7 +423,7 @@ struct Symtomps: View {
                             }
                         }
                         .skeleton(with: seniorDashboardViewModel.isLoading,
-                                  animation: .linear(), appearance: .gradient(),
+                                  animation: .linear(), appearance: colorScheme == .light ? .gradient() : .solid(color: .gray.opacity(0.2), background: .gray.opacity(0.2)),
                                   shape: ShapeType.rounded(.radius(5, style: .circular)), lines: 2,
                                   scales: [0: 1, 1: 1], spacing: 15)
                         .shimmering(active: seniorDashboardViewModel.isLoading, animation: .easeInOut(duration: 0.7).repeatCount(5, autoreverses: false), gradient: Gradient(colors: [.black.opacity(0.6), .black, .black.opacity(0.6)]))

@@ -18,8 +18,8 @@ struct Symptom : Hashable, Codable, Identifiable {
 }
 
 let dummySymptomsSkeleton2: [Symptom] = [
-    Symptom(name: "Headache", seniorId: "1", note: "This is the headache", time: 123),
-    Symptom(name: "Fever", seniorId: "2", note: "This is the fever", time: 124),
+    Symptom(id: UUID().uuidString, name: "Headache", seniorId: "1", note: "This is the headache", time: 123),
+    Symptom(id: UUID().uuidString, name: "Fever", seniorId: "2", note: "This is the fever", time: 124),
 ]
 
 let dummySymptomsSkeleton: [String: Int] = [
