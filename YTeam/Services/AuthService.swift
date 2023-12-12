@@ -24,7 +24,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     @Published var loginMessage = ""
     @Published var signUpMessage = ""
     var invitesListener: ListenerRegistration?
-    
+    var userDataListener: ListenerRegistration?
     
     func listenToAuthState() {
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
@@ -165,6 +165,25 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         }
     }
     
+    func signOutLoggedInAccount() {
+        withAnimation {
+            self.isLoading = true
+        }
+        
+        self.removeListeners()
+        PTT.shared.leaveChannel()
+        
+        do {
+            try Auth.auth().signOut()
+            
+            withAnimation {
+                self.isLoading = false
+            }
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
+    }
+    
     func getUserData() {
         withAnimation {
             isLoading = true
@@ -278,6 +297,16 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                 print("Error updating document: \(err)")
             } else {
                 print("FCM token successfully updated to: ", fcmToken)
+            }
+        }
+    }
+    
+    func addUserDataListener() {
+        self.userDataListener = self.db.collection("users").document(user?.uid ?? "").addSnapshotListener { documentSnapshot, error in
+            var userData = try? documentSnapshot?.data(as: UserData.self)
+            let udid: String = UIDevice().identifierForVendor!.uuidString
+            if userData!.udid ?? "" != udid && userData!.udid ?? "" != ""  {
+                self.signOutLoggedInAccount()
             }
         }
     }
@@ -839,6 +868,10 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
     func removeListeners() {
         if self.invitesListener != nil {
             self.invitesListener!.remove()
+        }
+        
+        if self.userDataListener != nil {
+            self.userDataListener!.remove()
         }
 
         self.invites = []
