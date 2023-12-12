@@ -114,11 +114,11 @@ struct HeartRateView: View {
                                 .padding(.top, 8)
                                 ForEach(0..<anomalies.count, id: \.self) { index in
                                     if anomalies[index].anomaly == "lowHeart" {
-                                        HistoryCard(option: .lowHeartRate, time: Date.unixToString(unix: anomalies[index].time, timeOption: .hour))
+                                        HistoryCard(option: .lowHeartRate, time: Date.unixToTime(unix: anomalies[index].time))
                                     } else if anomalies[index].anomaly == "highHeart" {
-                                        HistoryCard(option: .highHeartRate, time: Date.unixToString(unix: anomalies[index].time, timeOption: .hour))
+                                        HistoryCard(option: .highHeartRate, time: Date.unixToTime(unix: anomalies[index].time))
                                     } else {
-                                        HistoryCard(option: .irregularHeartRate, time: Date.unixToString(unix: anomalies[index].time, timeOption: .hour))
+                                        HistoryCard(option: .irregularHeartRate, time: Date.unixToTime(unix: anomalies[index].time))
                                     }
                                 }
                             }

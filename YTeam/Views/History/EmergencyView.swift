@@ -33,10 +33,10 @@ struct EmergencyView: View {
                             .padding(.top, 8)
                             ForEach(0..<emergencies.count, id: \.self) { index in
                                 if let fall = emergencies[index] as? Fall {
-                                    HistoryCard(option: .fell, time: Date.unixToString(unix: fall.time, timeOption: .hour))
+                                    HistoryCard(option: .fell, time: Date.unixToTime(unix: fall.time))
                                         .listRowSeparator(.hidden)
                                 } else if let sos = emergencies[index] as? SOS {
-                                    HistoryCard(option: .pressed, time: Date.unixToString(unix: sos.time, timeOption: .hour))
+                                    HistoryCard(option: .pressed, time: Date.unixToTime(unix: sos.time))
                                         .listRowSeparator(.hidden)
                                 }
                             }
