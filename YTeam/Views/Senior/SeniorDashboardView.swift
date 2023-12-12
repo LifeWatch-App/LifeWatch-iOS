@@ -39,7 +39,7 @@ struct SeniorDashboardView: View {
                                             Text("Accept")
                                         }
                                         Button {
-                                            seniorDashboardViewModel.denyInvite(id: invite.id!)
+                                            seniorDashboardViewModel.denyInvite(invite: invite)
                                         } label: {
                                             Text("Deny")
                                                 .foregroundStyle(Color("emergency-pink"))

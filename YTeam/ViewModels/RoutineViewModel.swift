@@ -16,6 +16,7 @@ class RoutineViewModel: ObservableObject {
     @Published var currentWeek: [Date] = []
     @Published var viewHasAppeared = false
     @Published var currentDay: Date = Date()
+    @Published var seniorSelected: Bool = false
     @Published var isLoading: Bool = true
     @Published var shouldReloadData: Bool = false
 
@@ -29,7 +30,6 @@ class RoutineViewModel: ObservableObject {
     private var guardLoading = true
     
     @Published var selectedUserId: String?
-    @Published var seniorSelected: Bool = false
     private let authService = AuthService.shared
 
     private var routineFinish = false
@@ -92,6 +92,14 @@ class RoutineViewModel: ObservableObject {
                             withAnimation {
                                 self?.guardLoading = true
                                 self?.isLoading = true
+//                                self?.showAddRoutine = false
+//                                self?.showEditRoutine = false
+//                                self?.currentWeek = []
+//                                //self?.seniorSelected = false
+//                                self?.routines = []
+//                                self?.dailyRoutines = []
+//                                self?.progressCount = [0, 0, 0, 0, 0, 0, 0]
+//                                self?.routineData = []
                                 self?.routines = []
                                 self?.dailyRoutines = []
                                 self?.routineData = []
