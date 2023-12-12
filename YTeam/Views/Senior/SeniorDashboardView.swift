@@ -110,7 +110,7 @@ struct ButtonCards: View {
                             .font(.title2)
                     }
 
-                    Text("Alerting Care Team")
+                    Text("Alert Your Care Team")
                         .multilineTextAlignment(.leading)
                 }
                 .padding()
@@ -137,7 +137,7 @@ struct ButtonCards: View {
                             .font(.title2)
                     }
 
-                    Text("Talk to Family Member")
+                    Text("Talk to Your Caregiver")
                         .multilineTextAlignment(.leading)
                 }
                 .padding()
