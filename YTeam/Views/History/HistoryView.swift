@@ -260,7 +260,7 @@ struct HistoryView: View {
                             
                             VStack {
                                 HStack(alignment: .bottom) {
-                                    Text("Inactivity")
+                                    Text("Watch Activity")
                                         .font(.title3)
                                         .fontWeight(.semibold)
                                     
