@@ -126,7 +126,7 @@ struct ProfileView: View {
                                     Spacer()
                                     if invite.accepted! {
                                         Button {
-                                            profileViewModel.denyInvite(id: invite.id!)
+                                            profileViewModel.denyInvite(invite: invite)
                                         } label: {
                                             Text("Remove")
                                                 .foregroundStyle(Color("emergency-pink"))
@@ -140,7 +140,7 @@ struct ProfileView: View {
                                                     Text("Accept")
                                                 }
                                                 Button {
-                                                    profileViewModel.denyInvite(id: invite.id!)
+                                                    profileViewModel.denyInvite(invite: invite)
                                                 } label: {
                                                     Text("Deny")
                                                         .foregroundStyle(Color("emergency-pink"))
@@ -148,7 +148,7 @@ struct ProfileView: View {
                                             }
                                         } else {
                                             Button {
-                                                profileViewModel.denyInvite(id: invite.id!)
+                                                profileViewModel.denyInvite(invite: invite)
                                             } label: {
                                                 Text("Remove")
                                                     .foregroundStyle(Color("emergency-pink"))

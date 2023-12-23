@@ -213,8 +213,8 @@ class SeniorDashboardViewModel: ObservableObject {
         AuthService.shared.acceptInvite(id: id)
     }
 
-    func denyInvite(id: String) {
-        AuthService.shared.denyInvite(id: id)
+    func denyInvite(invite: Invite) {
+        AuthService.shared.denyInvite(invite: invite)
     }
 
     func signOut() {

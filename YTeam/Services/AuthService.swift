@@ -149,7 +149,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
             } else {
                 print("Tokens successfully cleared")
             }
-
+            
             self.removeListeners()
             PTT.shared.leaveChannel()
             
@@ -348,22 +348,24 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
                                     invite?.caregiverData = try? querySnapshot?.data(as: UserData.self)
                                     self.invites.append(invite!)
                                 }
-
+                                
                                 if !self.invites.isEmpty && self.userData?.role == "caregiver" {
+                                    print("Entered this statement test2")
                                     if let selectedSeniorId = UserDefaults.standard.string(forKey: "selectedSenior") {
                                         if self.selectedInviteId != selectedSeniorId {
                                             self.selectedInviteId = selectedSeniorId
                                         }
-
+                                        
                                     } else {
                                         print("Called invites from empty")
-                                        self.selectedInviteId = self.invites.first?.seniorId
-                                        UserDefaults.standard.set(self.invites.first?.seniorId, forKey: "selectedSenior")
+                                        self.selectedInviteId = self.invites.first(where: { $0.accepted == true })?.seniorId
+                                        UserDefaults.standard.set(self.selectedInviteId, forKey: "selectedSenior")
                                     }
                                 } else {
                                     self.selectedInviteId = Auth.auth().currentUser?.uid
+                                    print("Check: \(self.selectedInviteId)")
                                 }
-
+                                
                                 if (index == documents.count - 1) {
                                     withAnimation {
                                         self.isLoading = false
@@ -708,7 +710,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
             }
         }
     }
-
+    
     
     func acceptInvite(id: String) {
         db.collection("invites").document(id).updateData([
@@ -722,12 +724,18 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         }
     }
     
-    func denyInvite(id: String) {
-        db.collection("invites").document(id).delete() { err in
+    func denyInvite(invite: Invite) {
+        db.collection("invites").document(invite.id ?? "0").delete() { err in
             if let err = err {
                 print("Error removing document: \(err)")
             } else {
                 print("Document successfully removed")
+                guard let uid = Auth.auth().currentUser?.uid else { return }
+                if invite.seniorId == self.selectedInviteId && invite.caregiverId == uid  {
+                    print("Entered if check for id: \(invite.seniorId)")
+                    self.selectedInviteId = nil
+                    UserDefaults.standard.removeObject(forKey: "selectedSenior")
+                }
             }
         }
     }
@@ -873,12 +881,12 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         if self.userDataListener != nil {
             self.userDataListener!.remove()
         }
-
+        
         self.invites = []
         self.selectedInviteId = nil
         self.userData = nil
         self.user = nil
-
+        
         FallService.shared.deinitializerFunction()
         SOSService.shared.deinitializerFunction()
         InactivityService.shared.deinitializerFunction()
@@ -891,7 +899,7 @@ class AuthService: NSObject, ObservableObject, ASAuthorizationControllerDelegate
         IdleService.shared.deinitializerFunction()
         RoutineService.shared.deinitializerFunction()
         SymptomService.shared.deinitializerFunction()
-
+        
         UserDefaults.standard.removeObject(forKey: "selectedSenior")
         print("Called deinitializer")
     }

@@ -84,9 +84,11 @@ final class HistoryViewModel: ObservableObject {
     /// - Returns: If user is logged in, return `sorted falls only if there are the senior's falls`.
     func setupSubscribers() {
         authService.$selectedInviteId
-            .removeDuplicates()
+            //.removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] id in
+                print("Entered history auth: \(id)")
+
                 if self?.selectedUserId != id && id != nil {
                     self?.selectedUserId = id
                     self?.shouldReloadData = true
@@ -108,13 +110,42 @@ final class HistoryViewModel: ObservableObject {
                             withAnimation {
                                 self?.guardLoading = true
                                 self?.isLoading = true
-                                self?.symptomFinish = false
-                                self?.chargeFinish = false
-                                self?.anomaliesFinish = false
-                                self?.idleFinish = false
-                                self?.heartFinish = false
-                                self?.fallFinish = false
-                                self?.sosFinish = false
+//                                self?.falls = []
+//                                self?.sos = []
+//                                self?.idles = []
+//                                self?.charges = []
+//                                self?.heartAnomalies = []
+//                                self?.heartbeats = []
+//                                self?.groupedEmergencies = []
+//                                self?.groupedInactivities = []
+//                                self?.groupedHeartAnomalies = []
+//                                self?.groupedSymptoms = []
+//                                self?.filteredSymptoms = [:]
+//                                self?.fallsCount = 0
+//                                self?.sosCount = 0
+//                                self?.idleCount = 0
+//                                self?.chargeCount = 0
+//                                self?.inactivityData = []
+//                                self?.heartRateData = []
+//                                self?.currentWeek = []
+//                                self?.totalIdleTime  = ""
+//                                self?.totalChargingTime = ""
+//                                self?.avgHeartRate = 0
+//                                self?.symptomsTest = []
+//                                self?.symptomsTest = []
+//                                self?.idles = []
+//                                self?.charges = []
+//                                self?.falls = []
+//                                self?.sos = []
+//                                self?.heartbeats = []
+//                                self?.heartAnomalies = []
+//                                self?.symptomFinish = false
+//                                self?.chargeFinish = false
+//                                self?.anomaliesFinish = false
+//                                self?.idleFinish = false
+//                                self?.heartFinish = false
+//                                self?.fallFinish = false
+//                                self?.sosFinish = false
                                 self?.symptomsTest = []
                                 self?.idles = []
                                 self?.charges = []
